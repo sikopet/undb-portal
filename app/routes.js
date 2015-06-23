@@ -22,6 +22,10 @@ define(['app', 'lodash', 'text!views/index.html', 'views/index', 'providers/exte
             when('/resources/cbd-materials',                  { templateUrl: 'views/resources/cbd-materials.html',      resolveController: false }).
             when('/resources/partner-materials',              { templateUrl: 'views/resources/partner-materials.html',  resolveController: false }).
 
+            when('/experiences',                              { templateUrl: 'views/experiences/index.html',         resolveController: false }).
+            when('/partners',                                 { templateUrl: 'views/partners/index.html',            resolveController: false }).
+            when('/aligned-initiatives',                      { templateUrl: 'views/aligned-initiatives/index.html', resolveController: false }).
+
             when('/database/countries',                       { templateUrl: 'views/database/countries.html',    resolveController: true }).
             when('/database/countries/:code',                 { templateUrl: 'views/database/country.html',      resolveController: true }).
             when('/database/record',                          { templateUrl: 'views/database/record.html',       resolveController: true, resolveUser: true  }).
