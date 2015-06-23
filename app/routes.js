@@ -14,6 +14,8 @@ define(['app', 'lodash', 'text!views/index.html', 'views/index', 'providers/exte
             when('/about/strategic-plan',                     { templateUrl: 'views/about/strategic-plan.html',  resolveController: false }).
             
             when('/events',                                   { templateUrl: 'views/events/index.html',          resolveController: false }).
+        
+            when('/training',                                 { templateUrl: 'views/training/index.html',        resolveController: false }).
             
             when('/database/countries',                       { templateUrl: 'views/database/countries.html',    resolveController: true }).
             when('/database/countries/:code',                 { templateUrl: 'views/database/country.html',      resolveController: true }).
