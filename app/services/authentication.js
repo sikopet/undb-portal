@@ -12,8 +12,6 @@ define(['app', 'angular'], function (app, ng) { 'use strict';
 		//============================================================
 		function getToken() {
 
-			console.log('getToken()');
-
 			var authenticationFrame = $document.find('#authenticationFrame')[0];
 
 			if(!authenticationFrame) {
@@ -133,7 +131,7 @@ define(['app', 'angular'], function (app, ng) { 'use strict';
 					return anonymous();
 				}
 
-				return $http.get('/api/v2013/authentication/user', { headers: { Authorization: "Ticket " + token } }).then(function(r){
+				return $http.get('https://api.cbd.int/api/v2013/authentication/user', { headers: { Authorization: "Ticket " + token } }).then(function(r){
 					return r.data;
 				});
 
@@ -165,7 +163,7 @@ define(['app', 'angular'], function (app, ng) { 'use strict';
 	    //============================================================
 		function signIn(email, password) {
 
-			return $http.post("/api/v2013/authentication/token", {
+			return $http.post("https://api.cbd.int/api/v2013/authentication/token", {
 
 				"email": email,
 				"password": password
@@ -174,7 +172,7 @@ define(['app', 'angular'], function (app, ng) { 'use strict';
 
 				var token  = res.data;
 
-				return $q.all([token, $http.get('/api/v2013/authentication/user', { headers: { Authorization: "Ticket " + token.authenticationToken } })]);
+				return $q.all([token, $http.get('https://api.cbd.int/api/v2013/authentication/user', { headers: { Authorization: "Ticket " + token.authenticationToken } })]);
 
 			}).then(function(res) {
 
