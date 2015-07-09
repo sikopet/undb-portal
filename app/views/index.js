@@ -1,19 +1,9 @@
 define(['app', 'angular', 'authentication'], function() { 'use strict';
 
-	return ['$scope', '$rootScope', '$route', '$browser', '$location', '$window', 'user', 'authentication', function ($scope, $rootScope, $route, $browser, $location, $window, user, authentication) {
+	return ['$scope', '$rootScope', '$route', '$browser', '$location', '$window', 'authentication', function ($scope, $rootScope, $route, $browser, $location, $window, authentication) {
 
         $rootScope.homePage = true;
-        $rootScope.userGovernment = user.government;
         $rootScope.navigation = [];
         $rootScope.navigationTree = [];
-
-        $scope.email = $rootScope.lastLoginEmail || "";
-
-    
-	
-	
-	
-	
-	
     }];
 });
