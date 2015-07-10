@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-      
+<head>
     <base href="/soi/">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <title>Sustainable Ocean Initiative</title>
-    
+
     <meta name="description" content="Ecologically or Biologically Significant Marine Areas">
     <meta name="author" content="Secretariat of the Convention on Biological Diversity">
-    
+
     <script src="app/libs/requirejs/require.js" data-main="app/boot.js"></script>
 
-    <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>   
+    <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
 
     <link href="app/css/reset.css" rel="stylesheet">
     <link href="app/css/bootstrap.min.css" rel="stylesheet">
@@ -23,15 +22,12 @@
     <link href="app/libs/outdated-browser/outdatedbrowser/outdatedbrowser.min.css" rel="stylesheet">
 
     <style>[ng\:cloak], [ng-cloak], .ng-cloak { display: none !important; }</style>
-    
-  </head>
+</head>
 
-  <body ng-controller="TemplateController">
-      
-    <div id="outdated"></div>
-    
+<body ng-controller="TemplateController">
+
     <!--== TO MOVE ==-->
-    <style> 
+    <style>
         .navbar {
             min-height: 30px;
         }
@@ -41,14 +37,16 @@
         .navbar-nav li {
             margin: 0px 10px;
         }
-        .navbar-default { 
-            background-image: none; 
+        .navbar-default {
+            background-image: none;
             background-color: #009b48;
         }
         .navbar-default .navbar-nav > li > a {
             color: #fff;
         }
     </style>
+
+    <div id="outdated"></div>
 
     <nav class="navbar navbar-default navbar-static-top">
         <div class="container">
@@ -61,17 +59,17 @@
                 </button>
                 &nbsp; <a href="http://www.cbd.int"><img src="app/images/cbd-logo-spine-white.png" style="height:24px;margin-top:5px"></a> &nbsp;
             </div>
-            
+
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="navbar-collapse-1" >
                 <ul class="nav navbar-nav">
-                    
-                    <li><a href="http://www.cbd.int/convention/">The Convention</a></li>
+
+                    <li><a href="https://www.cbd.int/convention/">The Convention</a></li>
                     <li><a href="http://bch.cbd.int/protocol">Cartagena Protocol</a></li>
-                    <li><a href="http://www.cbd.int/abs/">Nagoya Protocol</a></li>
-                    <!--<li><a href="http://www.cbd.int/programmes/">Programmes</a></li>-->
-                    <li><a href="http://www.cbd.int/information/">Information</a></li>
-                    <li><a href="http://www.cbd.int/secretariat/">Secretariat</a></li>
+                    <li><a href="https://www.cbd.int/abs/">Nagoya Protocol</a></li>
+                    <!--<li><a href="https://www.cbd.int/programmes/">Programmes</a></li>-->
+                    <li><a href="https://www.cbd.int/information/">Information</a></li>
+                    <li><a href="https://www.cbd.int/secretariat/">Secretariat</a></li>
 
                     <!--notifications-->
                     <li class="navbar-right">
@@ -86,7 +84,7 @@
                         <a ng-show="user.isAuthenticated"  href="#" data-toggle="dropdown">
                             <i class="fa fa-chevron-down"></i> <span> {{user.name}}</span>
                         </a>
-                        
+
                         <ul class="dropdown-menu bg-darkgrey" role="menu" >
                             <li><a href="#" ng-click="actionProfile()"><i class="fa fa-user" style="font-size:15px"></i>&nbsp; Profile</a></li>
                             <li class="dropdown-submenu">
@@ -104,54 +102,55 @@
         </div><!-- /.container-fluid -->
     </nav>
 
-    <iframe id="authenticationFrame" src="https://accounts.cbd.int/app/authorize.html" style="display:none" onload="(event.target || event.srcElement).ready = true"></iframe>
 
     <div class="wrapper">
         <div class="container">
             <img src="app/images/cbd-logo-en-green.png" class="pull-right" style="margin-top:-10px;height:70px;">
-            <a href="/"><img src="app/images/soi-logo.png" alt="Sustainable Ocean Initiative logo" style="margin-top:-10px;margin-bottom:12px"></a>	
-        </div>  
-    </div>  
-   
+            <a href="./"><img src="app/images/soi-logo.png" alt="Sustainable Ocean Initiative logo" style="margin-top:-10px;margin-bottom:12px"></a>
+        </div>
+    </div>
+
     <div class="container">
 		<div class="menu-bg">
-		 <div class="main-navbar" role="navigation">
-	          <ul class="nav navbar-nav">
-	            <li class="active"><a href="./">Home</a></li>
-	            <li><a href="about">About</a></li>
-	            <li><a href="events">Events</a></li>
-	            <li><a href="training">Training</a></li>
-	            <li><a href="resources">Resources</a></li>
-	            <li><a href="experiences">Experiences</a></li>
-	            <li><a href="partners">Partners</a></li>
-	            <li><a href="aligned-initiatives">Aligned Initiativess</a></li>
-	          </ul>
-	          <form class="navbar-form navbar-right searchBox" role="search">
-	         		<div class="form-group">
-		         		<input type="text" class="form-control" placeholder="Search">
- 		         	</div>
-		        </form>	
-	    </div><!-- /.navbar -->   
-		</div> 
+            <div class="main-navbar" role="navigation">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="./">Home</a></li>
+                    <li><a href="about">About</a></li>
+                    <li><a href="events">Events</a></li>
+                    <li><a href="training">Training</a></li>
+                    <li><a href="resources">Resources</a></li>
+                    <li><a href="experiences">Experiences</a></li>
+                    <li><a href="partners">Partners</a></li>
+                    <li><a href="aligned-initiatives">Aligned Initiativess</a></li>
+                </ul>
+                <form class="navbar-form navbar-right searchBox" role="search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                </form>
+	        </div><!-- /.navbar -->
+		</div>
     </div>
-	
-   <div class="push50 clear">&nbsp;</div>
-    
-   <ng-view></ng-view>
-   
-   <!--  FOOTER  --> 
-   <footer ng-cloak ng-show="routeLoaded">
-       
-     <div class="container">   
+
+    <iframe id="authenticationFrame" src="https://accounts.cbd.int/app/authorize.html" style="display:none" onload="(event.target || event.srcElement).ready = true"></iframe>
+
+    <div class="push50 clear">&nbsp;</div>
+
+    <ng-view></ng-view>
+
+    <!--  FOOTER  -->
+    <footer ng-cloak ng-show="routeLoaded">
+
+        <div class="container">
         	<div class="col-xs-3 col-lg-3">
         		<div class="push50"></div><div class="push50"></div>
-        		
-        		<a href="http://www.cbd.int/jbf/" title="Japan Biodiversity Fund">
+
+        		<a href="https://www.cbd.int/jbf/" title="Japan Biodiversity Fund">
         			<img src="app/images/jbf-logo.png" alt="Japan Biodiversity Fund" />
         		</a>
-        		<a href="http://www.aires-marines.com/" title="French marine protected areas agency">		
+        		<a href="http://www.aires-marines.com/" title="French marine protected areas agency">
         			<img src="app/images/frenchmpaa-logo.png" alt="French marine protected areas agency" />
-        		</a>	
+        		</a>
         	</div>
         	<div class="col-xs-3 col-lg-3">
 	        	<div class="push15">&nbsp;</div>
@@ -159,13 +158,13 @@
 	        	<h2>Site Map</h2>
 	        	<div class="clear"></div>
 	        	<ul>
-	        		<li><a href="about.html">About</a></li>
-	        		<li><a href="events.html">Events</a></li>
-	        		<li><a href="training.html">Training</a></li>
-	        		<li><a href="resources.html">Resources</a></li>
-	        		<li><a href="experiences.html">Experiences</a></li>
-	        		<li><a href="partners.html">Partners</a></li>
-	        		<li><a href="partnership-initiatives.html">Aligned Initiativess</a></li>
+	        		<li><a href="about">About</a></li>
+	        		<li><a href="events">Events</a></li>
+	        		<li><a href="training">Training</a></li>
+	        		<li><a href="resources">Resources</a></li>
+	        		<li><a href="experiences">Experiences</a></li>
+	        		<li><a href="partners">Partners</a></li>
+	        		<li><a href="aligned-initiatives">Aligned Initiativess</a></li>
 	        	</ul>
         	</div>
         	<div class="col-xs-3 col-lg-3">
@@ -174,39 +173,40 @@
 	        	<h2>Contact</h2>
 	        	<div class="clear"></div>
 	        	<h4 class="white">CBD Secretariat</h4>
-
-	        	<p>413 Saint-Jacques Street, Suite 800<br />
-					Montreal, QC &nbsp;H2Y 1N9<br />
-					Canada
+	        	<p>
+                    413 Saint-Jacques Street, Suite 800<br />
+				    Montreal, QC &nbsp;H2Y 1N9<br />
+				    Canada
 	        	</p>
 	        	<h4><a class="white" href="mailto:secretariat@cbd.int">secretariat@cbd.int »</a></h4>
-	        	<h4><a class="white" href="http://www.cbd.int/contact/default.shtml">www.cbd.int »</a></h4>
+	        	<h4><a class="white" href="https://www.cbd.int/contact/default.shtml">www.cbd.int »</a></h4>
         	</div>
         	<div class="col-xs-3 col-lg-3">
         		<div class="push50"></div><div class="push50"></div>
         		<a href="http://www.un.org/" title="United Nations">
         			<img src="app/images/un-logo.png" alt="United Nations" />
         		</a>
-        		<a href="http://unep.org/" title="UNEP">	
+        		<a href="http://unep.org/" title="UNEP">
         			<img src="app/images/unep-logo.png" alt="UNEP" />
-        		</a>	
+        		</a>
         	</div>
         	<div class="clear"></div>
-	        <div class="col-xs-6 col-lg-offset-3 col-xs-offset-3">	        		
-	        	<a href="http://www.cbd.int/terms" class="copyright">Terms of Use</a>
-				<a href="http://www.cbd.int/privacy" class="copyright">Privacy Policy</a>
-				<a href="http://www.cbd.int/credits" class="copyright">Credits</a>
-				<a href="http://www.cbd.int/copyright" class="copyright">&copy; CBD Secretariat</a> 
-	        </div>	
-     </div> 
-		
-   </footer>
-   <script src="/soi/app/libs/outdated-browser/outdatedbrowser/outdatedbrowser.min.js"></script>
-   
-   <script>
+	        <div class="col-xs-6 col-lg-offset-3 col-xs-offset-3">
+	        	<a href="https://www.cbd.int/terms" class="copyright">Terms of Use</a>
+				<a href="https://www.cbd.int/privacy" class="copyright">Privacy Policy</a>
+				<a href="https://www.cbd.int/credits" class="copyright">Credits</a>
+				<a href="https://www.cbd.int/copyright" class="copyright">&copy; CBD Secretariat</a>
+	        </div>
+        </div>
+
+    </footer>
+
+    <script src="/soi/app/libs/outdated-browser/outdatedbrowser/outdatedbrowser.min.js"></script>
+
+    <script>
         function addLoadEvent(func) {
         var oldonload = window.onload; if (typeof window.onload != 'function') { window.onload = func; } else { window.onload = function() { if (oldonload) { oldonload(); } func(); } } }
-        addLoadEvent(function() { outdatedBrowser( { bgColor: '#f25648', color: '#ffffff', lowerThan: 'transform', languagePath: 'app/libs/outdated-browser/outdatedbrowser/lang/en.html' }) }); 
+        addLoadEvent(function() { outdatedBrowser( { bgColor: '#f25648', color: '#ffffff', lowerThan: 'transform', languagePath: 'app/libs/outdated-browser/outdatedbrowser/lang/en.html' }) });
     </script>
   </body>
 </html>
