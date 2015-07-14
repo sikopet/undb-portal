@@ -7,16 +7,16 @@ define(['app', 'lodash', 'text!views/index.html', 'views/index', 'providers/exte
 
         $routeProvider.
             when('/',                                         { template:    rootTemplate,                       resolveController: 'views/index',          resolveUser: false }).
-            
+
             when('/about',                                    { templateUrl: 'views/about/index.html',           resolveController: false }).
             when('/about/approach',                           { templateUrl: 'views/about/approach.html',        resolveController: false }).
             when('/about/history',                            { templateUrl: 'views/about/history.html',         resolveController: false }).
             when('/about/strategic-plan',                     { templateUrl: 'views/about/strategic-plan.html',  resolveController: false }).
-            
-            when('/events',                                   { templateUrl: 'views/events/index.html',          resolveController: false }).
-        
+
+            when('/events',                                   { templateUrl: 'views/events/index.html',          resolveController: true }).
+
             when('/training',                                 { templateUrl: 'views/training/index.html',        resolveController: false }).
-            
+
             when('/resources',                                { templateUrl: 'views/resources/index.html',              resolveController: false }).
             when('/resources/brochures',                      { templateUrl: 'views/resources/brochures.html',          resolveController: false }).
             when('/resources/cbd-materials',                  { templateUrl: 'views/resources/cbd-materials.html',      resolveController: false }).
@@ -71,5 +71,5 @@ define(['app', 'lodash', 'text!views/index.html', 'views/index', 'providers/exte
             });
         }];
     }
-    
+
 });

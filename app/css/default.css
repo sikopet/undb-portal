@@ -1,5 +1,5 @@
 body{
-	background: #fff;	
+	background: #fff;
 	font-size: 13px;
 	font-family: Helvetica, Verdana, sans-serif;
 	line-height: 14px;
@@ -63,7 +63,7 @@ html {
 
 .col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12{
 	padding-right: 7.5px;
-	padding-left: 7.5px;	
+	padding-left: 7.5px;
 }
 
 .nopadding{
@@ -104,7 +104,7 @@ html {
 .black{
 	color: #000;
 }
-	
+
 .grey{
 	color: #999;
 }
@@ -163,7 +163,7 @@ h2{
 	h2.medium{
 		font-size: 32px;
 	}
-	
+
 	h2.large{
 		font-size: 45px;
 	}
@@ -194,10 +194,10 @@ p{
 }
 
 	.lower{
-		text-transform: lowercase;	
+		text-transform: lowercase;
 	}
-	
-	
+
+
 a, a:hover{
 	font-size: 13px;
 	font-family: Helvetica, Verdana, sans-serif;
@@ -207,7 +207,7 @@ a, a:hover{
 	a:hover{
 		text-decoration: underline;
 	}
-	
+
 	div.organization a:hover, div.textbox a:hover{
 		text-decoration: none;
 	}
@@ -234,11 +234,11 @@ a, a:hover{
 	font-size: 17px;
 	letter-spacing: 1px;
 	font-style: italic;
-}	
-	
+}
+
 ul li {
 	list-style-type: none;
-}	
+}
 
 ul.text li{
 	list-style-type: disc;
@@ -259,7 +259,7 @@ div.title{
 
 
 /**
-	NAVBAR TOP  
+	NAVBAR TOP
 */
 .navbar-top{
 	padding-left: 0px;
@@ -270,16 +270,16 @@ div.title{
 		font-family: Helvetica, Verdana, sans-serif;
 		margin: 5px 0px 0px;
 	}
-	
+
 	.navbar-top li:before{
 		content: url("../images/bullet.png");
 		padding: 0px 5px 0px 3px;
 	}
-		
+
 		.navbar-top li:first-child:before{
 			content: "";
 		}
-			
+
 		.navbar-top li:first-child{
 			margin-left: 0px;
 			padding-left: 0px
@@ -292,12 +292,12 @@ div.title{
 		.navbar-top li a{
 			color: #999;
 			font-size: 10px;
-			
+
 		}
 
-	
+
 /**
-	NAVBAR  
+	NAVBAR
 */
 .menu-bg:before{
 	content: "";
@@ -337,7 +337,7 @@ div.title{
 		color: #fff;
 		border-bottom: 1px solid #fff;
 	}
-	
+
 	.navbar-nav li.active a:hover, .navbar-nav li a:hover{
 		color: #fff;
 	}
@@ -356,7 +356,7 @@ div.title{
 	background: url("../images/back-stripes-grey.png") repeat;
 	height: 5px;
 	margin-left: -15px;
-}	
+}
 
 
 .imgsize{
@@ -372,7 +372,7 @@ div.title{
 	background: none;
 	color: #fff;
 }
-		
+
 .main-navbar .navbar-collapse{
 	margin-top:0px;
 	padding-left: 0px;
@@ -381,13 +381,13 @@ div.title{
 }
 
 		.main-navbar .navbar-nav li a{
-			
+
 		}
-		
+
 		.main-navbar .navbar-nav li:last-child{
 			margin-right: 0px;
 		}
-		
+
 		.main-navbar .navbar-nav li:first-child{
 			margin-left: 0px;
 		}
@@ -409,8 +409,8 @@ div.title{
 	display: block;
 	height: 35px;
 	margin-left: -15px;
-}		
-	
+}
+
 
 /* SEARCH BOX */
 .navbar-form{
@@ -418,7 +418,7 @@ div.title{
 	padding: 0px;
 	color: #000;
 	margin-bottom: 0px;
-}	
+}
 
 .navbar-form.navbar-right:last-child{
 	margin-right: 1px;
@@ -456,20 +456,20 @@ div.header:before, div.header:after{
 		text-align: right;
 		margin:90px 20px 15px 0px;
 	}
-	
+
 img[src*=soi-logo]{
 	margin-left: -12.5px;
-}	
-	
+}
+
 /**
 	Home Styles
 */
 .soimission-block{
-	width: 455px;
-	height: 362px;
-	margin-left: 30px;
+	/*width: 455px;*/
+	/*height: 362px;*/
+	/*margin-left: 30px;*/
 	background: url("../images/bg-mission.png") no-repeat;
-	float: left;
+	/*float: left;*/
 	padding: 15px 20px 0px;
 }
 
@@ -481,13 +481,13 @@ img[src*=soi-logo]{
 /**
 	Carousel
 */
-.carousel{
-	float: left;	
+/*.carousel{
+	float: left;
 }
 
 .carousel, .carousel-inner{
 	width: 620px;
-}
+}*/
 
 .carousel-caption{
 	background: rgba(217,217,217,0.75);
@@ -522,7 +522,7 @@ img[src*=soi-logo]{
 	width: 266px;
 	height: 266px;
 	position: relative;
-}	
+}
 
 .half-square{
 	width: 266px;
@@ -550,7 +550,7 @@ img[src*=soi-logo]{
 
 .small-green-title{
 	width: 547px;
-	background: #8CC65D;	
+	background: #8CC65D;
 	padding: 20px 0px 10px 15px;
 	box-sizing: border-box;
 }
@@ -561,14 +561,14 @@ img[src*=soi-logo]{
 
 .small-blue-title{
 	width: 547px;
-	background: #4CAFD6;	
+	background: #4CAFD6;
 	padding: 20px 0px 10px 15px;
 	box-sizing: border-box;
 }
 
 	.small-blue-title h2, .small-green-title h2{
 		color: #fff;
-	} 	
+	}
 
 .hexa-pattern-wide{
 	background: url("../images/pentagon-blue.jpg") repeat;
@@ -585,16 +585,16 @@ img[src*=soi-logo]{
 		bottom: 5px;
 		line-height:normal;
 	}
-	
+
 .large-grey-bloc{
 	background: url("../images/stardust.png") repeat;
 	padding: 20px 0px;
 	color: #fff;
 }
-	
+
 a.hover-line:hover, a.hover-line:hover .square{
 	background: url("../images/back-stripes-grey.png") repeat scroll 0 0 #fff;
-	
+
 }
 .square-title{
 	overflow: hidden;
@@ -613,7 +613,7 @@ a.hover-line:hover, a.hover-line:hover .square{
 	-o-transform: translateY(100%);
 	-ms-transform: translateY(100%);
 	transform: translateY(100%);
-	
+
 	-webkit-transition: -webkit-transform .5s ease-out;
      -moz-transition: -moz-transform .5s ease-out;
        -o-transition: -o-transform .5s ease-out;
@@ -623,7 +623,7 @@ a.hover-line:hover, a.hover-line:hover .square{
 .plus{
 	position: absolute;
 	bottom: 7px;
-	right: 10px;	
+	right: 10px;
 	display: block;
 }
 
@@ -710,7 +710,7 @@ img[src*=arrow]{
 
 
 .forthcoming{
-	opacity: 0.3;	
+	opacity: 0.3;
 }
 
 /**
@@ -724,7 +724,7 @@ img[src*=arrow]{
 	.viewList a:hover{
 		text-decoration: none;
 	}
-	
+
 	.viewList h3{
 		vertical-align: middle;
 		font-weight: normal;
@@ -739,7 +739,7 @@ img[src*=arrow]{
 /**
 	PANEL Head backgrounds
 */
-	
+
 /**
 	IMAGES STYLES
 */
@@ -766,8 +766,8 @@ img[src*=arrow]{
 
 	.organization a:hover{
 		text-decoration: underline;
-	}	
-	
+	}
+
 	.organization h3{
 		font-size: 15px;
 		margin: 10px 0px;
@@ -840,32 +840,32 @@ footer div.row{
 		color: #fff;
 		float: left;
 	}
-	
+
 	footer img[src*=icon]{
 		float: left;
 		margin-right: 5px;
 		padding-top: 2px;
 	}
-	
+
 	footer p{
 		color: #fff;
 	}
-	
+
 	footer ul{
 		padding-left: 0px;
 	}
-	
+
 	footer ul li, footer ul li a, footer ul li a:hover{
 		list-style-type: none;
 		color: #fff;
 		font-weight: bold;
 		padding-bottom: 3px;
 	}
-	
+
 footer .sitemap-ul{
 	float: left;
 	margin: 0px 0px 0px 10px;
-}	
+}
 
 	footer .sitemap-ul li:first-child{
 		font-weight: bold;
@@ -873,7 +873,7 @@ footer .sitemap-ul{
 
 .cbd{
 	float: left;
-	margin-right: 15px; 
+	margin-right: 15px;
 }
 
 .copyright{
@@ -897,17 +897,16 @@ footer .sitemap-ul{
 		.navbar-nav>li{
 			float: left;
 		}
-		
+
 	.navbar-right{
 		float: right;
 	}
-	
+
 	.navbar-form{
 		border: none;
 		box-shadow: none;
 		-webkit-box-shadow: none;
 		-moz-box-shadow:none;
 	}
-	
+
 }
-	
