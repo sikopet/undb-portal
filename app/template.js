@@ -57,32 +57,32 @@ define(['app', 'authentication'], function(app) { 'use strict';
         //============================================================
 
         var siteMap = {
-            '/': {                                            name: 'Home',
+            '/': {                                                name: 'Home',
                 pages: {
-                    '/about': {                               name: 'About',
+                    '/about': {                                   name: 'About',
                         pages: {
-                            '/about/approach':              { name: 'Approach' },
-                            '/about/history':               { name: 'History' },
-                            '/about/strategic-plan':        { name: 'Strategic Plan' }
+                            '/about/approach':                  { name: 'Approach' },
+                            '/about/history':                   { name: 'History' },
+                            '/about/strategic-plan':            { name: 'Strategic Plan' }
                         }
                     },
-                    '/events':                              { name: 'Events' },
-                    '/training':                            { name: 'Training' },
-                    '/resources': {                           name: 'Resources',
+                    '/events':                                  { name: 'Events' },
+                    '/training':                                { name: 'Training' },
+                    '/resources': {                               name: 'Resources',
                         pages: {
-                            '/about/brochures':             { name: 'Brochures' },
-                            '/about/cbd-materials':         { name: 'SOI/CBD Materials' },
-                            '/about/relevant-resources':    { name: 'Other Relevant Resources' },
-                            '/about/background-materials':  { name: 'Background Materials' }
+                            '/resources/brochures':             { name: 'Brochures' },
+                            '/resources/cbd-materials':         { name: 'SOI/CBD Materials' },
+                            '/resources/relevant-resources':    { name: 'Other Relevant Resources' },
+                            '/resources/background-materials':  { name: 'Background Materials' }
                         }
                     },
-                    '/experiences':                         { name: 'Experiences' },
-                    '/partners':                            { name: 'Partners' },
-                    '/aligned-initiatives':                 { name: 'Aligned Initiatives' },
-                    '/help': {                                name: 'Help',
+                    '/experiences':                             { name: 'Experiences' },
+                    '/partners':                                { name: 'Partners' },
+                    '/aligned-initiatives':                     { name: 'Aligned Initiatives' },
+                    '/help': {                                    name: 'Help',
                         pages: {
-                            '/help/403':                    { name: '403' },
-                            '/help/404':                    { name: '404' }
+                            '/help/403':                        { name: '403' },
+                            '/help/404':                        { name: '404' }
                         }
                     }
                 }
