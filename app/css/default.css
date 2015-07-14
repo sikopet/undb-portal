@@ -299,7 +299,7 @@ div.title{
 /**
 	NAVBAR
 */
-.menu-bg:before{
+/*.menu-bg:before{
 	content: "";
 	width: 9999px;
 	background: #2EB9C7;
@@ -307,17 +307,7 @@ div.title{
 	top:0;
 	bottom: 0;
 	right:100%;
-}
-
-.menu-bg:after{
-	content: "";
-	width: 9999px;
-	background: #2EB9C7;
-	position: absolute;
-	top:0;
-	bottom: 0;
-	left:100%;
-}
+}*/
 
 .menu-bg{
 	background: #2EB9C7;
@@ -787,17 +777,19 @@ img[src*=arrow]{
 	BREADCRUMB
 */
 .breadcrumb{
-	background: #fff;
+	/*background: #fff;
 	border-bottom: 1px solid #cdcdcd;
 	border-radius: 0px;
-	height: 38px;
+	height: 38px;*/
+	margin-bottom: 0px;
+	border-radius: initial;
 }
 
-.breadcrumb:before{
+/*.breadcrumb:before{
 	content: url("../images/home-breadcrumb.jpg");
 	padding-right: 10px;
 	padding-top: 20px;
-}
+}*/
 
 .breadcrumb>li+li:before{
 	content: "»";
@@ -805,7 +797,7 @@ img[src*=arrow]{
 
 .breadcrumb li{
 	vertical-align: middle;
-	height: 29px;
+	/*height: 29px;*/
 }
 
 .breadcrumb>.active{
