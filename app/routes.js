@@ -17,10 +17,11 @@ define(['app', 'lodash', 'text!views/index.html', 'views/index', 'providers/exte
 
             when('/training',                                 { templateUrl: 'views/training/index.html',        resolveController: false }).
 
-            when('/resources',                                { templateUrl: 'views/resources/index.html',              resolveController: false }).
-            when('/resources/brochures',                      { templateUrl: 'views/resources/brochures.html',          resolveController: false }).
-            when('/resources/cbd-materials',                  { templateUrl: 'views/resources/cbd-materials.html',      resolveController: false }).
-            when('/resources/partner-materials',              { templateUrl: 'views/resources/partner-materials.html',  resolveController: false }).
+            when('/resources',                                { templateUrl: 'views/resources/index.html',                resolveController: false }).
+            when('/resources/brochures',                      { templateUrl: 'views/resources/brochures.html',            resolveController: false }).
+            when('/resources/cbd-materials',                  { templateUrl: 'views/resources/cbd-materials.html',        resolveController: false }).
+            when('/resources/relevant-resources',             { templateUrl: 'views/resources/relevant-resources.html',   resolveController: false }).
+            when('/resources/background-materials',           { templateUrl: 'views/resources/background-materials.html', resolveController: false }).
 
             when('/experiences',                              { templateUrl: 'views/experiences/index.html',         resolveController: false }).
             when('/partners',                                 { templateUrl: 'views/partners/index.html',            resolveController: false }).
