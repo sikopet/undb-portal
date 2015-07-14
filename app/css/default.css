@@ -309,6 +309,16 @@ div.title{
 	right:100%;
 }
 
+.menu-bg:after{
+	content: "";
+	width: 9999px;
+	background: #2EB9C7;
+	position: absolute;
+	top:0;
+	bottom: 0;
+	left:100%;
+}
+
 .menu-bg{
 	background: #2EB9C7;
 	min-height: 35px;
