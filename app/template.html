@@ -136,7 +136,7 @@
 
     <iframe id="authenticationFrame" src="https://accounts.cbd.int/app/authorize.html" style="display:none" onload="(event.target || event.srcElement).ready = true"></iframe>
 
-    <nav class="navbar navbar-static-top" style="background-color:#eee">
+    <nav class="navbar navbar-static-top" style="background-color:#eee" ng-cloak ng-if="$root.breadcrumbs.length>1">
         <div class="container" style="padding:0px">
             <ol class="breadcrumb">
                 <li ng-repeat="item in $root.breadcrumbs">
