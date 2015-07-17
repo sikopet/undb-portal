@@ -800,15 +800,19 @@ img[src*=arrow]{
 	/*height: 29px;*/
 }
 
-.breadcrumb>.active{
+.breadcrumb > li > a.active {
 	color: #999;
 	font-family: 'Lato', sans-serif;
 	font-weight: 400;
-	font-size: 12px;
+	font-size: 11px;
 	text-transform: capitalize;
 }
 
-.breadcrumb > li > a{
+.breadcrumb > li > a.active:hover {
+	text-decoration: none;
+}
+
+.breadcrumb > li > a {
 	color: #0081C6;
 	font-family: 'Lato', sans-serif;
 	font-weight: 400;

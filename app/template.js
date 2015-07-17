@@ -7,7 +7,7 @@ define(['app', 'authentication'], function(app) { 'use strict';
             $scope.routeLoaded = true;
 
             // $scope.$root.pageTitle = { text: "" };
-            $scope.$root.breadcrumbs = getPage($route.current.$$route.originalPath);
+            $scope.$root.breadcrumb = getPage($route.current.$$route.originalPath);
         });
 
         //============================================================

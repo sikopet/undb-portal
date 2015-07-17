@@ -139,11 +139,13 @@
 
     <iframe id="authenticationFrame" src="https://accounts.cbd.int/app/authorize.html" style="display:none" onload="(event.target || event.srcElement).ready = true"></iframe>
 
-    <nav class="navbar navbar-static-top" style="background-color:#eee" ng-cloak ng-if="$root.breadcrumbs.length>1">
+    <!--  BREADCRUMB  -->
+    <nav class="navbar navbar-static-top" style="background-color:#eee" ng-cloak ng-if="$root.breadcrumb.length>1">
         <div class="container" style="padding:0px">
             <ol class="breadcrumb">
-                <li ng-repeat="item in $root.breadcrumbs">
-    		        <a href=".{{item.url}}">{{item.name}}</a>
+                <li ng-repeat="item in $root.breadcrumb">
+                    <a ng-if="!$last" href=".{{item.url}}">{{item.name}}</a>
+                    <a ng-if="$last" class="active">{{item.name}}</a>
                 </li>
     		</ol>
         </div>
