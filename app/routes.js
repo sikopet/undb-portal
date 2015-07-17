@@ -27,16 +27,8 @@ define(['app', 'lodash', 'text!views/index.html', 'views/index', 'providers/exte
             when('/partners',                                 { templateUrl: 'views/partners/index.html',            resolveController: false }).
             when('/aligned-initiatives',                      { templateUrl: 'views/aligned-initiatives/index.html', resolveController: false }).
 
-            when('/database/countries',                       { templateUrl: 'views/database/countries.html',    resolveController: true }).
-            when('/database/countries/:code',                 { templateUrl: 'views/database/country.html',      resolveController: true }).
-            when('/database/record',                          { templateUrl: 'views/database/record.html',       resolveController: true, resolveUser: true  }).
-
-            when('/management',                               { templateUrl: 'views/management/index.html',      resolveController: true, resolveUser: true, resolve : { securized : securize() } }).
-
-            when('/signin',                                   { templateUrl: 'views/users/signin.html',          resolveController: true, resolveUser: true }).
-
-            when('/help/404',                                 { templateUrl: 'views/404.html',  label : 'Not found',  controller: [function(){}], resolveUser: true }).
-            when('/help/403',                                 { templateUrl: 'views/403.html',  label : 'Forbidden',  controller: [function(){}], resolveUser: true }).
+            when('/help/404',                                 { templateUrl: 'views/404.html',  label : 'Not found',  controller: [function(){}], resolveUser: false }).
+            when('/help/403',                                 { templateUrl: 'views/403.html',  label : 'Forbidden',  controller: [function(){}], resolveUser: false }).
             otherwise({ redirectTo: '/help/404' });
     }]);
 
