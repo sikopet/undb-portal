@@ -15,7 +15,7 @@ define(['app', 'lodash', 'text!views/index.html', 'views/index', 'providers/exte
 
             when('/events',                                   { templateUrl: 'views/events/index.html',          resolveController: true }).
 
-            when('/training',                                 { templateUrl: 'views/training/index.html',        resolveController: false }).
+            when('/training',                                 { templateUrl: 'views/training/index.html',        resolveController: true }).
 
             when('/resources',                                { templateUrl: 'views/resources/index.html',                resolveController: false }).
             when('/resources/brochures',                      { templateUrl: 'views/resources/brochures.html',            resolveController: true  }).
