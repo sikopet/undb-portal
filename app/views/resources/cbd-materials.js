@@ -6,7 +6,7 @@ define(['app', 'angular', 'authentication'], function() { 'use strict';
 			{
 				name: 			'SOI Action Plan 2015-2020',
 				description: 	'SOI Action Plan 2015-2020',
-				thumbnail: 		'app/images/resources/170-technical-series_brochure.jpg',
+				thumbnail: 		'app/images/resources/170-actionplan-en.jpg',
 				url: 			'https://www.cbd.int/doc/meetings/mar/soiom-2014-02/official/soiom-2014-02-actionplan-en.pdf',
 				type:           'document'
 			}, {
