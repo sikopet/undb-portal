@@ -4,6 +4,13 @@ define(['app', 'angular', 'authentication'], function() { 'use strict';
 
 		$scope.documents = [
 			{
+				name: 			'2012 International Day for Biological Diversity: Marine Biodiversity',
+				description: 	'2012 International Day for Biological Diversity: Marine Biodiversity',
+				thumbnail: 		'app/images/resources/170-idb-brochure.jpg',
+				url: 			'https://www.cbd.int/idb/doc/2012/booklet/idb-2012-booklet-en.pdf',
+				type:           'document'
+			},
+			{
 				name: 			'Sustainable Ocean Initiative',
 				description: 	'Sustainable Ocean Initiative',
 				thumbnail: 		'app/images/resources/170-soi-brochure.jpg',
