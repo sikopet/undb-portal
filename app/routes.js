@@ -25,7 +25,7 @@ define(['app', 'lodash', 'text!views/index.html', 'views/index', 'providers/exte
 
             when('/experiences',                              { templateUrl: 'views/experiences/index.html',         resolveController: false }).
             when('/partners',                                 { templateUrl: 'views/partners/index.html',            resolveController: false }).
-            when('/aligned-initiatives',                      { templateUrl: 'views/aligned-initiatives/index.html', resolveController: false }).
+            when('/aligned-initiatives',                      { templateUrl: 'views/aligned-initiatives/index.html', resolveController: true  }).
 
             when('/help/404',                                 { templateUrl: 'views/404.html',  label : 'Not found',  controller: [function(){}], resolveUser: false }).
             when('/help/403',                                 { templateUrl: 'views/403.html',  label : 'Forbidden',  controller: [function(){}], resolveUser: false }).
