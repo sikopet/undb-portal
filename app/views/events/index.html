@@ -18,7 +18,7 @@
 						<div class="clear">&nbsp;</div>
 						<img src="app/images/icon-where.png" alt="marker">
 						<p><span class="important">{{meeting.city}}</span>, {{meeting.country}}</p>
-						<a href="{{meeting.url}}" class="arrow-more_blue">&nbsp;</a>
+						<a ng-if="meeting.url" href="{{meeting.url}}" class="arrow-more_blue">&nbsp;</a>
 					</div>
 				</div>
 
@@ -33,7 +33,7 @@
 						<div class="clear">&nbsp;</div>
 						<img src="app/images/icon-where.png" alt="marker">
 						<p><span class="important">{{meeting.city}}</span>, {{meeting.country}}</p>
-						<a href="{{meeting.url}}" class="arrow-more_blue">&nbsp;</a>
+						<a ng-if="meeting.url" href="{{meeting.url}}" class="arrow-more_blue">&nbsp;</a>
 					</div>
 				</div>
 
@@ -67,7 +67,7 @@
 						<div class="clear">&nbsp;</div>
 						<img src="app/images/icon-where.png" alt="marker">
 						<p><span class="important">{{meeting.city}}</span>, {{meeting.country}}</p>
-						<a href="{{meeting.url}}" class="arrow-more_dark-green">&nbsp;</a>
+						<a ng-if="meeting.url" href="{{meeting.url}}" class="arrow-more_dark-green">&nbsp;</a>
 					</div>
 				</div>
 
@@ -81,7 +81,7 @@
 						<div class="push20"></div>
 						<img src="app/images/icon-where.png" alt="marker">
 						<p><span class="important">{{meeting.city}}</span>, {{meeting.country}}</p>
-						<a href="{{meeting.url}}" class="arrow-more_dark-green">&nbsp;</a>
+						<a ng-if="meeting.url" href="{{meeting.url}}" class="arrow-more_dark-green">&nbsp;</a>
 					</div>
 				</div>
 
