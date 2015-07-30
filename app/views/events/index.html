@@ -11,7 +11,7 @@
 
 				<div ng-if="$first">
 					<div class="col-xs-6 col-md-6 square textbox marginleft">
-						<a href="{{meeting.url}}"><h3 class="blue">{{meeting.name}}</h3></a>
+						<a href="{{meeting.url||'#'}}"><h3 class="blue">{{meeting.name}}</h3></a>
 						<div class="push30"></div>
 						<img src="app/images/icon-calendar.png" alt="calendar">
 						<p>{{meeting.days}} {{meeting.month}} {{meeting.year}}</p>
@@ -28,7 +28,7 @@
 						<p>// {{meeting.month}}<br />{{meeting.year}}</p>
 					</div>
 					<div class="col-xs-9 col-md-9 textbox nopadding">
-						<a href="{{meeting.url}}"><h3 class="blue">{{meeting.name}}</h3></a>
+						<a href="{{meeting.url||'#'}}"><h3 class="blue">{{meeting.name}}</h3></a>
 						<div class="push20"></div>
 						<div class="clear">&nbsp;</div>
 						<img src="app/images/icon-where.png" alt="marker">
@@ -60,7 +60,7 @@
 						<h2 class="medium">Previous Events</h1>
 					</div>
 					<div class="col-xs-6 col-md-6 square textbox marginleft">
-						<a href="{{meeting.url}}"><h3 class="dark-green">{{meeting.name}}</h3></a>
+						<a href="{{meeting.url||'#'}}"><h3 class="dark-green">{{meeting.name}}</h3></a>
 						<div class="push30"></div>
 						<img src="app/images/icon-calendar.png" alt="calendar">
 						<p>{{meeting.days}} {{meeting.month}} {{meeting.year}}</p>
@@ -77,7 +77,7 @@
 						<p>// {{meeting.month}}<br />{{meeting.year}}</p>
 					</div>
 					<div class="col-xs-9 col-md-9 textbox nopadding">
-						<a href="{{meeting.url}}"><h3 class="dark-green">{{meeting.name}}</h3></a>
+						<a href="{{meeting.url||'#'}}"><h3 class="dark-green">{{meeting.name}}</h3></a>
 						<div class="push20"></div>
 						<img src="app/images/icon-where.png" alt="marker">
 						<p><span class="important">{{meeting.city}}</span>, {{meeting.country}}</p>
