@@ -8,6 +8,16 @@ define(['app', 'angular', 'authentication'], function() { 'use strict';
 				days: '13 - 17', month: 'July', year: '2015',
 				city: 'Yeosu', country: 'Republic of Korea',
 				url: 'https://www.cbd.int/doc/?meeting=SOIWS-2015-02'
+			},
+			{
+				name: 'Sustainable Ocean Initiative (SOI) National Capacity Development Workshop for Namibia',
+				days: '13-16', month: 'October', year: '2015',
+				city: 'Swakopmund', country: 'Namibia'
+			},
+			{
+				name: 'Sustainable Ocean Initiative (SOI) Capacity-building Workshop for East Africa',
+				days: '16-20', month: 'November', year: '2015',
+				city: 'Venue to be determined', country: 'Madagascar'
 			}
 		];
 
