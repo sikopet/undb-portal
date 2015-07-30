@@ -1,6 +1,6 @@
 <div class="container">
+	<div class="row">
 
-	<div class="row-fluid">
 	    <div class="col-xs-2 col-md-2">
 		    <h3>Background materials for CBD Marine Spatial Planning Workshop, September 2014</h3>
 	    </div>
@@ -10,20 +10,25 @@
 				The following materials were provided as background materials for the CBD Expert Workshop to Provide
 				Consolidated Practical Guidance and a Toolkit for Marine Spatial Planning, held in Montreal, Canada from
 				9 to 11 September 2014. Some of these materials were submitted by Parties and relevant organizations as
-				background materials for the workshop. The full list of workshop materials (including the report of the
+				background materials for the workshop.
+			</p>
+			<p>
+				The full list of workshop materials (including the report of the
 				workshop) are available at:
 				<a href="https://www.cbd.int/doc/?meeting=MCBEM-2014-04">https://www.cbd.int/doc/?meeting=MCBEM-2014-04</a>
 			</p>
+
 			<div class="clear push15"></div>
 
-			<div class="col-xs-2 col-md-2 organization" ng-repeat="document in [0,1,2,3,4,5,6,7,8,10]">
-		        <img src="app/images/resources/170-fao-geographic_brochure.jpg" alt="FAO: Geographic Information Systems to support the ecosystem approach to fisheries report" />
-		        <a href="https://www.cbd.int/doc/meetings/mar/cbwsoi-seasi-01/other/cbwsoi-seasi-01-geographic-information-sys-en.pdf">
-		        	<h3>TODO</h3>
-		        </a>
-		        <a href="https://www.cbd.int/doc/meetings/mar/cbwsoi-seasi-01/other/cbwsoi-seasi-01-geographic-information-sys-en.pdf" title="FAO">Download the PDF <i class="fa fa-long-arrow-right"></i></a>
-			</div>
+			<ul class="text">
+				<li ng-repeat="document in documents" style="margin-bottom:8px">
+					<strong style="color:#777">{{document.code}}</strong>
+			        <a href="{{document.url}}">
+			        	<div>{{document.description}}</div>
+			        </a>
+				</li>
+			</ul>
+		</div>
 
-	    </div>
 	</div>
 </div>
