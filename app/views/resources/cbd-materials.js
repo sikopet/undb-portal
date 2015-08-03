@@ -33,6 +33,12 @@ define(['app', 'angular', 'authentication'], function() { 'use strict';
 				thumbnail: 		'app/images/resources/170-pdf.jpg',
 				url: 			'https://www.cbd.int/doc/meetings/mar/ewsebm-01/official/ewsebm-01-02-en.pdf',
 				type:           'document'
+			}, {
+				name: 			'Concluding Statement from the SOI High-Level Meeting, October 2014',
+				description: 	'Concluding Statement from the SOI High-Level Meeting, October 2014',
+				thumbnail: 		'app/images/resources/170-soi-high-level-concluding-statement.jpg',
+				url: 			'https://www.cbd.int/marine/soi/soi-high-level-concluding-statement-en.pdf',
+				type:           'document'
 			}
 		];
 	}];
