@@ -26,6 +26,12 @@ define(['app', 'angular', 'authentication'], function() { 'use strict';
 				thumbnail: 		'app/images/training/170-fao-fisheries.jpg',
 				url: 			'http://www.fao.org/fishery/eaf-net/topic/166272/en',
 				type:           'website'
+			}, {
+				name: 			'Integrated Coastal Management for the Achievement of the Aichi Biodiversity Targets: Practical Guidance for Implementation Based on Experience and Lessons Learned from Coastal and Ocean Governance in the Seas of East Asia',
+				description: 	'Integrated Coastal Management for the Achievement of the Aichi Biodiversity Targets: Practical Guidance for Implementation Based on Experience and Lessons Learned from Coastal and Ocean Governance in the Seas of East Asia',
+				thumbnail: 		'app/images/training/cbd-ts-76.jpg',
+				url: 			'https://www.cbd.int/doc/publications/cbd-ts-76-en.pdf ',
+				type:           'document'
 			}
 		];
 	}];
