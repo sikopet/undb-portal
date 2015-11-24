@@ -38,7 +38,7 @@ define(['app', 'angular', 'authentication'], function() { 'use strict';
 				name: 			'Priority Actions to Achieve Aichi Biodiversity Target 10 for Coral Reefs and Closely Associated Ecosystems',
 				description: 	'Priority Actions to Achieve Aichi Biodiversity Target 10 for Coral Reefs and Closely Associated Ecosystems',
 				thumbnail: 		'app/images/resources/170-priority-action.jpg',
-				url: 			'http://localhost/doc/publications/cbd-aichi-target-10-en.pdf',
+				url: 			'http://wwww.cbd.int/doc/publications/cbd-aichi-target-10-en.pdf',
 				type:           'document'
 			}
 		];
