@@ -2,7 +2,7 @@ window.name = 'NG_DEFER_BOOTSTRAP!';
 
 require.config({
     waitSeconds: 120,
-    baseUrl : '/soi/app/',
+    baseUrl : 'app/',
     paths: {
         'authentication'   : 'services/authentication',
         'angular'          : 'libs/angular-flex/angular-flex',
