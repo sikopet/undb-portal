@@ -1,6 +1,6 @@
 {
-  "name": "soi-portal",
-  "description": "Substainable Ocean Initiative Portal",
+  "name": "undb.cbd.int",
+  "description": "United Nations Decade on Biodiversity",
   "dependencies": {
     "bower": "1.7.0",
     "ejs": "2.3.4",
@@ -11,7 +11,7 @@
   "engine": "node >= 0.10.36",
   "license": "MIT",
   "private": true,
-  "repository": "scbd/soi-portal",
+  "repository": "scbd/undb.cbd.int",
   "scripts": {
     "postinstall": "./node_modules/.bin/bower install --allow-root"
   }

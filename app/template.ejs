@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Sustainable Ocean Initiative</title>
+    <title>United Nations Decade on Biodiversity</title>
 
     <meta name="description" content="Ecologically or Biologically Significant Marine Areas">
     <meta name="author" content="Secretariat of the Convention on Biological Diversity">
@@ -19,6 +19,7 @@
     <link href="app/libs/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="app/css/default.css" rel="stylesheet">
     <link href="app/css/docs.css" rel="stylesheet">
+    <link href="app/css/colors.css" rel="stylesheet">
     <link href="app/libs/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="app/libs/outdated-browser/outdatedbrowser/outdatedbrowser.min.css" rel="stylesheet">
 
@@ -33,7 +34,7 @@
             min-height: 30px;
         }
         .navbar .container {
-            background: rgba(25, 25, 25, .05);
+            /*background: rgba(25, 25, 25, .05);*/
         }
         .navbar-nav li {
             margin: 0px 10px;
@@ -43,13 +44,13 @@
             background-color: #009b48;
         }
         .navbar-default .navbar-nav > li > a {
-            color: #fff;
+            color: #bdbdbd;
         }
     </style>
 
     <div id="outdated"></div>
 
-    <nav class="navbar navbar-default navbar-static-top">
+    <nav class="navbar navbar-default navbar-static-top bg-white" >
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -105,16 +106,17 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-xs-9">
-                <a href="./"><img src="app/images/soi-logo.png" alt="Sustainable Ocean Initiative logo" style="margin-left:5px;margin-top:-10px;margin-bottom:12px"></a>
+            <div class="col-xs-6">
+                <a href="./"><img src="app/images/un+undb.svg" alt="undb logo" style="height:100px;margin-left:5px;margin-top:-10px;margin-bottom:12px;padding:15px 0;"></a>
             </div>
-            <div class="col-xs-3" style="text-align:right">
-                <img src="app/images/cbd-logo-en-200.png" style="margin-right:5px;margin-top:-10px;height:70px;">
+            <div class="col-xs-6" style="text-align:left">
+                <h1 class="color-cbdgreen">Living in harmony with nature<h1>
+                <!-- <img src="app/images/cbd-logo-en-200.png" style="margin-right:5px;margin-top:-10px;height:70px;padding:15px 0;"> -->
             </div>
         </div>
     </div>
 
-    <div class="wrapper" style="background-color:#2EB9C7">
+    <div class="wrapper bg-cbdgreen" >
         <div class="container">
     		<div class="menu-bg">
                 <div class="main-navbar" role="navigation">
@@ -151,7 +153,7 @@
         </div>
     </nav>
 
-    <div class="push15 clear">&nbsp;</div>
+    <div class="push15 clear" style="background-color:#004844;">&nbsp;</div>
 
     <ng-view></ng-view>
 

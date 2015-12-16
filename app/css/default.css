@@ -97,9 +97,9 @@ html {
 	color: #fff;
 }
 
-	.white:hover{
-		color: #fff;
-	}
+    .white:hover{
+    	color: #fff;
+    }
 
 .black{
 	color: #000;
@@ -309,11 +309,14 @@ div.title{
 	right:100%;
 }*/
 
+
 .menu-bg{
-	background: #2EB9C7;
 	min-height: 35px;
 	position: relative;
 }
+
+.navbar-default{ border:0}
+
 
 .navbar-nav{
 	margin: 7.5px 0px;
