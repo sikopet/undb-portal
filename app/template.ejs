@@ -15,7 +15,7 @@
 
     <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
 
-    <link href="./css/reset.css" rel="stylesheet">
+    <link href="app/css/reset.css" rel="stylesheet">
     <link href="app/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="app/libs/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="app/css/default.css" rel="stylesheet">
@@ -173,26 +173,12 @@
 
     <iframe id="authenticationFrame" src="https://accounts.cbd.int/app/authorize.html" style="display:none" onload="(event.target || event.srcElement).ready = true"></iframe>
 
-    <!--  BREADCRUMB  -->
-    <nav class="navbar navbar-static-top" style="background-color:#eee" ng-cloak ng-if="$root.breadcrumb.length>1">
-        <div class="container" style="padding:0px">
-            <ol class="breadcrumb">
-                <li ng-repeat="item in $root.breadcrumb">
-                    <a ng-if="!$last" href=".{{item.url}}">{{item.name}}</a>
-                    <a ng-if="$last" class="active">{{item.name}}</a>
-                </li>
-            </ol>
-        </div>
-    </nav>
-
-    <div class="push15 clear" style="background-color:#004844;">&nbsp;</div>
-
     <ng-view></ng-view>
 
     <!--  FOOTER  -->
     <footer ng-cloak ng-show="routeLoaded">
         <div class="container">
-            <div class="push50"></div>
+            <div class="push30"></div>
             <div>
                 <ul class="col-xs-6 col-sm-4 col-md-2">
                     <li><a href="" class="color-black">Home</a></li>

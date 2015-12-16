@@ -1,64 +1,83 @@
-<div class="container">
+<div>
+    <div class="sub-nav">
+        <div class="container">
+            <ul class="nav navbar-nav">
+                <li><a href="./about" ng-class="{'important':path=='/about'}" >UNDB</a></li>
+                <li><a href="./about/goals" ng-class="{'important':path=='/about/goals'}">Goals</a></li>
+                <li><a>Biodiversity</a></li>
+                <li><a>IYB2010</a></li>
+                <li><a>SDGs</a></li>
+            </ul>
+        </div>
+    </div>
 
-	<div class="row-fluid">
-	    <div class="col-xs-6 col-md-6 nopaddingleft">
+    <div class="container" >
+        <div class="row">
 
-			<div class="col-xs-6 col-md-6 square dark-green-box">
-				<a href="about/approach">
-					<h2 class="medium">Approach</h1>
-				</a>
-			</div>
+            <!-- undb section -->
+            <div class="col-xs-12 article" ng-if="path=='/about'">
+                <h1>Taking Action for Biodiversity</h1>
+                <p>
+                    In October 2010, at the tenth meeting of the Conference of the Parties to the <a href="#">Convention on Biological Diversity (COP 10)</a>, in Nagoya, Japan, governments agreed to the <a href="#">Strategic Plan for Biodiversity 2011-2020</a>                    and its <a href="#">Aichi Biodiversity Targets</a> as the basis for halting and eventually reversing biodiversity loss worldwide.
+                </p>
+                <p>
+                    The Aichi Biodiversity Targets provide an innovative and visionary approach that integrates biodiversity with social and economic drivers.
+                </p>
+                <p>
+                    To build support and create momentum for this urgent task, the United Nations General Assembly at its 65th session declared the period 2011-2020 to be the “United Nations Decade on Biodiversity, with a view to contributing to the implementation of the
+                    Strategic Plan for Biodiversity for the period 2011-2020” (<a href="#">Resolution 65/161</a>).
+                </p>
+                <p>
+                    The goal of the United Nations Decade on Biodiversity is to support the implementation of the Strategic Plan for Biodiversity and to promote its overall vision of living in harmony with nature.
+                </p>
+                <p>
+                    All partners have different roles to play in the biodiversity conservation process. The Convention on Biological Diversity requires governments to develop national biodiversity strategies and action plans, and to integrate these into broader national
+                    plans for environment and development. Governments need to take on a critical leadership role, by setting rules that guide the use of natural resources by others and also by protecting biodiversity where they have direct control over
+                    the land and water. Agricultural producers need to minimize the impact of agriculture on the wider environment and manage biodiversity in such a manner that biological resources are sustained. Businesses need to be involved in environmental
+                    protection and the sustainable use of biodiversity in their activities. Finally, the ultimate decision-maker for biodiversity is the individual citizen; by choosing to consume sustainably, and to engage in practices that promote biodiversity
+                    conservation, as well as become actively involved in the formulation of policy, the general public can begin to steer the world towards sustainable development.
+                </p>
+                <p>
+                    Since the start of the Decade, encouraging actions have been taken around the world to tackle biodiversity loss. However, based on <a href="#">current trends</a>, it is clear that pressures on biodiversity will continue to increase
+                    at least until 2020, and that the status of biodiversity will continue to decline (<a href="#">GBO4</a>).]
+                </p>
+                <p>
+                    At the twelfth meeting of the Conference of the Parties to the Convention on Biological Diversity (<a href="#">COP 12</a>) in October 2014, this sense of urgency and a renewed enthusiasm helped lead to the adoption of decisions to
+                    further help implementation of the Aichi Biodiversity Targets. It also helped reignite the <a href="#">Biodiversity Champions initiative</a>. Likewise, members of the <a href="#">Aichi Biodiversity Targets Task Force (ABTTF)</a> strengthened
+                    its commitment towards action for living in harmony with nature.
+                </p>
+                <p>
+                    Now, at the halfway mark of the Decade, it is necessary to broaden political and general support for the Strategic Plan for Biodiversity 2011-2020 and the objectives of the Convention. We all need to work to ensure that all levels of government and stakeholders
+                    across society are aware of the multiple values of biodiversity and related ecosystem services and that they take the actions needed to ensure the conservation and sustainable use of biodiversity.
+                </p>
+                <p>
+                    The actions taken by individuals, businesses and governments – our collective actions – are critical for protecting all life on Earth. By being proactive about biodiversity we ensure human well-being. It is in our own interest, in the interest of our
+                    children, and in the interest of future generations to come, that we take action in support of biodiversity.
+                </p>
+                <p>
+                    Now, more than ever, it is time for all vof us to start living in harmony with nature.
+                </p>
+            </div>
+            <!--END undb section -->
 
-		    <div class="col-xs-6 col-md-6 square textbox marginleft">
-				<p>Around the world, efforts are under way to improve conservation and sustainable use of marine and coastal biodiversity. However, there has yet to be an effort to take a holistic and comprehensive approach to capacity development for conservation and sustainable use of oceans and coasts.</p>
-			    <p>The Sustainable Ocean Initiative builds on these efforts, resources, and experiences by providing a holistic and strategic framework through which to provide capacity building opportunities to address regional priorities toward...</p>
-			    <a href="about/approach" class="arrow-more_dark-green">&nbsp;</a>
-			</div>
+            <!-- goals section -->
+            <div class="col-xs-12 article" ng-if="path=='/about/goals'">
 
-		    <div class="clear push15"></div>
+                	<h1>Goals</h1>
+                	<h3>Achieving the Aichi Biodiversity Targets by 2020</h3>
+                	<p>
+                		In 2010 <a href="#">Parties to the Convention on Biological Diversity</a> adopted the <a href="#">Strategic Plan for Biodiversity 2011-2020</a> with the purpose of inspiring broad-based action in support of biodiversity over the decade by all countries. The Strategic Plan serves as a flexible framework for the establishment of national and regional targets and promotes the coherent and effective implementation of the three objectives of the Convention on Biological Diversity: conservation of biodiversity; sustainable use of biodiversity; fair and equitable sharing of the benefits arising from the use of genetic resources.
+                	</p>
+                	<p>
+                		The Strategic Plan for Biodiversity 2011-2020 comprises a vision for 2050, five strategic goals and twenty ambitious yet achievable targets, collectively known as the Aichi Biodiversity Targets.
+                	</p>
 
-		    <div class="col-xs-12 col-md-12 hexa-pattern-wide">
-		    </div>
+            </div>
+            <!--END goals section -->
 
-		    <div class="clear push15"></div>
 
-	      	<div class="info-bloc">
-		   		<div class="col-xs-12 col-md-12 small-green-title">
-			    	<a href="about/history">
-			    		<h2 class="black medium">History</h2>
-			    	</a>
-			    </div>
 
-			    <div class="clear push15"></div>
 
-				<div class="col-xs-6 col-md-6 square nopaddingleft">
-					<img src="app/images/history-fish.jpg" alt="Blue fishes">
-				</div>
-				<div class="col-xs-6 col-md-6 textbox square marginleft">
-					<!-- <h3 class="green-light">Donec in tortor sit amet ante aliquet hendrerit</h3> -->
-					<div class="push5"></div>
-				    <p>The tenth meeting of the Conference of the Parties to the Convention on Biological Diversity (COP 10, Nagoya, Japan, October 2010) ushered in a new era of biodiversity conservation. The 193 Parties to the Convention on Biological Diversity and their partners rose to the challenge of reversing biodiversity loss, which is occurring at an unprecedented rate—up to 1000 times the natural rate of extinction—by adopting a new 10-year Strategic Plan (2010-2020) and Aichi Biodiversity Targets to guide international and national efforts to safeguard biodiversity.</p><div class="clear">&nbsp;</div>
-				    <a href="about/history" class="arrow-more_green">&nbsp;</a>
-				</div>
-			</div>
-
-		</div>
-
-		<div class="col-xs-6 col-lg-6 nopaddingright">
-			<img src="app/images/aichi-targets.jpg" alt="Plants and Oceans" />
-			<div class="textbox">
-				<a href="about/strategic-plan">
-			   		<h2 class="blue">Strategic plan for biodiversity 2011 – 2020 and the aichi biodiversity targets</h2>
-				</a>
-				<div class="push5"></div>
-				<p>In light of new and expanded challenges that face global biodiversity and an enhanced understanding of the value of biodiversity to global sustainable development, the Conference of the Parties to the Convention on Biological Diversity adopted a Strategic Plan for Biodiversity 2011-2020 and a set of Aichi Biodiversity Targets.</p>
-				<a href="about/strategic-plan" class="arrow-more_blue">&nbsp;</a>
-			</div>
-		</div>
-	</div>
-
-    <div class="push50 clear">&nbsp;</div>
-
-    <div class="clear push50"></div>
-
+        </div>
+    </div>
 </div>

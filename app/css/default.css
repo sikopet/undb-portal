@@ -1,6 +1,6 @@
 body{
 	background: #fff;
-	font-size: 13px;
+	font-size: 16px;
 	font-family: Helvetica, Verdana, sans-serif;
 	line-height: 14px;
 	color: #000;
@@ -48,7 +48,10 @@ html {
 	height: 30px;
 	display: block;
 }
-
+.push40{
+	height: 40px;
+	display: block;
+}
 .push50{
 	height: 50px;
 	display: block;
@@ -140,6 +143,8 @@ html {
 .center{
 	text-align: center;
 }
+
+
 
 /** REGULAR TITLES STYLES */
 h1{
@@ -394,6 +399,28 @@ div.title{
 			margin-left: 0px;
 		}
 
+
+.sub-nav{
+    height:35px;
+    background-color: #004844;
+    margin-bottom: 20px;
+}
+    .sub-nav .container{
+        padding-left:50px;
+        padding-right:50px;
+    }
+    .sub-nav ul > li > a{
+        color:#fff;
+    }
+
+/** content */
+.article{padding:0 60px;}
+    .article p{
+        font-size: .9em;
+        line-height: 1.8em;
+        color: #666;
+        padding: 14px 0
+    }
 
 .sub-menu:before{
 	content: "";
@@ -827,7 +854,7 @@ img[src*=arrow]{
 */
 footer{
 	box-sizing: border-box;
-	margin-top: 50px;
+	margin-top: 30px;
     background-color: #f9f9f9;
     color:#069554;
     border-top:1px solid #eee;

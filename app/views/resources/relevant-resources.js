@@ -4,8 +4,8 @@ define(['app', 'angular', 'authentication'], function() { 'use strict';
 
 		$scope.documents = [
 			{
-				name: 			'FAO: Geographic Information Systems to support the ecosystem approach to fisheries',
-				description: 	'FAO: Geographic Information Systems to support the ecosystem approach to fisheries',
+				name: 			'xxxFAO: Geographic Information Systems to support the ecosystem approach to fisheries',
+				description: 	'xxxFAO: Geographic Information Systems to support the ecosystem approach to fisheries',
 				thumbnail: 		'app/images/resources/170-fao-geographic_brochure.jpg',
 				url: 			'https://www.cbd.int/doc/meetings/mar/cbwsoi-seasi-01/other/cbwsoi-seasi-01-geographic-information-sys-en.pdf',
 				type:           'document'
