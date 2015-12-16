@@ -829,16 +829,15 @@ img[src*=arrow]{
 footer{
 	box-sizing: border-box;
 	margin-top: 50px;
-	padding-top: 280px;
-	background: url("../images/bg-footer.png") no-repeat center top;
-	background-size: cover;
-	height: 520px;
+    background-color: #f9f9f9;
+    color:#069554;
+    border-top:1px solid #eee;
 }
 
 footer div.row{
 	font-size: 12px;
 	font-family: Helvetica, Verdana, sans-serif;
-	color: #fff;
+	color: #111;
 	padding-left: 50px;
 	box-sizing: border-box;
 }
@@ -846,7 +845,7 @@ footer div.row{
 		font-family: 'Lato', sans-serif;
 		font-weight: 400;
 		font-size: 22px;
-		color: #fff;
+		color:#111;
 		float: left;
 	}
 
@@ -857,7 +856,7 @@ footer div.row{
 	}
 
 	footer p{
-		color: #fff;
+		color:#069554;
 	}
 
 	footer ul{
@@ -866,8 +865,7 @@ footer div.row{
 
 	footer ul li, footer ul li a, footer ul li a:hover{
 		list-style-type: none;
-		color: #fff;
-		font-weight: bold;
+		color:#069554;
 		padding-bottom: 3px;
 	}
 
@@ -886,7 +884,7 @@ footer .sitemap-ul{
 }
 
 .copyright{
-	color: #fff;
+	color:#999;
 	text-align: left;
 	font-size: 10px;
 	margin:15px 30px 0px;
