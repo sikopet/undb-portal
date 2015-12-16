@@ -314,10 +314,9 @@ div.title{
 	min-height: 35px;
 	position: relative;
 }
-
-.navbar-default{ border:0}
-
-
+.navbar{
+    margin-bottom: 0;
+}
 .navbar-nav{
 	margin: 7.5px 0px;
 }
