@@ -1,5 +1,5 @@
 {
-    "name": "undb.cbd.int",
+    "name": "undb-portal",
     "dependencies": {
         "angular": "1.3.16",
         "angular-route": "1.3.16",
