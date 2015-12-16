@@ -5,6 +5,12 @@
     background-color: #069554;
     color:#FFF;
 }
+.color-litegrey{
+    color:#eee!important;
+}
+.color-grey{
+    color:#999!important;
+}
 .bg-white{
     background-color: #FFF!important;
     color:#069554!important;
