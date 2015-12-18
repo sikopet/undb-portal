@@ -148,21 +148,22 @@
         <div class="container">
             <div class="menu-bg">
                 <div class="main-navbar" role="navigation">
+
                     <ul class="nav navbar-nav">
-                        <li><a href="./">Home</a></li>
-                        <li><a href="about">About</a></li>
-                        <li><a href="actions">Actions</a></li>
-                        <li><a href="actors">Actors</a></li>
-                        <li><a href="resources">Resources</a></li>
+                        <li ng-mouseover="highlightLink='home'" ng-mouseleave="highlightLink=''"><a href="home" >Home</a> <i ng-if="highlightLink=='home' || path.indexOf('home') >= 0" style="position:absolute;top:16px;left:15px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
+                        <li ng-mouseover="highlightLink='about'" ng-mouseleave="highlightLink=''"><a href="about">About</a><i ng-if="highlightLink=='about' || path.indexOf('about') >= 0" style="position:absolute;top:16px;left:13px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
+                        <li ng-mouseover="highlightLink='actions'" ng-mouseleave="highlightLink=''"><a href="actions">Actions</a><i ng-if="highlightLink=='actions' || path.indexOf('actions') >= 0" style="position:absolute;top:16px;left:18px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
+                        <li ng-mouseover="highlightLink='actors'" ng-mouseleave="highlightLink=''"><a href="actors">Actors</a><i ng-if="highlightLink=='actors' || path.indexOf('actors') >= 0" style="position:absolute;top:16px;left:15px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
+                        <li ng-mouseover="highlightLink='resources'" ng-mouseleave="highlightLink=''"><a href="resources">Resources</a><i ng-if="highlightLink=='resources' || path.indexOf('resources') >= 0" style="position:absolute;top:16px;left:27px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
                         <!-- <li class="form-group"><form class="navbar-form navbar-right searchBox" role="search"><input type="text" class="form-control" placeholder="Search"></form></li> -->
-                        <li><a href="./"><i class="color-darkgreen fa fa-facebook"></i></a></li>
-                        <li><a href="./"><i class="color-darkgreen fa fa-twitter"></i></a></li>
-                        <li><a href="./"><i class="color-darkgreen fa fa-instagram"></i></a></li>
-                        <li><a href="./"><i class="color-darkgreen fa fa-youtube-play"></i></a></li>
-                        <li><a href="./"><i class="color-darkgreen fa fa-flickr"></i></a></li>
+                        <li ng-mouseover="highlightLink='facebook'" ng-mouseleave="highlightLink=''"><a href="./"><i class="color-darkgreen fa fa-facebook"></i></a><i ng-if="highlightLink=='facebook'" style="position:absolute;top:16px;left:0px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
+                        <li ng-mouseover="highlightLink='twitter'" ng-mouseleave="highlightLink=''"><a href="./"><i class="color-darkgreen fa fa-twitter"></i></a><i ng-if="highlightLink=='twitter'" style="position:absolute;top:16px;left:0px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
+                        <li ng-mouseover="highlightLink='instagram'" ng-mouseleave="highlightLink=''"><a href="./"><i class="color-darkgreen fa fa-instagram"></i></a><i ng-if="highlightLink=='instagram'" style="position:absolute;top:16px;left:0px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
+                        <li ng-mouseover="highlightLink='youtube'" ng-mouseleave="highlightLink=''"><a href="./"><i class="color-darkgreen fa fa-youtube-play"></i></a><i ng-if="highlightLink=='youtube'" style="position:absolute;top:16px;left:0px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
+                        <li ng-mouseover="highlightLink='flickr'" ng-mouseleave="highlightLink=''"><a href="./"><i class="color-darkgreen fa fa-flickr"></i></a><i ng-if="highlightLink=='flickr'" style="position:absolute;top:16px;left:0px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
                     </ul>
 
                 </div>
@@ -172,7 +173,7 @@
     </div>
 
     <iframe id="authenticationFrame" src="https://accounts.cbd.int/app/authorize.html" style="display:none" onload="(event.target || event.srcElement).ready = true"></iframe>
-
+    <!-- path={{path}} -->
     <ng-view></ng-view>
 
     <!--  FOOTER  -->
@@ -184,7 +185,6 @@
                     <li><a href="" class="color-black">Home</a></li>
                     <li><a href="">CBD</a></li>
                     <li><a href="">UN</a></li>
-                    <li><a href="">Privacy policy</a></li>
                     <li><a href="mailto:UNBiodiversity@cbd.int">Contact us</a></li>
                 </ul>
 

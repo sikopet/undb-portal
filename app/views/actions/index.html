@@ -1,0 +1,51 @@
+<div>
+    <div class="sub-nav">
+        <div class="container">
+            <ul class="nav navbar-nav">
+                <li ng-mouseover="highlightLink='worldwide'" ng-mouseleave="highlightLink=''"><a href="actions/worldwide">Worldwide</a> <i ng-if="highlightLink=='worldwide' || path=='/actions/worldwide'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+                <li ng-mouseover="highlightLink='country'" ng-mouseleave="highlightLink=''"><a href="actions/country" >By Country</a> <i ng-if="highlightLink=='country' ||  path=='/actions/country'" style="position:relative;top:-4px;left:30px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+                <li ng-mouseover="highlightLink='un'" ng-mouseleave="highlightLink=''"><a href="actions/un" >By UN Organization</a> <i ng-if="highlightLink=='un' ||  path=='/actions/un'" style="position:relative;top:-4px;left:55px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+                <li ng-mouseover="highlightLink='calender'" ng-mouseleave="highlightLink=''"><a href="actions/calender" >Calender</a> <i ng-if="highlightLink=='calender' ||  path=='/actions/calender'" style="position:relative;top:-4px;left:22px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+                <li ng-mouseover="highlightLink='participate'" ng-mouseleave="highlightLink=''"><a href="actions/participate" >Participate</a> <i ng-if="highlightLink=='participate' ||  path=='/actions/participate'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+
+            <!-- worldwide section -->
+            <div class="col-xs-12 article" ng-if="path=='/actions/worldwide'">
+                <h1>Worldwide</h1>
+            </div>
+            <!--END worldwide section -->
+
+            <!-- country section -->
+            <div class="col-xs-12 article" ng-if="path=='/actions/country'">
+                <h1>By Country</h1>
+
+            </div>
+            <!--END country section -->
+
+            <!-- un section -->
+            <div class="col-xs-12 article" ng-if="path=='/actions/un'">
+                <h1>By UN Organization</h1>
+            </div>
+            <!--END un section -->
+
+            <!-- calender section -->
+            <div class="col-xs-12 article" ng-if="path=='/actions/calender'">
+                <h1>Calender</h1>
+            </div>
+            <!--END calender section -->
+
+            <!-- participate section -->
+            <div class="col-xs-12 article" ng-if="path=='/actions/participate'">
+                <h1>Participate</h1>
+            </div>
+            <!--END participate section -->
+
+
+        </div>
+    </div>
+</div>

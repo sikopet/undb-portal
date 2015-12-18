@@ -849,6 +849,22 @@ img[src*=arrow]{
 	text-transform: capitalize;
 }
 
+
+
+
+
+.logosInline ul {
+    text-align: center
+}
+.logosInline ul li {
+    display: inline-block;
+    margin: 6px 14px;
+    padding: 10px 0
+}
+.logosInline ul li img {
+    height: 72px
+}
+
 /**
 	FOOTER
 */
