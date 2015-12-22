@@ -1,0 +1,23 @@
+<div>
+    <div class="sub-nav">
+        <div class="container">
+            <ul class="nav navbar-nav">
+                <li ng-mouseover="highlightLink='logo'" ng-mouseleave="highlightLink=''"><a href="resources/logo">Logo</a> <i ng-if="highlightLink=='logo' || path=='/resources/logo'" style="position:relative;top:-4px;left:10px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+                <li ng-mouseover="highlightLink='materials'" ng-mouseleave="highlightLink=''"><a href="resources/materials" >Printed Materials</a> <i ng-if="highlightLink=='materials' ||  path=='/resources/materials'" style="position:relative;top:-4px;left:45px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+                <li ng-mouseover="highlightLink='multimedia'" ng-mouseleave="highlightLink=''"><a href="resources/multimedia" >Multimedia</a> <i ng-if="highlightLink=='multimedia' ||  path=='/resources/multimedia'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row article">
+            <div class="col-xs-12" ng-if="path=='/resources/materials'">
+                <h1>Printed Materials</h1>
+                <p>In this section you can download publications such as factsheets, brochures, posters and more. Please share them with community institutions such as schools, organizations and businesses. Make them available to local or national media and government offices. Feel free to translate them into your official language as well. If you wish to contribute to this section please contact us.
+                </p>
+                <p>Learn more about why biodiversity is important and how it is endangered. Help spread the word about living in harmony with nature!
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

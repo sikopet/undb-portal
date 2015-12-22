@@ -1,0 +1,36 @@
+<div>
+    <div class="sub-nav">
+        <div class="container">
+            <ul class="nav navbar-nav">
+                <li ng-mouseover="highlightLink='logo'" ng-mouseleave="highlightLink=''"><a href="resources/logo">Logo</a> <i ng-if="highlightLink=='logo' || path=='/resources/logo'" style="position:relative;top:-4px;left:10px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+                <li ng-mouseover="highlightLink='materials'" ng-mouseleave="highlightLink=''"><a href="resources/materials" >Printed Materials</a> <i ng-if="highlightLink=='materials' ||  path=='/resources/materials'" style="position:relative;top:-4px;left:45px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+                <li ng-mouseover="highlightLink='multimedia'" ng-mouseleave="highlightLink=''"><a href="resources/multimedia" >Multimedia</a> <i ng-if="highlightLink=='multimedia' ||  path=='/resources/multimedia'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+
+            <!-- logo section -->
+            <div class="col-xs-12 article" ng-if="path=='/resources/multimedia'">
+                <h1>Logo</h1>
+            </div>
+            <!--END logo section -->
+
+            <!-- materials section -->
+            <div class="col-xs-12 article" ng-if="path=='/resources/materials'">
+                <h1>Printed Materials</h1>
+
+            </div>
+            <!--END materials section -->
+
+            <!-- multimedia section -->
+            <div class="col-xs-12 article" ng-if="path=='/resources/multimedia'">
+                <h1>Multimedia</h1>
+            </div>
+            <!--END multimedia section -->
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,57 @@
+<div>
+    <div class="sub-nav">
+        <div class="container">
+            <ul class="nav navbar-nav">
+                <li ng-mouseover="highlightLink='worldwide'" ng-mouseleave="highlightLink=''"><a href="actions/worldwide">Worldwide</a> <i ng-if="highlightLink=='worldwide' || path=='/actions/worldwide'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+                <li ng-mouseover="highlightLink='country'" ng-mouseleave="highlightLink=''"><a href="actions/country" >By Country</a> <i ng-if="highlightLink=='country' ||  path=='/actions/country'" style="position:relative;top:-4px;left:30px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+                <li ng-mouseover="highlightLink='un'" ng-mouseleave="highlightLink=''"><a href="actions/un" >By UN Organization</a> <i ng-if="highlightLink=='un' ||  path=='/actions/un'" style="position:relative;top:-4px;left:55px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+                <li ng-mouseover="highlightLink='calendar'" ng-mouseleave="highlightLink=''"><a href="actions/calendar" >Calendar</a> <i ng-if="highlightLink=='calendar' ||  path=='/actions/calendar'" style="position:relative;top:-4px;left:22px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+                <li ng-mouseover="highlightLink='participate'" ng-mouseleave="highlightLink=''"><a href="actions/participate" >Participate</a> <i ng-if="highlightLink=='participate' ||  path=='/actions/participate'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row article">
+            <div class="col-xs-12" ng-if="path=='/actions/un'">
+                <h1>Actions by UN Organization</h1>
+                <p>The Strategic Plan for Biodiversity 2011-2020 provides an overarching framework on biodiversity, not only for the biodiversity-related conventions, but for the entire United Nations system and all other partners engaged in biodiversity management and policy development.
+                </p>
+                <p>At its 65th session in March 2011, the United Nations General Assembly decided to declare 2011–2020 the United Nations Decade on Biodiversity, with a view to contributing to the implementation of the Strategic Plan for Biodiversity 2011–2020, and in this regard has requested the Secretary-General, in consultation with Member States, to lead the coordination of the activities of the Decade on behalf of the United Nations system, with the support of the secretariat of the Convention on Biological Diversity, the secretariats of other biodiversity related conventions and relevant United Nations funds, programmes and agencies, and invited Member States in a position to do so to contribute, on a voluntary basis, to the funding of the activities of the Decade (Resolution 65/161).
+                </p>
+                <p>Select an organisation from the list below to see how they are supporting biodiversity.
+                </p>
+            </div>
+        </div>
+
+        <div class="row article">
+            <div class="col-xs-3 text-center" >
+                <a class="center-block" href=""><img src="/app/img/logo/un.svg" width="120" alt="" /></a>
+            </div>
+            <div class="col-xs-3 text-center">
+                <a href=""><img src="/app/images/CITES.png" width="120" alt="" /></a>
+            </div>
+            <div class="col-xs-3 text-center">
+                <a href=""><img src="/app/images/FAO.png" width="120" alt="" /></a>
+            </div>
+            <div class="col-xs-3 text-center ">
+                <a href=""><img src="/app/img/logo/unep.svg" width="120" alt="" /></a>
+            </div>
+        </div>
+
+        <div class="row article">
+            <div class="col-xs-3 text-center vcenter">
+                <a href=""><img src="/app/images/ICAO.png" width="120" alt="" /></a>
+            </div>
+            <div class="col-xs-3 text-center vcenter">
+                <a href=""><img src="/app/images/ramsar.png" width="120" alt="" /></a>
+            </div>
+            <div class="col-xs-3 text-center vcenter">
+                <a href=""><img src="/app/images/UNDP.png" width="60" alt="" /></a>
+            </div>
+            <div class="col-xs-3 text-center vcenter">
+                <a href=""><img  src="/app/images/UN-habitat.png"  width="165" alt="" /></a>
+            </div>
+        </div>
+    </div>
+</div>

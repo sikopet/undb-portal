@@ -1,0 +1,33 @@
+<div>
+    <div class="sub-nav">
+        <div class="container">
+            <ul class="nav navbar-nav">
+                <li ng-mouseover="highlightLink='worldwide'" ng-mouseleave="highlightLink=''"><a href="actions/worldwide">Worldwide</a> <i ng-if="highlightLink=='worldwide' || path=='/actions/worldwide'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+                <li ng-mouseover="highlightLink='country'" ng-mouseleave="highlightLink=''"><a href="actions/country" >By Country</a> <i ng-if="highlightLink=='country' ||  path=='/actions/country'" style="position:relative;top:-4px;left:30px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+                <li ng-mouseover="highlightLink='un'" ng-mouseleave="highlightLink=''"><a href="actions/un" >By UN Organization</a> <i ng-if="highlightLink=='un' ||  path=='/actions/un'" style="position:relative;top:-4px;left:55px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+                <li ng-mouseover="highlightLink='calendar'" ng-mouseleave="highlightLink=''"><a href="actions/calendar" >Calendar</a> <i ng-if="highlightLink=='calendar' ||  path=='/actions/calendar'" style="position:relative;top:-4px;left:22px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+                <li ng-mouseover="highlightLink='participate'" ng-mouseleave="highlightLink=''"><a href="actions/participate" >Participate</a> <i ng-if="highlightLink=='participate' ||  path=='/actions/participate'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 article" ng-if="path=='/actions/worldwide'">                
+                <h1>Actions around the world</h1>
+                <p>Safeguarding biodiversity is a task that calls for the active involvement of all citizens, businesses, governments and organizations. Collectively, we need to build a vast network to communicate the importance of biodiversity with the rest of world. Very substantial changes from business-as-usual trends are needed in order to address the challenges we face: to slow and stop the loss of biodiversity.
+                </p>
+                <p>The map below and the <a href="/actions/calendar">calendar</a> give an overview of the work being done around the world in the context of the United Nations Decade on Biodiversity. Actions include specific programmes and projects, policy changes, activities, events and more. If you would like your celebration included, please <a href="">register</a> it by filling the form or <a href="mailto:UNBiodiversity@cbd.int">contact us</a>.
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-2 col-xs-offset-9">
+                <button type="button" class="btn bg-undb-green" aria-haspopup="true" aria-expanded="false">
+                      Register your actions <i class="fa fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
