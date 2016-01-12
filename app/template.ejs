@@ -89,10 +89,32 @@
                     <li><a class="color-litegrey">|</a></li>
                     <li><a href="./"> 中文 </a></li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#" ng-click="actionSignIn()">Sign up for an account	</a></li>
-                    <li><a class="color-litegrey">|</a></li>
-                    <li style="margin-right:0;"><a href="#" ng-click="actionSignIn()"> Sign In </a></li>
+                <ul class="nav navbar-nav navbar-right" ng-cloak ng-show="user">
+                    <li><a ng-hide="user.isAuthenticated" href="#" ng-click="actionSignIn()">Sign up for an account	</a></li>
+                    <li><a ng-hide="user.isAuthenticated" class="color-litegrey">|</a></li>
+                    <li style="margin-right:0;">
+                        <a ng-hide="user.isAuthenticated" href="#" ng-click="actionSignIn()"> Sign In </a>
+                        <a ng-show="user.isAuthenticated" href="#" data-toggle="dropdown">
+                            <i class="fa fa-chevron-down"></i> <span> {{user.name}}</span>
+                        </a>
+                        <ul class="dropdown-menu bg-darkgrey" role="menu" >
+                            <li>
+                                <a href="#" ng-click="actionProfile()"><i class="fa fa-user" style="font-size:15px"></i>&nbsp; Profile</a>
+                            </li>
+                            <li class="dropdown-submenu">
+                                <a tabindex="-1" href="#"><i class="fa fa-lock" style="font-size:15px"></i>&nbsp; My Roles</a>
+                                <ul class="dropdown-menu bg-darkgrey" role="menu" style="min-width:200px">
+                                    <li ng-repeat="role in user.roles|orderBy:'toString()'"><a tabindex="-1" href="#">{{role}}</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#" ng-click="actionPassword()"><i class="fa fa-user" style="font-size:15px"></i>&nbsp; Password</a>
+                            </li>
+                            <li>
+                                <a href="#" ng-click="actionSignOut()"><i class="fa fa-sign-out" style="font-size:15px"></i>&nbsp; Sign-out</a>
+                            </li>
+                        </ul>
+                    </li>
 
                     <!--notifications-->
                     <!-- <li class="navbar-right">

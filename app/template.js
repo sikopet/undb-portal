@@ -1,7 +1,7 @@
 define(['app', 'authentication'], function(app) {
     'use strict';
 
-    app.controller('TemplateController', ['$scope', '$rootScope', '$window', '$location', '$route', function($scope, $rootScope, $window, $location, $route) {
+    app.controller('TemplateController', ['$scope', '$rootScope', '$window', '$location', '$route', 'authentication', function($scope, $rootScope, $window, $location, $route, authentication) {
 
         $scope.path = $location.path();
 
@@ -13,6 +13,9 @@ define(['app', 'authentication'], function(app) {
             $scope.path = $location.path();
         });
 
+        authentication.getUser().then(function (user) {
+            $scope.user = user;
+        });
 
         //============================================================
         //
@@ -28,7 +31,7 @@ define(['app', 'authentication'], function(app) {
         //
         //
         //============================================================
-        $scope.signOut = function() {
+        $scope.asctionSignOut = function() {
             authentication.signOut();
         };
 

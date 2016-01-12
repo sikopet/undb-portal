@@ -21,7 +21,7 @@ require.config({
 
 // BOOT
 
-require(['angular', 'app', 'bootstrap', 'routes', 'template'], function(ng, app) {
+require(['angular', 'app', 'bootstrap', 'authentication', 'routes', 'template'], function(ng, app) {
 
     ng.element(document).ready(function () {
          ng.bootstrap(document, [app.name]);
