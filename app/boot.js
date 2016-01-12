@@ -10,7 +10,7 @@ require.config({
         'bootstrap'        : 'libs/bootstrap/dist/js/bootstrap',
         'lodash'           : 'libs/lodash/lodash',
         'jquery'           : 'libs/jquery/dist/jquery',
-        'ammap3WorldHigh'     : 'directives/reporting-display/worldEUHigh',
+        'ammap3WorldHigh'     : 'directives/map/worldEUHigh',
         'ammap3'              : 'libs/ammap3/ammap/ammap',
         'ammap-theme'         : 'libs/ammap3/ammap/themes/light',
         'ammap-resp'          : 'libs/ammap3/ammap/plugins/responsive/responsive',
