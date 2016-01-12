@@ -1,4 +1,3 @@
-window.name = 'NG_DEFER_BOOTSTRAP!';
 
 require.config({
     waitSeconds: 120,
@@ -7,7 +6,6 @@ require.config({
         'authentication'   : 'services/authentication',
         'angular'          : 'libs/angular-flex/angular-flex',
         'angular-route'    : 'libs/angular-route/angular-route',
-        'domReady'         : 'libs/requirejs-domready/domReady',
         'text'             : 'libs/requirejs-text/text',
         'bootstrap'        : 'libs/bootstrap/dist/js/bootstrap',
         'lodash'           : 'libs/lodash/lodash',
@@ -23,8 +21,9 @@ require.config({
 
 // BOOT
 
-require(['angular', 'domReady!', 'bootstrap', 'app', 'routes', 'template'], function(ng, doc) {
+require(['angular', 'app', 'bootstrap', 'routes', 'template'], function(ng, app) {
 
-    ng.bootstrap(doc, ['app']);
-    ng.resumeBootstrap();
+    ng.element(document).ready(function () {
+         ng.bootstrap(document, [app.name]);
+    });
 });
