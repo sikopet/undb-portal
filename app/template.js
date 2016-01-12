@@ -18,8 +18,10 @@ define(['app', 'authentication'], function(app) {
         //
         //
         //============================================================
-        $scope.signIn = function() {
-            $location.url('/signin');
+        $scope.actionSignIn = function() {
+            var redirect_uri = $window.encodeURIComponent($location.protocol() + '://' + $location.host() + ':' + $location.port() + '/');
+            $window.location.href = 'https://accounts.cbd.int/signin?returnUrl=' + redirect_uri;
+//            $location.url('/signin');
         };
 
         //============================================================
@@ -28,15 +30,6 @@ define(['app', 'authentication'], function(app) {
         //============================================================
         $scope.signOut = function() {
             authentication.signOut();
-        };
-
-        //============================================================
-        //
-        //
-        //============================================================
-        $scope.actionSignup = function() {
-            var redirect_uri = $window.encodeURIComponent($location.protocol() + '://' + $location.host() + ':' + $location.port() + '/');
-            $window.location.href = 'https://accounts.cbd.int/signup?redirect_uri=' + redirect_uri;
         };
 
         //============================================================
