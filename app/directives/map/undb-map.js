@@ -4,7 +4,7 @@ define(['text!./undb-map.html',
   'lodash',
   './ammap3',
 
-//  "utilities/km-utilities",
+ "factories/km-utilities",
   //"./results-list",
   "./filter-assessment",
   //"./filter-report",
