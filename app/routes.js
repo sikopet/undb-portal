@@ -23,17 +23,17 @@ define(['app', 'lodash', 'text!views/index.html', 'views/index', 'providers/exte
             when('/actions/calendar',                                { templateUrl: 'views/actions/calendar.html',     label:'Calendar',               resolveController: true }).
             when('/actions/participate',                             { templateUrl: 'views/actions/participate.html',     label:'Participate',            resolveController: true }).
 
-            when('/actors', { redirectTo: '/actors/abttf' }).
-            when('/actors/abttf',                                   { templateUrl: 'views/actors/index.html',     label:'ABTTF',                    resolveController: true }).
-            when('/actors/champions',                               { templateUrl: 'views/actors/index.html',     label:'Biodiversity Champions',   resolveController: true }).
-            when('/actors/blg',                                     { templateUrl: 'views/actors/index.html',     label:'BLG',                      resolveController: true }).
-            when('/actors/jlg',                                     { templateUrl: 'views/actors/index.html',     label:'JLG',                      resolveController: true }).
-            when('/actors/partners',                                { templateUrl: 'views/actors/index.html',     label:'UNDB Partners',            resolveController: true }).
+            when('/actors',                                         { templateUrl: 'views/actors/index.html',     label:'Actors',               resolveController: true }).
+            when('/actors/abttf',                                   { templateUrl: 'views/actors/abttf.html',     label:'ABTTF',                    resolveController: true }).
+            when('/actors/champions',                               { templateUrl: 'views/actors/champions.html',     label:'Biodiversity Champions',   resolveController: true }).
+            when('/actors/blg',                                     { templateUrl: 'views/actors/blg.html',     label:'BLG',                      resolveController: true }).
+            when('/actors/jlg',                                     { templateUrl: 'views/actors/jlg.html',     label:'JLG',                      resolveController: true }).
+            when('/actors/partners',                                { templateUrl: 'views/actors/partners.html',     label:'UNDB Partners',            resolveController: true }).
 
-            when('/resources', { redirectTo: '/resources/logo' }).
+            when('/resources',                                    { templateUrl: 'views/resources/index.html',     label:'Resources',               resolveController: true }).
             when('/resources/logo',                               { templateUrl: 'views/resources/logo.html',     label:'Logo',               resolveController: true }).
             when('/resources/materials',                          { templateUrl: 'views/resources/materials.html',     label:'Printed Materials',  resolveController: true }).
-            when('/resources/multimedia',                         { templateUrl: 'views/resources/multimedia',     label:'Multimedia',         resolveController: true }).
+            when('/resources/multimedia',                         { templateUrl: 'views/resources/multimedia.html',     label:'Multimedia',         resolveController: true }).
 
             when('/help/404',                                 { templateUrl: 'views/404.html',  label : 'Not found',  controller: [function(){}], resolveUser: false }).
             when('/help/403',                                 { templateUrl: 'views/403.html',  label : 'Forbidden',  controller: [function(){}], resolveUser: false }).
