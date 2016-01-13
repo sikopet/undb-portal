@@ -237,7 +237,7 @@ define(['app', 'angular', 'jquery'], function (app, ng, $) { 'use strict';
 			getUser  : getUser,
 			signIn   : signIn,
 			signOut  : signOut,
-			user     : LEGACY_user,
+//			user     : LEGACY_user,
 		};
 
 	}]);
