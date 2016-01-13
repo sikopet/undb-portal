@@ -46,8 +46,8 @@ define(['app', 'lodash', 'text!views/index.html', 'views/index', 'providers/exte
     //
     //============================================================
     function securize(roles) {
-        
-        return ['$location', '$window', 'authentication', function ($location, $window, authentication) {
+
+        return ['$location', '$window', '$q', 'authentication', function ($location, $window, $q, authentication) {
 
             return authentication.getUser().then(function (user) {
 
@@ -55,10 +55,11 @@ define(['app', 'lodash', 'text!views/index.html', 'views/index', 'providers/exte
 
                     var returnUrl = $window.encodeURIComponent($window.location.href);
                     $window.location.href = 'https://accounts.cbd.int/signin?returnUrl=' + returnUrl; // force sign in
+                    return $q(function () {});
                 }
                 else if (roles && !_.isEmpty(roles) && _.isEmpty(_.intersection(roles, user.roles))) {
 
-                    $location.path('/help/403'); // not authorized
+                    $location.url('/help/403'); // not authorized
                 }
 
                 return user;
