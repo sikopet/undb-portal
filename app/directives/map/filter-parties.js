@@ -1,7 +1,7 @@
-define(['text!./filter-nbsap.html', 'app', 'lodash'], function(template, app, _) {
+define(['text!./filter-parties.html', 'app', 'lodash'], function(template, app, _) {
   'use strict';
 
-  app.directive('filterNbsap', [function() {
+  app.directive('filterParties', [function() {
     return {
       restrict: 'E',
       template: template,
@@ -10,22 +10,19 @@ define(['text!./filter-nbsap.html', 'app', 'lodash'], function(template, app, _)
       scope: {
         title: '@title',
       },
-      link: function($scope, $element, $attr, reportingDisplayCtrl) {
+      link: function($scope, $element, $attr, undbMap) {
           $scope.queries = {
-            'nbsaps': {
-              'schema_s': ['nationalReport'],
-              'reportType_s': ['B0EBAE91-9581-4BB2-9C02-52FCF9D82721'],
-              '_latest_s': ['true'],
-              '_state_s': ['public']
+            'parnters': {
+              'schema_s': ['partners'],
             }
           };
+
           //=======================================================================
           //
           //=======================================================================
           $scope.loadRecords = function() {
-
-            reportingDisplayCtrl.addSubQuery(_.cloneDeep($scope.queries), 'nbsaps');
-            reportingDisplayCtrl.search();
+            undbMap.addSubQuery(_.cloneDeep($scope.queries), 'partners');
+            undbMap.search();
           }; // loadRecords
 
         } //link
