@@ -167,7 +167,13 @@ define(['text!./ammap3.html', 'app', 'lodash', 'ammap3', 'ammap3WorldHigh', 'amm
               "selectable": true,
               "color": "#428bca",
             },
-            "smallMap": {},
+            "smallMap": {
+
+                "rectangleColor":'#069554',
+                "backgroundAlpha": 0.5,
+                "mapColor":'#069554',
+
+              },
             "export": {
               "libs": { "autoLoad": false},
               "enabled": true,
@@ -269,6 +275,7 @@ define(['text!./ammap3.html', 'app', 'lodash', 'ammap3', 'ammap3WorldHigh', 'amm
           if (!mapData) mapData = getMapData();
           $scope.map = AmCharts.makeChart("mapdiv", mapData); //jshint ignore:line
           $scope.map.write("mapdiv");
+
         } // writeMap
 
         //=======================================================================

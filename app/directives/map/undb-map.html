@@ -1,25 +1,174 @@
 <div>
-  <style>
-    .resultList {
-      font-size: 10px;
-      margin-top: 1px;
-      width: 100%;
-      ;
-      padding-left: 0px;
-      padding-right: 0px;
-    }
-  </style>
-  <div class="col-md-2">
-    <div class="panel-group" id="accordion">
-      <filter-report title='National Reports' ng-model='nationalReports' schema='selectedSchema' scope.style="padding-right:15px;background-color: #FAFAFA;"></filter-report>
-      <filter-nbsap title='NBSAPs' count='count'></filter-nbsap>
-      <filter-assessment title='Aichi Assessments' ng-model='nationalAssessment' facet='nationalTarget_s' count='count' style="padding-right:15px;background-color: #FAFAFA;"></filter-assessment>
-      <filter-indicator title='National Indicators'></filter-indicator>
-      <filter-target title='National Targets'></filter-target>
-      <filter-resource-mobilisation title='Resource Mobilisation'></filter-resource-mobilisation>
-      <filter-all title='All Reports' ng-model='allRecords' count='count'></filter-all>
-    </div>
-  </div>
-  <ammap3 ng-model='documents' schema='selectedSchema' zoom-to='zoomToMap' debug="false"></ammap3>
+	<style>
+		map_wrapper {
+			background-color: #069554;
+		}
 
+		#map {
+			background-color: #069554;
+			margin: 0 auto;
+			max-width: 1200px;
+			overflow: hidden;
+		}
+
+		#map .sideSelection {
+			display: inline-block;
+			padding: 15px 0;
+		}
+
+		#map .floatRight {
+			float: right;
+		}
+
+		#map .sideSelection h5 {
+			color: #fff;
+			font-size: 1.4em;
+			margin-top: 20px;
+			text-align: left;
+			text-indent: 15px;
+		}
+
+		#map .sideSelection ul li {
+			color: #fff;
+			cursor: pointer;
+			font-size: 1em;
+			height: 37px;
+			line-height: 37px;
+			margin: 24px 0;
+			min-width: 200px;
+			padding: 0 15px;
+		}
+
+		#map .sideSelection ul li.active {
+			background-color: #004844;
+			border-bottom-left-radius: 5px;
+			border-bottom-right-radius: 0;
+			border-top-left-radius: 5px;
+			border-top-right-radius: 0;
+			moz-border-radius-bottomleft: 5px;
+			moz-border-radius-bottomright: 0;
+			moz-border-radius-topleft: 5px;
+			moz-border-radius-topright: 0;
+			position: relative;
+			webkit-border-bottom-left-radius: 5px;
+			webkit-border-bottom-right-radius: 0;
+			webkit-border-top-left-radius: 5px;
+			webkit-border-top-right-radius: 0;
+			z-index: 10;
+		}
+
+		#map .sideSelection ul li.active:after {
+			background-image: url('app/img/tip_right.svg');
+			background-repeat: no-repeat;
+			content: '';
+			height: 37px;
+			position: absolute;
+			right: -37px;
+			width: 37px;
+			z-index: 10;
+		}
+
+		#map .sideSelection ul li select {
+			background-color: #004844;
+			border-color: #004844;
+			color: #fff;
+			display: inline-block;
+			margin-left: 20px;
+			width: 85px;
+		}
+
+		#googlemap {
+			display: inline-block;
+			height: 480px;
+			overflow: hidden;
+			padding: 0;
+			position: relative;
+			text-align: center;
+			z-index: 5;
+		}
+
+		.mapPopup {
+			background-color: rgba(0, 72, 68, 0.9);
+			border-radius: 5px;
+			bottom: 8%;
+			display: table;
+			margin: 0 1%;
+			min-height: 80px;
+			moz-border-radius: 5px;
+			padding: 10px;
+			position: absolute;
+			vertical-align: middle;
+			webkit-border-radius: 5px;
+			width: 96.5%;
+		}
+
+		.mapPopup p {
+			color: #fff;
+			display: table-cell;
+			max-width: 90%;
+			vertical-align: middle;
+		}
+
+		.mapPopup p a {
+			color: #069554;
+		}
+
+		.mapPopup button {
+			display: block;
+			float: right;
+			margin-right: 10px;
+			margin-top: 16px;
+		}
+
+		.closeButton {
+			background-image: url('app/img/x.svg');
+			background-repeat: no-repeat;
+			border: none;
+			border-radius: 25px;
+			height: 26px;
+			moz-border-radius: 25px;
+			webkit-border-radius: 25px;
+			width: 26px;
+		}
+
+		body.modal-open div.modal-backdrop {
+			z-index: 0;
+		}
+	</style>
+
+		<div id="map">
+
+				<!-- <div class="col-md-3 sideSelection ">
+
+					<div class="floatRight">
+						<h5>UNDB Network</h5>
+						<ul>
+							<li class="active" data-text="The UNDB Network comprises all Actors contributing to the implementation of the 2011-2020 Strategic Plan for Biodiversity.">Actors</li>
+							<li data-text="With 196 <a href='un.org'>Parties</a>, the Convention on Biological Diversity has near universal participation among countries.">Parties to the CBD</li>
+							<li data-text="The Biodiversity Champions are truly inventive, creative and exceptional examples of support to the Strategic Plan for Biodiversity 2011-2020.">Biodiversity Champions</li>
+							<li data-text=" Case studies are narrative examples of great success stories. Find inspiration for your own Actions!">Case Studies</li>
+							<li data-text="Projects are long term initiatives at the national level or beyond, and feature elements of capacity building.">Specific Projects</li>
+							<li data-text="All around the world people are taking action to safeguard biodiversity. See how you can participate!">
+								Actions
+							</li>
+						</ul>
+					</div>
+
+				</div> -->
+				<div class="col-md-2" style="margin-right:0px;padding-right:0px;">
+					<div class="panel-group" id="accordion">
+						<filter-parties title='Parties to the CBD' count='count'></filter-parties>
+					</div>
+				</div>
+
+				<div class="col-md-10">
+					<!-- Replace img with the Map  -->
+					<ammap3 ng-model='documents' schema='selectedSchema' zoom-to='zoomToMap' debug="false"></ammap3>
+					<div class="mapPopup">
+						<p>The UNDB Network comprises all Actors contributing to the implementation of the 2011-2020 Strategic Plan for Biodiversity.</p>
+						<button type="button" class="closeButton"></button>
+					</div>
+				</div>
+	
+	</div>
 </div>
