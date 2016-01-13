@@ -31,8 +31,9 @@ define(['app', 'authentication'], function(app) {
         //
         //
         //============================================================
-        $scope.asctionSignOut = function() {
+        $scope.actionSignOut = function() {
             authentication.signOut();
+            $window.location.href = $window.location.href;
         };
 
         //============================================================
