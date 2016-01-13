@@ -9,11 +9,15 @@
         "font-awesome": "4.3.0",
         "jquery": "2.1.4",
         "lodash": "3.9.3",
-        "moment": "2.10.3",
+        "moment": "latest",
+        "uri.js": "1.13.x",
+        "linqjs": "https://github.com/madington/linq.git#~2.2.0",
+        "mapsicon": "https://github.com/djaiss/mapsicon.git",
+        "flag-icon-css": "https://github.com/lipis/flag-icon-css.git#~0.6.0",
         "outdated-browser": "1.1.0",
         "requirejs": "2.1.18",
-        "requirejs-domready": "2.0.1",
         "requirejs-text": "2.0.14",
-        "requirejs-plugins": "1.0.3"
+        "requirejs-plugins": "1.0.3",
+        "ammap3": "3.17.1"
     }
 }

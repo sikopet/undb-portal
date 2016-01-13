@@ -1,5 +1,5 @@
 define(['app', 'lodash', 'text!views/index.html', 'views/index', 'providers/extended-route'], function(app, _, rootTemplate) { 'use strict';
-
+    app.value('realm', 'UNDB')
     app.config(['extendedRouteProvider', '$locationProvider', function($routeProvider, $locationProvider) {
 
         $locationProvider.html5Mode(true);

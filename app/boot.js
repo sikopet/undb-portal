@@ -1,30 +1,52 @@
-window.name = 'NG_DEFER_BOOTSTRAP!';
 
 require.config({
     waitSeconds: 120,
     baseUrl : 'app/',
     paths: {
-        'authentication'   : 'services/authentication',
+        'authentication'   : 'factories/authentication',
         'angular'          : 'libs/angular-flex/angular-flex',
         'angular-route'    : 'libs/angular-route/angular-route',
-        'domReady'         : 'libs/requirejs-domready/domReady',
         'text'             : 'libs/requirejs-text/text',
         'bootstrap'        : 'libs/bootstrap/dist/js/bootstrap',
         'lodash'           : 'libs/lodash/lodash',
-        'jquery'           : 'libs/jquery/dist/jquery'
+        'jquery'           : 'libs/jquery/dist/jquery',
+        'URIjs'               : 'libs/uri.js/src',
+        'linqjs'              : 'libs/linqjs/linq.min',
+        'ammap3WorldHigh'     : 'directives/map/worldEUHigh',
+        'ammap3'              : 'libs/ammap3/ammap/ammap',
+        'ammap-theme'         : 'libs/ammap3/ammap/themes/light',
+        'ammap-resp'          : 'libs/ammap3/ammap/plugins/responsive/responsive',
+        'ammap-export'        : 'libs/ammap3/ammap/plugins/export/export.min',
+        'ammap-ex-fabric'     : 'libs/ammap3/ammap/plugins/export/libs/fabric.js/fabric.min',
+        'ammap-ex-filesaver'  : 'libs/ammap3/ammap/plugins/export/libs/FileSaver.js/FileSaver.min',
+        'ammap-ex-pdfmake'    : 'libs/ammap3/ammap/plugins/export/libs/pdfmake/pdfmake.min',
+        'ammap-ex-vfs-fonts'  : 'libs/ammap3/ammap/plugins/export/libs/pdfmake/vfs_fonts',
+        'ammap-ex-jszip'      : 'libs/ammap3/ammap/plugins/export/libs/jszip/jszip.min',
+        'ammap-ex-xlsx'       : 'libs/ammap3/ammap/plugins/export/libs/xlsx/xlsx.min',
     },
     shim: {
         'libs/angular/angular'     : { deps: ['jquery'] },
         'angular'                  : { deps: ['libs/angular/angular'] },
         'angular-route'            : { deps: ['angular'] },
-        'bootstrap'                : { deps: ['jquery'] }
+        'bootstrap'                : { deps: ['jquery'] },
+        'ammap3WorldHigh'          : { deps: ['ammap3'] },
+        'ammap-theme'              : { deps: ['ammap3']},
+        'ammap-resp'               : { deps: ['ammap3']},
+        'amchart3-serial'          : { deps: ['amchart3']},
+        'amchart3-pie'             : { deps: ['amchart3']},
+        'amchart3-theme-light'     : { deps: ['amchart3']},
+        'ammap-export'             : { deps: ['ammap3']},
     },
 });
 
 // BOOT
 
-require(['angular', 'domReady!', 'bootstrap', 'app', 'routes', 'template'], function(ng, doc) {
+require(['angular', 'app', 'bootstrap', 'authentication', 'routes', 'template'], function(ng, app) {
 
-    ng.bootstrap(doc, ['app']);
-    ng.resumeBootstrap();
+    ng.element(document).ready(function () {
+         ng.bootstrap(document, [app.name]);
+    });
 });
+
+// Fix IE Console
+(function(a){a.console||(a.console={});for(var c="log info warn error debug trace dir group groupCollapsed groupEnd time timeEnd profile profileEnd dirxml assert count markTimeline timeStamp clear".split(" "),d=function(){},b=0;b<c.length;b++)a.console[c[b]]||(a.console[c[b]]=d)})(window); //jshint ignore:line

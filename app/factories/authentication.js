@@ -1,8 +1,22 @@
 /* jshint sub:true */
 
-define(['app', 'angular'], function (app, ng) { 'use strict';
+define(['app', 'angular', 'jquery'], function (app, ng, $) { 'use strict';
 
-	app.factory('apiToken', ["$q", "$rootScope", "$window", "$document", function($q, $rootScope, $window, $document) {
+	app.factory('apiToken', ['$q', '$rootScope', '$window', '$document', '$timeout', function($q, $rootScope, $window, $document, $timeout) {
+
+		var authenticationFrameQ = $q(function(resolve, reject) {
+
+			var frame = $('<iframe src="https://accounts.cbd.int/app/authorize.html" style="display:none"></iframe>');
+
+			$('body').prepend(frame);
+
+            var timeout = $timeout(function() { reject('operation timed out (5000ms)'); }, 5000);
+
+			frame.load(function(evt) {
+                $timeout.cancel(timeout);
+				resolve(evt.target || evt.srcElement);
+			});
+		});
 
 		var pToken;
 
@@ -12,45 +26,61 @@ define(['app', 'angular'], function (app, ng) { 'use strict';
 		//============================================================
 		function getToken() {
 
-			var authenticationFrame = $document.find('#authenticationFrame')[0];
+			return $q.when(authenticationFrameQ).then(function(authenticationFrame){
 
-			if(!authenticationFrame) {
-				pToken = pToken || null;
-			}
-
-			if(pToken!==undefined) {
-				return $q.when(pToken || null);
-			}
-
-			pToken = null;
-
-			var defer = $q.defer();
-
-			var receiveMessage = function(event)
-			{
-				if(event.origin!='https://accounts.cbd.int')
-					return;
-
-				var message = JSON.parse(event.data);
-
-				if(message.type=='authenticationToken') {
-					defer.resolve(message.authenticationToken || null);
-
-					if(message.authenticationEmail)
-						$rootScope.lastLoginEmail = message.authenticationEmail;
+				if(!authenticationFrame) {
+					pToken = pToken || null;
 				}
-				else {
-					defer.reject('unsupported message type');
+
+				if(pToken!==undefined) {
+					return $q.when(pToken || null);
 				}
-			};
 
-			$window.addEventListener('message', receiveMessage);
+				pToken = null;
 
-			pToken = defer.promise.then(function(t){
+				var defer = $q.defer();
+				var unauthorizedTimeout = $timeout(function(){
+					console.error('accounts.cbd.int is not available / call is made from an unauthorized domain');
+					defer.resolve(null);
+				}, 1000);
 
-				pToken = t;
+				var receiveMessage = function(event)
+				{
+					$timeout.cancel(unauthorizedTimeout);
 
-				return t;
+					if(event.origin!='https://accounts.cbd.int')
+						return;
+
+					var message = JSON.parse(event.data);
+
+					if(message.type=='authenticationToken') {
+						defer.resolve(message.authenticationToken || null);
+
+						if(message.authenticationEmail)
+							$rootScope.lastLoginEmail = message.authenticationEmail;
+					}
+					else {
+						defer.reject('unsupported message type');
+					}
+				};
+
+				$window.addEventListener('message', receiveMessage);
+
+				pToken = defer.promise.then(function(t){
+
+					pToken = t;
+
+					return t;
+
+				}).finally(function(){
+
+					$window.removeEventListener('message', receiveMessage);
+
+				});
+
+				authenticationFrame.contentWindow.postMessage(JSON.stringify({ type : 'getAuthenticationToken' }), 'https://accounts.cbd.int');
+
+				return pToken;
 
 			}).catch(function(error){
 
@@ -59,16 +89,7 @@ define(['app', 'angular'], function (app, ng) { 'use strict';
 				console.error(error);
 
 				throw error;
-
-			}).finally(function(){
-
-				$window.removeEventListener('message', receiveMessage);
-
 			});
-
-			authenticationFrame.contentWindow.postMessage(JSON.stringify({ type : 'getAuthenticationToken' }), 'https://accounts.cbd.int');
-
-			return pToken;
 		}
 
 		//============================================================
@@ -77,24 +98,25 @@ define(['app', 'angular'], function (app, ng) { 'use strict';
 	    //============================================================
 		function setToken(token, email) { // remoteUpdate:=true
 
-			pToken = token || undefined;
+			return $q.when(authenticationFrameQ).then(function(authenticationFrame){
 
-			var authenticationFrame = $document.find('#authenticationFrame')[0];
+				pToken = token || undefined;
 
-			if(authenticationFrame) {
+				if(authenticationFrame) {
 
-				var msg = {
-					type : "setAuthenticationToken",
-					authenticationToken : token,
-					authenticationEmail : email
-				};
+					var msg = {
+						type : 'setAuthenticationToken',
+						authenticationToken : token,
+						authenticationEmail : email
+					};
 
-				authenticationFrame.contentWindow.postMessage(JSON.stringify(msg), 'https://accounts.cbd.int');
-			}
+					authenticationFrame.contentWindow.postMessage(JSON.stringify(msg), 'https://accounts.cbd.int');
+				}
 
-			if(email) {
-				$rootScope.lastLoginEmail = email;
-			}
+				if(email) {
+					$rootScope.lastLoginEmail = email;
+				}
+			});
 		}
 
 		return {
@@ -102,7 +124,6 @@ define(['app', 'angular'], function (app, ng) { 'use strict';
 			set : setToken
 		};
 	}]);
-
 
 	app.factory('authentication', ["$http", "$rootScope", "$q", "apiToken", function($http, $rootScope, $q, apiToken) {
 
@@ -147,16 +168,6 @@ define(['app', 'angular'], function (app, ng) { 'use strict';
 			});
 		}
 
-		//==============================
-		//
-		//==============================
-		function LEGACY_user() {
-
-		    console.warn("authentication.user() is DEPRECATED. Use: getUser()");
-
-			return $rootScope.user;
-		}
-
 		//============================================================
 	    //
 	    //
@@ -191,7 +202,6 @@ define(['app', 'angular'], function (app, ng) { 'use strict';
 			}).catch(function(error) {
 
 				throw { error:error.data, errorCode : error.status };
-
 			});
 		}
 
@@ -227,7 +237,7 @@ define(['app', 'angular'], function (app, ng) { 'use strict';
 			getUser  : getUser,
 			signIn   : signIn,
 			signOut  : signOut,
-			user     : LEGACY_user,
+//			user     : LEGACY_user,
 		};
 
 	}]);

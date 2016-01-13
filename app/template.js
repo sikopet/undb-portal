@@ -1,7 +1,7 @@
 define(['app', 'authentication'], function(app) {
     'use strict';
 
-    app.controller('TemplateController', ['$scope', '$rootScope', '$window', '$location', '$route', function($scope, $rootScope, $window, $location, $route) {
+    app.controller('TemplateController', ['$scope', '$rootScope', '$window', '$location', '$route', 'authentication', function($scope, $rootScope, $window, $location, $route, authentication) {
 
         $scope.path = $location.path();
 
@@ -13,30 +13,26 @@ define(['app', 'authentication'], function(app) {
             $scope.path = $location.path();
         });
 
+        authentication.getUser().then(function (user) {
+            $scope.user = user;
+        });
 
         //============================================================
         //
         //
         //============================================================
-        $scope.signIn = function() {
-            $location.url('/signin');
-        };
-
-        //============================================================
-        //
-        //
-        //============================================================
-        $scope.signOut = function() {
-            authentication.signOut();
-        };
-
-        //============================================================
-        //
-        //
-        //============================================================
-        $scope.actionSignup = function() {
+        $scope.actionSignIn = function() {
             var redirect_uri = $window.encodeURIComponent($location.protocol() + '://' + $location.host() + ':' + $location.port() + '/');
-            $window.location.href = 'https://accounts.cbd.int/signup?redirect_uri=' + redirect_uri;
+            $window.location.href = 'https://accounts.cbd.int/signin?returnUrl=' + redirect_uri;
+//            $location.url('/signin');
+        };
+
+        //============================================================
+        //
+        //
+        //============================================================
+        $scope.asctionSignOut = function() {
+            authentication.signOut();
         };
 
         //============================================================
