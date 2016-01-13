@@ -6,7 +6,7 @@ define(['text!./ammap3.html', 'app', 'lodash', 'ammap3', 'ammap3WorldHigh', 'amm
       restrict: 'EAC',
       template: template,
       replace: true,
-      require: ['^reportingDisplay', '^ammap3'],
+      require: ['^undbMap', '^ammap3'],
       scope: {
         items: '=ngModel',
         schema: '=schema',

@@ -6,7 +6,7 @@ define(['text!./filter-nbsap.html', 'app', 'lodash'], function(template, app, _)
       restrict: 'E',
       template: template,
       replace: true,
-      require: '^reportingDisplay',
+      require: '^undbMap',
       scope: {
         title: '@title',
       },

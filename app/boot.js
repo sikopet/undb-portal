@@ -3,13 +3,15 @@ require.config({
     waitSeconds: 120,
     baseUrl : 'app/',
     paths: {
-        'authentication'   : 'services/authentication',
+        'authentication'   : 'factories/authentication',
         'angular'          : 'libs/angular-flex/angular-flex',
         'angular-route'    : 'libs/angular-route/angular-route',
         'text'             : 'libs/requirejs-text/text',
         'bootstrap'        : 'libs/bootstrap/dist/js/bootstrap',
         'lodash'           : 'libs/lodash/lodash',
         'jquery'           : 'libs/jquery/dist/jquery',
+        'URIjs'               : 'libs/uri.js/src',
+        'linqjs'              : 'libs/linqjs/linq.min',
         'ammap3WorldHigh'     : 'directives/map/worldEUHigh',
         'ammap3'              : 'libs/ammap3/ammap/ammap',
         'ammap-theme'         : 'libs/ammap3/ammap/themes/light',
@@ -26,7 +28,14 @@ require.config({
         'libs/angular/angular'     : { deps: ['jquery'] },
         'angular'                  : { deps: ['libs/angular/angular'] },
         'angular-route'            : { deps: ['angular'] },
-        'bootstrap'                : { deps: ['jquery'] }
+        'bootstrap'                : { deps: ['jquery'] },
+        'ammap3WorldHigh'          : { deps: ['ammap3'] },
+        'ammap-theme'              : { deps: ['ammap3']},
+        'ammap-resp'               : { deps: ['ammap3']},
+        'amchart3-serial'          : { deps: ['amchart3']},
+        'amchart3-pie'             : { deps: ['amchart3']},
+        'amchart3-theme-light'     : { deps: ['amchart3']},
+        'ammap-export'             : { deps: ['ammap3']},
     },
 });
 
