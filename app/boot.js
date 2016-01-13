@@ -12,6 +12,7 @@ require.config({
         'jquery'           : 'libs/jquery/dist/jquery',
         'URIjs'               : 'libs/uri.js/src',
         'linqjs'              : 'libs/linqjs/linq.min',
+        'moment'              : 'libs/moment/moment',
         'ammap3WorldHigh'     : 'directives/map/worldEUHigh',
         'ammap3'              : 'libs/ammap3/ammap/ammap',
         'ammap-theme'         : 'libs/ammap3/ammap/themes/light',
