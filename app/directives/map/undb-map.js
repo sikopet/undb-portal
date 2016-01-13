@@ -1,28 +1,28 @@
-define(['text!./reporting-display.html',
+define(['text!./undb-map.html',
   'app',
   'jquery',
   'lodash',
   './ammap3',
 
-  "utilities/km-utilities",
-  "./results-list",
+//  "utilities/km-utilities",
+  //"./results-list",
   "./filter-assessment",
-  "./filter-report",
+  //"./filter-report",
   "./filter-nbsap",
-  "./filter-all",
-  "./filter-indicator",
-  "./filter-target",
-  "./filter-resource-mobilisation",
+//  "./filter-all",
+  //"./filter-indicator",
+  //"./filter-target",
+  //"./filter-resource-mobilisation",
 ], function(template, app, $, _) {
   'use strict';
 
-  app.directive('reportingDisplay', ['$http', 'realm', '$q', '$timeout', '$location', '$filter', function($http, realm, $q, $timeout, $location, $filter) {
+  app.directive('undbMap', ['$http', 'realm', '$q', '$timeout', '$location', '$filter', function($http, realm, $q, $timeout, $location, $filter) {
     return {
       restrict: 'E',
       template: template,
       replace: true,
       scope: {},
-      require: 'reportingDisplay',
+      require: 'undbMap',
       link: function($scope, $element, $attr, reportingDisplay) { // jshint ignore:line
 
         $scope.loaded = false;

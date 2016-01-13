@@ -6,7 +6,7 @@ define(['text!./filter-assessment.html', 'app', 'lodash'], function(template, ap
       restrict: 'EAC',
       template: template,
       replace: true,
-      require: '^reportingDisplay',
+      require: '^undbMap',
       scope: {
         title: '@title',
         items: '=ngModel',
