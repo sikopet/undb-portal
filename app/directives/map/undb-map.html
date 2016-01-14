@@ -11,16 +11,16 @@
 			overflow: hidden;
 		}
 
-		#map .sideSelection {
+		 .sideSelection {
 			display: inline-block;
 			padding: 15px 0;
 		}
 
-		#map .floatRight {
+	 .floatRight {
 			float: right;
 		}
 
-		#map .sideSelection h5 {
+		 .sideSelection h5 {
 			color: #fff;
 			font-size: 1.4em;
 			margin-top: 20px;
@@ -28,18 +28,19 @@
 			text-indent: 15px;
 		}
 
-		#map .sideSelection ul li {
+	 .sideSelectionRow {
 			color: #fff;
 			cursor: pointer;
 			font-size: 1em;
 			height: 37px;
 			line-height: 37px;
-			margin: 24px 0;
-			min-width: 200px;
-			padding: 0 15px;
+			margin: 14px 0;
+			min-width: 100%;
+			padding: 0 10px;
+white-space: nowrap;
 		}
 
-		#map .sideSelection ul li.active {
+		 .sideSelectionRowActive {
 			background-color: #004844;
 			border-bottom-left-radius: 5px;
 			border-bottom-right-radius: 0;
@@ -54,59 +55,64 @@
 			webkit-border-bottom-right-radius: 0;
 			webkit-border-top-left-radius: 5px;
 			webkit-border-top-right-radius: 0;
+			cursor: pointer;
+			font-size: 1em;
+			height: 37px;
+			line-height: 37px;
+			margin: 14px 0;
+			min-width: 100%;
+			padding: 0 10px;
 			z-index: 10;
+			white-space: nowrap;
 		}
 
-		#map .sideSelection ul li.active:after {
-			background-image: url('app/img/tip_right.svg');
-			background-repeat: no-repeat;
-			content: '';
+		.sideSelectionRowActiveIMG{
+
+
+
 			height: 37px;
 			position: absolute;
-			right: -37px;
+			right: -34px;
 			width: 37px;
 			z-index: 10;
 		}
 
-		#map .sideSelection ul li select {
+		 /*.sideSelectionRow:select {
 			background-color: #004844;
 			border-color: #004844;
 			color: #fff;
 			display: inline-block;
 			margin-left: 20px;
 			width: 85px;
-		}
+		}*/
 
-		#googlemap {
-			display: inline-block;
-			height: 480px;
-			overflow: hidden;
-			padding: 0;
-			position: relative;
-			text-align: center;
-			z-index: 5;
-		}
+
 
 		.mapPopup {
 			background-color: rgba(0, 72, 68, 0.9);
 			border-radius: 5px;
 			bottom: 8%;
+			right: 2%;
+			left: 2%;
 			display: table;
-			margin: 0 1%;
+			margin: 0 0 0 0;
 			min-height: 80px;
 			moz-border-radius: 5px;
 			padding: 10px;
 			position: absolute;
 			vertical-align: middle;
 			webkit-border-radius: 5px;
-			width: 96.5%;
+			width: 95%;
 		}
 
 		.mapPopup p {
 			color: #fff;
 			display: table-cell;
-			max-width: 90%;
+			max-width: 75%;
 			vertical-align: middle;
+			text-align: center;
+			font-size: 16px;
+			line-height: 120%;
 		}
 
 		.mapPopup p a {
@@ -155,20 +161,27 @@
 					</div>
 
 				</div> -->
-				<div class="col-md-2" style="margin-right:0px;padding-right:0px;">
-					<div class="panel-group" id="accordion">
-						<filter-parties title='Parties to the CBD' count='count'></filter-parties>
+				<div class="col-md-2 col-xs-12" style="margin-right:0px;padding-right:0px;">
+
+					<div class="row sideSelection" >
+						<h5>UNDB Network</h5>
+						<filter-actors title='Actors' active='filters.actors.active' message='message'></filter-actors>
+						<filter-parties title='Parties to the CBD' active='filters.parties.active' message='message'></filter-parties>
+						<filter-bio-champs title='Biodiversity Champions' active='filters.bioChamps.active' message='message'></filter-bio-champs>
+						<filter-case-studies title='Case Studies' active='filters.caseStudies.active' message='message'></filter-case-studies>
+						<filter-projects title='Specific Projects' active='filters.projects.active' message='message'></filter-projects>
+						<filter-actions title='Actions' active='filters.actions.active' message='message'></filter-actions>
 					</div>
 				</div>
 
-				<div class="col-md-10">
+				<div class="col-md-10 col-xs-12" style="padding-left:0px;margin-left:0px;">
 					<!-- Replace img with the Map  -->
-					<ammap3 ng-model='documents' schema='selectedSchema' zoom-to='zoomToMap' debug="false"></ammap3>
-					<div class="mapPopup">
-						<p>The UNDB Network comprises all Actors contributing to the implementation of the 2011-2020 Strategic Plan for Biodiversity.</p>
+					<ammap3 ng-model='documents' schema='selectedSchema'  debug="true"></ammap3>
+					<div class="mapPopup"  ng-click="toggleCaption=!toggleCaption;" ng-show="toggleCaption">
+					<p>{{message}}</p>
 						<button type="button" class="closeButton"></button>
 					</div>
 				</div>
-	
+
 	</div>
 </div>

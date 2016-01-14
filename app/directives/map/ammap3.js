@@ -20,6 +20,7 @@ define(['text!./ammap3.html', 'app', 'lodash', 'ammap3', 'ammap3WorldHigh', 'amm
         var ammap3 = requiredDirectives[1];
         $scope.legendTitle = "All Reporting to the CBD";
         $scope.leggends = {
+          developerMode: true,
           aichiTarget: [{
             id: 0,
             title: 'No Data',
@@ -82,10 +83,10 @@ define(['text!./ammap3.html', 'app', 'lodash', 'ammap3', 'ammap3WorldHigh', 'amm
         $scope.$watch('items', function() {
           ammap3.generateMap($scope.schema);
         });
-        //external zoomToMap
-        $scope.$watch('zoomTo', function() {
-          zoomTo();
-        }); //
+        // //external zoomToMap
+        // $scope.$watch('zoomTo', function() {
+        //   zoomTo();
+        // }); //
         initMap();
 
         ammap3.writeMap();
@@ -126,19 +127,20 @@ define(['text!./ammap3.html', 'app', 'lodash', 'ammap3', 'ammap3WorldHigh', 'amm
             $timeout(function() {
               console.log({
                 "latitude": info.latitude,
-                "longitude": info.longitude
+                "longitude": info.longitude,
+                "all":info,
               });
             });
           });
         }
 
-        //=======================================================================
-        //
-        //=======================================================================
-        function zoomTo() {
-          if ($scope.zoomTo[0])
-            $scope.map.clickMapObject(ammap3.getMapObject($scope.zoomTo[0]));
-        } //$scope.legendHide
+        // //=======================================================================
+        // //
+        // //=======================================================================
+        // function zoomTo() {
+        //   if ($scope.zoomTo[0])
+        //     $scope.map.clickMapObject(ammap3.getMapObject($scope.zoomTo[0]));
+        // } //$scope.legendHide
 
         //=======================================================================
         //
@@ -174,6 +176,9 @@ define(['text!./ammap3.html', 'app', 'lodash', 'ammap3', 'ammap3WorldHigh', 'amm
                 "mapColor":'#069554',
 
               },
+              "zoomControl": {
+            		"left": 28,
+            	},
             "export": {
               "libs": { "autoLoad": false},
               "enabled": true,

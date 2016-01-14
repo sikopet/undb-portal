@@ -5,14 +5,14 @@ define(['text!./undb-map.html',
   './ammap3',
 
  "factories/km-utilities",
-  //"./results-list",
-//  "./filter-assessment",
-  //"./filter-report",
+
   "./filter-parties",
-//  "./filter-all",
-  //"./filter-indicator",
-  //"./filter-target",
-  //"./filter-resource-mobilisation",
+  "./filter-case-studies",
+  "./filter-actors",
+  "./filter-actions",
+  "./filter-projects",
+  "./filter-bio-champs"
+
 ], function(template, app, $, _) {
   'use strict';
 
@@ -24,25 +24,34 @@ define(['text!./undb-map.html',
       scope: {},
       require: 'undbMap',
       link: function($scope, $element, $attr, reportingDisplay) { // jshint ignore:line
-
+        $scope.activeFilter= 'actors';
         $scope.loaded = false;
         $scope.zoomToMap = [];
         $scope.showCountry = '';
         $scope.subQueries = {};
         $scope.queriesStrings = {};
+        $scope.message='';
 
         $http.get("/api/v2013/thesaurus/domains/countries/terms", {
           cache: true
         }).then(function(o) {
-          $scope.countries = $filter('orderBy')(o.data, 'title|lstring');
+          $scope.countries = o.data;//$filter('orderBy')(o.data, 'title|lstring');
           return;
-        }).then(function() {
-          reportingDisplay.search();
         });
 
         $element.find("#customHome").on('click', function(event) {
           $scope.$broadcast('customHome', 'show');
         });
+        $scope.message="The UNDB Network comprises all Actors contributing to the implementation of the 2011-2020 Strategic Plan for Biodiversity.";
+        $scope.toggleCaption=1;
+        $scope.filters={
+          'parties':{active:false},
+          'actors':{active:true},
+          'caseStudies':{active:false},
+          'bioChamps':{active:false},
+          'projects':{active:false},
+          'actions':{active:false},
+        };
 
         $scope.urlStrings = {
           'all': {
@@ -69,9 +78,10 @@ define(['text!./undb-map.html',
           var subQueries = [];
 
           _.each($scope.subQueries, function(filter, filterName) {
-            if(filterName=="partners")return 'partners';
+
+            if(filterName=="parties")return q = 'parties';
             subQueries = _.compact([
-              getFormatedSubQuery(filterName, 'schema_s'),
+
               getFormatedSubQuery(filterName, 'reportType_s'),
               getFormatedSubQuery(filterName, 'nationalTarget_EN_t'),
               getFormatedSubQuery(filterName, '_latest_s'),
@@ -79,7 +89,7 @@ define(['text!./undb-map.html',
             ]);
           });
 
-          if (subQueries.length)
+          if (subQueries.length && q!='partners')
             q += " AND " + subQueries.join(" AND ");
           return q;
         }; //$scope.buildQuery
@@ -120,10 +130,11 @@ define(['text!./undb-map.html',
             readQueryString();
             if (_.isEmpty($scope.subQueries)) return;
             var queryString=$scope.buildQuery();
-            if(queryString == 'partners'){
 
-              $scope.documents=$scope.countries;  
-
+            if(queryString == 'parties'){
+console.log('$scope.countries',$scope.countries);
+              $scope.documents=$scope.countries;
+return;
             }
 
 
@@ -150,6 +161,7 @@ define(['text!./undb-map.html',
               cache: true
             }).success(function(data) {
               canceler = null;
+
               $scope.count = data.response.numFound;
               $scope.count = data.response.docs.length;
               $scope.documents = groupByCountry(data.response.docs);
@@ -231,7 +243,18 @@ define(['text!./undb-map.html',
             });
           } //setNumDocumentsInCountry()
 
-
+          //=======================================================================
+          //getter/setter
+          //=======================================================================
+          function filterActive(activeFilter) {
+              $scope.toggleCaption=true;
+              _.each($scope.filters,function(filter){
+                  filter.active=false;
+              });
+              if (activeFilter)
+                $scope.filters[activeFilter].active = true;
+                console.log($scope.filters);
+          }
 
           //=======================================================================
           //
@@ -334,6 +357,7 @@ define(['text!./undb-map.html',
           } //showCountryResultList
 
 
+          this.filterActive=filterActive;
           this.showCountryResultList = showCountryResultList;
           this.zoomToCountry = zoomToCountry;
           this.deleteAllSubQuery = deleteAllSubQuery;

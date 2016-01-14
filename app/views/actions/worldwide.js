@@ -6,19 +6,21 @@ define(['jquery','app', 'angular', 'authentication', '../../directives/map/undb-
 			/* MAP */
 
 			// closing the green popup
-			$('#map .mapPopup button.closeButton').click(function(){
-				$(this).parent('.mapPopup').hide();
-			});
+			// $('#map .mapPopup button.closeButton').click(function(){
+			// 	$(this).parent('.mapPopup').hide();
+			// });
 
-			// selecting a UNDB Network
-			$('#map .sideSelection ul li').click(function(){
-				$('#map .sideSelection ul li.active').removeClass('active');
-				$(this).addClass('active');
-
-				var text = $(this).data('text');
-				$('.mapPopup').children('p').html(text)
-				$('.mapPopup').show();
-			});
+			// // selecting a UNDB Network
+			// $('.sideSelectionRow').click(function(){
+			// 	$('.sideSelectionRowActive').addClass('sideSelectionRow');
+			// 	$('.sideSelectionRowActive').removeClass('sideSelectionRowActive');
+			//
+			// 	$(this).addClass('sideSelectionRowActive');
+			//
+			// 	var text = $(this).data('text');
+			// 	$('.mapPopup').children('p').html(text)
+			// 	$('.mapPopup').show();
+			// });
 
 			/* ////MAP */
 

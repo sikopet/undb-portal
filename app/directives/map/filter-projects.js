@@ -1,7 +1,7 @@
-define(['text!./filter-parties.html', 'app', 'lodash'], function(template, app, _) {
+define(['text!./filter-projects.html', 'app', 'lodash'], function(template, app, _) {
   'use strict';
 
-  app.directive('filterParties', [function() {
+  app.directive('filterProjects', [function() {
     return {
       restrict: 'E',
       template: template,
@@ -14,8 +14,8 @@ define(['text!./filter-parties.html', 'app', 'lodash'], function(template, app, 
       },
       link: function($scope, $element, $attr,undbMap) {
           $scope.queries = {
-            'parties': {
-              'schema_s': ['parties'],
+            'parnters': {
+              'schema_s': ['partners'],
             }
           };
 
@@ -23,11 +23,11 @@ define(['text!./filter-parties.html', 'app', 'lodash'], function(template, app, 
           //
           //=======================================================================
           $scope.loadRecords = function() {
-            $scope.message="With 196 Parties, the Convention on Biological Diversity has near universal participation among countries.";
-            undbMap.filterActive('parties');
+            $scope.message="Projects are long term initiatives at the national level or beyond, and feature elements of capacity building.";
+            undbMap.filterActive('projects');
 
-            undbMap.addSubQuery(_.cloneDeep($scope.queries), 'parties');
-            undbMap.search();
+          //  undbMap.addSubQuery(_.cloneDeep($scope.queries), 'partners');
+          //  undbMap.search();
           }; // loadRecords
 
         } //link
