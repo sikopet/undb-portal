@@ -13,7 +13,21 @@ define(['angular'], function(angular) { 'use strict';
         $httpProvider.useApplyAsync(true);
         $httpProvider.interceptors.push('authenticationHttpIntercepter');
         $httpProvider.interceptors.push('realmHttpIntercepter');
+        $httpProvider.interceptors.push('apiHttpIntercepter');
     }]);
+
+    app.factory('apiHttpIntercepter', [function() {
+
+		return {
+			request: function(config) {
+
+                if(/^\/api\//i.test(config.url))
+                    config.url = "https://api.cbd.int"+config.url;
+
+                return config;
+			}
+		};
+	}]);
 
     app.factory('realmHttpIntercepter', ["realm", function(realm) {
 
