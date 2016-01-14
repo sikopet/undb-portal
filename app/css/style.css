@@ -306,11 +306,11 @@ ol.basic-list
 	overflow: hidden;
 	text-decoration: none !important;
 	webkit-border-radius: 10px;
-	width: 322px;
+	width: 282px;
 }
 .linkBlock.medium
 {
-	width: 300px;
+	width: 282px;
 }
 .linkBlock.medium>div p
 {
@@ -400,7 +400,7 @@ ol.basic-list
 }
 .linkBlock.mediumText h5
 {
-	width: 160px;
+	width: 120px;
 }
 .linkBlock.mediumText p
 {
@@ -421,7 +421,7 @@ ol.basic-list
 	padding: 5px;
 	position: relative;
 	vertical-align: middle;
-	width: 325px;
+	width: 282px;
 }
 .linkBlock h5
 {
@@ -442,7 +442,7 @@ ol.basic-list
 	font-size: .8em;
 	margin: 0 14px;
 	text-align: left;
-	width: 194px;
+	width: 104px;
 }
 .linkBlock.downloadLanguage ul.languageList
 {
