@@ -404,11 +404,11 @@ ol.basic-list
 }
 .linkBlock.mediumText p
 {
-	width: 160px !important;
+	width: 138px !important;
 }
 .linkBlock.smallText h5
 {
-	width: 120px;
+	width: 160px;
 }
 .linkBlock.smallText p
 {
@@ -432,7 +432,7 @@ ol.basic-list
 	margin: 0 14px 6px;
 	text-align: left;
 	vertical-align: bottom;
-	width: 172px;
+	width: 160px;
   font-weight: bold;
 }
 .linkBlock p
@@ -523,6 +523,7 @@ ol.basic-list
 	text-align: center;
 	top: 30px;
 	width: 100% !important;
+  font-weight: bold;
 }
 .linkBlock.textTop img
 {
@@ -538,7 +539,7 @@ ol.basic-list
 }
 .linkBlock.center-text h5,.linkBlock.center-text p
 {
-	margin-left: 42px;
+	margin-left: 22px;
 }
 .linkBlock.smaller-title h5
 {
