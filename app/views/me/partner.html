@@ -30,38 +30,130 @@
         </div>
 
         <div class="row">
-            <form class="form-horizontal">
+            <form class="form-horizontal single" ng-submit="submit(document);">
 
                 <div class="form-group">
-                    <label for="name" class="col-sm-2 control-label" required>Organisation</label>
-                    <div class="col-sm-10">
-                        <input type="email" ng-model="document.name" required class="form-control" id="name" placeholder="Email">
+                    <label for="name" class="col-sm-3 control-label required">Organisation :</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="name" ng-model="document.name" placeholder="Org. name" required>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="website" class="col-sm-2 control-label">Website</label>
-                    <div class="col-sm-10">
-                        <input type="email" ng-model="document.website" class="form-control" id="website" placeholder="Website">
+                    <label for="webite" class="col-sm-3 control-label">Website :</label>
+                    <div class="col-sm-6">
+                        <input type="url" class="form-control" id="website" ng-model="document.website" placeholder="Org. website">
                     </div>
                 </div>
 
-
                 <div class="form-group">
-                    <label for="country" class="col-sm-2 control-label" required>Country</label>
-                    <div class="col-sm-10">
-                        <select ng-model="document.country" required class="form-control" id="country">
+                    <label for="country" class="col-sm-3 control-label" required>Country :</label>
+                    <div class="col-sm-6">
+                        <select class="form-control" id="country" ng-model="document.country" placeholder="country" required ng-options="c.code as c.name for c in countries|orderBy:'name.toLowerCase()' ">
                             <option value="">Select your country</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="country" class="col-sm-2 control-label" required>...</label>
+                    <label for="address" class="col-sm-3 control-label" required>Address:</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="address" ng-model="document.address" placeholder="Org. address" required>
+                    </div>
                 </div>
 
-            </form>
+                <div class="form-group">
+                    <label for="googleMaps" class="col-sm-3 control-label" required>Google maps link :</label>
+                    <div class="col-sm-6">
+                        <input type="url" class="form-control" id="googleMaps" ng-model="document.googleMaps" ng-change="googleMapsChange(document.googleMaps)" placeholder="Google maps website address" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email" class="col-sm-3 control-label" required>Email :</label>
+                    <div class="col-sm-6">
+                        <input type="email" class="form-control" id="email" ng-model="document.email" placeholder="Contact email" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone" class="col-sm-3 control-label" required>Telephone :</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="phone" ng-model="document.phone" placeholder="Contact telephone number" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="facebook" class="col-sm-3 control-label" required>Facebook :</label>
+                    <div class="col-sm-6">
+                        <input type="url" class="form-control" id="facebook" ng-model="document.facebook" placeholder="Org. Facebook" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="twitter" class="col-sm-3 control-label" required>Twitter :</label>
+                    <div class="col-sm-6">
+                        <input type="url" class="form-control" id="twitter" ng-model="document.twitter" placeholder="Org. Twitter" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="description" class="col-sm-3 control-label" required>Short description of your organisation in one of the 6 United Nations languages (max. 1000 characters) :</label>
+                    <div class="col-sm-6">
+                        <textarea class="form-control" id="description" ng-model="document.description" cols="30" rows="10" required placeholder="Briefly describe your organisation and your work related to the United Nations Decade on Biodiversity (max. 1000 characters)"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="descriptionNative" class="col-sm-3 control-label">Short description of your organisation in your official language (max. 1000 characters) :</label>
+                    <div class="col-sm-6">
+                        <textarea class="form-control" id="descriptionNative" ng-model="document.descriptionNative" cols="30" rows="10" placeholder="Briefly describe your organisation and your work related to the United Nations Decade on Biodiversity (max. 1000 characters)"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="notes" class="col-sm-3 control-label">Comments or additional information (not visible online) :</label>
+                    <div class="col-sm-6">
+                        <textarea class="form-control" id="notes" ng-model="document.notes" cols="30" rows="5" placeholder="300 characters"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="logo" class="col-sm-3 control-label small-margin">Please attach a logo or image of your Action (max. 500KB).
+                        <br>The image on the profile will be fitted into 200 x 200 px.
+                    </label>
+                    <div class="col-sm-6">
+                        <input type="file" class="form-control" id="logo" accept="image/*" placeholder="Logo">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="" class="col-sm-3 control-label"></label>
+                    <div class="col-sm-6">
+                        <input type="submit" class="btn btn-primary btn-lg" value="Submit">
+                    </div>
+                </div>
+
+
+                <div class="errorMessage">
+                    Error Message
+                </div>
+
+                <div class="successMessage">
+                    <h6>Thank you for submitting your information</h3>
+                        <p>
+                            Once we have reviewed it we will send you a confirmation message. In the meantime we invite you to start using the logo of the United Nations Decade on Biodiversity on your website, information materials, etc., and join us on <a href="#">facebook</a> and <a href="#">twitter</a>.
+                        </p>
+                        <p>
+                            Please don’t hesitate to <a href="mailto:undb@cbd.int">contact us</a> if you have any questions.
+                        </p>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
+
+    <pre>{{document|json}}</pre>
+    <pre>{{countries|json}}</pre>
 </div>

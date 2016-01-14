@@ -12,6 +12,7 @@ require.config({
         'jquery'           : 'libs/jquery/dist/jquery',
         'URIjs'               : 'libs/uri.js/src',
         'linqjs'              : 'libs/linqjs/linq.min',
+        'guid'                : 'libs/ui-guid-generator/dist/ui-guid-generator.min',
         'moment'              : 'libs/moment/moment',
         'ammap3WorldHigh'     : 'directives/map/worldEUHigh',
         'ammap3'              : 'libs/ammap3/ammap/ammap',
@@ -37,6 +38,7 @@ require.config({
         'amchart3-pie'             : { deps: ['amchart3']},
         'amchart3-theme-light'     : { deps: ['amchart3']},
         'ammap-export'             : { deps: ['ammap3']},
+        'guid'                     : { exports: 'ui_guid_generator' },
     },
 });
 
