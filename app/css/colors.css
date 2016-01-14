@@ -31,3 +31,10 @@
 .color-black{
     color:#111;
 }
+.bg-blue{
+    background-color:#428bca!important;
+    color:white!important;
+}
+.color-blue{
+    color:#428bca!important;
+}
