@@ -87,7 +87,7 @@ div .display {display: table;}
 .basic-list li
 {
 	margin-left: 18px;
-	list-style-type: disc;	
+	list-style-type: disc;
 }
 .basic-list li a
 {
@@ -442,7 +442,7 @@ ol.basic-list
 	font-size: .8em;
 	margin: 0 14px;
 	text-align: left;
-	width: 120px;
+	width: 194px;
 }
 .linkBlock.downloadLanguage ul.languageList
 {
@@ -608,4 +608,120 @@ ol.basic-list
 .listImg > ul > li a {
   color: #069554;
   font-weight: bold;
+}
+
+
+/*left carousel-control*/
+.carousel-control .glyphicon-chevron-left, .carousel-control .glyphicon-chevron-right, .carousel-control .icon-next, .carousel-control .icon-prev {
+    top: 90%;
+}
+
+.carousel-control.right {
+    left: 18%;
+}
+.carousel-text {
+    position:absolute;
+    bottom: 0;
+    left:0;
+    right:400;
+    width:33%;
+    height:100%;
+    background-color:rgba(0,0,0,0.55);
+    color:#fff;
+    padding:10px 15px;
+    font-size:12px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+#welcome::before {
+    content: '';
+    background-image: url('../img/un_light.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    opacity: 0.2;
+    line-height: 400px;
+    width: 115%;
+    height: 115%;
+}
+
+#welcome div  {
+    /*vertical-align: middle;
+    display: inline-block;*/
+    position: absolute;
+    top: 10%;
+    left:25%;
+    transform: translate(-15%,15%);
+}
+/*xs*/
+@media(max-width:767px){
+    #welcome {
+        height:200px;
+    }
+    #welcome::before {
+        background-position: -140px;
+    }
+
+    .carousel-control .glyphicon-chevron-left, .carousel-control .glyphicon-chevron-right, .carousel-control .icon-next, .carousel-control .icon-prev {
+        top: 50%;
+    }
+
+    .carousel-control.right {
+        left: 85%;
+    }
+
+    .carousel-text {
+        position:absolute;
+        bottom: :0;
+        top:auto;
+        left:0;
+        width:100%;
+        height:33%;
+        background-color:rgba(0,0,0,0.55);
+        color:#fff;
+        padding:10px 15px;
+        font-size:12px;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+    }
+}
+
+/*sm*/
+@media(min-width:768px){
+    #welcome {
+        height:270px;
+    }
+    #welcome::before {
+        background-position: -210px;
+    }
+    .carousel-text {
+        top: 0;
+    }
+
+}
+/*md*/
+@media(min-width:992px){
+    #welcome {
+        height:350px;
+    }
+    #welcome::before {
+        width: 105%;
+        /*height: 110%;*/
+    }
+
+
+
+}
+/*lg*/
+@media(min-width:1200px){
+    #welcome {
+        height:474px;
+    }
+    #welcome::before {
+        width: 140%;
+        /*height: 110%;*/
+    }
 }
