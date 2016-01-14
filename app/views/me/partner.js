@@ -3,7 +3,7 @@ define(['lodash', 'guid', 'app'], function(_, guid) { 'use strict';
     return ['$scope', '$http', 'locale', function($scope, $http, locale) {
 
         $scope.submit           = submit;
-        $scope.googleMapsChange = extractGeoLocation;
+        $scope.googleMapsChange = updateGeoLocation;
 
         $http.get('https://api.cbd.int/api/v2015/countries', { cache:true, params: { f : { code : 1, name : 1 } } }).then(function(res) {
 
@@ -19,7 +19,7 @@ define(['lodash', 'guid', 'app'], function(_, guid) { 'use strict';
         //
         //
         //==============================
-        function extractGeoLocation(url) {
+        function updateGeoLocation(url) {
 
             var matches = /@(-?\d+\.\d+),(-?\d+\.\d+)/g.exec(url || "");
 
