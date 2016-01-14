@@ -726,3 +726,10 @@ ol.basic-list
         /*height: 110%;*/
     }
 }
+.img-block {
+  max-width: 140px;
+  max-height: 140px;
+  padding: 5px;
+  display:block;
+  margin: auto;
+}
