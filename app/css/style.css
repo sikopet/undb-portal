@@ -202,11 +202,51 @@ ol.basic-list
     border-radius: 15px;
     height: 160px;
     padding-right: 50px;
+}
 
+.box-rounded-sm-green {
+    border-style: solid;
+    border: 1px solid #ddd;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    height: 160px;
+    padding-left:5px;
+    padding-right: 40px;
+    margin:15px;
 }
 
 .border-bottom-cbd-green{
     border-bottom: 10px solid #009b48;
+}
+.border-bottom-cbd-green h5 {
+    line-height: 1.2em;
+    margin-top: 14px; 
+    margin-left:14px;
+    font-weight: bold;
+    color: #004844;
+}
+.border-bottom-cbd-green p{
+    line-height: 1.2em;
+    margin-left:14px;
+    padding: 2px;
+}
+.border-bottom-cbd-green p>a {
+    color: #069554;
+}
+.border-bottom-cbd-green img.image-icon{
+    margin-top: 25%;
+    margin-bottom: 25%;
+    float:right;
+    position:relative;
+}
+.border-bottom-cbd-green img.image-center{
+    margin-top: 5%;
+    margin-left: 20%;
+    margin-bottom: 5%;
+}
+.border-bottom-cbd-green p.indent-right{
+    margin-left: 20%; 
 }
 
 .border-bottom-blue{
@@ -261,39 +301,38 @@ ol.basic-list
     background-size: 15%;
 }
 
-.box-bg-fish-water-blue {
-    background: url("../images/backgrounds/fish-wave-blue-t.png") no-repeat bottom -3px right 15px;
+.box-bg-fish-water-green {
+    background: url("../images/backgrounds/fish-wave-green-t.png") no-repeat bottom -3px right 15px;
     background-size: 25%;
 }
-.box-bg-flamingo-blue {
-    background: url("../images/backgrounds/flamingo-blue-t.png") no-repeat bottom -3px right 15px;
+.box-bg-flamingo-green {
+    background: url("../images/backgrounds/flamingo-green-t.png") no-repeat bottom -3px right 15px;
     background-size: 15%;
 }
-.box-bg-people-blue {
-    background: url("../images/backgrounds/people-blue-t.png") no-repeat bottom -3px right 15px;
+.box-bg-people-green {
+    background: url("../images/backgrounds/people-green-t.png") no-repeat bottom -3px right 15px;
     background-size: 15%;
 }
-.box-bg-tree-blue {
-    background: url("../images/backgrounds/tree-blue-t.png") no-repeat bottom -3px right 15px;
+.box-bg-tree-green {
+    background: url("../images/backgrounds/tree-green-t.png") no-repeat bottom -3px right 15px;
     background-size: 15%;
 }
-.box-bg-flower-blue {
-    background: url("../images/backgrounds/flower-blue-t.png") no-repeat bottom -3px right 15px;
+.box-bg-flower-green {
+    background: url("../images/backgrounds/flower-green-t.png") no-repeat bottom -3px right 15px;
     background-size: 15%;
 }
-.box-bg-bee-blue {
-    background: url("../images/backgrounds/bee-blue-t.png") no-repeat bottom 10px right 15px;
+.box-bg-bee-green {
+    background: url("../images/backgrounds/bee-green-t.png") no-repeat bottom 10px right 15px;
     background-size: 15%;
 }
-.box-bg-bear-blue {
-    background: url("../images/backgrounds/bear-blue-t.png") no-repeat bottom -3px right 15px;
+.box-bg-bear-green {
+    background: url("../images/backgrounds/bear-green-t.png") no-repeat bottom -3px right 15px;
     background-size: 25%;
 }
-.box-bg-bird-blue {
-    background: url("../images/backgrounds/bird-blue-t.png") no-repeat bottom -3px right 15px;
+.box-bg-bird-green {
+    background: url("../images/backgrounds/bird-green-t.png") no-repeat bottom -3px right 15px;
     background-size: 15%;
 }
-
 
 .linkBlock
 {
