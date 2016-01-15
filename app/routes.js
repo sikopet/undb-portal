@@ -22,7 +22,9 @@ define(['app', 'lodash', 'text!views/index.html', 'views/index', 'providers/exte
             when('/actions/un',                                      { templateUrl: 'views/actions/un.html',     label:'By UN Organization',     resolveController: true }).
             when('/actions/calendar',                                { templateUrl: 'views/actions/calendar.html',     label:'Calendar',               resolveController: true }).
             when('/actions/participate',                             { templateUrl: 'views/actions/participate.html',     label:'Participate',            resolveController: true }).
-            when('/actions/submit',                                  { templateUrl: 'views/me/records.html',     label:'Participate',            resolveController: true, resolveUser: true, resolve : { securized : securize(['User']) } }).
+            when('/actions/submit',                                  { templateUrl: 'views/actions/submit.html',     label:'Participate',            resolveController: true, resolveUser: true, resolve : { securized : securize(['User']) } }).
+            when('/actions/submit-form',                             { templateUrl: 'views/actions/submit-form.html',     label:'Form',            resolveController: true, resolveUser: true, resolve : { securized : securize(['User']) } }).
+            when('/actions/submit-form-done',                        { templateUrl: 'views/actions/submit-form-done.html',     label:'Thanks',            resolveController: false, resolveUser: true, resolve : { securized : securize(['User']) } }).
 
             when('/actors',                                         { templateUrl: 'views/actors/index.html',     label:'Actors',               resolveController: true }).
             when('/actors/abttf',                                   { templateUrl: 'views/actors/abttf.html',     label:'ABTTF',                    resolveController: true }).

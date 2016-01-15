@@ -5,14 +5,14 @@ define(['text!./undb-map.html',
   './ammap3',
 
  "factories/km-utilities",
-  //"./results-list",
-  "./filter-assessment",
-  //"./filter-report",
-  "./filter-nbsap",
-//  "./filter-all",
-  //"./filter-indicator",
-  //"./filter-target",
-  //"./filter-resource-mobilisation",
+
+  "./filter-parties",
+  "./filter-case-studies",
+  "./filter-actors",
+  "./filter-actions",
+  "./filter-projects",
+  "./filter-bio-champs"
+
 ], function(template, app, $, _) {
   'use strict';
 
@@ -24,25 +24,34 @@ define(['text!./undb-map.html',
       scope: {},
       require: 'undbMap',
       link: function($scope, $element, $attr, reportingDisplay) { // jshint ignore:line
-
+        $scope.activeFilter= 'actors';
         $scope.loaded = false;
         $scope.zoomToMap = [];
         $scope.showCountry = '';
         $scope.subQueries = {};
         $scope.queriesStrings = {};
+        $scope.message='';
 
         $http.get("/api/v2013/thesaurus/domains/countries/terms", {
           cache: true
         }).then(function(o) {
-          $scope.countries = $filter('orderBy')(o.data, 'title|lstring');
+          $scope.countries = o.data;//$filter('orderBy')(o.data, 'title|lstring');
           return;
-        }).then(function() {
-          reportingDisplay.search();
         });
 
         $element.find("#customHome").on('click', function(event) {
           $scope.$broadcast('customHome', 'show');
         });
+        $scope.message="The UNDB Network comprises all Actors contributing to the implementation of the 2011-2020 Strategic Plan for Biodiversity.";
+        $scope.toggleCaption=1;
+        $scope.filters={
+          'parties':{active:false},
+          'actors':{active:true},
+          'caseStudies':{active:false},
+          'bioChamps':{active:false},
+          'projects':{active:false},
+          'actions':{active:false},
+        };
 
         $scope.urlStrings = {
           'all': {
@@ -55,178 +64,7 @@ define(['text!./undb-map.html',
             ],
             '_latest_s': ['true'],
             '_state_s': ['public']
-          },
-          'nr5': {
-            'schema_s': ['nationalReport'],
-            'reportType_s': ['B3079A36-32A3-41E2-BDE0-65E4E3A51601'],
-            '_latest_s': ['true'],
-            '_state_s': ['public']
-          },
-          'nr4': {
-            'schema_s': ['nationalReport'],
-            'reportType_s': ['272B0A17-5569-429D-ADF5-2A55C588F7A7'],
-            '_latest_s': ['true'],
-            '_state_s': ['public']
-          },
-          'nr3': {
-            'schema_s': ['nationalReport'],
-            'reportType_s': ['DA7E04F1-D2EA-491E-9503-F7923B1FD7D4'],
-            '_latest_s': ['true'],
-            '_state_s': ['public']
-          },
-          'nr2': {
-            'schema_s': ['nationalReport'],
-            'reportType_s': ['A49393CA-2950-4EFD-8BCC-33266D69232F'],
-            '_latest_s': ['true'],
-            '_state_s': ['public']
-          },
-          'nr1': {
-            'schema_s': ['nationalReport'],
-            'reportType_s': ['F27DBC9B-FF25-471B-B624-C0F73E76C8B3'],
-            '_latest_s': ['true'],
-            '_state_s': ['public']
-          },
-          'nbsaps': {
-            'schema_s': ['nationalReport'],
-            'reportType_s': ['B0EBAE91-9581-4BB2-9C02-52FCF9D82721'],
-            '_latest_s': ['true'],
-            '_state_s': ['public']
-          },
-          'nationalIndicator': {
-            'schema_s': ['nationalIndicator'],
-            '_latest_s': ['true'],
-            '_state_s': ['public']
-          },
-          'nationalTarget': {
-            'schema_s': ['nationalTarget'],
-            '_latest_s': ['true'],
-            '_state_s': ['public']
-          },
-          'resourceMobilisation': {
-            'schema_s': ['resourceMobilisation'],
-            '_latest_s': ['true'],
-            '_state_s': ['public']
-          },
-          'AICHI-TARGET-01': {
-            'schema_s': ['nationalAssessment'],
-            'nationalTarget_EN_t': ['"AICHI-TARGET-01"'],
-            '_latest_s': ['true'],
-            '_state_s': ['public']
-          },
-          'AICHI-TARGET-02': {
-            'schema_s': ['nationalAssessment'],
-            'nationalTarget_EN_t': ['"AICHI-TARGET-02"'],
-            '_latest_s': ['true'],
-            '_state_s': ['public']
-          },
-          'AICHI-TARGET-03': {
-            'schema_s': ['nationalAssessment'],
-            'nationalTarget_EN_t': ['"AICHI-TARGET-03"'],
-            '_latest_s': ['true'],
-            '_state_s': ['public']
-          },
-          'AICHI-TARGET-04': {
-            'schema_s': ['nationalAssessment'],
-            'nationalTarget_EN_t': ['"AICHI-TARGET-04"'],
-            '_latest_s': ['true'],
-            '_state_s': ['public']
-          },
-          'AICHI-TARGET-05': {
-            'schema_s': ['nationalAssessment'],
-            'nationalTarget_EN_t': ['"AICHI-TARGET-05"'],
-            '_latest_s': ['true'],
-            '_state_s': ['public']
-          },
-          'AICHI-TARGET-06': {
-            'schema_s': ['nationalAssessment'],
-            'nationalTarget_EN_t': ['"AICHI-TARGET-06"'],
-            '_latest_s': ['true'],
-            '_state_s': ['public']
-          },
-          'AICHI-TARGET-07': {
-            'schema_s': ['nationalAssessment'],
-            'nationalTarget_EN_t': ['"AICHI-TARGET-07"'],
-            '_latest_s': ['true'],
-            '_state_s': ['public']
-          },
-          'AICHI-TARGET-08': {
-            'schema_s': ['nationalAssessment'],
-            'nationalTarget_EN_t': ['"AICHI-TARGET-08"'],
-            '_latest_s': ['true'],
-            '_state_s': ['public']
-          },
-          'AICHI-TARGET-09': {
-            'schema_s': ['nationalAssessment'],
-            'nationalTarget_EN_t': ['"AICHI-TARGET-09"'],
-            '_latest_s': ['true'],
-            '_state_s': ['public']
-          },
-          'AICHI-TARGET-10': {
-            'schema_s': ['nationalAssessment'],
-            'nationalTarget_EN_t': ['"AICHI-TARGET-10"'],
-            '_latest_s': ['true'],
-            '_state_s': ['public']
-          },
-          'AICHI-TARGET-11': {
-            'schema_s': ['nationalAssessment'],
-            'nationalTarget_EN_t': ['"AICHI-TARGET-11"'],
-            '_latest_s': ['true'],
-            '_state_s': ['public']
-          },
-          'AICHI-TARGET-12': {
-            'schema_s': ['nationalAssessment'],
-            'nationalTarget_EN_t': ['"AICHI-TARGET-12"'],
-            '_latest_s': ['true'],
-            '_state_s': ['public']
-          },
-          'AICHI-TARGET-13': {
-            'schema_s': ['nationalAssessment'],
-            'nationalTarget_EN_t': ['"AICHI-TARGET-13"'],
-            '_latest_s': ['true'],
-            '_state_s': ['public']
-          },
-          'AICHI-TARGET-14': {
-            'schema_s': ['nationalAssessment'],
-            'nationalTarget_EN_t': ['"AICHI-TARGET-14"'],
-            '_latest_s': ['true'],
-            '_state_s': ['public']
-          },
-          'AICHI-TARGET-15': {
-            'schema_s': ['nationalAssessment'],
-            'nationalTarget_EN_t': ['"AICHI-TARGET-15"'],
-            '_latest_s': ['true'],
-            '_state_s': ['public']
-          },
-          'AICHI-TARGET-16': {
-            'schema_s': ['nationalAssessment'],
-            'nationalTarget_EN_t': ['"AICHI-TARGET-16"'],
-            '_latest_s': ['true'],
-            '_state_s': ['public']
-          },
-          'AICHI-TARGET-17': {
-            'schema_s': ['nationalAssessment'],
-            'nationalTarget_EN_t': ['"AICHI-TARGET-17"'],
-            '_latest_s': ['true'],
-            '_state_s': ['public']
-          },
-          'AICHI-TARGET-18': {
-            'schema_s': ['nationalAssessment'],
-            'nationalTarget_EN_t': ['"AICHI-TARGET-18"'],
-            '_latest_s': ['true'],
-            '_state_s': ['public']
-          },
-          'AICHI-TARGET-19': {
-            'schema_s': ['nationalAssessment'],
-            'nationalTarget_EN_t': ['"AICHI-TARGET-19"'],
-            '_latest_s': ['true'],
-            '_state_s': ['public']
-          },
-          'AICHI-TARGET-20': {
-            'schema_s': ['nationalAssessment'],
-            'nationalTarget_EN_t': ['"AICHI-TARGET-20"'],
-            '_latest_s': ['true'],
-            '_state_s': ['public']
-          },
+          }
         };
 
 
@@ -240,8 +78,10 @@ define(['text!./undb-map.html',
           var subQueries = [];
 
           _.each($scope.subQueries, function(filter, filterName) {
+
+            if(filterName=="parties")return q = 'parties';
             subQueries = _.compact([
-              getFormatedSubQuery(filterName, 'schema_s'),
+
               getFormatedSubQuery(filterName, 'reportType_s'),
               getFormatedSubQuery(filterName, 'nationalTarget_EN_t'),
               getFormatedSubQuery(filterName, '_latest_s'),
@@ -249,7 +89,7 @@ define(['text!./undb-map.html',
             ]);
           });
 
-          if (subQueries.length)
+          if (subQueries.length && q!='partners')
             q += " AND " + subQueries.join(" AND ");
           return q;
         }; //$scope.buildQuery
@@ -286,8 +126,19 @@ define(['text!./undb-map.html',
           //=======================================================================
           function query($scope) {
 
+
             readQueryString();
             if (_.isEmpty($scope.subQueries)) return;
+            var queryString=$scope.buildQuery();
+
+            if(queryString == 'parties'){
+console.log('$scope.countries',$scope.countries);
+              $scope.documents=$scope.countries;
+return;
+            }
+
+
+
             var queryParameters = {
               'q': $scope.buildQuery(),
               'sort': 'createdDate_dt desc, title_t asc',
@@ -310,6 +161,7 @@ define(['text!./undb-map.html',
               cache: true
             }).success(function(data) {
               canceler = null;
+
               $scope.count = data.response.numFound;
               $scope.count = data.response.docs.length;
               $scope.documents = groupByCountry(data.response.docs);
@@ -392,23 +244,17 @@ define(['text!./undb-map.html',
           } //setNumDocumentsInCountry()
 
           //=======================================================================
-          //
+          //getter/setter
           //=======================================================================
-          function progressToNum(progress) {
-
-            switch (progress.trim()) {
-              case "On track to exceed target":
-                return 5;
-              case "On track to achieve target":
-                return 4;
-              case "Progress towards target but at an  insufficient rate":
-                return 3;
-              case "No significant change":
-                return 2;
-              case "Moving away from target":
-                return 1;
-            }
-          } //readQueryString
+          function filterActive(activeFilter) {
+              $scope.toggleCaption=true;
+              _.each($scope.filters,function(filter){
+                  filter.active=false;
+              });
+              if (activeFilter)
+                $scope.filters[activeFilter].active = true;
+                console.log($scope.filters);
+          }
 
           //=======================================================================
           //
@@ -511,6 +357,7 @@ define(['text!./undb-map.html',
           } //showCountryResultList
 
 
+          this.filterActive=filterActive;
           this.showCountryResultList = showCountryResultList;
           this.zoomToCountry = zoomToCountry;
           this.deleteAllSubQuery = deleteAllSubQuery;

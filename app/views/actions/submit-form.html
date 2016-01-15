@@ -2,63 +2,84 @@
     <div class="container article">
 
         <div class="row">
-
             <div class="col-xs-12">
-
-                <h1>Partnership Form</h1>
-
+                <h1>Register your Action</h1>
                 <p>
-                    Please fill this form if you wish to become a Partner of the United Nations Decade on Biodiversity 2011-2020. Once you have
-                    submitted your information, we will process it and we will send you a confirmation. If you have difficulty filling the form, or if
-                    you have any questions please <a href="mailto:undb@cbd.int">contact us</a>.
+                    Please fill this form if you wish to register your Action for the United Nations Decade on Biodiversity 2011-2020. After your
+                    information is processed and posted online, you will receive a confirmation message. If you have difficulty filling the form, or if
+                    you have any questions please <a href="mailto:UNBiodiversity@cbd.int">contact us</a>.
                 </p>
+            </div>
+        </div>
 
-                <p>
-                    <input type="checkbox"> I have read and I understand the requirements explained at <a href="http://www.cbd.int/2011-2020/participate/partner">www.cbd.int/2011-2020/participate/partner</a>
-                </p>
-
-                <h2>Information about your organisation</h2>
-
+        <div class="row">
+            <div class="col-xs-12">
+                <h1>Information about your Action</h1>
                 <p>
                     The following information will appear online unless indicated otherwise.
                     <br>
                     <em>Fields marked with a * are mandatory.</em>
                 </p>
-
-
             </div>
         </div>
 
         <div class="row">
-            <form class="form-horizontal single" ng-submit="save();" ng-hide="loading">
+            <form name="form" class="form-horizontal single" ng-submit="save()" ng-hide="loading">
 
-                <div class="form-group">
-                    <label for="name" class="col-sm-3 control-label required">Organisation :</label>
+                <div class="form-group" ng-class="{ 'has-warning': document.title.$invalid }">
+                    <label for="title" class="col-sm-3 control-label required">Title :</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="name" ng-model="document.name" placeholder="Org. name" required>
+                        <input type="text" class="form-control" id="title" name="title" ng-model="document.title" placeholder="Title of action, activity, event, etc." required>
+                        <p class="help-block error" ng-show="form.title.$invalid">This field is mandatory</p>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="webite" class="col-sm-3 control-label">Website :</label>
-                    <div class="col-sm-6">
-                        <input type="url" class="form-control" id="website" ng-model="document.website" placeholder="Org. website">
+                    <label for="startDate" class="col-sm-3 control-label">Date :</label>
+                    <label for="startDate" class="col-sm-1 control-label required">From</label>
+                    <div class="col-sm-2">
+                        <input type="date" class="form-control" id="startDate" ng-model="document.startDate" placeholder="yyyy/mm/dd">
+                    </div>
+                    <label for="endDate" class="col-sm-1 control-label required">To</label>
+                    <div class="col-sm-2">
+                        <input type="date" class="form-control" id="endDate" ng-model="document.endDate" placeholder="yyyy/mm/dd">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="startTime" class="col-sm-3 control-label">Time :</label>
+                    <label for="startTime" class="col-sm-1 control-label required">From</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="startTime" ng-model="document.startTime" placeholder="00:00">
+                    </div>
+                    <label for="endTime" class="col-sm-1 control-label required">To</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="endTime" ng-model="document.endTime" placeholder="24:00">
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" ng-class="{ 'has-warning': document.country.$invalid }">
                     <label for="country" class="col-sm-3 control-label" required>Country :</label>
                     <div class="col-sm-6">
-                        <select class="form-control" id="country" ng-model="document.country" placeholder="country" required ng-options="c.code as c.name for c in countries|orderBy:'name.toLowerCase()' ">
+                        <select class="form-control" id="country" name="country" ng-model="document.country" placeholder="country" required ng-options="c.code as c.name for c in countries|orderBy:'name.toLowerCase()' ">
                             <option value="">Select your country</option>
                         </select>
+                        <p class="help-block error" ng-show="form.country.$invalid">This field is mandatory</p>
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" ng-class="{ 'has-warning': document.address.$invalid }">
                     <label for="address" class="col-sm-3 control-label" required>Address:</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="address" ng-model="document.address" placeholder="Org. address" required>
+                        <input type="text" class="form-control" id="address" name="address" ng-model="document.address" placeholder="1000 34th Street, New City" required>
+                        <p class="help-block error" ng-show="form.address.$invalid">This field is mandatory</p>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-class="{ 'has-warning': document.website.$invalid }">
+                    <label for="website" class="col-sm-3 control-label">Website :</label>
+                    <div class="col-sm-6">
+                        <input type="url" class="form-control" id="website" name="website" ng-model="document.website" placeholder="https://www.organisation.xyz/">
+                        <p class="help-block error" ng-show="form.website.$invalid">This field is mandatory</p>
                     </div>
                 </div>
 
@@ -86,26 +107,33 @@
                 <div class="form-group">
                     <label for="facebook" class="col-sm-3 control-label" required>Facebook :</label>
                     <div class="col-sm-6">
-                        <input type="url" class="form-control" id="facebook" ng-model="document.facebook" placeholder="Org. Facebook" required>
+                        <input type="url" class="form-control" id="facebook" ng-model="document.facebook" placeholder="https://www.facebook.com/organisation">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="twitter" class="col-sm-3 control-label" required>Twitter :</label>
                     <div class="col-sm-6">
-                        <input type="url" class="form-control" id="twitter" ng-model="document.twitter" placeholder="Org. Twitter" required>
+                        <input type="url" class="form-control" id="twitter" ng-model="document.twitter" placeholder="https://twitter.com/organisation">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="description" class="col-sm-3 control-label" required>Short description of your organisation in one of the 6 United Nations languages (max. 1000 characters) :</label>
+                    <label for="twitter" class="col-sm-3 control-label" required>Youtube :</label>
+                    <div class="col-sm-6">
+                        <input type="url" class="form-control" id="twitter" ng-model="document.twitter" placeholder="https://www.youtube.com/user/organisation">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="description" class="col-sm-3 control-label" required>Short description of your Action in one of the 6 United Nations languages (max. 1000 characters) :</label>
                     <div class="col-sm-6">
                         <textarea class="form-control" id="description" ng-model="document.description" cols="30" rows="10" required placeholder="Briefly describe your organisation and your work related to the United Nations Decade on Biodiversity (max. 1000 characters)"></textarea>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="descriptionNative" class="col-sm-3 control-label">Short description of your organisation in your official language (max. 1000 characters) :</label>
+                    <label for="descriptionNative" class="col-sm-3 control-label">Short description of your Action in your official language (max. 1000 characters) :</label>
                     <div class="col-sm-6">
                         <textarea class="form-control" id="descriptionNative" ng-model="document.descriptionNative" cols="30" rows="10" placeholder="Briefly describe your organisation and your work related to the United Nations Decade on Biodiversity (max. 1000 characters)"></textarea>
                     </div>
@@ -134,7 +162,6 @@
                     </div>
                 </div>
 
-
                 <div class="errorMessage">
                     <pre>{{errors|json}}</pre>
                 </div>
@@ -145,14 +172,13 @@
                             Once we have reviewed it we will send you a confirmation message. In the meantime we invite you to start using the logo of the United Nations Decade on Biodiversity on your website, information materials, etc., and join us on <a href="#">facebook</a> and <a href="#">twitter</a>.
                         </p>
                         <p>
-                            Please don’t hesitate to <a href="mailto:undb@cbd.int">contact us</a> if you have any questions.
+                            Please don’t hesitate to <a href="mailto:UNBiodiversity@cbd.int">contact us</a> if you have any questions.
                         </p>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-
 
     <pre>{{document|json}}</pre>
 

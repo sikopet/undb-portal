@@ -47,8 +47,8 @@ define(['lodash', 'guid', 'app'], function(_, guid) { 'use strict';
 
             var filter = "type eq 'undbPartner'";
 
-            var resDrafts = $http.get("https://api.cbd.int/api/v2013/documents", { params : { collection : 'mydraft', $filter : filter } });
-            var resDocs   = $http.get("https://api.cbd.int/api/v2013/documents", { params : { $filter : filter } });
+            var resDrafts = $http.get("/api/v2013/documents", { params : { collection : 'mydraft', $filter : filter } });
+            var resDocs   = $http.get("/api/v2013/documents", { params : { $filter : filter } });
 
             $q.all([resDrafts, resDocs]).then(function(res) {
 
@@ -74,7 +74,7 @@ define(['lodash', 'guid', 'app'], function(_, guid) { 'use strict';
                     $scope.document = {
                         header : {
                             identifier : guid(),
-                            schema : 'undbPartner'
+                            schema : 'undbAction'
                         }
                     };
                 }
