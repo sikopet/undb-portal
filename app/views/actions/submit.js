@@ -258,7 +258,7 @@ define(['lodash', 'app', 'authentication', 'utilities/km-utilities', 'utilities/
         //======================================================
         function edit(record)
         {
-            $location.url('todo');
+            $location.url('/actions/submit-form');
         }
 
 
