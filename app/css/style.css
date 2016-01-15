@@ -242,11 +242,14 @@ ol.basic-list
 }
 .border-bottom-cbd-green img.image-center{
     margin-top: 5%;
-    margin-left: 20%;
+    margin-left: 10%;
     margin-bottom: 5%;
 }
 .border-bottom-cbd-green p.indent-right{
     margin-left: 20%; 
+}
+.border-bottom-cbd-green p.text-center{
+    text-align: center;
 }
 
 .border-bottom-blue{
