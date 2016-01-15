@@ -6,7 +6,7 @@ define(['lodash', 'guid', 'app'], function(_, guid) { 'use strict';
         $scope.googleMapsChange = updateGeoLocation;
 
         // Init
-        $http.get('/api/v2015/countries', { cache:true, params: { f : { code : 1, name : 1 } } }).then(function(res) {
+        $http.get('https://api.cbd.int/api/v2015/countries', { cache:true, params: { f : { code : 1, name : 1 } } }).then(function(res) {
 
             res.data.forEach(function(c) {
                 c.code = c.code.toLowerCase();
@@ -62,8 +62,8 @@ define(['lodash', 'guid', 'app'], function(_, guid) { 'use strict';
                 if(!record)
                     return;
 
-                if(record.workingDocumentID) return $http.get('/api/v2013/documents/'+record.identifier+'/versions/draft');
-                else                         return $http.get('/api/v2013/documents/'+record.identifier);
+                if(record.workingDocumentID) return $http.get('https://api.cbd.int/api/v2013/documents/'+record.identifier+'/versions/draft');
+                else                         return $http.get('https://api.cbd.int/api/v2013/documents/'+record.identifier);
 
             }).then(function(res) {
 
@@ -74,7 +74,7 @@ define(['lodash', 'guid', 'app'], function(_, guid) { 'use strict';
                     $scope.document = {
                         header : {
                             identifier : guid(),
-                            schema : 'undbPartner'
+                            schema : 'undbAction'
                         }
                     };
                 }
@@ -104,14 +104,14 @@ define(['lodash', 'guid', 'app'], function(_, guid) { 'use strict';
 
             var doc = $scope.document;
 
-            return $http.put('/api/v2013/documents/validate', doc, { params : { schema : doc.header.schema }}).then(function(res) {
+            return $http.put('https://api.cbd.int/api/v2013/documents/validate', doc, { params : { schema : doc.header.schema }}).then(function(res) {
 
                 var report = res.data;
 
                 if(report.errors && report.errors.length)
                     throw report;
 
-                return $http.put('/api/v2013/documents/'+doc.header.identifier+'/versions/draft', doc, { params : { schema : doc.header.schema }});
+                return $http.put('https://api.cbd.int/api/v2013/documents/'+doc.header.identifier+'/versions/draft', doc, { params : { schema : doc.header.schema }});
 
             }).then(function(res) {
 

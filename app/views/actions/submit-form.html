@@ -24,58 +24,62 @@
         </div>
 
         <div class="row">
-            <form class="form-horizontal single" ng-submit="save();" ng-hide="loading">
+            <form name="form" class="form-horizontal single" ng-submit="save()" ng-hide="loading">
 
-                <div class="form-group">
-                    <label for="name" class="col-sm-3 control-label required">Title :</label>
+                <div class="form-group" ng-class="{ 'has-warning': document.title.$invalid }">
+                    <label for="title" class="col-sm-3 control-label required">Title :</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="name" ng-model="document.name" placeholder="Title of action, activity, event, etc." required>
+                        <input type="text" class="form-control" id="title" name="title" ng-model="document.title" placeholder="Title of action, activity, event, etc." required>
+                        <p class="help-block error" ng-show="form.title.$invalid">This field is mandatory</p>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="startDate" class="col-sm-3 control-label">Date :</label>
                     <label for="startDate" class="col-sm-1 control-label required">From</label>
-                    <div class="col-sm-1">
-                        <input type="url" class="form-control" id="startDate" ng-model="document.startDate" placeholder="yyyy/mm/dd">
-                    </div>
-                    <label for="endDate" class="col-sm-2 control-label required">To</label>
                     <div class="col-sm-2">
-                        <input type="url" class="form-control" id="endDate" ng-model="document.endDate" placeholder="yyyy/mm/dd">
+                        <input type="date" class="form-control" id="startDate" ng-model="document.startDate" placeholder="yyyy/mm/dd">
+                    </div>
+                    <label for="endDate" class="col-sm-1 control-label required">To</label>
+                    <div class="col-sm-2">
+                        <input type="date" class="form-control" id="endDate" ng-model="document.endDate" placeholder="yyyy/mm/dd">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="startTime" class="col-sm-3 control-label">Time :</label>
                     <label for="startTime" class="col-sm-1 control-label required">From</label>
-                    <div class="col-sm-1">
-                        <input type="url" class="form-control" id="startTime" ng-model="document.startTime" placeholder="00:00">
-                    </div>
-                    <label for="endTime" class="col-sm-2 control-label required">To</label>
                     <div class="col-sm-2">
-                        <input type="url" class="form-control" id="endTime" ng-model="document.endTime" placeholder="24:00">
+                        <input type="text" class="form-control" id="startTime" ng-model="document.startTime" placeholder="00:00">
+                    </div>
+                    <label for="endTime" class="col-sm-1 control-label required">To</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" id="endTime" ng-model="document.endTime" placeholder="24:00">
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" ng-class="{ 'has-warning': document.country.$invalid }">
                     <label for="country" class="col-sm-3 control-label" required>Country :</label>
                     <div class="col-sm-6">
-                        <select class="form-control" id="country" ng-model="document.country" placeholder="country" required ng-options="c.code as c.name for c in countries|orderBy:'name.toLowerCase()' ">
+                        <select class="form-control" id="country" name="country" ng-model="document.country" placeholder="country" required ng-options="c.code as c.name for c in countries|orderBy:'name.toLowerCase()' ">
                             <option value="">Select your country</option>
                         </select>
+                        <p class="help-block error" ng-show="form.country.$invalid">This field is mandatory</p>
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" ng-class="{ 'has-warning': document.address.$invalid }">
                     <label for="address" class="col-sm-3 control-label" required>Address:</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" id="address" ng-model="document.address" placeholder="Org. address" required>
+                        <input type="text" class="form-control" id="address" name="address" ng-model="document.address" placeholder="1000 34th Street, New City" required>
+                        <p class="help-block error" ng-show="form.address.$invalid">This field is mandatory</p>
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" ng-class="{ 'has-warning': document.website.$invalid }">
                     <label for="website" class="col-sm-3 control-label">Website :</label>
                     <div class="col-sm-6">
-                        <input type="url" class="form-control" id="website" ng-model="document.website" placeholder="Org. website">
+                        <input type="url" class="form-control" id="website" name="website" ng-model="document.website" placeholder="https://www.organisation.xyz/">
+                        <p class="help-block error" ng-show="form.website.$invalid">This field is mandatory</p>
                     </div>
                 </div>
 
@@ -103,21 +107,21 @@
                 <div class="form-group">
                     <label for="facebook" class="col-sm-3 control-label" required>Facebook :</label>
                     <div class="col-sm-6">
-                        <input type="url" class="form-control" id="facebook" ng-model="document.facebook" placeholder="https://www.facebook.com/xxxxxx" required>
+                        <input type="url" class="form-control" id="facebook" ng-model="document.facebook" placeholder="https://www.facebook.com/organisation">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="twitter" class="col-sm-3 control-label" required>Twitter :</label>
                     <div class="col-sm-6">
-                        <input type="url" class="form-control" id="twitter" ng-model="document.twitter" placeholder="https://twitter.com/xxxxxx" required>
+                        <input type="url" class="form-control" id="twitter" ng-model="document.twitter" placeholder="https://twitter.com/organisation">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="twitter" class="col-sm-3 control-label" required>Youtube :</label>
                     <div class="col-sm-6">
-                        <input type="url" class="form-control" id="twitter" ng-model="document.twitter" placeholder="https://www.youtube.com/user/xxxxxx" required>
+                        <input type="url" class="form-control" id="twitter" ng-model="document.twitter" placeholder="https://www.youtube.com/user/organisation">
                     </div>
                 </div>
 
