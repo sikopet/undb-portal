@@ -1,6 +1,12 @@
 /* jshint node: true, browser: false */
 'use strict';
 
+var proxy   = require('http-proxy').createProxyServer({});
+
+proxy.on('error', function(e) {
+    console.error(e);
+}); //ignore errors
+
 // CREATE HTTP SERVER AND PROXY
 
 var app = require('express')();
@@ -18,11 +24,11 @@ app.set('port', process.env.PORT || 2000);
 app.use('/app',   require('serve-static')(__dirname + '/app_build'));
 app.use('/app',   require('serve-static')(__dirname + '/app'));
 app.all('/app/*', function(req, res) { res.status(404).send(); } );
+app.all('/api/*', function(req, res) { proxy.web(req, res, { target: 'https://api.cbd.int:443', secure: false } ); } );
 
 // CONFIGURE TEMPLATE
 
 app.get('/*', function (req, res) { res.render('template', { baseUrl: req.headers.base_url || '/' }); });
-
 // START SERVER
 
 app.listen(app.get('port'), function () {
