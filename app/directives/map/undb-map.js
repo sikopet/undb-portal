@@ -153,7 +153,7 @@ define(['text!./undb-map.html',
 
 
             readQueryString();
-
+console.log('$scope.subQueries',$scope.subQueries);
             if (_.isEmpty($scope.subQueries)) return;
             var queryString=$scope.buildQuery();
 
@@ -299,11 +299,11 @@ define(['text!./undb-map.html',
           function readQueryString() {
 
             var filter = document.location.search.split('filter='); // takes query string into array
-
+//console.log('filter',filter);
             if (!_.isEmpty(filter) && (_.isEmpty($scope.subQueries))) {
               $scope.subQueries = {};
-              $scope.subQueries[filter] = _.cloneDeep($scope.urlStrings[filter]);
-              $scope.selectedSchema = filter;
+              $scope.subQueries[filter[1]] = _.cloneDeep($scope.urlStrings[filter[1]]);
+              $scope.selectedSchema = filter[1];
             }
 
           } //readQueryString
@@ -319,8 +319,6 @@ define(['text!./undb-map.html',
                 $location.replace();
                 $location.search('filter', filterName);
                 $scope.selectedSchema = filterName;
-                //$scope.queriesStrings[filterName]=_.cloneDeep($scope.subQueries[filterName]);
-
               });
             });
 
