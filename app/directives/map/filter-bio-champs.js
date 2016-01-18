@@ -18,7 +18,12 @@ define(['text!./filter-bio-champs.html', 'app', 'lodash'], function(template, ap
               'schema_s': ['partners'],
             }
           };
-
+          $scope.queries = {
+            'projects': {
+              'schema_s': ['lwProject'],
+              "expired_b":['false'],
+            }
+          };
           //=======================================================================
           //
           //=======================================================================
@@ -28,6 +33,10 @@ define(['text!./filter-bio-champs.html', 'app', 'lodash'], function(template, ap
 
           //  undbMap.addSubQuery(_.cloneDeep($scope.queries), 'partners');
           //  undbMap.search();
+
+          undbMap.addSubQuery(_.cloneDeep($scope.queries), 'projects');
+
+          undbMap.search();
           }; // loadRecords
 
         } //link

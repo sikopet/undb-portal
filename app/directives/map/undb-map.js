@@ -36,7 +36,10 @@ define(['text!./undb-map.html',
         }).then(function(o) {
           $scope.countries = $filter('orderBy')(o.data, 'title|lstring');
           return;
+        }).then(function() {
+          reportingDisplay.search();
         });
+
 
         $element.find("#customHome").on('click', function(event) {
           $scope.$broadcast('customHome', 'show');
@@ -53,22 +56,41 @@ define(['text!./undb-map.html',
         };
 
         $scope.urlStrings = {
-          'parties': {
-            'schema_s': [
-              'parties'
-            ]
-          },
-          'projects': {
-            'schema_s': [
-              'lwProjects'
-            ]
-          },
-          'actors': {
-            'schema_s': [
-              'partners'
-            ]
-          },
-        };
+        'parties': {
+          'schema_s': [
+            'parties'
+          ]
+        },
+        'projects': {
+          'schema_s': [
+            'lwProject'
+          ],
+                        "expired_b":['false'],
+        },
+        'actors': {
+          'schema_s': [
+            'lwProject'
+          ],
+                        "expired_b":['false'],
+        },
+        'caseStudies': {
+          'schema_s': [
+            'caseStudy'
+          ]
+        },
+        'actions': {
+          'schema_s': [
+            'lwProject'
+          ],
+                        "expired_b":['false'],
+        },
+        'bioChmaps': {
+          'schema_s': [
+            'lwProject'
+          ],
+                        "expired_b":['false'],
+        },
+      };
 
 
         //=======================================================================
@@ -76,21 +98,24 @@ define(['text!./undb-map.html',
         //=======================================================================
         $scope.buildQuery = function() {
           // NOT version_s:* remove non-public records from resultset
-          var q = 'NOT version_s:* AND realm_ss:' + realm.toLowerCase(); //+ ' AND schema_s:* '
+          var q = 'NOT version_s:* ';//'NOT version_s:* AND realm_ss:' + realm.toLowerCase(); //+ ' AND schema_s:* '
 
           var subQueries = [];
 
           _.each($scope.subQueries, function(filter, filterName) {
 
             if(filterName=="parties")return q = 'parties';
-            subQueries = _.compact([
 
+            subQueries = _.compact([
               getFormatedSubQuery(filterName, 'schema_s'),
+              getFormatedSubQuery(filterName, 'expired_b'),
+
             ]);
           });
 
-          if (subQueries.length && q!='partners'  && $scope.selectedSchema!='projects')
-            q += " AND " + subQueries.join(" AND ");
+          if (subQueries.length)
+          q += " AND " + subQueries.join(" AND ");
+
           return q;
         }; //$scope.buildQuery
 
@@ -128,22 +153,23 @@ define(['text!./undb-map.html',
 
 
             readQueryString();
+
             if (_.isEmpty($scope.subQueries)) return;
             var queryString=$scope.buildQuery();
 
             if(queryString == 'parties'){
-// console.log('$scope.countries',$scope.countries);
               $scope.selectedSchema = 'parties';
               $scope.documents=groupByCountry($scope.countries,1);
               return;
             }
 
-console.log('selectedSchema',$scope.selectedSchema);
-console.log($scope.buildQuery());
+
+
             var queryParameters = {
               'q': $scope.buildQuery(),
-              'sort': 'createdDate_dt desc, title_t asc',
-              'fl': 'reportType_s,documentID,identifier_s,id,title_t,description_t,url_ss,schema_EN_t,date_dt,government_EN_t,schema_s,number_d,aichiTarget_ss,reference_s,sender_s,meeting_ss,recipient_ss,symbol_s,eventCity_EN_t,eventCountry_EN_t,startDate_s,endDate_s,body_s,code_s,meeting_s,group_s,function_t,department_t,organization_t,summary_EN_t,reportType_EN_t,completion_EN_t,jurisdiction_EN_t,development_EN_t,_latest_s,nationalTarget_EN_t,progress_EN_t,year_i,text_EN_txt,nationalTarget_EN_t,government_s',
+            //  'sort': 'createdDate_dt desc, title_t asc',
+              //'fl': 'reportType_s,documentID,identifier_s,id,title_t,description_t,url_ss,schema_EN_t,date_dt,government_EN_t,schema_s,number_d,aichiTarget_ss,reference_s,sender_s,meeting_ss,recipient_ss,symbol_s,eventCity_EN_t,eventCountry_EN_t,startDate_s,endDate_s,body_s,code_s,meeting_s,group_s,function_t,department_t,organization_t,summary_EN_t,reportType_EN_t,completion_EN_t,jurisdiction_EN_t,development_EN_t,_latest_s,nationalTarget_EN_t,progress_EN_t,year_i,text_EN_txt,nationalTarget_EN_t,government_s',
+              'fl':'title_s,schema_EN_t,thumbnail_s,coordinates_s,url_ss',
               'wt': 'json',
               'start': 0,
               'rows': 1000000,
@@ -165,8 +191,7 @@ console.log($scope.buildQuery());
 
               $scope.count = data.response.numFound;
               $scope.count = data.response.docs.length;
-              $scope.documents = groupByCountry(data.response.docs);
-console.log('query built',$scope.documents);
+              $scope.documents = data.response.docs;
             });
           } // query
 
@@ -223,8 +248,8 @@ console.log('query built',$scope.documents);
               docsByCountry[doc.government_s].isEUR = false;
             });
 
-            if (docsByCountry.eur)
-              docsByCountry.eur.isEUR = true;
+            if (docsByCountry.EU)
+              docsByCountry.EU.isEUR = true;
 
             setNumDocumentsInCountry();
             return docsByCountry;
@@ -324,6 +349,7 @@ console.log('query built',$scope.documents);
             $location.search('filter', null);
             if (filter && name && !query && !singleTon) {
               $scope.subQueries = _.cloneDeep(filter);
+              $scope.selectedSchema = name;
             }
           } //addSubQuery
 

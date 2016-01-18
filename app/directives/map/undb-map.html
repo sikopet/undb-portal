@@ -87,58 +87,8 @@ white-space: nowrap;
 		}*/
 
 
-
-		.mapPopup {
-			background-color: rgba(0, 72, 68, 0.9);
-			border-radius: 5px;
-			bottom: 8%;
-			right: 2%;
-			left: 2%;
-			display: table;
-			margin: 0 0 0 0;
-			min-height: 80px;
-			moz-border-radius: 5px;
-			padding: 10px;
-			position: absolute;
-			vertical-align: middle;
-			webkit-border-radius: 5px;
-			width: 95%;
-		}
-
-		.mapPopup p {
-			color: #fff;
-			display: table-cell;
-			max-width: 75%;
-			vertical-align: middle;
-			text-align: center;
-			font-size: 16px;
-			line-height: 120%;
-		}
-
-		.mapPopup p a {
-			color: #069554;
-		}
-
-		.mapPopup button {
-			display: block;
-			float: right;
-			margin-right: 10px;
-			margin-top: 16px;
-		}
-
-		.closeButton {
-			background-image: url('app/img/x.svg');
-			background-repeat: no-repeat;
-			border: none;
-			border-radius: 25px;
-			height: 26px;
-			moz-border-radius: 25px;
-			webkit-border-radius: 25px;
-			width: 26px;
-		}
-
 		body.modal-open div.modal-backdrop {
-			z-index: 0;
+			z-index: 150;
 		}
 	</style>
 
@@ -176,7 +126,7 @@ white-space: nowrap;
 
 				<div class="col-md-10 col-xs-12" style="padding-left:0px;margin-left:0px;">
 					<!-- Replace img with the Map  -->
-					<ammap3 ng-model='documents' schema='selectedSchema'  debug="true"></ammap3>
+					<ammap3 ng-model='documents' schema='selectedSchema'  debug="false"></ammap3>
 					<div class="mapPopup"  ng-click="toggleCaption=!toggleCaption;" ng-show="toggleCaption">
 					<p>{{message}}</p>
 						<button type="button" class="closeButton"></button>
