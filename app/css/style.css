@@ -237,6 +237,7 @@ ol.basic-list
 .border-bottom-cbd-green img.image-icon{
     margin-top: 25%;
     margin-bottom: 25%;
+    max-width: 80px;
     float:right;
     position:relative;
 }
@@ -244,6 +245,7 @@ ol.basic-list
     margin-top: 5%;
     margin-left: 10%;
     margin-bottom: 5%;
+    max-width: 400px;
 }
 .border-bottom-cbd-green p.indent-right{
     margin-left: 20%; 
