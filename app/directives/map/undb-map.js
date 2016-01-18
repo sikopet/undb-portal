@@ -31,11 +31,10 @@ define(['text!./undb-map.html',
         $scope.subQueries = {};
         $scope.queriesStrings = {};
         $scope.message='';
-
-        $http.get("/api/v2013/thesaurus/domains/countries/terms", {
+        $http.get("/api/v2013/countries", {
           cache: true
         }).then(function(o) {
-          $scope.countries = o.data;//$filter('orderBy')(o.data, 'title|lstring');
+          $scope.countries = $filter('orderBy')(o.data, 'title|lstring');
           return;
         });
 
@@ -54,17 +53,21 @@ define(['text!./undb-map.html',
         };
 
         $scope.urlStrings = {
-          'all': {
+          'parties': {
             'schema_s': [
-              'nationalReport',
-              'nationalAssessment',
-              'resourceMobilisation',
-              'nationalIndicator',
-              'nationalTarget'
-            ],
-            '_latest_s': ['true'],
-            '_state_s': ['public']
-          }
+              'parties'
+            ]
+          },
+          'projects': {
+            'schema_s': [
+              'lwProjects'
+            ]
+          },
+          'actors': {
+            'schema_s': [
+              'partners'
+            ]
+          },
         };
 
 
@@ -82,14 +85,11 @@ define(['text!./undb-map.html',
             if(filterName=="parties")return q = 'parties';
             subQueries = _.compact([
 
-              getFormatedSubQuery(filterName, 'reportType_s'),
-              getFormatedSubQuery(filterName, 'nationalTarget_EN_t'),
-              getFormatedSubQuery(filterName, '_latest_s'),
-              getFormatedSubQuery(filterName, '_state_s'),
+              getFormatedSubQuery(filterName, 'schema_s'),
             ]);
           });
 
-          if (subQueries.length && q!='partners')
+          if (subQueries.length && q!='partners'  && $scope.selectedSchema!='projects')
             q += " AND " + subQueries.join(" AND ");
           return q;
         }; //$scope.buildQuery
@@ -132,13 +132,14 @@ define(['text!./undb-map.html',
             var queryString=$scope.buildQuery();
 
             if(queryString == 'parties'){
-console.log('$scope.countries',$scope.countries);
-              $scope.documents=$scope.countries;
-return;
+// console.log('$scope.countries',$scope.countries);
+              $scope.selectedSchema = 'parties';
+              $scope.documents=groupByCountry($scope.countries,1);
+              return;
             }
 
-
-
+console.log('selectedSchema',$scope.selectedSchema);
+console.log($scope.buildQuery());
             var queryParameters = {
               'q': $scope.buildQuery(),
               'sort': 'createdDate_dt desc, title_t asc',
@@ -165,16 +166,28 @@ return;
               $scope.count = data.response.numFound;
               $scope.count = data.response.docs.length;
               $scope.documents = groupByCountry(data.response.docs);
+console.log('query built',$scope.documents);
             });
           } // query
 
           //=======================================================================
           //
           //=======================================================================
-          function groupByCountry(list) {
+          function groupByCountry(list,countries) {
             var docsByCountry = {};
             $scope.euData = {};
             if (!$scope.countries) return '';
+            if(countries){
+              _.each($scope.countries, function(doc) {
+                if (!docsByCountry[doc.code]) // if country object not created created
+                {
+                  docsByCountry[doc.code] = [];
+                  docsByCountry[doc.code] = getCountryById(doc.code); //insert country data
+                  docsByCountry[doc.code].docs = {}; // initializes the countries docs
+                }
+              });
+            }//if not list
+            if(!countries)
             _.each(list, function(doc) {
               if (!docsByCountry[doc.government_s]) // if country object not created created
               {
@@ -224,7 +237,7 @@ return;
 
             var index = _.findIndex($scope.countries, function(country) {
 
-              return country.identifier.toUpperCase() === id.toUpperCase();
+              return country.code.toUpperCase() === id.toUpperCase();
             });
             return $scope.countries[index];
           } //getCountryById
@@ -253,7 +266,6 @@ return;
               });
               if (activeFilter)
                 $scope.filters[activeFilter].active = true;
-                console.log($scope.filters);
           }
 
           //=======================================================================
@@ -261,7 +273,7 @@ return;
           //=======================================================================
           function readQueryString() {
 
-            var filter = _([$location.search().filter]).flatten().compact().value()[0]; // takes query string into array
+            var filter = document.location.search.split('filter='); // takes query string into array
 
             if (!_.isEmpty(filter) && (_.isEmpty($scope.subQueries))) {
               $scope.subQueries = {};
