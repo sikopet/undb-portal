@@ -1,4 +1,4 @@
-define(['app', 'authentication'], function(app) {
+define(['app', 'authentication', 'providers/locale'], function(app) {
     'use strict';
 
     app.controller('TemplateController', ['$scope', '$rootScope', '$window', '$location', '$route', 'authentication', function($scope, $rootScope, $window, $location, $route, authentication) {
@@ -12,7 +12,9 @@ define(['app', 'authentication'], function(app) {
             $scope.$root.breadcrumb = getPage($route.current.$$route.originalPath);
             $scope.path = $location.path();
         });
-
+        $rootScope.$on('event:auth-emailVerification', function(evt, data){
+            $scope.showEmailVerificationMessage = data.message;
+        });
         authentication.getUser().then(function (user) {
             $scope.user = user;
         });
@@ -31,8 +33,9 @@ define(['app', 'authentication'], function(app) {
         //
         //
         //============================================================
-        $scope.asctionSignOut = function() {
+        $scope.actionSignOut = function() {
             authentication.signOut();
+            $window.location.href = $window.location.href;
         };
 
         //============================================================

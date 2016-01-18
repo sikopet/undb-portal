@@ -5,7 +5,7 @@
                 <li ng-mouseover="highlightLink='undb'" ng-mouseleave="highlightLink=''"><a href="about/undb">UNDB</a> <i ng-if="highlightLink=='undb' || path=='/about/undb'" style="position:relative;top:-4px;left:15px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
                 <li ng-mouseover="highlightLink='goals'" ng-mouseleave="highlightLink=''"><a href="about/goals" >Goals</a> <i ng-if="highlightLink=='goals' ||  path=='/about/goals'" style="position:relative;top:-4px;left:15px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
                 <li ng-mouseover="highlightLink='biodiversity'" ng-mouseleave="highlightLink=''"><a href="about/biodiversity" >Biodiversity</a> <i ng-if="highlightLink=='biodiversity' ||  path=='/about/biodiversity'" style="position:relative;top:-4px;left:28px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
-                <li ng-mouseover="highlightLink='IYB2010'" ng-mouseleave="highlightLink=''"><a href="about/iyb2010" >IYB2010</a> <i ng-if="highlightLink=='IYB2010' ||  path=='/about/IYB2010'" style="position:relative;top:-4px;left:20px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+                <li ng-mouseover="highlightLink='IYB2010'" ng-mouseleave="highlightLink=''"><a href="about/iyb2010" >IYB2010</a> <i ng-if="highlightLink=='IYB2010' ||  path=='/about/iyb2010'" style="position:relative;top:-4px;left:20px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
                 <li ng-mouseover="highlightLink='SDGs'" ng-mouseleave="highlightLink=''"><a href="about/sdgs" >SDGs</a> <i ng-if="highlightLink=='SDGs' ||  path=='/about/sdgs'" style="position:relative;top:-4px;left:10px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
             </ul>
         </div>
@@ -18,62 +18,53 @@
             </div>
         </div>
 
-        <div class="row article">
-            <div class="col-xs-2 col-xs-offset-10">
-                <button type="button" class="btn bg-undb-green" aria-haspopup="true" aria-expanded="false">
-                      See all 17 goals <i class="fa fa-chevron-right"></i>
-                </button>
+        <div class="row article">        
+            <div class="col-sm-2 col-sm-offset-10">
+                <button type="button" class="btn bg-cbdgreen" aria-haspopup="true" aria-expanded="false">
+                      <a href="http://www.cbd.int/idb/2015/goals/" class="button-green-link">See all 17 goals <i class="fa fa-chevron-right"></i></a>
             </div>
         </div>
-        <div class="row article">    
-            <div class="col-xs-4">
-                <a href="#" class="linkBlock green imgText medium">
-                    <div>
-                        <p></p>
-            
-                        <img src="app/images/sdg-post2015-en.png" alt="">
-                    </div>              
-                </a>  
+        <div class="row article">
+            <div class="col-xs-8 col-sm-6 col-md-4">
+                <a href="#" >
+                    <div class="box-rounded-sm-green border-bottom-cbd-green">
+                    <img src="app/images/sdg-post2015-en.png" width="80%" alt="" class="image-center" >
+                    </div>
+                </a>
             </div>
-            <div class="col-xs-4">
-                <a href="#" class="linkBlock green imgText medium">
-                    <div>
-                        <p></p>
-            
-                        <img src="app/img/international-day-for-biological-diversity2015.svg" alt="">
-                    </div>              
-                </a> 
+            <div class="col-xs-8 col-sm-6 col-md-4">
+                <a href="#" >
+                    <div class="box-rounded-sm-green border-bottom-cbd-green"><br />
+                    <img src="app/images/idb-2015-logo-en.png" width="80%" alt="" class="image-center" >
+                    </div>
+                </a>
             </div>
-            <div class="col-xs-4">
-                <div class="linkBlock green downloadLanguage medium">
-                    <div>
-                        <h5>Biodiversity Issues Brief</h5>
-                        <p>Download the document</p>
-                        <ul class="languageList">
-                            <li><a href="#">En</a></li>
-                            <li><a href="#" class="gray">Es</a></li>
-                            <li><a href="#" class="gray">Fr</a></li>
-                            <li><a href="#" class="gray">Py</a></li>
-                            <li><a href="#" class="gray">中文</a></li>
-                            <li><a href="#" class="gray">العربية</a></li>
-                        </ul>
-            
-                        <img class="file-icon" src="app/images/pdf-file.png" alt="">
-                    </div>  
-                </div>  
+            <div class="col-xs-8 col-sm-6 col-md-4">
+                <div class="box-rounded-sm-green border-bottom-cbd-green  col-middle">
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <h5>Biodiversity Issues Brief</h5>
+                            <p>Download the document</p>
+                            <p><a href="#">En</a></p>
+                        </div>
+                        <div class="col-xs-4">
+                            <img class="image-icon" src="app/images/pdf-file.png" width="100%" alt="">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-xs-12 article">
+        <div class="row article">
+            <div class="col-xs-12">
                 <h4>Why is biodiversity important for sustainable development?</h4>
                 <p>
                     Biodiversity is important for sustainable development in many ways, as it provides the critical foundation for sustainable development and human well-being: Biodiversity is the critical foundation of the Earth’s life support system on which the welfare of current and future generations depends, thus supporting sustainable development. Humans are entirely dependent on ecosystems services for many basic needs. The foundations of many cultures, rural areas and cities depend on the services provided by ecosystems.
                 </p>
             </div>
         </div>
-        <div class="row">
-            <div class="col-xs-12 article">
+        <div class="row article">
+            <div class="col-xs-12">
                 <h4>Why is sustainable development important for biodiversity?</h4>
                 <p>
                     A true sustainable development framework must not only acknowledge the role of biodiversity for development, it must also provide the enabling conditions for its conservation and sustainable use. To do this, the post-2015 framework needs to promote transformational change in economies and societies. This will require improved governance and institutions at multiple scales as well as behavioural change, and building human capabilities through access to education and health care.
@@ -84,12 +75,12 @@
                 </p>
             </div>
         </div>
-        <div class="row">
-            <div class="col-xs-12 article">
+        <div class="row article">
+            <div class="col-xs-12">
                 <h4>Rio+20</h4>
                 <p>The United Nations Conference on Sustainable Development, or Rio+20, held in in Rio de Janeiro, Brazil on 20-22 June 2012, resulted in a focused political outcome document which contains clear and practical measures for implementing sustainable development. The Conference of the Parties to the Convention on Biological Diversity, noting the intergovernmental process on sustainable development goals established in the outcome document of the Rio+20 Conference in the context of the United Nations development agenda beyond 2015, and stressing the importance of integrating biodiversity into these processes, noting the relevance of the Strategic Plan for Biodiversity 2011-2020 and its Aichi Biodiversity Targets, invited all Parties and stakeholders to integrate the three objectives of the Convention on Biological Diversity into sustainable development and poverty eradication programmes, plans, policies and priority actions, taking into account the outcomes of the Rio+20 Conference.
                 </p>
-                <p>Rio+20 reinstated the following as the overarching objectives and essential requirements for sustainable development:
+                <p>Rio+20 reinstated the following as the overarching objectives and essential requirements for sustainable development:</p>
                 <ul class="basic-list">
                     <li>poverty eradication
                     </li><li>changing unsustainable and promoting sustainable patterns of consumption and production
