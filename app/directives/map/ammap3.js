@@ -130,35 +130,31 @@ define(['text!./ammap3.html', 'app', 'lodash','text!./pin-popup.html', 'text!./p
                   scale: 0.5,
                   title: "Brussels",
                   latitude: 50.8371,
-                  longitude: 4.3676,description: "<img src='http://upload.wikimedia.org/wikipedia/commons/9/97/Palace_of_Westminster%2C_London_-_Feb_2007.jpg' /><p>London is the capital and most populous city of England and the United Kingdom. Standing on the River Thames, London has been a major settlement for two millennia, its history going back to its founding by the Romans, who named it Londinium. London's ancient core, the City of London, largely retains its 1.12-square-mile (2.9 km2) medieval boundaries and in 2011 had a resident population of 7,375, making it the smallest city in England. Since at least the 19th century, the term London has also referred to the metropolis developed around this core The bulk of this conurbation forms the Greater London administrative area (coterminous with the London region), governed by the Mayor of London and the London Assembly.</p>"
+                  longitude: 30.5681,
               }, {
                   zoomLevel: 5,
                   scale: 0.5,
                   title: "Copenhagen",
                   latitude: 55.6763,
                   longitude: 12.5681,
-                  description: "<img src='http://upload.wikimedia.org/wikipedia/commons/9/97/Palace_of_Westminster%2C_London_-_Feb_2007.jpg' /><p>London is the capital and most populous city of England and the United Kingdom. Standing on the River Thames, London has been a major settlement for two millennia, its history going back to its founding by the Romans, who named it Londinium. London's ancient core, the City of London, largely retains its 1.12-square-mile (2.9 km2) medieval boundaries and in 2011 had a resident population of 7,375, making it the smallest city in England. Since at least the 19th century, the term London has also referred to the metropolis developed around this core The bulk of this conurbation forms the Greater London administrative area (coterminous with the London region), governed by the Mayor of London and the London Assembly.</p>"
               }, {
                   zoomLevel: 5,
                   scale: 0.5,
                   title: "Paris",
                   latitude: 48.8567,
                   longitude: 2.3510,
-                  description: "<img src='http://upload.wikimedia.org/wikipedia/commons/9/97/Palace_of_Westminster%2C_London_-_Feb_2007.jpg' /><p>London is the capital and most populous city of England and the United Kingdom. Standing on the River Thames, London has been a major settlement for two millennia, its history going back to its founding by the Romans, who named it Londinium. London's ancient core, the City of London, largely retains its 1.12-square-mile (2.9 km2) medieval boundaries and in 2011 had a resident population of 7,375, making it the smallest city in England. Since at least the 19th century, the term London has also referred to the metropolis developed around this core The bulk of this conurbation forms the Greater London administrative area (coterminous with the London region), governed by the Mayor of London and the London Assembly.</p>"
               }, {
                   zoomLevel: 5,
                   scale: 0.5,
                   title: "Reykjavik",
                   latitude: 64.1353,
                   longitude: -21.8952,
-                  description: "<img src='http://upload.wikimedia.org/wikipedia/commons/9/97/Palace_of_Westminster%2C_London_-_Feb_2007.jpg' /><p>London is the capital and most populous city of England and the United Kingdom. Standing on the River Thames, London has been a major settlement for two millennia, its history going back to its founding by the Romans, who named it Londinium. London's ancient core, the City of London, largely retains its 1.12-square-mile (2.9 km2) medieval boundaries and in 2011 had a resident population of 7,375, making it the smallest city in England. Since at least the 19th century, the term London has also referred to the metropolis developed around this core The bulk of this conurbation forms the Greater London administrative area (coterminous with the London region), governed by the Mayor of London and the London Assembly.</p>"
               }, {
                   zoomLevel: 5,
                   scale: 0.5,
                   title: "Moscow",
                   latitude: 55.7558,
                   longitude: 37.6176,
-                  description: "<img src='http://upload.wikimedia.org/wikipedia/commons/9/97/Palace_of_Westminster%2C_London_-_Feb_2007.jpg' /><p>London is the capital and most populous city of England and the United Kingdom. Standing on the River Thames, London has been a major settlement for two millennia, its history going back to its founding by the Romans, who named it Londinium. London's ancient core, the City of London, largely retains its 1.12-square-mile (2.9 km2) medieval boundaries and in 2011 had a resident population of 7,375, making it the smallest city in England. Since at least the 19th century, the term London has also referred to the metropolis developed around this core The bulk of this conurbation forms the Greater London administrative area (coterminous with the London region), governed by the Mayor of London and the London Assembly.</p>"
               }],
             },
 
@@ -188,12 +184,23 @@ define(['text!./ammap3.html', 'app', 'lodash','text!./pin-popup.html', 'text!./p
 
           }; //
         } //$scope.initMap
+        //not working
+        function closePopovers (pin) {
+            // get map object
+            var map = $scope.map;
 
+            // go through all of the images
+            for( var x in map.dataProvider.images) {
+                if(x !== $(pin).data('i'))
+                  $($scope.map.dataProvider.images[x].externalElement).children('#pin').popover('hide');
+            }
+
+        }
         // this function will take current images on the map and create HTML elements for them
-        function updateCustomMarkers (event) {
+        function updateCustomMarkers () {
             // get map object
             if($scope.schema=='parties')return;
-            var map = event.chart;
+            var map = $scope.map;
 
             // go through all of the images
             for( var x in map.dataProvider.images) {
@@ -204,8 +211,8 @@ define(['text!./ammap3.html', 'app', 'lodash','text!./pin-popup.html', 'text!./p
                 // check if it has corresponding HTML element
                 if ('undefined' == typeof image.externalElement){
                     image.externalElement = generateMarker(x) ;
-
-
+                  }
+if ('undefined' !== typeof image.externalElement){
                 // reposition the element accoridng to coordinates
                 image.externalElement.style.top = map.latitudeToY(image.latitude) + 'px';
                 image.externalElement.style.left = map.longitudeToX(image.longitude) + 'px';
@@ -244,9 +251,15 @@ define(['text!./ammap3.html', 'app', 'lodash','text!./pin-popup.html', 'text!./p
             $(pin).data('i',imageIndex);
             $(pin).data('toggle','popover');
             $(pin).popover(ammap3.generatePopover(imageIndex));
-            // pin.addEventListener('click', function() {
-            //     console.log($(this).data('i'));
-            // }, false);
+            pin.addEventListener('click', function() {
+                  closePopovers(this);
+                if($(pin).data('bs.popover').tip().hasClass('in'))
+                  $scope.map.clickMapObject($scope.map.dataProvider.images[imageIndex]);
+
+                //
+
+
+             }, false);
             holder.appendChild(pin);
 
             // // create pulse
