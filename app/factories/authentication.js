@@ -247,7 +247,7 @@ define(['app', 'angular', 'jquery'], function (app, ng, $) { 'use strict';
 
 	}]);
 
-	app.factory('authenticationHttpIntercepter', ["$q", "apiToken", function($q, apiToken) {
+	app.factory('authenticationHttpIntercepter', ["$q", "apiToken", '$rootScope', function($q, apiToken, $rootScope) {
 
 		return {
 			request: function(config) {
