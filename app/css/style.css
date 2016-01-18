@@ -247,6 +247,10 @@ ol.basic-list
     margin-bottom: 5%;
     max-width: 400px;
 }
+.border-bottom-cbd-green img.image-center-leftmargin-10{
+    margin-left: 10%;
+    margin-bottom: 5%;
+}
 .border-bottom-cbd-green p.indent-right{
     margin-left: 20%; 
 }
