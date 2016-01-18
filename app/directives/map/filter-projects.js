@@ -14,8 +14,8 @@ define(['text!./filter-projects.html', 'app', 'lodash'], function(template, app,
       },
       link: function($scope, $element, $attr,undbMap) {
           $scope.queries = {
-            'parnters': {
-              'schema_s': ['partners'],
+            'projects': {
+              'schema_s': ['lwProjects'],
             }
           };
 
@@ -26,8 +26,8 @@ define(['text!./filter-projects.html', 'app', 'lodash'], function(template, app,
             $scope.message="Projects are long term initiatives at the national level or beyond, and feature elements of capacity building.";
             undbMap.filterActive('projects');
 
-          //  undbMap.addSubQuery(_.cloneDeep($scope.queries), 'partners');
-          //  undbMap.search();
+            undbMap.addSubQuery(_.cloneDeep($scope.queries), 'projects');
+            undbMap.search();
           }; // loadRecords
 
         } //link

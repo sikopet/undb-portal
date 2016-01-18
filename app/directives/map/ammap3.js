@@ -1,7 +1,7 @@
-define(['text!./ammap3.html', 'app', 'lodash', 'ammap3', 'ammap3WorldHigh', 'ammap-theme', 'ammap-export','ammap-ex-fabric','ammap-ex-filesaver','ammap-ex-pdfmake','ammap-ex-vfs-fonts','ammap-ex-jszip','ammap-ex-xlsx'], function(template, app, _) {
+define(['text!./ammap3.html', 'app', 'lodash','text!./pin-popup.html', 'text!./pin-popup-title.html', 'ammap3', 'ammap3WorldHigh', 'ammap-theme', 'ammap-export','ammap-ex-fabric','ammap-ex-filesaver','ammap-ex-pdfmake','ammap-ex-vfs-fonts','ammap-ex-jszip','ammap-ex-xlsx'], function(template, app, _, popoverTemplate, popoverTitle) {
   'use strict';
 
-  app.directive('ammap3', ['$timeout', function($timeout) {
+  app.directive('ammap3', ['$timeout','$compile', function($timeout,$compile) {
     return {
       restrict: 'EAC',
       template: template,
@@ -11,47 +11,42 @@ define(['text!./ammap3.html', 'app', 'lodash', 'ammap3', 'ammap3WorldHigh', 'amm
         items: '=ngModel',
         schema: '=schema',
         zoomTo: '=zoomTo',
-        debug: '=debug'
-
+        debug: '=debug',
+  //      pins: '=pins'
       },
       link: function($scope, $element, $attr, requiredDirectives) {
 
         var reportingDIsplay = requiredDirectives[0];
         var ammap3 = requiredDirectives[1];
-        $scope.legendTitle = "All Reporting to the CBD";
+
         $scope.leggends = {
-          developerMode: true,
-          aichiTarget: [{
-            id: 0,
-            title: 'No Data',
+
+          parties: [{
+            id: 5,
+            title: 'CBD',
             visible: true,
-            color: '#dddddd'
-          }, {
-            id: 1,
-            title: 'Moving Away',
+            color: '#ADD7F6'
+          },{
+            id: 4,
+            title: 'CBD & CPB',
             visible: true,
-            color: '#6c1c67'
+            color: '#87BFFF'
+          },{
+            id: 3,
+            title: 'CBD & CPB & ABS',
+            visible: true,
+            color: '#3F8EFC'
           }, {
             id: 2,
-            title: 'No Progress',
+            title: 'CBD & ABS',
             visible: true,
-            color: '#ee1d23'
+            color: '#2667FF'
           }, {
-            id: 3,
-            title: 'Insufficient Rate',
+            id: 0,
+            title: 'Not a Party',
             visible: true,
-            color: '#fec210'
-          }, {
-            id: 4,
-            title: 'Meet Target',
-            visible: true,
-            color: '#109e49'
-          }, {
-            id: 5,
-            title: 'Exceeded Target',
-            visible: true,
-            color: '#1074bc'
-          }, ],
+            color: '#dddddd'
+          },    ],
           nationalReport: [
 
             {
@@ -83,48 +78,25 @@ define(['text!./ammap3.html', 'app', 'lodash', 'ammap3', 'ammap3WorldHigh', 'amm
         $scope.$watch('items', function() {
           ammap3.generateMap($scope.schema);
         });
-        // //external zoomToMap
-        // $scope.$watch('zoomTo', function() {
-        //   zoomTo();
-        // }); //
+
         initMap();
 
         ammap3.writeMap();
 
-        $scope.$on('customHome', function(event) {
-          $timeout(function() {
-            $scope.map.clickMapObject($scope.map.dataProvider);
-          });
-        });
 
-        $scope.map.addListener("clickMapObject", function(event) {
-          //  $scope.$apply(function(){
-          //      reportingDIsplay.showCountryResultList(event.mapObject.id);
-          //  });
-          //                 $scope.$apply();
-          // reportingDIsplay.showCountryResultList(event.mapObject.id);
-          var id = event.mapObject.id;
-          if(event.mapObject.id === 'GL')
-          {
-              $scope.map.clickMapObject(ammap3.getMapObject('DK'));
-              id = 'DK';
-          }
-          $scope.$evalAsync(function() {
-            reportingDIsplay.showCountryResultList(id);
-          });
 
-        }); //
+          $scope.map.addListener("positionChanged", updateCustomMarkers);
+//$scope.map.addListener("clickMapObject", testFunction);
 
-        $scope.map.addListener("homeButtonClicked", function() {
-          $timeout(function() {
-            reportingDIsplay.showCountryResultList('show');
-          });
-        });
+
+
 
         if ($scope.debug) {
           $scope.map.addListener("click", function(event) {
+
             var info = event.chart.getDevInfo();
             $timeout(function() {
+                $("#mapdiv").find("#pin").popover('hide');
               console.log({
                 "latitude": info.latitude,
                 "longitude": info.longitude,
@@ -134,13 +106,6 @@ define(['text!./ammap3.html', 'app', 'lodash', 'ammap3', 'ammap3WorldHigh', 'amm
           });
         }
 
-        // //=======================================================================
-        // //
-        // //=======================================================================
-        // function zoomTo() {
-        //   if ($scope.zoomTo[0])
-        //     $scope.map.clickMapObject(ammap3.getMapObject($scope.zoomTo[0]));
-        // } //$scope.legendHide
 
         //=======================================================================
         //
@@ -160,11 +125,46 @@ define(['text!./ammap3.html', 'app', 'lodash', 'ammap3', 'ammap3WorldHigh', 'amm
                 "label": "EU",
                 "latitude": -5.02,
                 "longitude": -167.66
+              },{
+                  zoomLevel: 5,
+                  scale: 0.5,
+                  title: "Brussels",
+                  latitude: 50.8371,
+                  longitude: 4.3676,description: "<img src='http://upload.wikimedia.org/wikipedia/commons/9/97/Palace_of_Westminster%2C_London_-_Feb_2007.jpg' /><p>London is the capital and most populous city of England and the United Kingdom. Standing on the River Thames, London has been a major settlement for two millennia, its history going back to its founding by the Romans, who named it Londinium. London's ancient core, the City of London, largely retains its 1.12-square-mile (2.9 km2) medieval boundaries and in 2011 had a resident population of 7,375, making it the smallest city in England. Since at least the 19th century, the term London has also referred to the metropolis developed around this core The bulk of this conurbation forms the Greater London administrative area (coterminous with the London region), governed by the Mayor of London and the London Assembly.</p>"
+              }, {
+                  zoomLevel: 5,
+                  scale: 0.5,
+                  title: "Copenhagen",
+                  latitude: 55.6763,
+                  longitude: 12.5681,
+                  description: "<img src='http://upload.wikimedia.org/wikipedia/commons/9/97/Palace_of_Westminster%2C_London_-_Feb_2007.jpg' /><p>London is the capital and most populous city of England and the United Kingdom. Standing on the River Thames, London has been a major settlement for two millennia, its history going back to its founding by the Romans, who named it Londinium. London's ancient core, the City of London, largely retains its 1.12-square-mile (2.9 km2) medieval boundaries and in 2011 had a resident population of 7,375, making it the smallest city in England. Since at least the 19th century, the term London has also referred to the metropolis developed around this core The bulk of this conurbation forms the Greater London administrative area (coterminous with the London region), governed by the Mayor of London and the London Assembly.</p>"
+              }, {
+                  zoomLevel: 5,
+                  scale: 0.5,
+                  title: "Paris",
+                  latitude: 48.8567,
+                  longitude: 2.3510,
+                  description: "<img src='http://upload.wikimedia.org/wikipedia/commons/9/97/Palace_of_Westminster%2C_London_-_Feb_2007.jpg' /><p>London is the capital and most populous city of England and the United Kingdom. Standing on the River Thames, London has been a major settlement for two millennia, its history going back to its founding by the Romans, who named it Londinium. London's ancient core, the City of London, largely retains its 1.12-square-mile (2.9 km2) medieval boundaries and in 2011 had a resident population of 7,375, making it the smallest city in England. Since at least the 19th century, the term London has also referred to the metropolis developed around this core The bulk of this conurbation forms the Greater London administrative area (coterminous with the London region), governed by the Mayor of London and the London Assembly.</p>"
+              }, {
+                  zoomLevel: 5,
+                  scale: 0.5,
+                  title: "Reykjavik",
+                  latitude: 64.1353,
+                  longitude: -21.8952,
+                  description: "<img src='http://upload.wikimedia.org/wikipedia/commons/9/97/Palace_of_Westminster%2C_London_-_Feb_2007.jpg' /><p>London is the capital and most populous city of England and the United Kingdom. Standing on the River Thames, London has been a major settlement for two millennia, its history going back to its founding by the Romans, who named it Londinium. London's ancient core, the City of London, largely retains its 1.12-square-mile (2.9 km2) medieval boundaries and in 2011 had a resident population of 7,375, making it the smallest city in England. Since at least the 19th century, the term London has also referred to the metropolis developed around this core The bulk of this conurbation forms the Greater London administrative area (coterminous with the London region), governed by the Mayor of London and the London Assembly.</p>"
+              }, {
+                  zoomLevel: 5,
+                  scale: 0.5,
+                  title: "Moscow",
+                  latitude: 55.7558,
+                  longitude: 37.6176,
+                  description: "<img src='http://upload.wikimedia.org/wikipedia/commons/9/97/Palace_of_Westminster%2C_London_-_Feb_2007.jpg' /><p>London is the capital and most populous city of England and the United Kingdom. Standing on the River Thames, London has been a major settlement for two millennia, its history going back to its founding by the Romans, who named it Londinium. London's ancient core, the City of London, largely retains its 1.12-square-mile (2.9 km2) medieval boundaries and in 2011 had a resident population of 7,375, making it the smallest city in England. Since at least the 19th century, the term London has also referred to the metropolis developed around this core The bulk of this conurbation forms the Greater London administrative area (coterminous with the London region), governed by the Mayor of London and the London Assembly.</p>"
               }],
             },
+
             "areasSettings": {
               "autoZoom": true,
-              "selectedColor": "#7fc3f4",
+              "selectedColor": "#000000",
               "rollOverColor": "#423f3f",
               "selectable": true,
               "color": "#428bca",
@@ -184,19 +184,121 @@ define(['text!./ammap3.html', 'app', 'lodash', 'ammap3', 'ammap3WorldHigh', 'amm
               "enabled": true,
               "position": "bottom-right"
             },
+
+
           }; //
         } //$scope.initMap
+
+        // this function will take current images on the map and create HTML elements for them
+        function updateCustomMarkers (event) {
+            // get map object
+            if($scope.schema=='parties')return;
+            var map = event.chart;
+
+            // go through all of the images
+            for( var x in map.dataProvider.images) {
+                // get MapImage object
+                var image = map.dataProvider.images[x];
+
+
+                // check if it has corresponding HTML element
+                if ('undefined' == typeof image.externalElement){
+                    image.externalElement = generateMarker(x) ;
+
+
+                // reposition the element accoridng to coordinates
+                image.externalElement.style.top = map.latitudeToY(image.latitude) + 'px';
+                image.externalElement.style.left = map.longitudeToX(image.longitude) + 'px';
+}
+
+            }
+
+        }
+
+        // this function creates and returns a new marker element
+        function generateMarker(imageIndex) {
+
+              if($scope.schema==='actions')
+                  return makeMarker(imageIndex,'pin-cbd','pulse-cbd','/app/img/cbd-leaf-green.svg');
+              if($scope.schema==='actors')
+                  return makeMarker(imageIndex,'pin-actor','pulse-actor','/app/img/ic_nature_people_black_24px.svg');
+              if($scope.schema==='bioChamps')
+                  return makeMarker(imageIndex,'pin-actor','pulse-actor','/app/img/ic_verified_user_black_24px.svg');
+              if($scope.schema==='caseStudies')
+                  return makeMarker(imageIndex,'pin-actor','pulse-actor','/app/img/ic_school_black_24px.svg');
+              if($scope.schema==='projects')
+                  return makeMarker(imageIndex,'pin-actor','pulse-actor','/app/img/ic_art_track_black_24px.svg');
+        }
+        // this function creates and returns a new marker element
+        function makeMarker(imageIndex,pinClass,pulseClass,imagePath) {
+
+            var holder = document.createElement('div');
+            holder.className = 'map-marker';
+            holder.title = $scope.map.dataProvider.images[imageIndex].title;
+            holder.style.position = 'absolute';
+
+            //create pin
+            var pin = document.createElement('div');
+            pin.id='pin';
+            pin.className = 'pin '+pinClass;
+            $(pin).data('i',imageIndex);
+            $(pin).data('toggle','popover');
+            $(pin).popover(ammap3.generatePopover(imageIndex));
+            // pin.addEventListener('click', function() {
+            //     console.log($(this).data('i'));
+            // }, false);
+            holder.appendChild(pin);
+
+            // // create pulse
+            var pulse = document.createElement('div');
+            pulse.className = pulseClass;
+            holder.appendChild(pulse);
+
+            // create pulse
+            var img = document.createElement('img');
+            img.setAttribute('src', imagePath);
+            img.setAttribute('height', '23.21px');
+            img.setAttribute('width', '25.06px');
+            img.className = 'leaf-image';
+            pin.appendChild(img);
+
+            // append the marker to the map container
+            $scope.map.dataProvider.images[imageIndex].chart.chartDiv.appendChild(holder);
+
+            return holder;
+        }
+
       }, //link
 
       controller: ["$scope", function($scope) {
+
+
+        //=======================================================================
+        //
+        //=======================================================================
+        function generatePopover(imageIndex) {
+
+
+            return {
+              html: true,
+              trigger: 'click',
+              placement: 'top',
+              title: popoverTitle,
+              template: popoverTemplate
+            };
+
+        } //$scope.legendHide
+
+
         //=======================================================================
         //
         //=======================================================================
         function generateMap(schema) {
 
+
           if (!schema) return;
-          if (schema.indexOf('AICHI-TARGET-') > -1)
-            progressColorMap(aichiMap);
+          if (schema==='parties')
+            progressColorMap(partiesMap);
           else
             progressColorMap(defaultMap);
         } //$scope.legendHide
@@ -214,45 +316,20 @@ define(['text!./ammap3.html', 'app', 'lodash', 'ammap3', 'ammap3WorldHigh', 'amm
         //=======================================================================
         //
         //=======================================================================
-        function progressToNumber(progress) {
-
-          switch (progress.trim()) {
-            case "On track to exceed target":
-              return 5;
-            case "On track to achieve target":
-              return 4;
-            case "Progress towards target but at an  insufficient rate":
-              return 3;
-            case "No significant change":
-              return 2;
-            case "Moving away from target":
-              return 1;
-          }
-        } //progressToNumber(progress)
-
-        //=======================================================================
-        //
-        //=======================================================================
         $scope.legendHide = function(legendItem) {
           var area2 ={};
 
-
           _.each($scope.map.dataProvider.areas, function(area) {
 
-            if (legendItem.color === area.originalColor && area.mouseEnabled === true && 'GL' !==area.id) {
+            if (legendItem.color === area.originalColor && area.mouseEnabled === true ) {
               area.colorReal = '#FFFFFF';
               area.mouseEnabled = false;
 
-            } else if (legendItem.color === area.originalColor && area.mouseEnabled === false && 'GL' !==area.id) {
+            } else if (legendItem.color === area.originalColor && area.mouseEnabled === false ) {
               area.colorReal = legendItem.color;
               area.mouseEnabled = true;
 
-          }            if(area.id.toUpperCase()==='DK'){
-                          area2 = getMapObject('gl');
-                          //area2.originalColor = area.originalColor;
-                          area2.colorReal = area.colorReal;
-                          area2.mouseEnabled = area.mouseEnabled;
-                      }
+          }
           });
           if (legendItem.visible)
             legendItem.visible = false;
@@ -291,9 +368,12 @@ define(['text!./ammap3.html', 'app', 'lodash', 'ammap3', 'ammap3WorldHigh', 'amm
           hideAreas();
           $scope.legendTitle = ""; // rest legend title
           _.each($scope.items, function(country) {
-            _.each(country.docs, function(schema) {
-              if (mapTypeFunction) mapTypeFunction(country, schema, $scope.schema);
-            });
+
+              if(!_.isEmpty(country.docs))
+                  _.each(country.docs, function(schema) {
+                    if (mapTypeFunction) mapTypeFunction(country, schema, $scope.schema);
+                  });
+              else mapTypeFunction(country);
           });
           $scope.map.validateData(); // updates map with color changes
         } //progressColorMap
@@ -301,14 +381,28 @@ define(['text!./ammap3.html', 'app', 'lodash', 'ammap3', 'ammap3WorldHigh', 'amm
         //=======================================================================
         //
         //=======================================================================
-        function aichiMap(country, schema, schemaName) {
-          var doc = schema[0];
-          changeAreaColor(country.identifier, progressToColor(progressToNumber(doc.progress_EN_t)));
-          buildProgressBaloon(country, progressToNumber(doc.progress_EN_t), doc.nationalTarget_EN_t);
-          legendTitle(country, schema, schemaName);
-          restLegend($scope.leggends.aichiTarget);
+        function partiesMap(country) {
+          genTreatyCombinations();
+
+          changeAreaColor(country.code, getPartyColor(country));
+//          buildProgressBaloon(country, progressToNumber(doc.progress_EN_t), doc.nationalTarget_EN_t);
+          legendTitle($scope.schema);
+//          restLegend($scope.leggends.aichiTarget);
         } // aichiMap
 
+        //=======================================================================
+        //
+        //=======================================================================
+        function getPartyColor(country) {
+
+            switch (country.treatyComb){
+              case 'CBD,': return '#ADD7F6';
+              case 'CBD,CPB,': return '#87BFFF';
+              case 'CBD,CPB,ABS,': return '#3F8EFC' ;
+              case 'CBD,ABS,':return '#2667FF';
+              default: return '#dddddd';
+            }
+        } //getPartyColor
         //=======================================================================
         //
         //=======================================================================
@@ -323,15 +417,10 @@ define(['text!./ammap3.html', 'app', 'lodash', 'ammap3', 'ammap3WorldHigh', 'amm
         //=======================================================================
         //
         //=======================================================================
-        function legendTitle(country, schema, schemaName) {
+        function legendTitle(schemaName) {
 
-          if (schemaName.indexOf('AICHI-TARGET-') > -1) {
-            $scope.legendTitle = aichiTargetReadable(schema[0].nationalTarget_EN_t) + " Assessments";
-          } else if (schemaName == 'nr5' || schemaName == 'nr4' || schemaName == 'nr3' || schemaName == 'nr2' || schemaName == 'nr1') {
-            $scope.legendTitle = schema[0].reportType_EN_t;
-
-          } else if (schemaName == 'nbsaps') {
-            $scope.legendTitle = 'National Biodiversity Strategies and Action Plans';
+          if (schemaName == 'parties') {
+            $scope.legendTitle = 'Parties and their Treaties';
 
           } else if (schemaName == 'nationalIndicator') {
             $scope.legendTitle = 'National Indicators';
@@ -353,23 +442,15 @@ define(['text!./ammap3.html', 'app', 'lodash', 'ammap3', 'ammap3WorldHigh', 'amm
           if(!area)
             area = getMapObject(id);
             area.colorReal = area.originalColor = color;
-          if(id.toUpperCase()==='DK'){
-              var area2 = getMapObject('GL');
-              area2.colorReal = area.colorReal;
-              area2.originalColor = area.originalColor;
-          }
+          // if(id.toUpperCase()==='DK'){
+          //     var area2 = getMapObject('GL');
+          //     area2.colorReal = area.colorReal;
+          //     area2.originalColor = area.originalColor;
+          // }
 
         } //getMapObject
 
-        // //=======================================================================
-        // //
-        // //=======================================================================
-        function aichiTargetReadable(target) {
 
-          return target.replace("-", " ").replace("-", " ").toLowerCase().replace(/\b./g, function(m) {
-            return m.toUpperCase();
-          });
-        } //aichiTargetReadable
 
         // //=======================================================================
         // // c
@@ -399,8 +480,6 @@ define(['text!./ammap3.html', 'app', 'lodash', 'ammap3', 'ammap3WorldHigh', 'amm
             area.balloonText += "<i class='flag-icon flag-icon-" + country.identifier + " ng-if='country.isEUR'></i>&nbsp;" + area.title + "</div>";
           var balloonBody = '';
 
-          if (country.docs.nationalReport && !country.docs.nationalReport.length)
-            delete country.docs.nationalReport;
 
           // console.log('Object.keys(country.docs).length',Object.keys(country.docs).length);
           if (Object.keys(country.docs).length == 1) {
@@ -412,65 +491,39 @@ define(['text!./ammap3.html', 'app', 'lodash', 'ammap3', 'ammap3WorldHigh', 'amm
                   if ($scope.schema !== 'all')
                     balloonBody = " <div class='panel-body' style='text-align:left;'>" + country.docs.nationalReport[0].reportType_EN_t + "</div>";
                   break;
-                case 'nbsaps':
-                  if ($scope.schema !== 'all')
-                    balloonBody = " <div class='panel-body' style='text-align:left;'>" + country.docs.nbsaps[0].title_t + "</div>";
-                  break;
-                case 'nationalIndicator':
-                  if ($scope.schema !== 'all')
-                    balloonBody = " <div class='panel-body' style='text-align:left;'>" + country.docs.nationalIndicator[0].title_t + "</div>";
-                  break;
-                case 'nationalTarget':
-                  if ($scope.schema !== 'all')
-                    balloonBody = " <div class='panel-body' style='text-align:left;'>" + country.docs.nationalTarget[0].title_t + "</div>";
-                  break;
-                case 'resourceMobilisation':
-                  if ($scope.schema !== 'all')
-                    balloonBody = " <div class='panel-body' style='text-align:left;'>" + country.docs.resourceMobilisation[0].title_t + "</div>";
-                  break;
               }
             }); //_.each
           }
           area.balloonText += balloonBody;
         } //getMapObject
 
-        // //=======================================================================
-        // // c
-        // //=======================================================================
-        function getProgressIcon(progress) {
+        // =======================================================================
+        //
+        // =======================================================================
+        function genTreatyCombinations() {
+          $scope.treatyCombinations={};
+          $scope.treaties=['XXVII8','XXVII8a','XXVII8b','XXVII8c'];
+          _.each($scope.items,function(country,code){
+              if(country.treaties.XXVII8.party)country.treatyComb='CBD,';
+              if(country.treaties.XXVII8a.party)country.treatyComb+='CPB,';
+              if(country.treaties.XXVII8b.party)country.treatyComb+='ABS,';
+              if(country.treaties.XXVII8c.party)country.treatyComb+='NKLP';
+              if(!country.treatyComb)country.treatyComb='NP';
+              if(!$scope.treatyCombinations[country.treatyComb])
+                $scope.treatyCombinations[country.treatyComb]=1;
+              else
+                $scope.treatyCombinations[country.treatyComb]++;
+          });
+        } //readQueryString
 
-          switch (progress) {
-            case 1:
-              return 'app/img/ratings/36A174B8-085A-4363-AE11-E34163A9209C.png';
-            case 2:
-              return 'app/img/ratings/2D241E0A-1D17-4A0A-9D52-B570D34B23BF.png';
-            case 3:
-              return 'app/img/ratings/486C27A7-6BDF-460D-92F8-312D337EC6E2.png';
-            case 4:
-              return 'app/img/ratings/E49EF94E-0590-486C-903B-68C5E54EC089.png';
-            case 5:
-              return 'app/img/ratings/884D8D8C-F2AE-4AAC-82E3-5B73CE627D45.png';
-          }
-        } //getProgressIcon(progress)
 
-        // //=======================================================================
-        // //
-        // //=======================================================================
-        function getProgressText(progress, target) {
+        //=======================================================================
+        //
+        //=======================================================================
+        function getMapData() {
 
-          switch (progress) {
-            case 1:
-              return 'Moving away from ' + aichiTargetReadable(target) + ' (things are getting worse rather than better).';
-            case 2:
-              return 'No significant overall progress towards ' + aichiTargetReadable(target) + ' (overall, we are neither moving towards the ' + aichiTargetReadable(target) + ' nor moving away from it).';
-            case 3:
-              return 'Progress towards ' + aichiTargetReadable(target) + ' but at an insufficient rate (unless we increase our efforts the ' + aichiTargetReadable(target) + ' will not be met by its deadline).';
-            case 4:
-              return 'On track to achieve ' + aichiTargetReadable(target) + ' (if we continue on our current trajectory we expect to achieve the ' + aichiTargetReadable(target) + ' by 2020).';
-            case 5:
-              return 'On track to exceed ' + aichiTargetReadable(target) + ' (we expect to achieve the ' + aichiTargetReadable(target) + ' before its deadline).';
-          }
-        } //getProgressText(progress, target)
+          return $scope.mapData;
+        }
 
         // //=======================================================================
         // // changes color of all un colored areas
@@ -498,55 +551,12 @@ define(['text!./ammap3.html', 'app', 'lodash', 'ammap3', 'ammap3WorldHigh', 'amm
           return $scope.map.dataProvider.areas[index];
         } //getMapObject
 
-        //=======================================================================
-        //
-        //=======================================================================
-        function progressToColor(progress) {
 
-          switch (progress) {
-            case 5:
-              return '#1074bc';
-            case 4:
-              return '#109e49';
-            case 3:
-              return '#fec210';
-            case 2:
-              return '#ee1d23';
-            case 1:
-              return '#6c1c67';
-          }
-        } //readQueryString
-
-        //=======================================================================
-        //
-        //=======================================================================
-        function getMapData() {
-
-          return $scope.mapData;
-        }
-
-        //=======================================================================
-        //
-        //=======================================================================
-        function setMapData(name, value) {
-          if (name && !value) $scope.mapData = name;
-          else
-            $scope.mapData[name] = value;
-        }
-
-        function homeButton() {
-          $scope.map.fire("homeButtonClicked", {
-            type: "homeButtonClicked",
-            chart: $scope.map
-          });
-        }
-
-        this.homeButton = homeButton;
         this.getMapObject = getMapObject;
         this.getMapObject = getMapObject;
         this.writeMap = writeMap;
         this.getMapData = getMapData;
-        this.setMapData = setMapData;
+        this.generatePopover=generatePopover;
         this.generateMap = generateMap;
         this.progressColorMap = progressColorMap;
       }],
