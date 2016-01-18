@@ -12,7 +12,9 @@ define(['app', 'authentication', 'providers/locale'], function(app) {
             $scope.$root.breadcrumb = getPage($route.current.$$route.originalPath);
             $scope.path = $location.path();
         });
-
+        $rootScope.$on('event:auth-emailVerification', function(evt, data){
+            $scope.showEmailVerificationMessage = data.message;
+        });
         authentication.getUser().then(function (user) {
             $scope.user = user;
         });

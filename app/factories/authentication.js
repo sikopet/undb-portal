@@ -228,6 +228,11 @@ define(['app', 'angular', 'jquery'], function (app, ng, $) { 'use strict';
 	    //
 	    //============================================================
 		function setUser(user) {
+			if (user && user.isAuthenticated && !user.isEmailVerified) {
+                $rootScope.$broadcast('event:auth-emailVerification', {
+                    message: 'Email verification pending. Please verify you email before submitting any data.'
+                });
+            }
 
 			currentUser     = user || undefined;
 			$rootScope.user = user || anonymous();
@@ -268,7 +273,19 @@ define(['app', 'angular', 'jquery'], function (app, ng, $) { 'use strict';
 
 					return config;
 				});
-			}
+			},
+            responseError: function(rejection) {
+
+                if (rejection.data && rejection.data.statusCode == 401) {
+
+                    if (rejection.data.message.indexOf('Email verification pending') >= 0) {
+                        $rootScope.$broadcast('event:auth-emailVerification', rejection.data);
+                    }
+
+                }
+                // otherwise, default behaviour
+                return $q.reject(rejection);
+            }
 		};
 	}]);
 });
