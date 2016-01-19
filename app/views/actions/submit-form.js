@@ -1,6 +1,6 @@
 define(['lodash', 'guid', 'app', 'directives/file'], function(_, guid) { 'use strict';
 
-    return ['$scope', '$http', '$q', 'locale', 'realm', function($scope, $http, $q, locale, realm) {
+    return ['$scope', '$http', '$q', 'locale', '$route', 'realm', function($scope, $http, $q, locale, $route, realm) {
 
         var schemasWorkflowTypes = {
               "undbAction": {
