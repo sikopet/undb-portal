@@ -1,16 +1,27 @@
 <div class="popover" style>
   <div class="arrow"></div>
   <h3 class="popover-title"></h3>
-  <div style="color:black;min-height:100px; "><img src="/app/img/ic_art_track_black_48px.svg" style="float:right;"> {{description_s}} <br>{{descriptionNative_s}} <div>
-  <div class="popover-footer text-nowrap" style="float: bottom; clear:both;" >
+  <div style="color:black;min-height:100px; ">
+    <img src="{{logo_s}}" style="min-width:100px;min-height:100px;max-width:300;max-height:300;float:right;">
+    {{description_s}} <br>
+    {{descriptionNative_s}}
+    {{address_s}}
+    {{email_s}}
+    {{phone_s}}
+    <div>
+  <div class="popover-footer text-nowra'p" style="float: bottom; clear:both;" >
 
     <span class="text-nowrap" style="color:black;float:left;">
     <i class="flag-icon flag-icon-{{countryCode}}" ></i>
     Location: {{countryName}}
   </span>
-  <span class="text-nowrap" style="color:black;">
-    <i class="fa fa-map-signs"></i>
-    <a href="{{directions}}" target="_blank">Directions</a>
+  <span class="text-nowrap" style="color:black;float:right">
+
+    {{website_s}}
+    {{facebook_s}}
+    {{youtube_s}}
+    {{twitter_s}}
+    {{directions_s}}
     </span>
 
   </div>
