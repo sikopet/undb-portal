@@ -332,7 +332,7 @@ define(['lodash', 'app', 'authentication', 'utilities/km-utilities', 'utilities/
         //======================================================
         function viewWorkflow(record)
         {
-            $location.url("/management/requests/" + record._workflow_s.replace(/^workflow-/i, "") + "/publishRecord");
+            window.location.href = "https://chm.cbd.int/management/requests/" + record._workflow_s.replace(/^workflow-/i, "") + "/publishRecord";
         }
     }];
 });

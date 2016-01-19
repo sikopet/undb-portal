@@ -1,6 +1,6 @@
-define(['lodash', 'guid', 'app', 'directives/file'], function(_, guid) { 'use strict';
+define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows'], function(_, guid) { 'use strict';
 
-    return ['$scope', '$http', '$q', 'locale', function($scope, $http, $q, locale) {
+    return ['$scope', '$http', '$q', 'locale', 'realm', 'workflows',  function($scope, $http, $q, locale, realm, workflows) {
 
         $scope.save = save;
         $scope.upload = upload;
@@ -115,9 +115,9 @@ define(['lodash', 'guid', 'app', 'directives/file'], function(_, guid) { 'use st
                 return $http.put('https://api.cbd.int/api/v2013/documents/'+doc.header.identifier+'/versions/draft', doc, { params : { schema : doc.header.schema }});
 
             }).then(function(res) {
-
-                console.log(res.data || res);
-
+                return workflows.addWorkflow(res.data);
+            }).then(function(res) {
+                alert('Record saved successfully');
             }).catch(function(err) {
 
                 err = err.data || err;

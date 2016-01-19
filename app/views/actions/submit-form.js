@@ -1,6 +1,7 @@
-define(['lodash', 'guid', 'app', 'directives/file'], function(_, guid) { 'use strict';
+define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows'], function(_, guid) { 'use strict';
 
-    return ['$scope', '$http', '$q', 'locale', '$route', 'realm', function($scope, $http, $q, locale, $route, realm) {
+    return ['$scope', '$http', '$q', 'locale', '$route', 'realm', 'workflows', '$route', '$location',
+     function($scope, $http, $q, locale, $route, realm, workflows, $route, $location) {
 
         $scope.save = save;
         $scope.upload = upload;
@@ -113,25 +114,12 @@ define(['lodash', 'guid', 'app', 'directives/file'], function(_, guid) { 'use st
 
                 return $http.put('https://api.cbd.int/api/v2013/documents/'+doc.header.identifier+'/versions/draft', doc, { params : { schema : doc.header.schema }}).then(res_Data);
 
-            }).then(function(draftInfo) {
-
-                var workflowData = {
-                  "realm": realm,
-                  "documentID": draftInfo.documentID,
-                  "identifier": draftInfo.identifier,
-                  "title": draftInfo.workingDocumentTitle,
-                  "abstract": draftInfo.workingDocumentSummary,
-                  "metadata": draftInfo.workingDocumentMetadata
-                };
-                var body = {
-    				type    : "publishReferenceRecord",
-    				version : undefined,
-    				data    : workflowData
-    			};
-
-                return $http.post("https://api.cbd.int/api/v2013/workflows", body);
-
-            }).catch(res_Error).finally(function() {
+            }).then(function(docInfo) {
+                return workflows.addWorkflow(docInfo);
+            }).then(function(docInfo) {
+                $location.path('/actions/submit');
+            })
+            .catch(res_Error).finally(function() {
                 delete $scope.saving;
             });
         }
@@ -163,9 +151,7 @@ define(['lodash', 'guid', 'app', 'directives/file'], function(_, guid) { 'use st
                 $scope.document.logo  = 'https://chm.cbd.int/api/v2013/documents/'+attachInfo.documentUID+'/attachments/'+encodeURIComponent(attachInfo.filename);
 
             }).catch(res_Error).finally(function() {
-
                 delete $scope.saving;
-
             });
         }
 

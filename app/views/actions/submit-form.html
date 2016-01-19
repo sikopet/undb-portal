@@ -75,11 +75,14 @@
                     </div>
                 </div>
 
-                <div class="form-group" ng-class="{ 'has-warning': document.website.$invalid }">
-                    <label for="website" class="col-sm-3 control-label">Website :</label>
+                <div class="form-group">
+                    <label for="address" class="col-sm-3 control-label">&nbsp;</label>
                     <div class="col-sm-6">
-                        <input type="url" class="form-control" id="website" name="website" ng-model="document.website" placeholder="https://www.organisation.xyz/">
-                        <p class="help-block error" ng-show="form.website.$invalid">This field is mandatory</p>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="onlineEvent" name="onlineEvent" ng-model="document.onlineEvent">Is Event Online
+                            </label>
+                        </div>
                     </div>
                 </div>
 
