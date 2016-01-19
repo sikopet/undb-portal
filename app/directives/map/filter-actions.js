@@ -14,15 +14,12 @@ define(['text!./filter-actions.html', 'app', 'lodash'], function(template, app, 
       },
       link: function($scope, $element, $attr,undbMap) {
           $scope.queries = {
-            'parnters': {
-              'schema_s': ['partners'],
+            'actions': {
+              'schema_s': ['undbAction'],
+              '_state_s':'public'
             }
           };
-          $scope.queries = {
-            'projects': {
-              'schema_s': ['lwProject'],
-              "expired_b":['false'],
-            }};
+
 
           //=======================================================================
           //
@@ -36,7 +33,7 @@ define(['text!./filter-actions.html', 'app', 'lodash'], function(template, app, 
 
 
 
-          undbMap.addSubQuery(_.cloneDeep($scope.queries), 'projects');
+          undbMap.addSubQuery(_.cloneDeep($scope.queries), 'actions');
 
           undbMap.search();
           }; // loadRecords
