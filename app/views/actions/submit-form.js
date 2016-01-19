@@ -45,7 +45,7 @@ define(['lodash', 'guid', 'app'], function(_, guid) { 'use strict';
 
             $scope.loading = true;
 
-            var filter = "type eq 'undbPartner'";
+            var filter = "type eq 'undbAction'";
 
             var resDrafts = $http.get("/api/v2013/documents", { params : { collection : 'mydraft', $filter : filter } });
             var resDocs   = $http.get("/api/v2013/documents", { params : { $filter : filter } });

@@ -417,8 +417,8 @@ define(['text!./undb-map.html',
           //=======================================================================
           function readQueryString() {
 
-            var filter = document.location.search.split('filter='); // takes query string into array
-//console.log('filter',filter);
+            var filter = _([$location.search().filter]).flatten().compact().value()[0]; // takes query string into array
+
             if (!_.isEmpty(filter) && (_.isEmpty($scope.subQueries))) {
               $scope.subQueries = {};
               $scope.subQueries[filter[1]] = _.cloneDeep($scope.urlStrings[filter[1]]);
