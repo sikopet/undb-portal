@@ -2,8 +2,8 @@ define(['app', 'angular', 'authentication'], function() { 'use strict';
 
 	return ['$scope', '$rootScope', '$route', '$browser', '$location', '$window', 'authentication',
     function ($scope, $rootScope, $route, $browser, $location, $window, authentication) {
-    	var panels = {};
-       /* $scope.toggleCss = function (elementID, targetElementID) {
+		var panels = {};
+        $scope.toggleCss = function (elementID, targetElementID) {
 
             $('#accordion .panel-heading').removeClass('bg-tall');
             $('#accordion .panel-heading').addClass('bg-short');
@@ -15,12 +15,11 @@ define(['app', 'angular', 'authentication'], function() { 'use strict';
                 $('#'+targetElementID).addClass('bg-tall');
                 panels[elementID] = true;
             }
-
         };
-*/
+
         $scope.isOpen = function (elementID) {
-            return panels[elementID] || false;        };
-        
+            return panels[elementID] || false;
+        };
 
     }];
 });
