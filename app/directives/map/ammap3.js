@@ -340,7 +340,7 @@ define(['text!./ammap3.html', 'app', 'lodash', 'text!./pin-popup.html', 'text!./
 
             }
             if (area.id.toUpperCase() === 'DK') {
-              area2 = getMapObject('gl');
+              area2 = getMapObject('GL');
               //area2.originalColor = area.originalColor;
               area2.colorReal = area.colorReal;
               area2.mouseEnabled = area.mouseEnabled;
