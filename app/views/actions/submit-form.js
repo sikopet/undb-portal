@@ -1,7 +1,7 @@
 define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows'], function(_, guid) { 'use strict';
 
-    return ['$scope', '$http', '$q', 'locale', '$route', 'realm', 'workflows', '$route', '$location',
-     function($scope, $http, $q, locale, $route, realm, workflows, $route, $location) {
+    return ['$scope', '$http', '$q', 'locale', '$route', 'realm', 'workflows', '$location',
+     function($scope, $http, $q, locale, $route, realm, workflows, $location) {
 
         $scope.save = save;
         $scope.upload = upload;
