@@ -124,9 +124,8 @@ define(['lodash', 'guid', 'app', 'directives/file'], function(_, guid) { 'use st
 
                 return $http.put('https://api.cbd.int/api/v2013/documents/'+doc.header.identifier+'/versions/draft', doc, { params : { schema : doc.header.schema }}).then(res_Data);
 
-            }).then(function(docInfo) {
+            }).then(function(draftInfo) {
 
-                var draftInfo = res.data;
                 var type = schemasWorkflowTypes[draftInfo.type];
 
                 if (!type)
