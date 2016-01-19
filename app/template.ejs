@@ -8,7 +8,7 @@
 
     <title>United Nations Decade on Biodiversity</title>
 
-    <meta name="description" content="Ecologically or Biologically Significant Marine Areas">
+    <meta name="description" content="United Nations Decade on Biodiversity">
     <meta name="author" content="Secretariat of the Convention on Biological Diversity">
 
     <script src="app/libs/requirejs/require.js" data-main="app/boot.js"></script>
@@ -165,7 +165,7 @@
                     <img src="app/images/un+undb.svg" alt="undb logo" style="height:100px;margin-left:5px;margin-top:-10px;margin-bottom:12px;padding:15px 0;">
                 </a>
             </div>
-            <div class="col-xs-4" style="text-align:right">
+            <div class="col-xs-4 hidden-xs" style="text-align:right">
                 <h1 class="color-cbdgreen">Living in harmony with nature
                     <h1>
                         <!-- <img src="app/images/cbd-logo-en-200.png" style="margin-right:5px;margin-top:-10px;height:70px;padding:15px 0;"> -->
@@ -209,60 +209,68 @@
     <footer ng-cloak ng-show="routeLoaded">
         <div class="container">
             <div class="push30"></div>
-            <div>
-                <ul class="col-xs-6 col-sm-4 col-md-2">
-                    <li><a href="/" class="color-black">Home</a></li>
-                    <li><a href="http://www.cbd.int">CBD</a></li>
-                    <li><a href="http://www.un.org">UN</a></li>
-                    <li><a href="mailto:UNBiodiversity@cbd.int">Contact us</a></li>
-                </ul>
+            <div class="row">
+                <div class="col-xs-6 col-md-4 col-lg-2">
+                    <ul>
+                        <li><a href="/" class="color-black">Home</a></li>
+                        <li><a href="http://www.cbd.int">CBD</a></li>
+                        <li><a href="http://www.un.org">UN</a></li>
+                        <li><a href="mailto:UNBiodiversity@cbd.int">Contact us</a></li>
+                    </ul>
+                </div>
+                <div class="col-xs-6 col-md-4 col-lg-2">
+                    <ul>
+                        <li><a href="about" class="color-black">About</a></li>
+                        <li><a href="about/undb">UNDB</a></li>
+                        <li><a href="about/goals">Goals</a></li>
+                        <li><a href="about/biodiversity">Biodiversity</a></li>
+                        <li><a href="about/iyb2010">IYB2010</a></li>
+                        <li><a href="about/sdgs">SDGs</a></li>
+                    </ul>
+                </div>
+                <div class="col-xs-6 col-md-4 col-lg-2">
+                    <ul>
+                        <li><a href="actions/" class="color-black">Actions</a></li>
+                        <li><a href="actions/worldwide">Worldwide</a></li>
+                        <li><a href="actions/country">By countries</a></li>
+                        <li><a href="actions/calendar">Calendar</a></li>
+                        <li><a href="actions/participate">Participate</a></li>
+                    </ul>
+                </div>
+                <div class="clearfix visible-md-block visible-xs-block"></div>
 
-                <ul class="col-xs-6 col-sm-4 col-md-2">
-                    <li><a href="about" class="color-black">About</a></li>
-                    <li><a href="about/undb">UNDB</a></li>
-                    <li><a href="about/goals">Goals</a></li>
-                    <li><a href="about/biodiversity">Biodiversity</a></li>
-                    <li><a href="about/iyb2010">IYB2010</a></li>
-                    <li><a href="about/sdgs">SDGs</a></li>
-                </ul>
-
-                <ul class="col-xs-6 col-sm-4 col-md-2">
-                    <li><a href="actions/" class="color-black">Actions</a></li>
-                    <li><a href="actions/worldwide">Worldwide</a></li>
-                    <li><a href="actions/country">By countries</a></li>
-                    <li><a href="actions/calendar">Calendar</a></li>
-                    <li><a href="actions/participate">Participate</a></li>
-                </ul>
-
-                <ul class="col-xs-6 col-sm-4 col-md-2">
-                    <li><a href="actors" class="color-black">Actors</a></li>
-                    <li><a href="actors/abttf">ABTTF</a></li>
-                    <li><a href="actors/champions">Biodiversity Champions</a></li>
-                    <li><a href="actors/blg">BLG</a></li>
-                    <li><a href="actors/partners">UNDB Partners</a></li>
-                </ul>
-
-                <ul class="col-xs-6 col-sm-4 col-md-2">
-                    <li><a href="" class="color-black">Resources</a></li>
-                    <li><a href="resources/logo">Logo</a></li>
-                    <li><a href="resources/materials">Printed Materials</a></li>
-                    <li><a href="resources/multimedia">Multimedia</a></li>
-                </ul>
-
-                <ul class="col-xs-6 col-sm-4 col-md-2">
-                    <li><a href="resources" class="color-black">Participate</a></li>
-                    <li><a href="resources">Learn</a></li>
-                    <li><a href="resources">Act</a></li>
-                    <li><a href="resources">Social media</a></li>
-                    <li><a href="resources">Register your action</a></li>
-                    <li><a href="resources">Become a UNDB Partner</a></li>
-                </ul>
+                <div class="col-xs-6 col-md-4 col-lg-2">
+                    <ul>
+                        <li><a href="actors" class="color-black">Actors</a></li>
+                        <li><a href="actors/abttf">ABTTF</a></li>
+                        <li><a href="actors/champions">Biodiversity Champions</a></li>
+                        <li><a href="actors/blg">BLG</a></li>
+                        <li><a href="actors/partners">UNDB Partners</a></li>
+                    </ul>
+                </div>
+                <div class="col-xs-6 col-md-4 col-lg-2">
+                    <ul>
+                        <li><a href="" class="color-black">Resources</a></li>
+                        <li><a href="resources/logo">Logo</a></li>
+                        <li><a href="resources/materials">Printed Materials</a></li>
+                        <li><a href="resources/multimedia">Multimedia</a></li>
+                    </ul>
+                </div>
+                <div class="col-xs-6 col-md-4 col-lg-2">
+                    <ul>
+                        <li><a href="resources" class="color-black">Participate</a></li>
+                        <li><a href="resources">Learn</a></li>
+                        <li><a href="resources">Act</a></li>
+                        <li><a href="resources">Social media</a></li>
+                        <li><a href="resources">Register your action</a></li>
+                        <li><a href="resources">Become a UNDB Partner</a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="push50"></div>
+
             <div class="push50"></div>
         </div>
         <div class="container">
-            <div class="push50"></div>
             <div class="push50"></div>
             <div class="clear"></div>
             <div class="col-xs-6 col-lg-offset-3 col-xs-offset-3 ">
