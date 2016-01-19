@@ -14,14 +14,9 @@ define(['text!./filter-actors.html', 'app', 'lodash'], function(template, app, _
       },
       link: function($scope, $element, $attr,undbMap) {
           $scope.queries = {
-            'parnters': {
-              'schema_s': ['partners'],
-            }
-          };
-          $scope.queries = {
-            'projects': {
-              'schema_s': ['lwProject'],
-              "expired_b":['false'],
+            'actors': {
+              'schema_s': ['undbPartner'],
+              '_state_s':['public']
             }
           };
 
@@ -32,11 +27,9 @@ define(['text!./filter-actors.html', 'app', 'lodash'], function(template, app, _
             $scope.message="The UNDB Network comprises all Actors contributing to the implementation of the 2011-2020 Strategic Plan for Biodiversity.";
             undbMap.filterActive('actors');
 
-          //  undbMap.addSubQuery(_.cloneDeep($scope.queries), 'partners');
-          //  undbMap.search();
-          undbMap.addSubQuery(_.cloneDeep($scope.queries), 'projects');
+            undbMap.addSubQuery(_.cloneDeep($scope.queries), 'actors');
 
-          undbMap.search();
+            undbMap.search();
           }; // loadRecords
 
         }

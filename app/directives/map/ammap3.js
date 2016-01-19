@@ -1,12 +1,12 @@
-define(['text!./ammap3.html', 'app', 'lodash', 'text!./pin-popup.html', 'text!./pin-popup-title.html', 'ammap3', 'ammap3WorldHigh', 'ammap-theme', 'ammap-export', 'ammap-ex-fabric', 'ammap-ex-filesaver', 'ammap-ex-pdfmake', 'ammap-ex-vfs-fonts', 'ammap-ex-jszip', 'ammap-ex-xlsx'], function(template, app, _, popoverTemplate, popoverTitle) {
+define(['text!./ammap3.html', 'app', 'lodash', 'text!./pin-popup-projects.html', 'text!./pin-popup-title-projects.html', 'text!./pin-popup-bio-champs.html', 'text!./pin-popup-title-bio-champs.html', 'text!./pin-popup-actions.html', 'text!./pin-popup-title-actions.html', 'ammap3', 'ammap3WorldHigh', 'ammap-theme', 'ammap-export', 'ammap-ex-fabric', 'ammap-ex-filesaver', 'ammap-ex-pdfmake', 'ammap-ex-vfs-fonts', 'ammap-ex-jszip', 'ammap-ex-xlsx'], function(template, app, _, popoverTemplateProjects, popoverTitleProjects, popoverTemplateBioChamps, popoverTitleBioChamps, popoverTemplateActions, popoverTitleActions) {
   'use strict';
 
-  app.directive('ammap3', ['$timeout', '$compile', function($timeout, $compile) {
+  app.directive('ammap3', ['$timeout','locale','$http',  function($timeout,locale,$http) {
     return {
       restrict: 'EAC',
       template: template,
       replace: true,
-      require: ['^undbMap', '^ammap3'],
+      require: [ '^ammap3'],
       scope: {
         items: '=ngModel',
         schema: '=schema',
@@ -16,17 +16,9 @@ define(['text!./ammap3.html', 'app', 'lodash', 'text!./pin-popup.html', 'text!./
       },
       link: function($scope, $element, $attr, requiredDirectives) {
 
-        var reportingDIsplay = requiredDirectives[0];
-        var ammap3 = requiredDirectives[1];
-        $scope.urlStrings = {
-          'projects': {
-            'schema_s': ['lwProject'],
-            "expired_b": ['false'],
-          },
-          'caseStudies': {
-            'schema_s': ['caseStudy'],
-          }
-        };
+
+        var ammap3 = requiredDirectives[0];
+
         $scope.leggends = {
 
           parties: [{
@@ -83,7 +75,10 @@ define(['text!./ammap3.html', 'app', 'lodash', 'text!./pin-popup.html', 'text!./
           }, ],
         };
         //generates new map with new data
+
         $scope.$watch('items', function() {
+console.log($scope.items);
+          $scope.map.dataProvider.images=_.clone($scope.images);
           ammap3.generateMap($scope.schema);
         });
 
@@ -91,8 +86,13 @@ define(['text!./ammap3.html', 'app', 'lodash', 'text!./pin-popup.html', 'text!./
 
         ammap3.writeMap();
 
+        $http.get('https://api.cbd.int/api/v2015/countries', { cache:true, params: { f : { code : 1, name : 1 } } }).then(function(res) {
 
-
+            res.data.forEach(function(c) {
+                c.name = c.name[locale];
+            });
+            $scope.countries = res.data;
+        });
 
         $scope.map.addListener("clickMapObject", function(event) {
           var id = event.mapObject.id;
@@ -119,7 +119,11 @@ define(['text!./ammap3.html', 'app', 'lodash', 'text!./pin-popup.html', 'text!./
           });
         }
 
-
+        $scope.images = [{
+          "label": "EU",
+          "latitude": -5.02,
+          "longitude": -167.66
+        }];
         //=======================================================================
         //
         //=======================================================================
@@ -134,11 +138,7 @@ define(['text!./ammap3.html', 'app', 'lodash', 'text!./pin-popup.html', 'text!./
             "dataProvider": {
               "map": "worldEUHigh",
               "getAreasFromMap": true,
-              "images": [{
-                "label": "EU",
-                "latitude": -5.02,
-                "longitude": -167.66
-              }],
+
             },
 
             "areasSettings": {
@@ -168,12 +168,13 @@ define(['text!./ammap3.html', 'app', 'lodash', 'text!./pin-popup.html', 'text!./
 
 
           }; //
+          $scope.mapData.images=_.clone($scope.images);
         } //$scope.initMap
         //not working
 
 
       }, //link
-
+//////controller
       controller: ["$scope", function($scope) {
 
         function closePopovers(pin) {
@@ -204,12 +205,14 @@ define(['text!./ammap3.html', 'app', 'lodash', 'text!./pin-popup.html', 'text!./
             if ('undefined' == typeof image.externalElement) {
               image.externalElement = generateMarker(x);
             }
+
             if ('undefined' !== typeof image.externalElement) {
               // reposition the element accoridng to coordinates
               image.externalElement.style.top = map.latitudeToY(image.latitude) + 'px';
               image.externalElement.style.left = map.longitudeToX(image.longitude) + 'px';
             }
-            $scope.map.addListener("positionChanged", updateCustomMarkers);
+           $scope.map.addListener("positionChanged", updateCustomMarkers);
+
           }
 
         }
@@ -243,11 +246,23 @@ define(['text!./ammap3.html', 'app', 'lodash', 'text!./pin-popup.html', 'text!./
           pin.className = 'pin ' + pinClass;
           $(pin).data('i', imageIndex);
           $(pin).data('toggle', 'popover');
+
           $(pin).popover(generatePopover(imageIndex));
-          pin.addEventListener('click', function() {
+          pin.addEventListener('click', function(event) {
+
             closePopovers(this);
-            if ($(pin).data('bs.popover').tip().hasClass('in'))
+
+            if ($(pin).data('bs.popover').tip().hasClass('in')){
+
+              if($scope.map.dataProvider.images[imageIndex].latitude>25)
+                  $scope.map.dataProvider.images[imageIndex].zoomLatitude=$scope.map.dataProvider.images[imageIndex].latitude+10;
+
+              if($scope.map.dataProvider.images[imageIndex].latitude<=25)
+                   $scope.map.dataProvider.images[imageIndex].zoomLatitude=$scope.map.dataProvider.images[imageIndex].latitude+20;
+
+              $scope.map.dataProvider.images[imageIndex].zoomLongitude=$scope.map.dataProvider.images[imageIndex].longitude;
               $scope.map.clickMapObject($scope.map.dataProvider.images[imageIndex]);
+            }
           }, false);
           holder.appendChild(pin);
 
@@ -274,18 +289,19 @@ define(['text!./ammap3.html', 'app', 'lodash', 'text!./pin-popup.html', 'text!./
         //=======================================================================
         function generatePopover(imageIndex) {
           var image = $scope.map.dataProvider.images[imageIndex];
-          var popoverTitleParsed = _.clone(popoverTitle);
-          var popoverTemplateParsed = _.clone(popoverTemplate);
+          var popoverTitleParsed = '';
+          var popoverTemplateParsed = '';
 
-          popoverTitleParsed = popoverTitleParsed.replace('{{schema}}', image.schema);
-          popoverTemplateParsed = popoverTemplateParsed.replace('{{projectImage}}', image.thumbnail_s);
-          popoverTemplateParsed = popoverTemplateParsed.replace('{{projectTitle}}', image.title);
-          if (image.url_ss)
-            popoverTemplateParsed = popoverTemplateParsed.replace('{{recordURL}}', image.url_ss);
+
           switch ($scope.schema) {
             case 'projects':
-
-
+              popoverTitleParsed = _.clone(popoverTitleProjects);
+              popoverTemplateParsed = _.clone(popoverTemplateProjects);
+              popoverTitleParsed = popoverTitleParsed.replace('{{schema}}', image.schema);
+              popoverTemplateParsed = popoverTemplateParsed.replace('{{projectImage}}', image.thumbnail_s);
+              popoverTemplateParsed = popoverTemplateParsed.replace('{{projectTitle}}', image.title);
+              if (image.url_ss)
+                popoverTemplateParsed = popoverTemplateParsed.replace('{{recordURL}}', image.url_ss);
               return {
                 html: true,
                 trigger: 'click',
@@ -293,8 +309,116 @@ define(['text!./ammap3.html', 'app', 'lodash', 'text!./pin-popup.html', 'text!./
                 title: popoverTitleParsed,
                 template: popoverTemplateParsed
               };
+              case 'bioChamps':
+                popoverTitleParsed = _.clone(popoverTitleBioChamps);
+                popoverTemplateParsed = _.clone(popoverTemplateBioChamps);
 
-          }
+                popoverTitleParsed = popoverTitleParsed.replace('{{rank}}', image.rank? image.rank : ' ');
+                popoverTitleParsed = popoverTitleParsed.replace('{{date}}', image.date? image.date : ' ');
+                popoverTemplateParsed = popoverTemplateParsed.replace('{{image}}', image.imgURL? image.imgURL :'#');
+                popoverTemplateParsed = popoverTemplateParsed.replace('{{link}}', image.link? image.link :  '#');
+                popoverTemplateParsed = popoverTemplateParsed.replace('{{title}}', image.title? image.title : ' ');
+                  popoverTemplateParsed = popoverTemplateParsed.replace('{{directions}}', image.directions? image.directions: ' ');
+                  popoverTemplateParsed = popoverTemplateParsed.replace('{{pledge}}', image.pledge?image.pledge:' ');
+                  popoverTemplateParsed = popoverTemplateParsed.replace('{{aichiTargets}}', image.aichiTargets?image.aichiTargets:' ');
+                  popoverTemplateParsed = popoverTemplateParsed.replace('{{directions}}', image.directions?image.directions:'#');
+                return {
+                  html: true,
+                  trigger: 'click',
+                  placement: 'top',
+                  title: popoverTitleParsed,
+                  template: popoverTemplateParsed
+                };
+                case 'actions':
+                  popoverTitleParsed = _.clone(popoverTitleActions);
+                  popoverTemplateParsed = _.clone(popoverTemplateActions);
+
+                  popoverTitleParsed = popoverTitleParsed.replace('{{title}}', image.title? image.title : ' ');
+                  if(image.startDate_s)image.startDate_s='Start Date: '+image.startDate_s;
+                  popoverTitleParsed = popoverTitleParsed.replace('{{startDate_s}}', image.startDate_s? image.startDate_s : ' ');
+                  if(image.endDate_s)image.endDate_s='End Date: '+image.endDate_s;
+                  popoverTitleParsed = popoverTitleParsed.replace('{{endDate_s}}', image.endDate_s? image.endDate_s : ' ');
+
+
+                  popoverTemplateParsed = popoverTemplateParsed.replace('{{countryCode}}', image.countryCode? image.countryCode: ' ');
+                  if(image.countryCode) image.countryName = _.findWhere($scope.countries,{code:image.countryCode.toUpperCase()}).name;
+                  popoverTemplateParsed = popoverTemplateParsed.replace('{{countryName}}', image.countryName? image.countryName: ' ');
+                  popoverTemplateParsed = popoverTemplateParsed.replace('{{description_s}}', image.description_s? image.description_s: ' ');
+                  if(image.descriptionNative_s)image.descriptionNative_s=image.descriptionNative_s+'<br>';
+                  popoverTemplateParsed = popoverTemplateParsed.replace('{{descriptionNative_s}}', image.descriptionNative_s? image.descriptionNative_s: ' ');
+                  popoverTemplateParsed = popoverTemplateParsed.replace('{{logo_s}}', image.logo_s? image.logo_s: '/app/img/ic_recent_actors_black_48px.svg');
+                  if(image.facebook_s) image.facebook_s= '<a href="'+image.facebook_s+'"><i class="fa fa-facebook-square"></i></a>';
+                  popoverTemplateParsed = popoverTemplateParsed.replace('{{facebook_s}}', image.facebook_s? image.facebook_s: ' ');
+                  if(image.twitter_s) image.twitter_s= '<a href="'+image.twitter_s+'"><i class="fa fa-twitter-square"></i></a>';
+                  popoverTemplateParsed = popoverTemplateParsed.replace('{{twitter_s}}', image.twitter_s? image.twitter_s: ' ');
+                  if(image.youtube_s) image.youtube_s= '<a href="'+image.youtube_s+'"><i class="fa fa-youtube-square"></i></a>';
+                  popoverTemplateParsed = popoverTemplateParsed.replace('{{youtube_s}}', image.youtube_s? image.youtube_s: ' ');
+                  if(image.website_s) image.website_s= '<a href="'+image.website_s+'"><i class="fa fa-external-link-square"></i></a>';
+                  popoverTemplateParsed = popoverTemplateParsed.replace('{{website_s}}', image.website_s? image.website_s: ' ');
+                  if(image.email_s)image.email_s= '<b>Email:</b> <a mailto="'+image.email_s+'">'+image.email_s+'</a><br>';
+                  popoverTemplateParsed = popoverTemplateParsed.replace('{{email_s}}', image.email_s? image.email_s: ' ');
+                  if(image.address_s && image.directions)
+                    image.address_s='<b>Address:</b> <a href="'+image.directions+'">'+image.address_s+'</a><br>';
+                  else if(image.address_s)
+                    image.address_s='<b>Address:</b> '+image.address_s+'<br>';
+                  popoverTemplateParsed = popoverTemplateParsed.replace('{{address_s}}', image.address_s? image.address_s: ' ');
+                  if(image.phone_s)image.phone_s='<b>Phone:</b>'+image.phone_s+'<br>';
+                  popoverTemplateParsed = popoverTemplateParsed.replace('{{phone_s}}', image.phone_s? image.phone_s: ' ');
+                  if(image.directions) image.directions= '<a href="'+image.directions+'"><i class="fa fa-map-signs"></i></a>';
+                  popoverTemplateParsed = popoverTemplateParsed.replace('{{directions}}', image.directions? image.directions: ' ');
+                  return {
+                    html: true,
+                    trigger: 'click',
+                    placement: 'top',
+                    title: popoverTitleParsed,
+                    template: popoverTemplateParsed
+                  };
+
+                  case 'actors':
+                    popoverTitleParsed = _.clone(popoverTitleActions);
+                    popoverTemplateParsed = _.clone(popoverTemplateActions);
+
+                    popoverTitleParsed = popoverTitleParsed.replace('{{title}}', image.title? image.title : ' ');
+
+
+
+
+                    popoverTemplateParsed = popoverTemplateParsed.replace('{{countryCode}}', image.countryCode? image.countryCode: ' ');
+
+                    if(image.countryCode) image.countryName = _.findWhere($scope.countries,{code:image.countryCode.toUpperCase()}).name;
+                    popoverTemplateParsed = popoverTemplateParsed.replace('{{countryName}}', image.countryName? image.countryName: ' ');
+                    popoverTemplateParsed = popoverTemplateParsed.replace('{{description_s}}', image.description_s? image.description_s: ' ');
+                    if(image.descriptionNative_s)image.descriptionNative_s=image.descriptionNative_s+'<br>';
+                    popoverTemplateParsed = popoverTemplateParsed.replace('{{descriptionNative_s}}', image.descriptionNative_s? image.descriptionNative_s: ' ');
+                    popoverTemplateParsed = popoverTemplateParsed.replace('{{logo_s}}', image.logo_s? image.logo_s: '/app/img/ic_recent_actors_black_48px.svg');
+                    if(image.facebook_s) image.facebook_s= '<a href="'+image.facebook_s+'"><i class="fa fa-facebook-square"></i></a>';
+                    popoverTemplateParsed = popoverTemplateParsed.replace('{{facebook_s}}', image.facebook_s? image.facebook_s: ' ');
+                    if(image.twitter_s) image.twitter_s= '<a href="'+image.twitter_s+'"><i class="fa fa-twitter-square"></i></a>';
+                    popoverTemplateParsed = popoverTemplateParsed.replace('{{twitter_s}}', image.twitter_s? image.twitter_s: ' ');
+                    if(image.youtube_s) image.youtube_s= '<a href="'+image.youtube_s+'"><i class="fa fa-youtube-square"></i></a>';
+                    popoverTemplateParsed = popoverTemplateParsed.replace('{{youtube_s}}', image.youtube_s? image.youtube_s: ' ');
+                    if(image.website_s) image.website_s= '<a href="'+image.website_s+'"><i class="fa fa-external-link-square"></i></a>';
+                    popoverTemplateParsed = popoverTemplateParsed.replace('{{website_s}}', image.website_s? image.website_s: ' ');
+                    if(image.email_s)image.email_s= '<b>Email:</b> <a mailto="'+image.email_s+'">'+image.email_s+'</a><br>';
+                    popoverTemplateParsed = popoverTemplateParsed.replace('{{email_s}}', image.email_s? image.email_s: ' ');
+                    if(image.address_s && image.directions)
+                      image.address_s='<b>Address:</b> <a href="'+image.directions+'">'+image.address_s+'</a><br>';
+                    else if(image.address_s)
+                      image.address_s='<b>Address:</b> '+image.address_s+'<br>';
+                    popoverTemplateParsed = popoverTemplateParsed.replace('{{address_s}}', image.address_s? image.address_s: ' ');
+                    if(image.phone_s)image.phone_s='<b>Phone:</b>'+image.phone_s+'<br>';
+                    popoverTemplateParsed = popoverTemplateParsed.replace('{{phone_s}}', image.phone_s? image.phone_s: ' ');
+                    if(image.directions) image.directions= '<a href="'+image.directions+'"><i class="fa fa-map-signs"></i></a>';
+                    popoverTemplateParsed = popoverTemplateParsed.replace('{{directions}}', image.directions? image.directions: ' ');
+                    return {
+                      html: true,
+                      trigger: 'click',
+                      placement: 'top',
+                      title: popoverTitleParsed,
+                      template: popoverTemplateParsed
+                    };
+
+          }// switch
         } //$scope.legendHide
 
 
@@ -407,6 +531,7 @@ define(['text!./ammap3.html', 'app', 'lodash', 'text!./pin-popup.html', 'text!./
             mapTypeFunction(item);
           });
           $scope.map.validateData(); // updates map with color changes
+
           updateCustomMarkers();
         } //progressColorMap
 
@@ -426,6 +551,8 @@ define(['text!./ammap3.html', 'app', 'lodash', 'text!./pin-popup.html', 'text!./
         //
         //=======================================================================
         function defaultPinMap(item) {
+
+
           if (itemToImagePin(item))
             $scope.map.dataProvider.images.push(itemToImagePin(item));
 
@@ -435,19 +562,92 @@ define(['text!./ammap3.html', 'app', 'lodash', 'text!./pin-popup.html', 'text!./
         //=======================================================================
         function itemToImagePin(item) {
 
-          if (!item.coordinates_s || !JSON.parse(item.coordinates_s).lat || !JSON.parse(item.coordinates_s).lng || $scope.schema.trim() === 'caseStudies')
+          if (item.coordinates_s && !_.isObject(item.coordinates_s))
+            item.coordinates_s=JSON.parse(item.coordinates_s);
+
+          if (!item.coordinates_s || !item.coordinates_s.lat  || !item.coordinates_s.lng )
             return 0;
-          else
-            return {
-              zoomLevel: 5,
-              scale: 0.5,
-              title: item.title_s,
-              latitude: JSON.parse(item.coordinates_s).lat,
-              longitude: JSON.parse(item.coordinates_s).lng,
-              thumbnail_s: item.thumbnail_s,
-              schema: item.schema_EN_t,
-              url_ss: item.url_ss[0]
-            };
+          else{
+            switch ($scope.schema) {
+              case 'projects':
+              return {
+                zoomLevel: 5,
+                scale: 0.5,
+                title: item.title_s,
+                latitude: item.coordinates_s.lat,
+                longitude: item.coordinates_s.lng,
+                thumbnail_s: item.thumbnail_s,
+                schema: item.schema_EN_t,
+                url_ss: item.url_ss[0]
+              };
+              case 'bioChamps':
+              return {
+                zoomLevel: 5,
+                scale: 0.5,
+                date: item.date,
+                rank: item.rank,
+                title: item.name,
+                pledge: item.pledge,
+                aichiTargets: item.aichiTargets,
+                directions: item.directions,
+                latitude: _.clone(item.coordinates_s.lat),
+                longitude: _.clone(item.coordinates_s.lng),
+                imgURL: item.imgURL,
+                schema: _.clone($scope.schema),
+                link: item.link
+
+              };
+              case 'actions':
+              return {
+                zoomLevel: 5,
+                scale: 0.5,
+                startDate_s: item.startDate_s,
+                logo_s: item.logo_s,
+                facebook_s: item.facebook_s,
+                twitter_s:item.twitter_s,
+                youtube_s:item.youtube_s,
+                website_s:item.website_s,
+                endDate_s:item.endDate_s,
+                email_s:item.email_s,
+                address_s:item.address_s,
+                phone_s:item.phone_s,
+                countryCode:item.country_s,
+                description_s: item.description_s,
+                descriptionNative_s: item.descriptionNative_s,
+                title: item.title_s,
+                directions: item.googleMaps_s,
+                latitude: _.clone(item.lat_d),
+                longitude: _.clone(item.lng_d),
+                coordinates_s:{lat:_.clone(item.lat_d),lng:_.clone(item.lat_d)},
+                schema: _.clone($scope.schema),
+              };
+              case 'actors':
+              return {
+                zoomLevel: 5,
+                scale: 0.5,
+                logo_s: item.logo_s,
+                facebook_s: item.facebook_s,
+                twitter_s:item.twitter_s,
+                youtube_s:item.youtube_s,
+                website_s:item.website_s,
+                email_s:item.email_s,
+                address_s:item.address_s,
+                phone_s:item.phone_s,
+                countryCode:item.country_s,
+                description_s: item.description_s,
+                descriptionNative_s: item.descriptionNative_s,
+                title: item.title_s,
+                directions: item.googleMaps_s,
+                latitude: _.clone(item.lat_d),
+                longitude: _.clone(item.lng_d),
+                coordinates_s:{lat:_.clone(item.lat_d),lng:_.clone(item.lat_d)},
+                schema: _.clone($scope.schema),
+              };
+            }
+
+          }
+
+
         } // aichiMap
         //=======================================================================
         //
