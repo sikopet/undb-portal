@@ -258,7 +258,12 @@ define(['lodash', 'app', 'authentication', 'utilities/km-utilities', 'utilities/
         //======================================================
         function edit(record)
         {
-            $location.url('/actions/submit-form');
+            var url = '/actions/submit-form/';
+
+            if(record && record.identifier_s)
+                url += record.identifier_s;
+
+            $location.url(url);
         }
 
 
