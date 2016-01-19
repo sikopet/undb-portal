@@ -1,4 +1,4 @@
-define(['text!./filter-bio-champs.html', 'app', 'lodash'], function(template, app, _) {
+define(['text!./filter-bio-champs.html', 'app','lodash'], function(template, app, _) {
   'use strict';
 
   app.directive('filterBioChamps', [function() {
@@ -14,10 +14,11 @@ define(['text!./filter-bio-champs.html', 'app', 'lodash'], function(template, ap
       },
       link: function($scope, $element, $attr,undbMap) {
           $scope.queries = {
-            'parnters': {
-              'schema_s': ['partners'],
+            'bioChamps': {
+              'schema_s': ['bioChamps'],
             }
           };
+
 
           //=======================================================================
           //
@@ -28,6 +29,10 @@ define(['text!./filter-bio-champs.html', 'app', 'lodash'], function(template, ap
 
           //  undbMap.addSubQuery(_.cloneDeep($scope.queries), 'partners');
           //  undbMap.search();
+
+          undbMap.addSubQuery(_.cloneDeep($scope.queries), 'bioChamps');
+
+          undbMap.search();
           }; // loadRecords
 
         } //link

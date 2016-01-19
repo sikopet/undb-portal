@@ -18,8 +18,13 @@ define(['text!./filter-actors.html', 'app', 'lodash'], function(template, app, _
               'schema_s': ['partners'],
             }
           };
-          $scope.message="The UNDB Network comprises all Actors contributing to the implementation of the 2011-2020 Strategic Plan for Biodiversity.";
-          
+          $scope.queries = {
+            'projects': {
+              'schema_s': ['lwProject'],
+              "expired_b":['false'],
+            }
+          };
+
           //=======================================================================
           //
           //=======================================================================
@@ -29,9 +34,12 @@ define(['text!./filter-actors.html', 'app', 'lodash'], function(template, app, _
 
           //  undbMap.addSubQuery(_.cloneDeep($scope.queries), 'partners');
           //  undbMap.search();
+          undbMap.addSubQuery(_.cloneDeep($scope.queries), 'projects');
+
+          undbMap.search();
           }; // loadRecords
 
-        } //link
+        }
     }; // return
   }]); //app.directive('sfilterNbsap
 }); // define

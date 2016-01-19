@@ -14,8 +14,8 @@ define(['text!./filter-case-studies.html', 'app', 'lodash'], function(template, 
       },
       link: function($scope, $element, $attr,undbMap){
           $scope.queries = {
-            'parnters': {
-              'schema_s': ['partners'],
+            'caseStudies': {
+              'schema_s': ['caseStudy'],
             }
           };
 
@@ -24,19 +24,10 @@ define(['text!./filter-case-studies.html', 'app', 'lodash'], function(template, 
           //=======================================================================
           $scope.loadRecords = function() {
             $scope.message="Case studies are narrative examples of great success stories. Find inspiration for your own Actions!";
-            // $('.sideSelectionRow').click(function(){
-            //   // $('.sideSelectionRowActive').addClass('sideSelectionRow');
-            //   // $('.sideSelectionRowActive').removeClass('sideSelectionRowActive');
-            //
-            //   $(this).removeClass('sideSelectionRowActive');
-            //
-            //   // var text = $(this).data('text');
-            //   // $('.mapPopup').children('p').html(text)
-            //   // $('.mapPopup').show();
-            // });
+
             undbMap.filterActive('caseStudies');
-          //  undbMap.addSubQuery(_.cloneDeep($scope.queries), 'partners');
-          //  undbMap.search();
+            undbMap.addSubQuery(_.cloneDeep($scope.queries), 'caseStudies');
+            undbMap.search();
           }; // loadRecords
 
         } //link

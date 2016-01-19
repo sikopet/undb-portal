@@ -7,7 +7,7 @@ define(['app', 'lodash', 'text!views/index.html', 'views/index', 'providers/exte
 
         $routeProvider.
             when('/', { redirectTo: '/home' }).
-            when('/home',                                     { template:    rootTemplate,                 name:'home',          resolveController: 'views/index',          resolveUser: false }).
+            when('/home',                                     { template:    rootTemplate,                 name:'home',          resolveController: 'views/index',          resolveUser: false, reloadOnSearch : false }).
 
             when('/about', { redirectTo: '/about/undb' }).
             when('/about/undb',                               { templateUrl: 'views/about/index.html',     label:'UNDB',               resolveController: true }).
