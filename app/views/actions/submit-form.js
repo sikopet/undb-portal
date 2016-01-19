@@ -2,17 +2,6 @@ define(['lodash', 'guid', 'app', 'directives/file'], function(_, guid) { 'use st
 
     return ['$scope', '$http', '$q', 'locale', '$route', 'realm', function($scope, $http, $q, locale, $route, realm) {
 
-        var schemasWorkflowTypes = {
-              "undbAction": {
-                name: "publishReferenceRecord",
-                version: undefined
-              },
-              "undbPartner": {
-                name: "publishReferenceRecord",
-                version: undefined
-              }
-        };
-
         $scope.save = save;
         $scope.upload = upload;
         $scope.googleMapsChange = updateGeoLocation;
@@ -126,11 +115,6 @@ define(['lodash', 'guid', 'app', 'directives/file'], function(_, guid) { 'use st
 
             }).then(function(draftInfo) {
 
-                var type = schemasWorkflowTypes[draftInfo.type];
-
-                if (!type)
-                  throw "No workflow type defined for this record type: " + draftInfo.type;
-
                 var workflowData = {
                   "realm": realm,
                   "documentID": draftInfo.documentID,
@@ -140,16 +124,12 @@ define(['lodash', 'guid', 'app', 'directives/file'], function(_, guid) { 'use st
                   "metadata": draftInfo.workingDocumentMetadata
                 };
                 var body = {
-    				type    : type.name,
-    				version : type.version,
+    				type    : "publishReferenceRecord",
+    				version : undefined,
     				data    : workflowData
     			};
 
-    			return $http.post("https://api.cbd.int/api/v2013/workflows", body).then(
-    				function(resp) {
-    					return resp.data;
-    				}
-    			);
+                return $http.post("https://api.cbd.int/api/v2013/workflows", body);
 
             }).catch(res_Error).finally(function() {
                 delete $scope.saving;
