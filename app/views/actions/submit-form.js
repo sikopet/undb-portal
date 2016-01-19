@@ -1,6 +1,6 @@
 define(['lodash', 'guid', 'app'], function(_, guid) { 'use strict';
 
-    return ['$scope', '$http', '$q', 'locale', function($scope, $http, $q, locale) {
+    return ['$scope', '$http', '$q', '$route', 'locale', function($scope, $http, $q, $route, locale) {
 
         $scope.save           = save;
         $scope.googleMapsChange = updateGeoLocation;
@@ -43,32 +43,38 @@ define(['lodash', 'guid', 'app'], function(_, guid) { 'use strict';
         //==============================
         function load() {
 
+            delete $scope.errors;
             $scope.loading = true;
 
-            var filter = "type eq 'undbPartner'";
 
-            var resDrafts = $http.get("/api/v2013/documents", { params : { collection : 'mydraft', $filter : filter } });
-            var resDocs   = $http.get("/api/v2013/documents", { params : { $filter : filter } });
+            var uid = $route.current.params.uid;
+            var resDraft, resDoc;
 
-            $q.all([resDrafts, resDocs]).then(function(res) {
+            if(uid) {
+                resDraft = $http.get("https://api.cbd.int/api/v2013/documents/"+uid+"/versions/draft").then(res_Data).catch(nullOn404);
+                resDoc   = $http.get("https://api.cbd.int/api/v2013/documents/"+uid                  ).then(res_Data).catch(nullOn404);
+            }
 
-                var records = _.flatten([res[0].data.Items, res[1].data.Items]);
+            $q.all([resDraft, resDoc]).then(function(res) {
 
-                if(records.length)
-                    return records[0];
+                var records = _.compact(res);
+
+                if(!records.length && uid)
+                    throw { code : "notFound" };
+
+                return records[0];
 
             }).then(function(record){
 
-                if(!record)
-                    return;
+                if(record) {
 
-                if(record.workingDocumentID) return $http.get('https://api.cbd.int/api/v2013/documents/'+record.identifier+'/versions/draft');
-                else                         return $http.get('https://api.cbd.int/api/v2013/documents/'+record.identifier);
+                    if(record.header.schema!='undbAction')
+                        throw { code : "invalidRecordType" };
 
-            }).then(function(res) {
+                    if(record.startDate) record.startDate = new Date(record.startDate); //Fix date
+                    if(record.endDate)   record.endDate   = new Date(record.endDate); //Fix date
 
-                if(res) {
-                    $scope.document = res.data;
+                    $scope.document = record;
                 }
                 else {
                     $scope.document = {
@@ -79,13 +85,7 @@ define(['lodash', 'guid', 'app'], function(_, guid) { 'use strict';
                     };
                 }
 
-            }).catch(function(err) {
-
-                err = (err||{}).data || err;
-
-                console.error(err);
-
-            }).finally(function(){
+            }).catch(res_Error).finally(function() {
 
                 delete $scope.loading;
 
@@ -98,38 +98,61 @@ define(['lodash', 'guid', 'app'], function(_, guid) { 'use strict';
         //==============================
         function save() {
 
+            delete $scope.errors;
             $scope.saving = true;
 
             delete $scope.errors;
 
             var doc = $scope.document;
 
-            return $http.put('https://api.cbd.int/api/v2013/documents/validate', doc, { params : { schema : doc.header.schema }}).then(function(res) {
-
-                var report = res.data;
+            return $http.put('https://api.cbd.int/api/v2013/documents/validate', doc, { params : { schema : doc.header.schema }}).then(res_Data).then(function(report) {
 
                 if(report.errors && report.errors.length)
                     throw report;
 
-                return $http.put('https://api.cbd.int/api/v2013/documents/'+doc.header.identifier+'/versions/draft', doc, { params : { schema : doc.header.schema }});
+                return $http.put('https://api.cbd.int/api/v2013/documents/'+doc.header.identifier+'/versions/draft', doc, { params : { schema : doc.header.schema }}).then(res_Data);
 
-            }).then(function(res) {
+            }).then(function(docInfo) {
 
-                console.log(res.data || res);
+                console.log(docInfo);
 
-            }).catch(function(err) {
-
-                err = err.data || err;
-
-                $scope.errors = err.errors || [err];
-
-                console.error(err);
-
-            }).finally(function(){
+            }).catch(res_Error).finally(function() {
 
                 delete $scope.saving;
 
             });
+        }
+
+        //==============================
+        //
+        //
+        //==============================
+        function nullOn404(res) {
+
+            if(res.status==404)
+                return null;
+            throw res;
+        }
+
+        //==============================
+        //
+        //
+        //==============================
+        function res_Error(err) {
+
+            err = err.data || err;
+
+            $scope.errors = err.errors || [err];
+
+            console.error($scope.errors);
+        }
+
+        //==============================
+        //
+        //
+        //==============================
+        function res_Data(res) {
+            return res.data;
         }
     }];
 });
