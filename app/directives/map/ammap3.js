@@ -1,4 +1,4 @@
-define(['text!./ammap3.html', 'app', 'lodash', 'text!./pin-popup-projects.html', 'text!./pin-popup-title-projects.html', 'text!./pin-popup-bio-champs.html', 'text!./pin-popup-title-bio-champs.html',, 'text!./pin-popup-actions.html', 'text!./pin-popup-title-actions.html', 'ammap3', 'ammap3WorldHigh', 'ammap-theme', 'ammap-export', 'ammap-ex-fabric', 'ammap-ex-filesaver', 'ammap-ex-pdfmake', 'ammap-ex-vfs-fonts', 'ammap-ex-jszip', 'ammap-ex-xlsx'], function(template, app, _, popoverTemplateProjects, popoverTitleProjects, popoverTemplateBioChamps, popoverTitleBioChamps, popoverTemplateActions, popoverTitleActions) {
+define(['text!./ammap3.html', 'app', 'lodash', 'text!./pin-popup-projects.html', 'text!./pin-popup-title-projects.html', 'text!./pin-popup-bio-champs.html', 'text!./pin-popup-title-bio-champs.html', 'text!./pin-popup-actions.html', 'text!./pin-popup-title-actions.html', 'ammap3', 'ammap3WorldHigh', 'ammap-theme', 'ammap-export', 'ammap-ex-fabric', 'ammap-ex-filesaver', 'ammap-ex-pdfmake', 'ammap-ex-vfs-fonts', 'ammap-ex-jszip', 'ammap-ex-xlsx'], function(template, app, _, popoverTemplateProjects, popoverTitleProjects, popoverTemplateBioChamps, popoverTitleBioChamps, popoverTemplateActions, popoverTitleActions) {
   'use strict';
 
   app.directive('ammap3', ['$timeout','locale','$http',  function($timeout,locale,$http) {
@@ -77,7 +77,7 @@ define(['text!./ammap3.html', 'app', 'lodash', 'text!./pin-popup-projects.html',
         //generates new map with new data
 
         $scope.$watch('items', function() {
-console.log('new items',$scope.items);
+console.log($scope.items);
           $scope.map.dataProvider.images=_.clone($scope.images);
           ammap3.generateMap($scope.schema);
         });
@@ -91,10 +91,8 @@ console.log('new items',$scope.items);
             res.data.forEach(function(c) {
                 c.name = c.name[locale];
             });
-
             $scope.countries = res.data;
         });
-
 
         $scope.map.addListener("clickMapObject", function(event) {
           var id = event.mapObject.id;
@@ -207,7 +205,7 @@ console.log('new items',$scope.items);
             if ('undefined' == typeof image.externalElement) {
               image.externalElement = generateMarker(x);
             }
-//console.log('image.externalElement',image);
+
             if ('undefined' !== typeof image.externalElement) {
               // reposition the element accoridng to coordinates
               image.externalElement.style.top = map.latitudeToY(image.latitude) + 'px';
@@ -342,12 +340,12 @@ console.log('new items',$scope.items);
                   popoverTitleParsed = popoverTitleParsed.replace('{{endDate_s}}', image.endDate_s? image.endDate_s : ' ');
 
 
-                  popoverTemplateParsed = popoverTemplateParsed.replace('{{countryCode}}', image.countryCode? image.countryCode: '');
-                  if(image.countryCode) image.countryName = _.findWhere($scope.countries,{code:image.countryCode}).name;
-                  popoverTemplateParsed = popoverTemplateParsed.replace('{{countryName}}', image.countryName? image.countryName: '');
-                  popoverTemplateParsed = popoverTemplateParsed.replace('{{description_s}}', image.description_s? image.description_s: '');
+                  popoverTemplateParsed = popoverTemplateParsed.replace('{{countryCode}}', image.countryCode? image.countryCode: ' ');
+                  if(image.countryCode) image.countryName = _.findWhere($scope.countries,{code:image.countryCode.toUpperCase()}).name;
+                  popoverTemplateParsed = popoverTemplateParsed.replace('{{countryName}}', image.countryName? image.countryName: ' ');
+                  popoverTemplateParsed = popoverTemplateParsed.replace('{{description_s}}', image.description_s? image.description_s: ' ');
                   if(image.descriptionNative_s)image.descriptionNative_s=image.descriptionNative_s+'<br>';
-                  popoverTemplateParsed = popoverTemplateParsed.replace('{{descriptionNative_s}}', image.descriptionNative_s? image.descriptionNative_s: '');
+                  popoverTemplateParsed = popoverTemplateParsed.replace('{{descriptionNative_s}}', image.descriptionNative_s? image.descriptionNative_s: ' ');
                   popoverTemplateParsed = popoverTemplateParsed.replace('{{logo_s}}', image.logo_s? image.logo_s: '/app/img/ic_recent_actors_black_48px.svg');
                   if(image.facebook_s) image.facebook_s= '<a href="'+image.facebook_s+'"><i class="fa fa-facebook-square"></i></a>';
                   popoverTemplateParsed = popoverTemplateParsed.replace('{{facebook_s}}', image.facebook_s? image.facebook_s: ' ');
@@ -385,12 +383,13 @@ console.log('new items',$scope.items);
 
 
 
-                    popoverTemplateParsed = popoverTemplateParsed.replace('{{countryCode}}', image.countryCode? image.countryCode: '');
-                    if(image.countryCode) image.countryName = _.findWhere($scope.countries,{code:image.countryCode}).name;
-                    popoverTemplateParsed = popoverTemplateParsed.replace('{{countryName}}', image.countryName? image.countryName: '');
-                    popoverTemplateParsed = popoverTemplateParsed.replace('{{description_s}}', image.description_s? image.description_s: '');
+                    popoverTemplateParsed = popoverTemplateParsed.replace('{{countryCode}}', image.countryCode? image.countryCode: ' ');
+
+                    if(image.countryCode) image.countryName = _.findWhere($scope.countries,{code:image.countryCode.toUpperCase()}).name;
+                    popoverTemplateParsed = popoverTemplateParsed.replace('{{countryName}}', image.countryName? image.countryName: ' ');
+                    popoverTemplateParsed = popoverTemplateParsed.replace('{{description_s}}', image.description_s? image.description_s: ' ');
                     if(image.descriptionNative_s)image.descriptionNative_s=image.descriptionNative_s+'<br>';
-                    popoverTemplateParsed = popoverTemplateParsed.replace('{{descriptionNative_s}}', image.descriptionNative_s? image.descriptionNative_s: '');
+                    popoverTemplateParsed = popoverTemplateParsed.replace('{{descriptionNative_s}}', image.descriptionNative_s? image.descriptionNative_s: ' ');
                     popoverTemplateParsed = popoverTemplateParsed.replace('{{logo_s}}', image.logo_s? image.logo_s: '/app/img/ic_recent_actors_black_48px.svg');
                     if(image.facebook_s) image.facebook_s= '<a href="'+image.facebook_s+'"><i class="fa fa-facebook-square"></i></a>';
                     popoverTemplateParsed = popoverTemplateParsed.replace('{{facebook_s}}', image.facebook_s? image.facebook_s: ' ');
