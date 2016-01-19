@@ -142,6 +142,9 @@ define(['lodash', 'guid', 'app', 'directives/file'], function(_, guid) { 'use st
         //==============================
         function upload(files) {
 
+            if(!files[0])
+                return;
+
             delete $scope.errors;
             $scope.saving = true;
 
