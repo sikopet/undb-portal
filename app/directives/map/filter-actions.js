@@ -16,7 +16,7 @@ define(['text!./filter-actions.html', 'app', 'lodash'], function(template, app, 
           $scope.queries = {
             'actions': {
               'schema_s': ['undbAction'],
-              '_state_s':'public'
+              '_state_s':['public']
             }
           };
 

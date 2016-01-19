@@ -16,7 +16,7 @@ define(['text!./filter-actors.html', 'app', 'lodash'], function(template, app, _
           $scope.queries = {
             'actors': {
               'schema_s': ['undbPartner'],
-              '_state_s':'public'
+              '_state_s':['public']
             }
           };
 
