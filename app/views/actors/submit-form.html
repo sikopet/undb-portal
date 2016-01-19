@@ -123,7 +123,8 @@
                         <br>The image on the profile will be fitted into 200 x 200 px.
                     </label>
                     <div class="col-sm-6">
-                        <input type="file" class="form-control" id="logo" accept="image/*" placeholder="Logo">
+                        <img ng-show="document.logo" ng-src="{{document.logo}}?thumbnail=true" style="padding-bottom:10px">
+                        <input type="file" class="form-control" id="logo" accept="image/*" placeholder="Logo" ng-model="logo" on-file="upload(files)">
                     </div>
                 </div>
 

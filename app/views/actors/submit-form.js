@@ -1,8 +1,9 @@
-define(['lodash', 'guid', 'app'], function(_, guid) { 'use strict';
+define(['lodash', 'guid', 'app', 'directives/file'], function(_, guid) { 'use strict';
 
     return ['$scope', '$http', '$q', 'locale', function($scope, $http, $q, locale) {
 
-        $scope.save           = save;
+        $scope.save = save;
+        $scope.upload = upload;
         $scope.googleMapsChange = updateGeoLocation;
 
         // Init
@@ -131,5 +132,57 @@ define(['lodash', 'guid', 'app'], function(_, guid) { 'use strict';
 
             });
         }
+
+        //==============================
+        //
+        //
+        //==============================
+        function upload(files) {
+
+            delete $scope.errors;
+            $scope.saving = true;
+
+            $q.when(files[0]).then(function(file) {
+
+                if(!/^image\//.test(file.type)) throw { code : "invalidImageType" };
+                if(file.size>1024*500)          throw { code : "fileSize" };
+
+                var uid  = $scope.document.header.identifier;
+                var url  = 'https://api.cbd.int/api/v2013/documents/'+uid+'/attachments/'+encodeURIComponent(file.name);
+
+                return $http.put(url, file, { headers : { "Content-Type": file.type } }).then(res_Data);
+
+            }).then(function(attachInfo) {
+
+                $scope.document.logo  = 'https://chm.cbd.int/api/v2013/documents/'+attachInfo.documentUID+'/attachments/'+encodeURIComponent(attachInfo.filename);
+
+            }).catch(res_Error).finally(function() {
+
+                delete $scope.saving;
+
+            });
+        }
+
+        //==============================
+        //
+        //
+        //==============================
+        function res_Error(err) {
+
+            err = err.data || err;
+
+            $scope.errors = err.errors || [err];
+
+            console.error($scope.errors);
+        }
+
+        //==============================
+        //
+        //
+        //==============================
+        function res_Data(res) {
+            return res.data;
+        }
+
     }];
 });
