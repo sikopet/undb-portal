@@ -69,7 +69,7 @@
     <div id="outdated"></div>
 
     <nav class="navbar navbar-default navbar-static-top bg-white">
-        <div class="alert alert-info" style="margin-bottom: 0px; text-align: center" ng-show="showEmailVerificationMessage">
+        <div ng-cloak class="alert alert-info" style="margin-bottom: 0px; text-align: center" ng-show="showEmailVerificationMessage">
             <button type="button" ng-click="showEmailVerificationMessage = undefined" class="close" style="opacity: 1;">&times;</button>
             <strong>{{showEmailVerificationMessage}}</strong>
             <br/>
@@ -179,20 +179,20 @@
                 <div class="main-navbar" role="navigation">
 
                     <ul class="nav navbar-nav">
-                        <li ng-mouseover="highlightLink='home'" ng-mouseleave="highlightLink=''"><a href="home" >Home</a> <i ng-if="highlightLink=='home' || path.indexOf('home') >= 0" style="position:absolute;top:16px;left:15px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
-                        <li ng-mouseover="highlightLink='about'" ng-mouseleave="highlightLink=''"><a href="about">About</a><i ng-if="highlightLink=='about' || path.indexOf('about') >= 0" style="position:absolute;top:16px;left:13px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
-                        <li ng-mouseover="highlightLink='actions'" ng-mouseleave="highlightLink=''"><a href="actions">Actions</a><i ng-if="highlightLink=='actions' || path.indexOf('actions') >= 0" style="position:absolute;top:16px;left:18px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
-                        <li ng-mouseover="highlightLink='actors'" ng-mouseleave="highlightLink=''"><a href="actors">Actors</a><i ng-if="highlightLink=='actors' || path.indexOf('actors') >= 0" style="position:absolute;top:16px;left:15px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
-                        <li ng-mouseover="highlightLink='resources'" ng-mouseleave="highlightLink=''"><a href="resources">Resources</a><i ng-if="highlightLink=='resources' || path.indexOf('resources') >= 0" style="position:absolute;top:16px;left:27px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
+                        <li ng-mouseover="highlightLink='home'" ng-mouseleave="highlightLink=''"><a href="home" >Home</a> <i ng-cloak ng-if="highlightLink=='home' || path.indexOf('home') >= 0" style="position:absolute;top:16px;left:15px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
+                        <li ng-mouseover="highlightLink='about'" ng-mouseleave="highlightLink=''"><a href="about">About</a><i ng-cloak ng-if="highlightLink=='about' || path.indexOf('about') >= 0" style="position:absolute;top:16px;left:13px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
+                        <li ng-mouseover="highlightLink='actions'" ng-mouseleave="highlightLink=''"><a href="actions">Actions</a><i ng-cloak ng-if="highlightLink=='actions' || path.indexOf('actions') >= 0" style="position:absolute;top:16px;left:18px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
+                        <li ng-mouseover="highlightLink='actors'" ng-mouseleave="highlightLink=''"><a href="actors">Actors</a><i ng-cloak ng-if="highlightLink=='actors' || path.indexOf('actors') >= 0" style="position:absolute;top:16px;left:15px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
+                        <li ng-mouseover="highlightLink='resources'" ng-mouseleave="highlightLink=''"><a href="resources">Resources</a><i ng-cloak ng-if="highlightLink=='resources' || path.indexOf('resources') >= 0" style="position:absolute;top:16px;left:27px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
                         <!-- <li class="form-group"><form class="navbar-form navbar-right searchBox" role="search"><input type="text" class="form-control" placeholder="Search"></form></li> -->
-                        <li ng-mouseover="highlightLink='facebook'" ng-mouseleave="highlightLink=''"><a href="./"><i class="color-darkgreen fa fa-facebook"></i></a><i ng-if="highlightLink=='facebook'" style="position:absolute;top:16px;left:0px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
-                        <li ng-mouseover="highlightLink='twitter'" ng-mouseleave="highlightLink=''"><a href="./"><i class="color-darkgreen fa fa-twitter"></i></a><i ng-if="highlightLink=='twitter'" style="position:absolute;top:16px;left:0px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
-                        <li ng-mouseover="highlightLink='instagram'" ng-mouseleave="highlightLink=''"><a href="./"><i class="color-darkgreen fa fa-instagram"></i></a><i ng-if="highlightLink=='instagram'" style="position:absolute;top:16px;left:0px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
-                        <li ng-mouseover="highlightLink='youtube'" ng-mouseleave="highlightLink=''"><a href="./"><i class="color-darkgreen fa fa-youtube-play"></i></a><i ng-if="highlightLink=='youtube'" style="position:absolute;top:16px;left:0px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
-                        <li ng-mouseover="highlightLink='flickr'" ng-mouseleave="highlightLink=''"><a href="./"><i class="color-darkgreen fa fa-flickr"></i></a><i ng-if="highlightLink=='flickr'" style="position:absolute;top:16px;left:0px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
+                        <li ng-mouseover="highlightLink='facebook'" ng-mouseleave="highlightLink=''"><a href="./"><i class="color-darkgreen fa fa-facebook"></i></a><i ng-cloak ng-if="highlightLink=='facebook'" style="position:absolute;top:16px;left:0px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
+                        <li ng-mouseover="highlightLink='twitter'" ng-mouseleave="highlightLink=''"><a href="./"><i class="color-darkgreen fa fa-twitter"></i></a><i ng-cloak ng-if="highlightLink=='twitter'" style="position:absolute;top:16px;left:0px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
+                        <li ng-mouseover="highlightLink='instagram'" ng-mouseleave="highlightLink=''"><a href="./"><i class="color-darkgreen fa fa-instagram"></i></a><i ng-cloak ng-if="highlightLink=='instagram'" style="position:absolute;top:16px;left:0px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
+                        <li ng-mouseover="highlightLink='youtube'" ng-mouseleave="highlightLink=''"><a href="./"><i class="color-darkgreen fa fa-youtube-play"></i></a><i ng-cloak ng-if="highlightLink=='youtube'" style="position:absolute;top:16px;left:0px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
+                        <li ng-mouseover="highlightLink='flickr'" ng-mouseleave="highlightLink=''"><a href="./"><i class="color-darkgreen fa fa-flickr"></i></a><i ng-cloak ng-if="highlightLink=='flickr'" style="position:absolute;top:16px;left:0px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
                     </ul>
 
                 </div>

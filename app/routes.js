@@ -32,7 +32,7 @@ define(['app', 'lodash', 'text!views/index.html', 'views/index', 'providers/exte
             when('/actors/blg',                                     { templateUrl: 'views/actors/blg.html',     label:'BLG',                      resolveController: true }).
             when('/actors/jlg',                                     { templateUrl: 'views/actors/jlg.html',     label:'JLG',                      resolveController: true }).
             when('/actors/partners',                                { templateUrl: 'views/actors/partners.html',     label:'UNDB Partners',            resolveController: true }).
-            when('/actors/partners/register',                       { templateUrl: 'views/me/partner.html',     label:'Become a UNDB Partner',         resolveController: true, resolve : { user : securize(['User']) } }).
+            when('/actors/partners/register',                       { templateUrl: 'views/actors/submit-form.html',  label:'Become a UNDB Partner',         resolveController: true, resolve : { user : securize(['User']) } }).
 
             when('/resources',                                    { templateUrl: 'views/resources/index.html',     label:'Resources',               resolveController: true }).
             when('/resources/logo',                               { templateUrl: 'views/resources/logo.html',     label:'Logo',               resolveController: true }).
