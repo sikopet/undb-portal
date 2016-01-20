@@ -14,32 +14,19 @@ require.config({
         'linqjs'              : 'libs/linqjs/linq.min',
         'guid'                : 'libs/ui-guid-generator/dist/ui-guid-generator.min',
         'moment'              : 'libs/moment/moment',
-        'ammap3WorldHigh'     : 'directives/map/worldEUHigh',
-        'ammap3'              : 'libs/ammap3/ammap/ammap',
-        'ammap-theme'         : 'libs/ammap3/ammap/themes/light',
-        'ammap-resp'          : 'libs/ammap3/ammap/plugins/responsive/responsive',
-        'ammap-export'        : 'libs/ammap3/ammap/plugins/export/export.min',
-        'ammap-ex-fabric'     : 'libs/ammap3/ammap/plugins/export/libs/fabric.js/fabric.min',
-        'ammap-ex-filesaver'  : 'libs/ammap3/ammap/plugins/export/libs/FileSaver.js/FileSaver.min',
-        'ammap-ex-pdfmake'    : 'libs/ammap3/ammap/plugins/export/libs/pdfmake/pdfmake.min',
-        'ammap-ex-vfs-fonts'  : 'libs/ammap3/ammap/plugins/export/libs/pdfmake/vfs_fonts',
-        'ammap-ex-jszip'      : 'libs/ammap3/ammap/plugins/export/libs/jszip/jszip.min',
-        'ammap-ex-xlsx'       : 'libs/ammap3/ammap/plugins/export/libs/xlsx/xlsx.min',
+        'css'                 : 'libs/require-css/css.min',
+        'shim'                : 'libs/require-shim/src/shim'
     },
     shim: {
         'libs/angular/angular'     : { deps: ['jquery'] },
         'angular'                  : { deps: ['libs/angular/angular'] },
         'angular-route'            : { deps: ['angular'] },
         'bootstrap'                : { deps: ['jquery'] },
-        'ammap3WorldHigh'          : { deps: ['ammap3'] },
-        'ammap-theme'              : { deps: ['ammap3']},
-        'ammap-resp'               : { deps: ['ammap3']},
-        'amchart3-serial'          : { deps: ['amchart3']},
-        'amchart3-pie'             : { deps: ['amchart3']},
-        'amchart3-theme-light'     : { deps: ['amchart3']},
-        'ammap-export'             : { deps: ['ammap3']},
         'guid'                     : { exports: 'ui_guid_generator' },
     },
+    packages: [
+        { name: 'ammap', main: 'ammap', location : 'libs/ammap3/ammap' }
+    ]
 });
 
 // BOOT

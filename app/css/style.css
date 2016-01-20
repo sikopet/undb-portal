@@ -713,6 +713,207 @@ a.button-green-link{
   border-bottom: 4px solid #069554;
 }
 
+/*Country Profiles*/
+.profile .flag {
+  margin: 32px 0;
+  height: 64px;
+}
+.profileFlag{
+  width: 110px;
+  height: 84px;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 64px;
+  float:left;
+}
+.profile .flag h1 {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 64px;
+  color: #666;
+  font-size: 2.3em;
+  margin-left: 24px;
+    float:left;
+}
+.profile .profile-border {
+  border: 1px solid #f2f2f2;
+  overflow: hidden;
+}
+.profile .article {
+  padding: 0;
+}
+.profile .article p:first-child {
+  padding-top: 0;
+}
+.profile .article h3 {
+  margin-bottom: 0;
+}
+.profile .article h3:first-child {
+  margin-top: 0;
+}
+.profile .article.narrow p,
+.profile .article.narrow h3 {
+  width: 575px;
+  float: left;
+}
+.profile .profile-column {
+  max-width: 260px;
+  padding: 30px;
+  display: inline-block;
+}
+.profile .profile-column > img {
+  display: block;
+  margin: 0 auto;
+  width: 200px;
+  height: 200px;
+}
+.profile .profile-column .profile-image {
+  width: 200px;
+  height: 200px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 100%;
+}
+.profile .profile-column .party {
+  text-align: left;
+  margin: 24px 0;
+}
+.profile .profile-column .party li {
+  margin: 14px 0;
+}
+.profile .profile-column .party li span {
+  font-size: .75em;
+  text-align: left;
+  display: block;
+}
+.profile .profile-column .party li span:first-child {
+  color: #069554;
+  margin-bottom: 4px;
+}
+.profile .profile-column .party li span:last-child {
+  color: #666666;
+}
+.profile .profile-column .links {
+  text-align: left;
+}
+.profile .profile-column .links li {
+  margin: 8px 0;
+  height: 25px;
+  width: 100%;
+}
+.profile .profile-column .links li a {
+  display: inline-block;
+  color: #069554;
+}
+.profile .profile-column .links li a .www-icon {
+  font-size: .9em;
+  font-weight: bold;
+}
+.profile .profile-column .links li a .at-icon {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+.profile .profile-column .links li a span {
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+}
+.profile .profile-column .links li a span:first-child {
+  width: 33px;
+  margin-right: 6px;
+}
+.profile .profile-column .links li a span:last-child {
+  font-size: 0.9em;
+}
+.profile .profile-column .links li a span svg {
+  width: 22px;
+  height: 22px;
+  vertical-align: middle;
+}
+.profile .profile-column .links li a span svg * {
+  fill: #069554;
+}
+.profile .profile-column .links li a:hover {
+  color: #0081c6;
+}
+.profile .profile-column .links li a:hover svg * {
+  fill: #0081c6;
+}
+.profile h4 {
+  font-size: 1.4em;
+  margin-top: 24px;
+}
+.profile .nav {
+  border: none;
+}
+.profile .nav li {
+  width: 216px;
+  height: 38px;
+  margin: 0 3px;
+}
+.profile .nav li a {
+  width: 216px;
+  height: 38px;
+  line-height: 38px;
+  background-color: #e5e5e5;
+  color: #666;
+  padding: 0;
+  text-align: center;
+  display: inline-block;
+  -webkit-border-top-right-radius: 5px;
+  -webkit-border-bottom-right-radius: 0;
+  -webkit-border-bottom-left-radius: 0;
+  -webkit-border-top-left-radius: 5px;
+  -moz-border-radius-topright: 5px;
+  -moz-border-radius-bottomright: 0;
+  -moz-border-radius-bottomleft: 0;
+  -moz-border-radius-topleft: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 5px;
+}
+.profile .nav li.active a {
+  background-color: #004844;
+  color: #ffffff;
+}
+.profile .tab-content {
+  float: right;
+  margin: 30px 22px;
+  padding: 0;
+  max-width: 700px;
+}
+.profile .listImg {
+  border-top: 1px solid #069554;
+  border-bottom: 1px solid #069554;
+  margin: 12px 0;
+}
+.profile .listImg li {
+  border-top: 1px solid #e6e6e6;
+  margin: 0 auto;
+  padding: 16px 5px;
+}
+.profile .listImg li h5 {
+  color: #004844;
+  font-size: 1em;
+}
+.profile .listImg li a {
+  font-weight: 400;
+  margin-bottom: 12px;
+  display: inline-block;
+  font-size: 0.9em;
+}
+.profile .listImg li:first-child {
+  border: none;
+}
+.profile.organization .profile-column > img {
+  margin-bottom: 24px;
+}
+.profile.organization .organization-content {
+  float: right;
+  max-width: 700px;
+  margin: 30px 22px;
+}
 form input, form select, form .bootstrap-select button {
     border: 1px solid #e6e6e6;
     -webkit-border-radius: 10px;
