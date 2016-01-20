@@ -98,7 +98,7 @@ define(['text!./ammap3.html', 'app', 'lodash', 'text!./pin-popup-projects.html',
 
         ammap3.writeMap();
 
-        $http.get('/api/v2015/countries', {
+        $http.get('https://api.cbd.int/api/v2015/countries', {
           cache: true,
         }).then(function(res) {
 

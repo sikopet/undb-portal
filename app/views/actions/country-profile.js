@@ -7,7 +7,7 @@ define(['app', '../../directives/map/zoom-map'], function() { 'use strict';
 		//=======================================================================
 		//
 		//=======================================================================
-		$http.get('/api/v2013/countries/'+$scope.code.toUpperCase(), {
+		$http.get('https://api.cbd.int/api/v2013/countries/'+$scope.code.toUpperCase(), {
 			cache: true,
 		}).then(function(res) {
 
@@ -28,7 +28,7 @@ define(['app', '../../directives/map/zoom-map'], function() { 'use strict';
 				'start': 0,
 				'rows': 1000000,
 			};
-				$http.get('/api/v2013/index/select', {
+				$http.get('https://api.cbd.int/api/v2013/index/select', {
 					params: queryParameters,
 					cache: true
 				}).success(function(data) {
@@ -43,7 +43,7 @@ console.log($scope.partners);
 					'start': 0,
 					'rows': 1000000,
 				};
-					$http.get('/api/v2013/index/select', {
+					$http.get('https://api.cbd.int/api/v2013/index/select', {
 						params: queryParameters,
 						cache: true
 					}).success(function(data) {

@@ -30,7 +30,7 @@ define(['text!./undb-map.html',
         $scope.message = '';
         $scope.toggleCaption = 1;
 
-        $http.get("/api/v2015/countries", {
+        $http.get("https://api.cbd.int/api/v2015/countries", {
           cache: true
         }).then(function(o) {
           $scope.countries = $filter('orderBy')(o.data, 'title|lstring');
