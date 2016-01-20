@@ -19,7 +19,7 @@
         "requirejs-text": "2.0.14",
         "requirejs-plugins": "1.0.3",
         "require-css": "0.1.8",
-        "require-shim": "https://github.com/zetlen/require-shim.git",
+        "require-shim":  "https://github.com/zetlen/require-shim.git",
         "ammap3": "3.17.1",
         "ui-guid-generator": "ui_guid_generator#*"
     }
