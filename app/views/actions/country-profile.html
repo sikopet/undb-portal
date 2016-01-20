@@ -99,7 +99,7 @@
 					</div>
 
 
-					<h4 class="darkGreen">Upcoming Activities</h4>
+					<h4 class="color-darkgreen">Upcoming Activities</h4>
 					<table class="calendar-result">
 							<!-- Header -->
 							<tr>
@@ -113,69 +113,48 @@
 							</tr>
 
 							<!-- Lines -->
-							<tr>
-								<td>
-									<span class="darkGreen">8 July 2015</span>
-									<span class="textGray">Paris, France</span>
-									<span class="darkGreen">Confirmed</span>
+							<tr ng-repeat="action in actions">
+								<td width="35%">
+									<span class="color-darkgreen"><strong>Start Date:</strong> {{action.startDate_s}}</span>
+									<span class="color-darkgreen" ng-if="action.endDate_s"><strong>End Date:</strong> {{action.endDate_s}}</span>
+									<span class="color-grey" ><strong>End Date:</strong> {{action.country_EN_t}}</span>
+									<span class="color-darkgreen">Confirmed</span>
 								</td>
 								<td>
-									<p>Fifth meeting of the Liaison Group on the Global Strategy for Plant Conservation</p>
-									<a href="#">» Documents</a>
-								</td>
-							</tr>
-
-							<tr>
-								<td>
-									<span class="darkGreen">8 July 2015</span>
-									<span class="textGray">Paris, France</span>
-									<span class="darkGreen">Confirmed</span>
-								</td>
-								<td>
-									<p>Fifth meeting of the Liaison Group on the Global Strategy for Plant Conservation</p>
-									<a href="#">» Documents</a>
+									<p>{{action.title_s}}</p>
+									<!-- <a href="#">» Documents</a> -->
 								</td>
 							</tr>
 						</table>
 
-						<div class="space">
+						<!-- <div class="space">
 							<a href="" class="button green">More Activities</a>
-						</div>
+						</div> -->
 
 
 					<h4 class="darkGreen">UNDB Network</h4>
 					<div class="listImg">
 							<ul>
-								<li>
+								<li ng-repeat="partner in partners">
 									<div class="col-sm-3">
-										<img src="/undb/img/logo/FAO.png" alt="">
+										<img src="{{partner.logo_s}}" alt="{{partner.title_s}}" ng-if="partner.logo_s">
+										<img src="app/img/ic_nature_people_black_48px.svg" alt="{{partner.title_s}}" ng-if="!partner.logo_s">
 									</div>
 									<div class="col-sm-9">
-										<h5>Canadian Biosphere Reserves Association</h5>
-										<a href="biospherecanada.ca/en">biospherecanada.ca/en</a>
+										<h5>{{partner.title_s}}</h5>
+										<a href="{{partner.website_s}}">{{partner.website_s}}</a>
 										<p>
-											Biosphere reserves in Canada are ecologically significant regions that promote sustainability and conservation by engaging all community stakeholders. Recognized by Unesco, they support reserch....
+											{{partner.description_s}}
 										</p>
 									</div>
 								</li>
-								<li>
-									<div class="col-sm-3">
-										<img src="/undb/img/logo/FAO.png" alt="">
-									</div>
-									<div class="col-sm-9">
-										<h5>International Development Law Organization</h5>
-										<a href="biospherecanada.ca/en">biospherecanada.ca/en</a>
-										<p>
-											IDLO is the only intergovernmental organization with an exclusive mandate to promote the rule of law. Governments, multilateral organizations, private foundations and the private sector support our work  <a href="">></a>
-										</p>
-									</div>
-								</li>
+
 							</ul>
 						</div>
 
-						<div class="space">
+						<!-- <div class="space">
 							<a href="" class="button green">More</a>
-						</div>
+						</div> -->
 
 				<!-- END FIRST TAB DIV -->
 		    </div>
