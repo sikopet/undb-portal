@@ -1,7 +1,7 @@
 
 define(['app', '../../directives/map/zoom-map'], function() { 'use strict';
-	return ['$scope','locale','$http', '$location',
-    function ($scope,locale, $http, $location) {
+	return ['$scope','locale','$http', '$location', '$route',
+    function ($scope,locale, $http, $location,$route) {
 
 		$scope.code      = $route.current.params.code;
 		//=======================================================================
