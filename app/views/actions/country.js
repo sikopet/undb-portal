@@ -28,7 +28,7 @@ define(['app'], function() { 'use strict';
 		//
 		//=======================================================================
 		$scope.actionCountryProfile= function (code){
-			$location.url('/actions/countries/'+code.toUpperCase());
+				$location.url('/actions/countries/'+code.toUpperCase());
 		};
 
 		//=======================================================================

@@ -1,14 +1,14 @@
-define(['app'], function() { 'use strict';
 
+define(['app', '../../directives/map/zoom-map'], function() { 'use strict';
 	return ['$scope','locale','$http', '$location',
     function ($scope,locale, $http, $location) {
 
+		$scope.code      = $route.current.params.code;
 		//=======================================================================
 		//
 		//=======================================================================
-		$http.get('/api/v2013/countries/CA', {
+		$http.get('/api/v2013/countries/'+$scope.code.toUpperCase(), {
 			cache: true,
-
 		}).then(function(res) {
 
 				$scope.country =  res.data;
@@ -16,9 +16,12 @@ define(['app'], function() { 'use strict';
 				$scope.country.name = $scope.country.name[locale];
 				$scope.country.cssClass='flag-icon-'+$scope.country.code;
 
+
 			$scope.country = res.data;
 			console.log($scope.country);
 		});
+
+console.log('$location.search();',$scope.code);
 
 		//=======================================================================
 		//

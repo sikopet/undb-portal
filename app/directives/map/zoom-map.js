@@ -5,16 +5,16 @@ define(['text!./zoom-map.html', 'app', 'lodash',
 ], function(template, app, _) {
   'use strict';
 
-  app.directive('zoomTo', [ function() {
+  app.directive('zoomMap', [ function() {
     return {
       restrict: 'EAC',
       template: template,
       replace: true,
-      require:  '^zoomTo',
+      require:  '^zoomMap',
       scope: {
         zoomTo: '=zoomTo',
       },
-      link: function($scope, $element, $attr, zoomTo) {
+      link: function($scope, $element, $attr, zoomMap) {
 
 
 
@@ -23,15 +23,15 @@ define(['text!./zoom-map.html', 'app', 'lodash',
         }); //
 
         initMap();
-        zoomTo.writeMap();
+        zoomMap.writeMap();
 
 
         //=======================================================================
         //
         //=======================================================================
         function zoomTo() {
-          if ($scope.zoomTo[0])
-            $scope.map.clickMapObject(zoomTo.getMapObject($scope.zoomTo));
+          if ($scope.zoomTo)
+            $scope.map.clickMapObject(zoomMap.getMapObject(_.clone($scope.zoomTo).toUpperCase()));
         } //$scope.legendHide
 
 
@@ -60,28 +60,14 @@ define(['text!./zoom-map.html', 'app', 'lodash',
 
             "areasSettings": {
               "autoZoom": true,
-              "selectedColor": "#000000",
-              "rollOverColor": "#423f3f",
+              "selectedColor": "#428bca",
+              "rollOverColor": "#428bca",
               "selectable": true,
-              "color": "#428bca",
+              "color": "#e5e5e5",
             },
-            "smallMap": {
+            zoomControl:{'homeButtonEnabled':false}
 
-              "rectangleColor": '#069554',
-              "backgroundAlpha": 0.5,
-              "mapColor": '#069554',
 
-            },
-            "zoomControl": {
-              "left": 28,
-            },
-            "export": {
-              "libs": {
-                "autoLoad": false
-              },
-              "enabled": true,
-              "position": "bottom-right"
-            },
 
 
           }; //
