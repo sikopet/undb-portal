@@ -1,12 +1,12 @@
 
 define(['app', 'authentication', '../../directives/map/undb-map'], function() { 'use strict';
 
-	return ['$scope', '$window',
-    function ($scope, $window) {
+	return ['$scope', '$location',
+    function ($scope, $location) {
 
 		$scope.actionRegister = function () {
-			$window.location.href = '/actions/submit';
-		}
+			$location.url('/actions/submit');
+		};
 
     }];
 });

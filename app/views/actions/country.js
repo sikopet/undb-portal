@@ -1,7 +1,7 @@
-define(['app', 'angular', 'authentication'], function() { 'use strict';
+define(['app'], function() { 'use strict';
 
-	return ['$scope','locale','$http', '$rootScope', '$route', '$browser', '$location', '$window', 'authentication',
-    function ($scope,locale, $http, $rootScope, $route, $browser, $location, $window, authentication) {
+	return ['$scope','locale','$http', '$location',
+    function ($scope,locale, $http, $location) {
 
 		//=======================================================================
 		//
