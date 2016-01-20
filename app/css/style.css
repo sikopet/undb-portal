@@ -140,16 +140,16 @@ ol.basic-list
 
 /* Accordion - Customization*/
 #accordion .bg-title1 {
-    background-image: url("http://lorempixel.com/1200/360/nature/one/");
+    background-image: url("../images/biodiversity-value.png");
 }
 #accordion .bg-title2 {
-    background-image: url("http://lorempixel.com/1200/360/nature/two/");
+    background-image: url("../images/biodiversity-value.png");
 }
 #accordion .bg-title3 {
-    background-image: url("http://lorempixel.com/1200/360/nature/three/");
+    background-image: url("../images/biodiversity-losing.png");
 }
 #accordion .bg-title4 {
-    background-image: url("http://lorempixel.com/1200/360/nature/four/");
+    background-image: url("../images/biodiversity-action.png");
 }
 
 #accordion .bg-tall {
