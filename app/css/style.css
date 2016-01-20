@@ -226,12 +226,22 @@ ol.basic-list
     font-weight: bold;
     color: #004844;
 }
+.border-bottom-blue p{
+    /*padding-left: 1em;*/
+    color: #0081c6;
+}
+.border-bottom-blue h5 {
+    color: #0081c6;
+    font-size: 1.2em;
+    font-weight: bold;
+}
 .border-bottom-cbd-green p{
     line-height: 1.2em;
     margin-left:14px;
     padding: 2px;
     font-size: 13px;
 }
+
 .border-bottom-cbd-green p>a {
     color: #069554;
 }
