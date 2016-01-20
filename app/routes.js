@@ -1,4 +1,4 @@
-define(['app', 'lodash', 'text!views/index.html', 'views/index', 'providers/extended-route'], function(app, _, rootTemplate) { 'use strict';
+define(['app', 'lodash', 'text!views/index.html', 'views/index', 'providers/extended-route', 'authentication'], function(app, _, rootTemplate) { 'use strict';
 
     app.config(['extendedRouteProvider', '$locationProvider', function($routeProvider, $locationProvider) {
 
@@ -32,7 +32,7 @@ define(['app', 'lodash', 'text!views/index.html', 'views/index', 'providers/exte
             when('/actors/champions',            { templateUrl: 'views/actors/champions.html',   label:'Biodiversity Champions'   }).
             when('/actors/blg',                  { templateUrl: 'views/actors/blg.html',         label:'BLG'                      }).
             when('/actors/jlg',                  { templateUrl: 'views/actors/jlg.html',         label:'JLG'                      }).
-            when('/actors/partners',             { templateUrl: 'views/actors/partners.html',    label:'UNDB Partners',           resolveController: true }).
+            when('/actors/partners',             { templateUrl: 'views/actors/partners.html',    label:'UNDB Partners',           resolveController: true, resolve : { user : currentUser() } }).
             when('/actors/partners/register',    { templateUrl: 'views/actors/submit-form.html', label:'Become a UNDB Partner',   resolveController: true, resolve : { user : securize(['User']) } }).
 
             when('/resources',                   { templateUrl: 'views/resources/index.html',      label:'Resources'         }).
@@ -44,6 +44,18 @@ define(['app', 'lodash', 'text!views/index.html', 'views/index', 'providers/exte
             when('/help/403',                    { templateUrl: 'views/403.html',  label : 'Forbidden' }).
             otherwise({ redirectTo: '/help/404' });
     }]);
+
+    //============================================================
+    //
+    //
+    //============================================================
+    function currentUser() {
+
+        return ['authentication', function (authentication) {
+
+            return authentication.getUser();
+        }];
+    }
 
     //============================================================
     //
@@ -70,4 +82,5 @@ define(['app', 'lodash', 'text!views/index.html', 'views/index', 'providers/exte
             });
         }];
     }
+
 });

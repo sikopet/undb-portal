@@ -1,4 +1,4 @@
-define(['require', 'app', 'angular', 'angular-route', 'authentication'], function(require, app, angular) { 'use strict';
+define(['require', 'app', 'angular', 'angular-route'], function(require, app, angular) { 'use strict';
 
     var baseUrl = require.toUrl('');
 
@@ -11,7 +11,7 @@ define(['require', 'app', 'angular', 'angular-route', 'authentication'], functio
         //
         //============================================================
         function new_when(path, route) {
-            
+
             var templateUrl = route.templateUrl;
             var templateModule;
 
@@ -34,10 +34,6 @@ define(['require', 'app', 'angular', 'angular-route', 'authentication'], functio
             if(!route.controller && route.resolveController) {
                 ext.controller         = proxy;
                 ext.resolve.controller = resolveController(templateModule);
-            }
-
-            if(route.resolveUser) {
-                ext.resolve.user = resolveUser();
             }
 
             return __when(path, angular.extend(route, ext));
@@ -66,19 +62,6 @@ define(['require', 'app', 'angular', 'angular-route', 'authentication'], functio
             return $injector.invoke(controller, undefined, locals);
         }
         proxy.$inject = ['$injector', '$scope', '$route', 'controller'];
-
-        //============================================================
-        //
-        //
-        //============================================================
-        function resolveUser() {
-            return ['$q', '$rootScope', 'authentication', function($q, $rootScope, authentication) {
-                return $q.when(authentication.getUser()).then(function (user) {
-                    $rootScope.user = user;
-                    return user;
-                });
-            }];
-        }
 
         //============================================================
         //

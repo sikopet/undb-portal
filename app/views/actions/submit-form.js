@@ -7,6 +7,14 @@ define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows'], func
         $scope.upload = upload;
         $scope.googleMapsChange = updateGeoLocation;
 
+        $scope.patterns = {
+            facebook : /^http[s]?:\/\/(www.)?facebook.com\/.+/i,
+            twitter  : /^http[s]?:\/\/twitter.com\/.+/i,
+            youtube  : /^http[s]?:\/\/(www.)?youtube.com\/user\/.+/i,
+            phone    : /^\+\d+(\d|\s|-|ext|#|\*)+$/i,
+            time     : /^([0-1][0-9]|2[0-3]|[0-9]):[0-5][0-9]$/
+        };
+
         // Init
         $http.get('https://api.cbd.int/api/v2015/countries', { cache:true, params: { f : { code : 1, name : 1 } } }).then(function(res) {
 
@@ -100,6 +108,11 @@ define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows'], func
         //==============================
         function save() {
 
+            if($scope.form.$invalid) {
+                $scope.errors = [{code : "invalidForm" }];
+                return;
+            }
+
             delete $scope.errors;
             $scope.saving = true;
 
@@ -115,9 +128,13 @@ define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows'], func
                 return $http.put('https://api.cbd.int/api/v2013/documents/'+doc.header.identifier+'/versions/draft', doc, { params : { schema : doc.header.schema }}).then(res_Data);
 
             }).then(function(docInfo) {
+
                 return workflows.addWorkflow(docInfo);
-            }).then(function(docInfo) {
+
+            }).then(function() {
+
                 $location.path('/actions/submit');
+
             })
             .catch(res_Error).finally(function() {
                 delete $scope.saving;

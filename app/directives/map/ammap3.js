@@ -100,12 +100,6 @@ define(['text!./ammap3.html', 'app', 'lodash', 'text!./pin-popup-projects.html',
 
         $http.get('https://api.cbd.int/api/v2015/countries', {
           cache: true,
-          params: {
-            f: {
-              code: 1,
-              name: 1
-            }
-          }
         }).then(function(res) {
 
           res.data.forEach(function(c) {
