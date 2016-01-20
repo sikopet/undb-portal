@@ -28,14 +28,14 @@ define(['app', 'angular', 'authentication'], function() { 'use strict';
 		//
 		//=======================================================================
 		$scope.actionCountryProfile= function (code){
-						$window.location.href = '/actions/country/'+code.toUpperCase();
+				$location.url('/actions/countries/'+code.toUpperCase());
 		};
 
 		//=======================================================================
 		//
 		//=======================================================================
 		$scope.actionRegister = function () {
-			$window.location.href = '/actions/submit';
+			$location.url('/actions/submit');
 		};
 
     }];

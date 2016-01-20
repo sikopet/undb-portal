@@ -60,7 +60,8 @@
     <ul class="listCountries">
       <li class="col-md-3 col-sm-4 col-xs-6" ng-repeat="country in countries | filter:{name:search}">
         <a ng-click="actionCountryProfile(country.code)">
-          <div class="flag-icon-background listCountriesFlag" ng-class="country.cssClass" ng-attr-title="{{country.name}}"></div>
+          <div class="flag-icon-background listCountriesFlag" ng-class="country.cssClass" ng-attr-title="{{country.name}}" ng-if="country.code!='eu'"></div>
+          <img src="app/img/Flag_of_Europe.svg" class="listCountriesFlag"  ng-attr-title="{{country.name}}" ng-if="country.code==='eu'">
           <div class="listCountriesName">
             <span>{{country.name}}</span>
           </div>
