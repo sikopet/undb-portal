@@ -6,23 +6,18 @@ define(['app', 'angular', 'authentication'], function() { 'use strict';
 		//=======================================================================
 		//
 		//=======================================================================
-		$http.get('https://api.cbd.int/api/v2015/countries', {
+		$http.get('/api/v2013/countries/CA', {
 			cache: true,
-			params: {
-				f: {
-					code: 1,
-					name: 1
-				}
-			}
+
 		}).then(function(res) {
 
-			res.data.forEach(function(c) {
-				c.code = c.code.toLowerCase();
-				c.name = c.name[locale];
-				c.cssClass='flag-icon-'+c.code;
-			});
-			$scope.countries = res.data;
-			console.log($scope.countries);
+				$scope.country =  res.data;
+				$scope.country.code = $scope.country.code.toLowerCase();
+				$scope.country.name = $scope.country.name[locale];
+				$scope.country.cssClass='flag-icon-'+$scope.country.code;
+
+			$scope.country = res.data;
+			console.log($scope.country);
 		});
 
 		//=======================================================================

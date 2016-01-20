@@ -249,15 +249,15 @@ define(['text!./ammap3.html', 'app', 'lodash', 'text!./pin-popup-projects.html',
         function generateMarker(imageIndex) {
 
           if ($scope.schema === 'actions')
-            return makeMarker(imageIndex, 'pin-cbd', 'pulse-cbd', '/app/img/cbd-leaf-green.svg');
+            return makeMarker(imageIndex, 'pin-cbd', 'pulse-cbd', 'app/img/cbd-leaf-green.svg');
           if ($scope.schema === 'actors')
-            return makeMarker(imageIndex, 'pin-actor', 'pulse-actor', '/app/img/ic_nature_people_black_24px.svg');
+            return makeMarker(imageIndex, 'pin-actor', 'pulse-actor', 'app/img/ic_nature_people_black_24px.svg');
           if ($scope.schema === 'bioChamps')
-            return makeMarker(imageIndex, 'pin-actor', 'pulse-actor', '/app/img/ic_verified_user_black_24px.svg');
+            return makeMarker(imageIndex, 'pin-actor', 'pulse-actor', 'app/img/ic_verified_user_black_24px.svg');
           if ($scope.schema === 'caseStudies')
-            return makeMarker(imageIndex, 'pin-actor', 'pulse-actor', '/app/img/ic_school_black_24px.svg');
+            return makeMarker(imageIndex, 'pin-actor', 'pulse-actor', 'app/img/ic_school_black_24px.svg');
           if ($scope.schema === 'projects')
-            return makeMarker(imageIndex, 'pin-actor', 'pulse-actor', '/app/img/ic_art_track_black_24px.svg');
+            return makeMarker(imageIndex, 'pin-actor', 'pulse-actor', 'app/img/ic_art_track_black_24px.svg');
         }
         // this function creates and returns a new marker element
         function makeMarker(imageIndex, pinClass, pulseClass, imagePath) {
