@@ -658,8 +658,61 @@ ol.basic-list
   color: #069554;
   font-weight: bold;
 }
+/*country list search*/
+.listCountries li {
+  margin: 12px 0;
+  padding: 0 4px;
+  display: inline-block;
+}
+.listCountries li a {
+  display: inline-block;
+  width: 100%;
+  height: 72px;
+  vertical-align: middle;
+  position: relative;
+  line-height: 72px;
+  cursor: pointer;
+}
+.listCountriesFlag  {
+  display: inline-block;
+  width: 54px;
+  height: 72px;
+  vertical-align: middle;
+  float:left;
+}
+.listCountriesName  {
+  display: table;
+  height: 100%;
+  width: 110px;
+  position: absolute;
+  top: 0;
+  left: 70px;
+}
+.listCountriesName  span {
+  display: table-cell;
+  height: 34px;
+  vertical-align: middle;
+  color: #069554;
+  font-size: 1.1em;
+  line-height: 1.2em;
+  font-weight: bold;
+}
+.listCountries li a:hover {
+  border-bottom: 4px solid #069554;
+}
 
-
+form input, form select, form .bootstrap-select button {
+    border: 1px solid #e6e6e6;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    height: 42px;
+    width: 290px;
+    background-color: #fff;
+    display: inline-block;
+    margin: 8px 0;
+    padding: 6px 12px;
+}
 /*left carousel-control*/
 .carousel-control .glyphicon-chevron-left, .carousel-control .glyphicon-chevron-right, .carousel-control .icon-next, .carousel-control .icon-prev {
     top: 90%;
