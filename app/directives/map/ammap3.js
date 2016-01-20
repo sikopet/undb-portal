@@ -10,7 +10,6 @@ define(['text!./ammap3.html', 'app', 'lodash', 'text!./pin-popup-projects.html',
       scope: {
         items: '=ngModel',
         schema: '=schema',
-        zoomTo: '=zoomTo',
         debug: '=debug',
         //      pins: '=pins'
       },
@@ -94,19 +93,13 @@ console.log($scope.items);
             $scope.countries = res.data;
         });
 
-        $scope.map.addListener("clickMapObject", function(event) {
-          var id = event.mapObject.id;
-          if (event.mapObject.id === 'GL') {
-            $scope.map.clickMapObject(ammap3.getMapObject('DK'));
-            id = 'DK';
-          }
-        });
+
 
 
 
         if ($scope.debug) {
           $scope.map.addListener("click", function(event) {
-
+              ammap3.closePopovers();
             var info = event.chart.getDevInfo();
             $timeout(function() {
               $("#mapdiv").find("#pin").popover('hide');
@@ -194,10 +187,15 @@ console.log($scope.items);
           // get map object
           if ($scope.schema == 'parties') return;
           var map = $scope.map;
-
+          var tempImage = new Image();
           // go through all of the images
           for (var x in map.dataProvider.images) {
             // get MapImage object
+            tempImage = new Image();
+            if(map.dataProvider.images[x].logo_s)
+              tempImage.src=map.dataProvider.images[x].logo_s;
+            if(map.dataProvider.images[x].imgURL)
+                tempImage.src=map.dataProvider.images[x].imgURL;
             var image = map.dataProvider.images[x];
 
             if (map.dataProvider.images[x].label && map.dataProvider.images[x].label === 'EU') continue;
@@ -211,10 +209,20 @@ console.log($scope.items);
               image.externalElement.style.top = map.latitudeToY(image.latitude) + 'px';
               image.externalElement.style.left = map.longitudeToX(image.longitude) + 'px';
             }
-           $scope.map.addListener("positionChanged", updateCustomMarkers);
+
 
           }
+          $scope.map.addListener("positionChanged", updateCustomMarkers);
+          $scope.map.addListener("clickMapObject", function(event) {
 
+
+
+            var id = event.mapObject.id;
+            if (event.mapObject.id === 'GL') {
+              $scope.map.clickMapObject(getMapObject('DK'));
+              id = 'DK';
+            }
+          });
         }
 
         // this function creates and returns a new marker element
@@ -249,9 +257,7 @@ console.log($scope.items);
 
           $(pin).popover(generatePopover(imageIndex));
           pin.addEventListener('click', function(event) {
-
-            closePopovers(this);
-
+            $(document).find(".mapPopup").hide();
             if ($(pin).data('bs.popover').tip().hasClass('in')){
 
               if($scope.map.dataProvider.images[imageIndex].latitude>25)
@@ -263,6 +269,7 @@ console.log($scope.items);
               $scope.map.dataProvider.images[imageIndex].zoomLongitude=$scope.map.dataProvider.images[imageIndex].longitude;
               $scope.map.clickMapObject($scope.map.dataProvider.images[imageIndex]);
             }
+
           }, false);
           holder.appendChild(pin);
 
@@ -334,9 +341,9 @@ console.log($scope.items);
                   popoverTemplateParsed = _.clone(popoverTemplateActions);
 
                   popoverTitleParsed = popoverTitleParsed.replace('{{title}}', image.title? image.title : ' ');
-                  if(image.startDate_s)image.startDate_s='Start Date: '+image.startDate_s;
+                  if(image.startDate_s)image.startDate_s='<b>Start Date:</b> '+image.startDate_s+'<br>';
                   popoverTitleParsed = popoverTitleParsed.replace('{{startDate_s}}', image.startDate_s? image.startDate_s : ' ');
-                  if(image.endDate_s)image.endDate_s='End Date: '+image.endDate_s;
+                  if(image.endDate_s)image.endDate_s='<b>End Date:</b> '+image.endDate_s;
                   popoverTitleParsed = popoverTitleParsed.replace('{{endDate_s}}', image.endDate_s? image.endDate_s : ' ');
 
 
@@ -347,25 +354,25 @@ console.log($scope.items);
                   if(image.descriptionNative_s)image.descriptionNative_s=image.descriptionNative_s+'<br>';
                   popoverTemplateParsed = popoverTemplateParsed.replace('{{descriptionNative_s}}', image.descriptionNative_s? image.descriptionNative_s: ' ');
                   popoverTemplateParsed = popoverTemplateParsed.replace('{{logo_s}}', image.logo_s? image.logo_s: '/app/img/ic_recent_actors_black_48px.svg');
-                  if(image.facebook_s) image.facebook_s= '<a href="'+image.facebook_s+'"><i class="fa fa-facebook-square"></i></a>';
+                  if(image.facebook_s) image.facebook_s= '<a href="'+image.facebook_s+'" target="_blank"><i class="fa fa-facebook-square fa-2x"></i></a>';
                   popoverTemplateParsed = popoverTemplateParsed.replace('{{facebook_s}}', image.facebook_s? image.facebook_s: ' ');
-                  if(image.twitter_s) image.twitter_s= '<a href="'+image.twitter_s+'"><i class="fa fa-twitter-square"></i></a>';
+                  if(image.twitter_s) image.twitter_s= '<a href="'+image.twitter_s+'" target="_blank"><i class="fa fa-twitter-square fa-2x"></i></a>';
                   popoverTemplateParsed = popoverTemplateParsed.replace('{{twitter_s}}', image.twitter_s? image.twitter_s: ' ');
-                  if(image.youtube_s) image.youtube_s= '<a href="'+image.youtube_s+'"><i class="fa fa-youtube-square"></i></a>';
+                  if(image.youtube_s) image.youtube_s= '<a href="'+image.youtube_s+'" target="_blank"><i class="fa fa-youtube-square fa-2x"></i></a>';
                   popoverTemplateParsed = popoverTemplateParsed.replace('{{youtube_s}}', image.youtube_s? image.youtube_s: ' ');
-                  if(image.website_s) image.website_s= '<a href="'+image.website_s+'"><i class="fa fa-external-link-square"></i></a>';
+                  if(image.website_s) image.website_s= '<a href="'+image.website_s+'" target="_blank"><i class="fa fa-external-link-square fa-2x"></i></a>';
                   popoverTemplateParsed = popoverTemplateParsed.replace('{{website_s}}', image.website_s? image.website_s: ' ');
                   if(image.email_s)image.email_s= '<b>Email:</b> <a mailto="'+image.email_s+'">'+image.email_s+'</a><br>';
                   popoverTemplateParsed = popoverTemplateParsed.replace('{{email_s}}', image.email_s? image.email_s: ' ');
                   if(image.address_s && image.directions)
-                    image.address_s='<b>Address:</b> <a href="'+image.directions+'">'+image.address_s+'</a><br>';
+                    image.address_s='<b>Address:</b> <a href="'+image.directions+'" target="_blank">'+image.address_s+'</a><br>';
                   else if(image.address_s)
                     image.address_s='<b>Address:</b> '+image.address_s+'<br>';
                   popoverTemplateParsed = popoverTemplateParsed.replace('{{address_s}}', image.address_s? image.address_s: ' ');
                   if(image.phone_s)image.phone_s='<b>Phone:</b>'+image.phone_s+'<br>';
                   popoverTemplateParsed = popoverTemplateParsed.replace('{{phone_s}}', image.phone_s? image.phone_s: ' ');
-                  if(image.directions) image.directions= '<a href="'+image.directions+'"><i class="fa fa-map-signs"></i></a>';
-                  popoverTemplateParsed = popoverTemplateParsed.replace('{{directions}}', image.directions? image.directions: ' ');
+                  if(image.directions) image.directions= '<a href="'+image.directions+'" target="_blank"><i class="fa fa-map-signs fa-2x"></i></a>';
+                  popoverTemplateParsed = popoverTemplateParsed.replace('{{directions_s}}', image.directions? image.directions: ' ');
                   return {
                     html: true,
                     trigger: 'click',
@@ -379,9 +386,10 @@ console.log($scope.items);
                     popoverTemplateParsed = _.clone(popoverTemplateActions);
 
                     popoverTitleParsed = popoverTitleParsed.replace('{{title}}', image.title? image.title : ' ');
-
-
-
+                    if(image.startDate_s)image.startDate_s='Start Date: '+image.startDate_s;
+                    popoverTitleParsed = popoverTitleParsed.replace('{{startDate_s}}', image.startDate_s? image.startDate_s : ' ');
+                    if(image.endDate_s)image.endDate_s='End Date: '+image.endDate_s;
+                    popoverTitleParsed = popoverTitleParsed.replace('{{endDate_s}}', image.endDate_s? image.endDate_s : ' ');
 
                     popoverTemplateParsed = popoverTemplateParsed.replace('{{countryCode}}', image.countryCode? image.countryCode: ' ');
 
@@ -391,25 +399,25 @@ console.log($scope.items);
                     if(image.descriptionNative_s)image.descriptionNative_s=image.descriptionNative_s+'<br>';
                     popoverTemplateParsed = popoverTemplateParsed.replace('{{descriptionNative_s}}', image.descriptionNative_s? image.descriptionNative_s: ' ');
                     popoverTemplateParsed = popoverTemplateParsed.replace('{{logo_s}}', image.logo_s? image.logo_s: '/app/img/ic_recent_actors_black_48px.svg');
-                    if(image.facebook_s) image.facebook_s= '<a href="'+image.facebook_s+'"><i class="fa fa-facebook-square"></i></a>';
+                    if(image.facebook_s) image.facebook_s= '<a href="'+image.facebook_s+'" target="_blank"><i class="fa fa-facebook-square fa-2x"></i></a>';
                     popoverTemplateParsed = popoverTemplateParsed.replace('{{facebook_s}}', image.facebook_s? image.facebook_s: ' ');
-                    if(image.twitter_s) image.twitter_s= '<a href="'+image.twitter_s+'"><i class="fa fa-twitter-square"></i></a>';
+                    if(image.twitter_s) image.twitter_s= '<a href="'+image.twitter_s+'" target="_blank"><i class="fa fa-twitter-square fa-2x"></i></a>';
                     popoverTemplateParsed = popoverTemplateParsed.replace('{{twitter_s}}', image.twitter_s? image.twitter_s: ' ');
-                    if(image.youtube_s) image.youtube_s= '<a href="'+image.youtube_s+'"><i class="fa fa-youtube-square"></i></a>';
+                    if(image.youtube_s) image.youtube_s= '<a href="'+image.youtube_s+'" target="_blank"><i class="fa fa-youtube-square fa-2x"></i></a>';
                     popoverTemplateParsed = popoverTemplateParsed.replace('{{youtube_s}}', image.youtube_s? image.youtube_s: ' ');
-                    if(image.website_s) image.website_s= '<a href="'+image.website_s+'"><i class="fa fa-external-link-square"></i></a>';
+                    if(image.website_s) image.website_s= '<a href="'+image.website_s+'" target="_blank"><i class="fa fa-external-link-square fa-2x"></i></a>';
                     popoverTemplateParsed = popoverTemplateParsed.replace('{{website_s}}', image.website_s? image.website_s: ' ');
                     if(image.email_s)image.email_s= '<b>Email:</b> <a mailto="'+image.email_s+'">'+image.email_s+'</a><br>';
                     popoverTemplateParsed = popoverTemplateParsed.replace('{{email_s}}', image.email_s? image.email_s: ' ');
                     if(image.address_s && image.directions)
-                      image.address_s='<b>Address:</b> <a href="'+image.directions+'">'+image.address_s+'</a><br>';
+                      image.address_s='<b>Address:</b> <a href="'+image.directions+'" target="_blank">'+image.address_s+'</a><br>';
                     else if(image.address_s)
                       image.address_s='<b>Address:</b> '+image.address_s+'<br>';
                     popoverTemplateParsed = popoverTemplateParsed.replace('{{address_s}}', image.address_s? image.address_s: ' ');
                     if(image.phone_s)image.phone_s='<b>Phone:</b>'+image.phone_s+'<br>';
                     popoverTemplateParsed = popoverTemplateParsed.replace('{{phone_s}}', image.phone_s? image.phone_s: ' ');
-                    if(image.directions) image.directions= '<a href="'+image.directions+'"><i class="fa fa-map-signs"></i></a>';
-                    popoverTemplateParsed = popoverTemplateParsed.replace('{{directions}}', image.directions? image.directions: ' ');
+                    if(image.directions) image.directions= '<a href="'+image.directions+'" target="_blank"><i class="fa fa-map-signs fa-2x"></i></a>';
+                    popoverTemplateParsed = popoverTemplateParsed.replace('{{directions_s}}', image.directions? image.directions: ' ');
                     return {
                       html: true,
                       trigger: 'click',
@@ -533,6 +541,7 @@ console.log($scope.items);
           $scope.map.validateData(); // updates map with color changes
 
           updateCustomMarkers();
+          console.log('$scope.map.dataProvider.images',$scope.map.dataProvider.images);
         } //progressColorMap
 
         //=======================================================================
@@ -561,13 +570,14 @@ console.log($scope.items);
         //
         //=======================================================================
         function itemToImagePin(item) {
-
+console.log('item',item);
           if (item.coordinates_s && !_.isObject(item.coordinates_s))
             item.coordinates_s=JSON.parse(item.coordinates_s);
 
-          if (!item.coordinates_s || !item.coordinates_s.lat  || !item.coordinates_s.lng )
+          if (($scope.schema=='projects' || $scope.schema=='bioChamps') && (!item.coordinates_s || !item.coordinates_s.lat  || !item.coordinates_s.lng) )
             return 0;
           else{
+              if(($scope.schema=='actors' || $scope.schema=='actions') && (!item.lat_d  || !item.lng_d)) return 0;
             switch ($scope.schema) {
               case 'projects':
               return {
@@ -805,7 +815,7 @@ console.log($scope.items);
           return $scope.map.dataProvider.areas[index];
         } //getMapObject
 
-
+        this.closePopovers =closePopovers;
         this.getMapObject = getMapObject;
         this.getMapObject = getMapObject;
         this.writeMap = writeMap;

@@ -20,22 +20,14 @@ define(['text!./filter-actions.html', 'app', 'lodash'], function(template, app, 
             }
           };
 
-
           //=======================================================================
           //
           //=======================================================================
           $scope.loadRecords = function() {
             $scope.message="All around the world people are taking action to safeguard biodiversity. See how you can participate!";
             undbMap.filterActive('actions');
-
-          //  undbMap.addSubQuery(_.cloneDeep($scope.queries), 'partners');
-          //  undbMap.search();
-
-
-
-          undbMap.addSubQuery(_.cloneDeep($scope.queries), 'actions');
-
-          undbMap.search();
+            undbMap.addSubQuery(_.cloneDeep($scope.queries), 'actions');
+            undbMap.search();
           }; // loadRecords
 
         } //link
