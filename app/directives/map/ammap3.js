@@ -101,20 +101,23 @@ define(['text!./ammap3.html', 'app', 'lodash', 'text!./pin-popup-projects.html',
           $scope.countries = res.data;
         });
 
-        if ($scope.debug) {
+
+
+
           $scope.map.addListener("click", function(event) {
             ammap3.closePopovers();
             var info = event.chart.getDevInfo();
             $timeout(function() {
               $("#mapdiv").find("#pin").popover('hide');
-              console.log({
-                "latitude": info.latitude,
-                "longitude": info.longitude,
-                "all": info,
-              });
+              if ($scope.debug)
+                  console.log({
+                    "latitude": info.latitude,
+                    "longitude": info.longitude,
+                    "all": info,
+                  });
             });
           });
-        }
+
 
         $scope.images = [{
           "label": "EU",
