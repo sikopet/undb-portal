@@ -6,7 +6,7 @@ define(['angular'], function(angular) { 'use strict';
 
     var app = angular.module('app', deps);
 
-    app.value('realm', 'UNDB');
+    app.value('realm', 'CHM');
 
     app.config(['$httpProvider', function($httpProvider){
 
@@ -19,7 +19,8 @@ define(['angular'], function(angular) { 'use strict';
 
 		return {
 			request: function(config) {
-				var trusted = /^https:\/\/api.cbd.int\//i .test(config.url) ||
+				var trusted = /^http:\/\/localhost\//i .test(config.url)||
+                              /^https:\/\/api.cbd.int\//i .test(config.url) ||
 							  /^\/api\//i                 .test(config.url);
 
                 //exception if the APi call needs to be done for different realm

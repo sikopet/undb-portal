@@ -19,11 +19,11 @@ define(['app', 'lodash', 'text!views/index.html', 'views/index', 'providers/exte
             when('/actions', { redirectTo: '/actions/worldwide' }).
             when('/actions/worldwide',                               { templateUrl: 'views/actions/worldwide.html',     label:'Worldwide',             resolveController: true , reloadOnSearch : false}).
             when('/actions/country',                                 { templateUrl: 'views/actions/country.html',     label:'By Country',             resolveController: true }).
-            when('/actions/un',                                      { templateUrl: 'views/actions/un.html',     label:'By UN Organization',     resolveController: true }).
+           // when('/actions/un',                                      { templateUrl: 'views/actions/un.html',     label:'By UN Organization',     resolveController: true }).
             when('/actions/calendar',                                { templateUrl: 'views/actions/calendar.html',     label:'Calendar',               resolveController: true }).
             when('/actions/participate',                             { templateUrl: 'views/actions/participate.html',     label:'Participate',            resolveController: true }).
             when('/actions/submit',                                  { templateUrl: 'views/actions/submit.html',     label:'Participate',            resolveController: true, resolveUser: true, resolve : { securized : securize(['User']) } }).
-            when('/actions/submit-form',                             { templateUrl: 'views/actions/submit-form.html',     label:'Form',            resolveController: true, resolveUser: true, resolve : { securized : securize(['User']) } }).
+            when('/actions/submit-form/:uid?',                       { templateUrl: 'views/actions/submit-form.html',     label:'Form',            resolveController: true, resolveUser: true, resolve : { securized : securize(['User']) } }).
             when('/actions/submit-form-done',                        { templateUrl: 'views/actions/submit-form-done.html',     label:'Thanks',            resolveController: false, resolveUser: true, resolve : { securized : securize(['User']) } }).
 
             when('/actors',                                         { templateUrl: 'views/actors/index.html',     label:'Actors',               resolveController: true }).
@@ -32,7 +32,7 @@ define(['app', 'lodash', 'text!views/index.html', 'views/index', 'providers/exte
             when('/actors/blg',                                     { templateUrl: 'views/actors/blg.html',     label:'BLG',                      resolveController: true }).
             when('/actors/jlg',                                     { templateUrl: 'views/actors/jlg.html',     label:'JLG',                      resolveController: true }).
             when('/actors/partners',                                { templateUrl: 'views/actors/partners.html',     label:'UNDB Partners',            resolveController: true }).
-            when('/actors/partners/register',                       { templateUrl: 'views/me/partner.html',     label:'Become a UNDB Partner',         resolveController: true, resolve : { user : securize(['User']) } }).
+            when('/actors/partners/register',                       { templateUrl: 'views/actors/submit-form.html',  label:'Become a UNDB Partner',         resolveController: true, resolve : { user : securize(['User']) } }).
 
             when('/resources',                                    { templateUrl: 'views/resources/index.html',     label:'Resources',               resolveController: true }).
             when('/resources/logo',                               { templateUrl: 'views/resources/logo.html',     label:'Logo',               resolveController: true }).

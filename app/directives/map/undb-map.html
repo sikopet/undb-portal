@@ -11,16 +11,16 @@
 			overflow: hidden;
 		}
 
-		 .sideSelection {
+		.sideSelection {
 			display: inline-block;
 			padding: 15px 0;
 		}
 
-	 .floatRight {
+		.floatRight {
 			float: right;
 		}
 
-		 .sideSelection h5 {
+		.sideSelection h5 {
 			color: #fff;
 			font-size: 1.4em;
 			margin-top: 20px;
@@ -28,7 +28,7 @@
 			text-indent: 15px;
 		}
 
-	 .sideSelectionRow {
+		.sideSelectionRow {
 			color: #fff;
 			cursor: pointer;
 			font-size: 1em;
@@ -37,10 +37,10 @@
 			margin: 14px 0;
 			min-width: 100%;
 			padding: 0 10px;
-white-space: nowrap;
+			white-space: nowrap;
 		}
 
-		 .sideSelectionRowActive {
+		.sideSelectionRowActive {
 			background-color: #004844;
 			border-bottom-left-radius: 5px;
 			border-bottom-right-radius: 0;
@@ -66,26 +66,13 @@ white-space: nowrap;
 			white-space: nowrap;
 		}
 
-		.sideSelectionRowActiveIMG{
-
-
-
+		.sideSelectionRowActiveIMG {
 			height: 37px;
 			position: absolute;
 			right: -34px;
 			width: 37px;
 			z-index: 10;
 		}
-
-		 /*.sideSelectionRow:select {
-			background-color: #004844;
-			border-color: #004844;
-			color: #fff;
-			display: inline-block;
-			margin-left: 20px;
-			width: 85px;
-		}*/
-
 
 		body.modal-open div.modal-backdrop {
 			z-index: 150;
@@ -103,7 +90,7 @@ white-space: nowrap;
 			</div>
 		</div>
 		<div class="col-md-10 col-xs-12" style="padding-left:0px;margin-left:0px;">
-			<ammap3 ng-model='documents' schema='selectedSchema' ></ammap3>
+			<ammap3 ng-model='documents' schema='selectedSchema'></ammap3>
 			<div class="mapPopup" ng-click="toggleCaption=!toggleCaption;" ng-show="toggleCaption">
 				<p>{{message}}</p>
 				<button type="button" class="closeButton"></button>

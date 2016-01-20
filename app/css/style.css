@@ -140,16 +140,16 @@ ol.basic-list
 
 /* Accordion - Customization*/
 #accordion .bg-title1 {
-    background-image: url("http://lorempixel.com/1200/360/nature/one/");
+    background-image: url("../images/biodiversity-value.png");
 }
 #accordion .bg-title2 {
-    background-image: url("http://lorempixel.com/1200/360/nature/two/");
+    background-image: url("../images/biodiversity-value.png");
 }
 #accordion .bg-title3 {
-    background-image: url("http://lorempixel.com/1200/360/nature/three/");
+    background-image: url("../images/biodiversity-losing.png");
 }
 #accordion .bg-title4 {
-    background-image: url("http://lorempixel.com/1200/360/nature/four/");
+    background-image: url("../images/biodiversity-action.png");
 }
 
 #accordion .bg-tall {
@@ -221,16 +221,27 @@ ol.basic-list
 }
 .border-bottom-cbd-green h5 {
     line-height: 1.2em;
-    margin-top: 14px; 
+    margin-top: 14px;
     margin-left:14px;
     font-weight: bold;
     color: #004844;
+}
+.border-bottom-blue p{
+    /*padding-left: 1em;*/
+    color: #0081c6;
+}
+.border-bottom-blue h5 {
+    color: #0081c6;
+    font-size: 1.2em;
+    font-weight: bold;
 }
 .border-bottom-cbd-green p{
     line-height: 1.2em;
     margin-left:14px;
     padding: 2px;
+    font-size: 13px;
 }
+
 .border-bottom-cbd-green p>a {
     color: #069554;
 }
@@ -252,7 +263,7 @@ ol.basic-list
     margin-bottom: 5%;
 }
 .border-bottom-cbd-green p.indent-right{
-    margin-left: 20%; 
+    margin-left: 20%;
 }
 .border-bottom-cbd-green p.text-center{
     text-align: center;
@@ -342,7 +353,6 @@ ol.basic-list
     background: url("../images/backgrounds/bird-green-t.png") no-repeat bottom -3px right 15px;
     background-size: 15%;
 }
-
 .linkBlock
 {
 	border: 2px solid #f9f9f9;
@@ -354,11 +364,11 @@ ol.basic-list
 	overflow: hidden;
 	text-decoration: none !important;
 	webkit-border-radius: 10px;
-	width: 282px;
+	width: 322px;
 }
 .linkBlock.medium
 {
-	width: 282px;
+	width: 300px;
 }
 .linkBlock.medium>div p
 {
@@ -448,15 +458,15 @@ ol.basic-list
 }
 .linkBlock.mediumText h5
 {
-	width: 120px;
+	width: 160px;
 }
 .linkBlock.mediumText p
 {
-	width: 138px !important;
+	width: 160px !important;
 }
 .linkBlock.smallText h5
 {
-	width: 160px;
+	width: 120px;
 }
 .linkBlock.smallText p
 {
@@ -469,7 +479,7 @@ ol.basic-list
 	padding: 5px;
 	position: relative;
 	vertical-align: middle;
-	width: 282px;
+	width: 325px;
 }
 .linkBlock h5
 {
@@ -480,7 +490,7 @@ ol.basic-list
 	margin: 0 14px 6px;
 	text-align: left;
 	vertical-align: bottom;
-	width: 160px;
+	width: 172px;
   font-weight: bold;
 }
 .linkBlock p
@@ -490,7 +500,7 @@ ol.basic-list
 	font-size: .8em;
 	margin: 0 14px;
 	text-align: left;
-	width: 104px;
+	width: 194px;
 }
 .linkBlock.downloadLanguage ul.languageList
 {
@@ -571,7 +581,6 @@ ol.basic-list
 	text-align: center;
 	top: 30px;
 	width: 100% !important;
-  font-weight: bold;
 }
 .linkBlock.textTop img
 {
@@ -587,7 +596,7 @@ ol.basic-list
 }
 .linkBlock.center-text h5,.linkBlock.center-text p
 {
-	margin-left: 22px;
+	margin-left: 42px;
 }
 .linkBlock.smaller-title h5
 {
@@ -719,14 +728,14 @@ form input, form select, form .bootstrap-select button {
 }
 
 .carousel-control.right {
-    left: 18%;
+    left: 25%;
 }
 .carousel-text {
     position:absolute;
     bottom: 0;
     left:0;
     right:400;
-    width:33%;
+    width:40%;
     height:100%;
     background-color:rgba(0,0,0,0.55);
     color:#fff;
@@ -758,7 +767,7 @@ form input, form select, form .bootstrap-select button {
     transform: translate(-15%,15%);
 }
 /*xs*/
-@media(max-width:767px){
+@media(max-width:992px){
     #welcome {
         height:200px;
     }
@@ -791,6 +800,10 @@ form input, form select, form .bootstrap-select button {
     }
 }
 
+h1, h2, h3, h4, h5, h6 {
+    text-transform: none;
+}
+
 /*sm*/
 @media(min-width:768px){
     #welcome {
@@ -799,10 +812,6 @@ form input, form select, form .bootstrap-select button {
     #welcome::before {
         background-position: -210px;
     }
-    .carousel-text {
-        top: 0;
-    }
-
 }
 /*md*/
 @media(min-width:992px){
@@ -813,9 +822,6 @@ form input, form select, form .bootstrap-select button {
         width: 105%;
         /*height: 110%;*/
     }
-
-
-
 }
 /*lg*/
 @media(min-width:1200px){
@@ -827,13 +833,22 @@ form input, form select, form .bootstrap-select button {
         /*height: 110%;*/
     }
 }
-.img-block {
-  max-width: 140px;
-  max-height: 140px;
-  padding: 5px;
-  display:block;
-  margin: auto;
+
+#MainMenu {
+    position: absolute;
+    top: 50px;
+    z-index: 999;
+    right: 0px;
+    width: 50%;
 }
-.button-green-link {
-  color: white;
+
+
+#MainMenu .list-group-item-success{
+     color: #FF00FF;
+     background-color: #069554;
+}
+
+
+#MainMenu a.list-group-item-success, button.list-group-item-success {
+    color: #fff;
 }

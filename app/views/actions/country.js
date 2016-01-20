@@ -29,7 +29,7 @@ define(['app', 'angular', 'authentication'], function() { 'use strict';
 		//
 		//=======================================================================
 		$scope.actionCountryProfile= function (code){
-						$window.location.href = '/actions/submit/'+code.toUpperCase();
+						$window.location.href = '/actions/country/'+code.toUpperCase();
 		};
 
 		//=======================================================================

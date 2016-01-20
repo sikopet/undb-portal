@@ -1,126 +1,124 @@
-.bs-example{
-    margin: 150px 50px;
-  }
-  .square {
-    width: 18px;
-    height: 18px;
-    margin: 0 auto;
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
-.custom-title{
-    font-size: 25px;
-    font-family: Helvetica, sans-serif;
-    line-height: 25px;
-    color: #333;
-    margin: 0px;
+.bs-example {
+  margin: 150px 50px;
 }
-  .leggendItem {
-    text-align: center;
-    font-size: 11px;
-    white-space: nowrap;
-    cursor: pointer;
-    padding-bottom: 3px;
-    color: #333;
-  }
+.square {
+  width: 18px;
+  height: 18px;
+  margin: 0 auto;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+.custom-title {
+  font-size: 25px;
+  font-family: Helvetica, sans-serif;
+  line-height: 25px;
+  color: #333;
+  margin: 0px;
+}
+.leggendItem {
+  text-align: center;
+  font-size: 11px;
+  white-space: nowrap;
+  cursor: pointer;
+  padding-bottom: 3px;
+  color: #333;
+}
+.disclaimer {
+  position: absolute;
+  text-decoration: none;
+  color: #333;
+  font-family: Verdana;
+  font-size: 11px;
+  opacity: 0.7;
+  display: block;
+  right: 45%;
+  bottom: 1%;
+  cursor: pointer;
+}
+.leggendTitle {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-bottom: 0px;
+  color: #333;
+}
+.mapPopup {
+  background-color: rgba(0, 72, 68, 0.9);
+  border-radius: 5px;
+  bottom: 8%;
+  right: 2%;
+  left: 2%;
+  display: table;
+  margin: 0 0 0 0;
+  min-height: 80px;
+  moz-border-radius: 5px;
+  padding: 10px;
+  position: absolute;
+  vertical-align: middle;
+  webkit-border-radius: 5px;
+  width: 95%;
+  z-index: 100;
+}
+.mapPopup p {
+  color: #fff;
+  display: table-cell;
+  max-width: 75%;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 16px;
+  line-height: 120%;
+}
+.mapPopup p a {
+  color: #069554;
+}
+.mapPopup button {
+  display: block;
+  float: right;
+  margin-right: 10px;
+  margin-top: 16px;
+}
+.closeButton {
+  background-image: url('/app/img/x.svg');
+  background-repeat: no-repeat;
+  border: none;
+  border-radius: 25px;
+  height: 26px;
+  moz-border-radius: 25px;
+  webkit-border-radius: 25px;
+  width: 26px;
+}
+body.modal-open div.modal-backdrop {
+  z-index: 0;
+}
 
-  .disclaimer {
-    position: absolute;
-    text-decoration: none;
-    color: #333;
-    font-family: Verdana;
-    font-size: 11px;
-    opacity: 0.7;
-    display: block;
-    right: 45%;
-    bottom: 1%;
-    cursor: pointer;
-  }
+/* Styles for custom popover template */
 
-  .leggendTitle{
-    text-align:center;
-    margin-top:0;
-    margin-bottom:0;
-    padding-bottom:0px;
-    color:#333;
-  }
-  		.mapPopup {
-  			background-color: rgba(0, 72, 68, 0.9);
-  			border-radius: 5px;
-  			bottom: 8%;
-  			right: 2%;
-  			left: 2%;
-  			display: table;
-  			margin: 0 0 0 0;
-  			min-height: 80px;
-  			moz-border-radius: 5px;
-  			padding: 10px;
-  			position: absolute;
-  			vertical-align: middle;
-  			webkit-border-radius: 5px;
-  			width: 95%;
-        z-index: 100;
-  		}
-
-  		.mapPopup p {
-  			color: #fff;
-  			display: table-cell;
-  			max-width: 75%;
-  			vertical-align: middle;
-  			text-align: center;
-  			font-size: 16px;
-  			line-height: 120%;
-  		}
-
-  		.mapPopup p a {
-  			color: #069554;
-  		}
-
-  		.mapPopup button {
-  			display: block;
-  			float: right;
-  			margin-right: 10px;
-  			margin-top: 16px;
-  		}
-
-  		.closeButton {
-  			background-image: url('/app/img/x.svg');
-  			background-repeat: no-repeat;
-  			border: none;
-  			border-radius: 25px;
-  			height: 26px;
-  			moz-border-radius: 25px;
-  			webkit-border-radius: 25px;
-  			width: 26px;
-  		}
-
-  		body.modal-open div.modal-backdrop {
-  			z-index: 0;
-  		}
-  /* Styles for custom popover template */
-  .popover-footer{
-      padding: 6px 14px;
-      background-color: #f7f7f7;
-      border-top: 1px solid #ebebeb;
-      text-align: right;
-  }
-  .arrow{
-          border-top-color: rgba(255,255,255,.25);
-  }
-.popover{max-width:700px;width:700px;};
+.popover-footer {
+  padding: 6px 14px;
+  background-color: #f7f7f7;
+  border-top: 1px solid #ebebeb;
+  text-align: right;
+}
+.arrow {
+  border-top-color: rgba(255, 255, 255, .25);
+}
+.popover {
+  max-width: 700px;
+  width: 700px;
+}
+;
 .map-marker {
-    /* adjusting for the marker dimensions
+  /* adjusting for the marker dimensions
     so that it is centered on coordinates */
-    margin-left: 12px;
-    margin-top: -13px;
+  margin-left: 12px;
+  margin-top: -13px;
 }
 .pin {
   width: 30px;
   height: 30px;
-cursor: pointer;
+  cursor: pointer;
   -webkit-border-radius: 50% 50% 50% 0;
   border-radius: 50% 50% 50% 0;
-
   position: absolute;
   -webkit-transform: rotate(-45deg);
   -moz-transform: rotate(-45deg);
@@ -147,8 +145,13 @@ cursor: pointer;
   animation-duration: 1s;
   z-index: 10;
 }
-.pin-cbd{  background: #dffbee;}
-.pin-actor{  background: #e81e25;}
+.pin-cbd {
+  background: #dffbee;
+}
+.pin-actor {
+  background: #e81e25;
+}
+
 /*.pin:after {
   content: '';
   width: 14px;
@@ -160,6 +163,7 @@ cursor: pointer;
   border-radius: 50%;
 
 }*/
+
 .leaf-image {
   position: absolute;
   left: 7%;
@@ -169,12 +173,12 @@ cursor: pointer;
   -o-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
-height:25.06px;
-width:23.21px;
-z-index: 20;
+  height: 25.06px;
+  width: 23.21px;
+  z-index: 20;
 }
 .pulse-cbd {
-  background: rgba(0,0,0,0.2);
+  background: rgba(0, 0, 0, 0.2);
   -webkit-border-radius: 50%;
   border-radius: 50%;
   height: 14px;
@@ -220,7 +224,7 @@ z-index: 20;
   animation-delay: 1.1s;
 }
 .pulse-actor {
-  background: rgba(0,0,0,0.2);
+  background: rgba(0, 0, 0, 0.2);
   -webkit-border-radius: 50%;
   border-radius: 50%;
   height: 14px;

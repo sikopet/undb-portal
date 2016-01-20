@@ -8,7 +8,7 @@
 
     <title>United Nations Decade on Biodiversity</title>
 
-    <meta name="description" content="Ecologically or Biologically Significant Marine Areas">
+    <meta name="description" content="United Nations Decade on Biodiversity">
     <meta name="author" content="Secretariat of the Convention on Biological Diversity">
 
     <script src="app/libs/requirejs/require.js" data-main="app/boot.js"></script>
@@ -69,7 +69,7 @@
     <div id="outdated"></div>
 
     <nav class="navbar navbar-default navbar-static-top bg-white">
-        <div class="alert alert-info" style="margin-bottom: 0px; text-align: center" ng-show="showEmailVerificationMessage">
+        <div ng-cloak class="alert alert-info" style="margin-bottom: 0px; text-align: center" ng-show="showEmailVerificationMessage">
             <button type="button" ng-click="showEmailVerificationMessage = undefined" class="close" style="opacity: 1;">&times;</button>
             <strong>{{showEmailVerificationMessage}}</strong>
             <br/>
@@ -88,7 +88,7 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="navbar-collapse-1">
 
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav" style="display:none">
                     <li><a href="./">العربية</a></li>
                     <li><a class="color-litegrey">|</a></li>
                     <li><a href="./" class="important color-grey">English</a></li>
@@ -165,7 +165,7 @@
                     <img src="app/images/un+undb.svg" alt="undb logo" style="height:100px;margin-left:5px;margin-top:-10px;margin-bottom:12px;padding:15px 0;">
                 </a>
             </div>
-            <div class="col-xs-4" style="text-align:right">
+            <div class="col-xs-4 hidden-xs" style="text-align:right">
                 <h1 class="color-cbdgreen">Living in harmony with nature
                     <h1>
                         <!-- <img src="app/images/cbd-logo-en-200.png" style="margin-right:5px;margin-top:-10px;height:70px;padding:15px 0;"> -->
@@ -179,20 +179,20 @@
                 <div class="main-navbar" role="navigation">
 
                     <ul class="nav navbar-nav">
-                        <li ng-mouseover="highlightLink='home'" ng-mouseleave="highlightLink=''"><a href="home" >Home</a> <i ng-if="highlightLink=='home' || path.indexOf('home') >= 0" style="position:absolute;top:16px;left:15px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
-                        <li ng-mouseover="highlightLink='about'" ng-mouseleave="highlightLink=''"><a href="about">About</a><i ng-if="highlightLink=='about' || path.indexOf('about') >= 0" style="position:absolute;top:16px;left:13px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
-                        <li ng-mouseover="highlightLink='actions'" ng-mouseleave="highlightLink=''"><a href="actions">Actions</a><i ng-if="highlightLink=='actions' || path.indexOf('actions') >= 0" style="position:absolute;top:16px;left:18px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
-                        <li ng-mouseover="highlightLink='actors'" ng-mouseleave="highlightLink=''"><a href="actors">Actors</a><i ng-if="highlightLink=='actors' || path.indexOf('actors') >= 0" style="position:absolute;top:16px;left:15px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
-                        <li ng-mouseover="highlightLink='resources'" ng-mouseleave="highlightLink=''"><a href="resources">Resources</a><i ng-if="highlightLink=='resources' || path.indexOf('resources') >= 0" style="position:absolute;top:16px;left:27px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
+                        <li ng-mouseover="highlightLink='home'" ng-mouseleave="highlightLink=''"><a href="home" >Home</a> <i ng-cloak ng-if="highlightLink=='home' || path.indexOf('home') >= 0" style="position:absolute;top:16px;left:15px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
+                        <li ng-mouseover="highlightLink='about'" ng-mouseleave="highlightLink=''"><a href="about">About</a><i ng-cloak ng-if="highlightLink=='about' || path.indexOf('about') >= 0" style="position:absolute;top:16px;left:13px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
+                        <li ng-mouseover="highlightLink='actions'" ng-mouseleave="highlightLink=''"><a href="actions">Actions</a><i ng-cloak ng-if="highlightLink=='actions' || path.indexOf('actions') >= 0" style="position:absolute;top:16px;left:18px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
+                        <li ng-mouseover="highlightLink='actors'" ng-mouseleave="highlightLink=''"><a href="actors">Actors</a><i ng-cloak ng-if="highlightLink=='actors' || path.indexOf('actors') >= 0" style="position:absolute;top:16px;left:15px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
+                        <li ng-mouseover="highlightLink='resources'" ng-mouseleave="highlightLink=''"><a href="resources">Resources</a><i ng-cloak ng-if="highlightLink=='resources' || path.indexOf('resources') >= 0" style="position:absolute;top:16px;left:27px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
                         <!-- <li class="form-group"><form class="navbar-form navbar-right searchBox" role="search"><input type="text" class="form-control" placeholder="Search"></form></li> -->
-                        <li ng-mouseover="highlightLink='facebook'" ng-mouseleave="highlightLink=''"><a href="./"><i class="color-darkgreen fa fa-facebook"></i></a><i ng-if="highlightLink=='facebook'" style="position:absolute;top:16px;left:0px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
-                        <li ng-mouseover="highlightLink='twitter'" ng-mouseleave="highlightLink=''"><a href="./"><i class="color-darkgreen fa fa-twitter"></i></a><i ng-if="highlightLink=='twitter'" style="position:absolute;top:16px;left:0px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
-                        <li ng-mouseover="highlightLink='instagram'" ng-mouseleave="highlightLink=''"><a href="./"><i class="color-darkgreen fa fa-instagram"></i></a><i ng-if="highlightLink=='instagram'" style="position:absolute;top:16px;left:0px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
-                        <li ng-mouseover="highlightLink='youtube'" ng-mouseleave="highlightLink=''"><a href="./"><i class="color-darkgreen fa fa-youtube-play"></i></a><i ng-if="highlightLink=='youtube'" style="position:absolute;top:16px;left:0px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
-                        <li ng-mouseover="highlightLink='flickr'" ng-mouseleave="highlightLink=''"><a href="./"><i class="color-darkgreen fa fa-flickr"></i></a><i ng-if="highlightLink=='flickr'" style="position:absolute;top:16px;left:0px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
+                        <li ng-mouseover="highlightLink='facebook'" ng-mouseleave="highlightLink=''"><a href="./"><i class="color-darkgreen fa fa-facebook"></i></a><i ng-cloak ng-if="highlightLink=='facebook'" style="position:absolute;top:16px;left:0px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
+                        <li ng-mouseover="highlightLink='twitter'" ng-mouseleave="highlightLink=''"><a href="./"><i class="color-darkgreen fa fa-twitter"></i></a><i ng-cloak ng-if="highlightLink=='twitter'" style="position:absolute;top:16px;left:0px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
+                        <li ng-mouseover="highlightLink='instagram'" ng-mouseleave="highlightLink=''"><a href="./"><i class="color-darkgreen fa fa-instagram"></i></a><i ng-cloak ng-if="highlightLink=='instagram'" style="position:absolute;top:16px;left:0px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
+                        <li ng-mouseover="highlightLink='youtube'" ng-mouseleave="highlightLink=''"><a href="./"><i class="color-darkgreen fa fa-youtube-play"></i></a><i ng-cloak ng-if="highlightLink=='youtube'" style="position:absolute;top:16px;left:0px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
+                        <li ng-mouseover="highlightLink='flickr'" ng-mouseleave="highlightLink=''"><a href="./"><i class="color-darkgreen fa fa-flickr"></i></a><i ng-cloak ng-if="highlightLink=='flickr'" style="position:absolute;top:16px;left:0px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
                     </ul>
 
                 </div>
@@ -208,65 +208,9 @@
     <!--  FOOTER  -->
     <footer ng-cloak ng-show="routeLoaded">
         <div class="container">
-            <div class="push30"></div>
-            <div>
-                <ul class="col-xs-6 col-sm-4 col-md-2">
-                    <li><a href="/" class="color-black">Home</a></li>
-                    <li><a href="http://www.cbd.int">CBD</a></li>
-                    <li><a href="http://www.un.org">UN</a></li>
-                    <li><a href="mailto:UNBiodiversity@cbd.int">Contact us</a></li>
-                </ul>
-
-                <ul class="col-xs-6 col-sm-4 col-md-2">
-                    <li><a href="/about" class="color-black">About</a></li>
-                    <li><a href="/about/undb">UNDB</a></li>
-                    <li><a href="/about/goals">Goals</a></li>
-                    <li><a href="/about/biodiversity">Biodiversity</a></li>
-                    <li><a href="/about/iyb2010">IYB2010</a></li>
-                    <li><a href="/about/sdgs">SDGs</a></li>
-                </ul>
-
-                <ul class="col-xs-6 col-sm-4 col-md-2">
-                    <li><a href="/actions/" class="color-black">Actions</a></li>
-                    <li><a href="/actions/worldwide">Worldwide</a></li>
-                    <li><a href="/actions/country">By countries</a></li>
-                    <li><a href="/actions/un">By UN organizations</a></li>
-                    <li><a href="/actions/calendar">Calendar</a></li>
-                    <li><a href="/actions/participate">Participate</a></li>
-                </ul>
-
-                <ul class="col-xs-6 col-sm-4 col-md-2">
-                    <li><a href="/actors" class="color-black">Actors</a></li>
-                    <li><a href="/actors/abttf">ABTTF</a></li>
-                    <li><a href="/actors/champions">Biodiversity Champions</a></li>
-                    <li><a href="/actors/blg">BLG</a></li>
-                    <li><a href="/actors/partners">UNDB Partners</a></li>
-                </ul>
-
-                <ul class="col-xs-6 col-sm-4 col-md-2">
-                    <li><a href="" class="color-black">Resources</a></li>
-                    <li><a href="">Logo</a></li>
-                    <li><a href="">Printed Materials</a></li>
-                    <li><a href="">Multimedia</a></li>
-                </ul>
-
-                <ul class="col-xs-6 col-sm-4 col-md-2">
-                    <li><a href="/resources" class="color-black">Participate</a></li>
-                    <li><a href="/resources">Learn</a></li>
-                    <li><a href="/resources">Act</a></li>
-                    <li><a href="/resources">Social media</a></li>
-                    <li><a href="/resources">Register your action</a></li>
-                    <li><a href="/resources">Become a UNDB Partner</a></li>
-                </ul>
-            </div>
             <div class="push50"></div>
-            <div class="push50"></div>
-        </div>
-        <div class="container">
-            <div class="push50"></div>
-            <div class="push50"></div>
-            <div class="clear"></div>
-            <div class="col-xs-6 col-lg-offset-3 col-xs-offset-3 ">
+
+            <div class="text-center">
                 <a href="https://www.cbd.int/terms" class="copyright">Terms of Use</a>
                 <a href="https://www.cbd.int/privacy" class="copyright">Privacy Policy</a>
                 <a href="https://www.cbd.int/credits" class="copyright">Credits</a>
@@ -275,6 +219,19 @@
             <div class="push50"></div>
         </div>
     </footer>
+    <!-- <footer class="row" ng-show="routeLoaded">
+        <div class="col-xs-12 text-center" style="border:1px solid red">
+
+            <a href="https://www.cbd.int/terms" class="copyright">Terms of Use</a>
+            <a href="https://www.cbd.int/privacy" class="copyright">Privacy Policy</a>
+            <a href="https://www.cbd.int/credits" class="copyright">Credits</a>
+            <a href="https://www.cbd.int/copyright" class="copyright">&copy; CBD Secretariat</a>
+
+            <div class="push50"></div>
+
+        </div>
+    </footer> -->
+
 
     <script src="app/libs/outdated-browser/outdatedbrowser/outdatedbrowser.min.js"></script>
 
