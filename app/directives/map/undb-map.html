@@ -11,16 +11,16 @@
 			overflow: hidden;
 		}
 
-		 .sideSelection {
+		.sideSelection {
 			display: inline-block;
 			padding: 15px 0;
 		}
 
-	 .floatRight {
+		.floatRight {
 			float: right;
 		}
 
-		 .sideSelection h5 {
+		.sideSelection h5 {
 			color: #fff;
 			font-size: 1.4em;
 			margin-top: 20px;
@@ -28,7 +28,7 @@
 			text-indent: 15px;
 		}
 
-	 .sideSelectionRow {
+		.sideSelectionRow {
 			color: #fff;
 			cursor: pointer;
 			font-size: 1em;
@@ -37,10 +37,10 @@
 			margin: 14px 0;
 			min-width: 100%;
 			padding: 0 10px;
-white-space: nowrap;
+			white-space: nowrap;
 		}
 
-		 .sideSelectionRowActive {
+		.sideSelectionRowActive {
 			background-color: #004844;
 			border-bottom-left-radius: 5px;
 			border-bottom-right-radius: 0;
@@ -66,10 +66,7 @@ white-space: nowrap;
 			white-space: nowrap;
 		}
 
-		.sideSelectionRowActiveIMG{
-
-
-
+		.sideSelectionRowActiveIMG {
 			height: 37px;
 			position: absolute;
 			right: -34px;
@@ -77,59 +74,27 @@ white-space: nowrap;
 			z-index: 10;
 		}
 
-		 /*.sideSelectionRow:select {
-			background-color: #004844;
-			border-color: #004844;
-			color: #fff;
-			display: inline-block;
-			margin-left: 20px;
-			width: 85px;
-		}*/
-
-
 		body.modal-open div.modal-backdrop {
 			z-index: 150;
 		}
 	</style>
 
-		<div id="map">
-
-				<!-- <div class="col-md-3 sideSelection ">
-
-					<div class="floatRight">
-						<h5>UNDB Network</h5>
-						<ul>
-							<li class="active" data-text="The UNDB Network comprises all Actors contributing to the implementation of the 2011-2020 Strategic Plan for Biodiversity.">Actors</li>
-							<li data-text="With 196 <a href='un.org'>Parties</a>, the Convention on Biological Diversity has near universal participation among countries.">Parties to the CBD</li>
-							<li data-text="The Biodiversity Champions are truly inventive, creative and exceptional examples of support to the Strategic Plan for Biodiversity 2011-2020.">Biodiversity Champions</li>
-							<li data-text=" Case studies are narrative examples of great success stories. Find inspiration for your own Actions!">Case Studies</li>
-							<li data-text="Projects are long term initiatives at the national level or beyond, and feature elements of capacity building.">Specific Projects</li>
-							<li data-text="All around the world people are taking action to safeguard biodiversity. See how you can participate!">
-								Actions
-							</li>
-						</ul>
-					</div>
-
-				</div> -->
-				<div class="col-md-2 col-xs-12" style="margin-right:0px;padding-right:0px;">
-
-					<div class="row sideSelection" >
-						<h5>UNDB Network</h5>
-						<filter-actors title='Actors' active='filters.actors.active' message='message'></filter-actors>
-						<filter-parties title='Parties to the CBD' active='filters.parties.active' message='message'></filter-parties>
-						<filter-bio-champs title='Biodiversity Champions' active='filters.bioChamps.active' message='message'></filter-bio-champs>
-						<filter-actions title='Actions' active='filters.actions.active' message='message'></filter-actions>
-					</div>
-				</div>
-
-				<div class="col-md-10 col-xs-12" style="padding-left:0px;margin-left:0px;">
-					<!-- Replace img with the Map  -->
-					<ammap3 ng-model='documents' schema='selectedSchema'  debug="1"></ammap3>
-					<div class="mapPopup"  ng-click="toggleCaption=!toggleCaption;" ng-show="toggleCaption">
-					<p>{{message}}</p>
-						<button type="button" class="closeButton"></button>
-					</div>
-				</div>
-
+	<div id="map">
+		<div class="col-md-2 col-xs-12" style="margin-right:0px;padding-right:0px;">
+			<div class="row sideSelection">
+				<h5>UNDB Network</h5>
+				<filter-actors title='Actors' active='filters.actors.active' message='message'></filter-actors>
+				<filter-parties title='Parties to the CBD' active='filters.parties.active' message='message'></filter-parties>
+				<filter-bio-champs title='Biodiversity Champions' active='filters.bioChamps.active' message='message'></filter-bio-champs>
+				<filter-actions title='Actions' active='filters.actions.active' message='message'></filter-actions>
+			</div>
+		</div>
+		<div class="col-md-10 col-xs-12" style="padding-left:0px;margin-left:0px;">
+			<ammap3 ng-model='documents' schema='selectedSchema' debug="1"></ammap3>
+			<div class="mapPopup" ng-click="toggleCaption=!toggleCaption;" ng-show="toggleCaption">
+				<p>{{message}}</p>
+				<button type="button" class="closeButton"></button>
+			</div>
+		</div>
 	</div>
 </div>
