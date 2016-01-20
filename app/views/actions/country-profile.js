@@ -1,7 +1,7 @@
-define(['app', 'angular', 'authentication'], function() { 'use strict';
+define(['app'], function() { 'use strict';
 
-	return ['$scope','locale','$http', '$rootScope', '$route', '$browser', '$location', '$window', 'authentication',
-    function ($scope,locale, $http, $rootScope, $route, $browser, $location, $window, authentication) {
+	return ['$scope','locale','$http', '$location',
+    function ($scope,locale, $http, $location) {
 
 		//=======================================================================
 		//
@@ -29,14 +29,14 @@ define(['app', 'angular', 'authentication'], function() { 'use strict';
 		//
 		//=======================================================================
 		$scope.actionCountryProfile= function (code){
-						$window.location.href = '/actions/country/'+code.toUpperCase();
+			$location.url('/actions/countries/'+code.toUpperCase());
 		};
 
 		//=======================================================================
 		//
 		//=======================================================================
 		$scope.actionRegister = function () {
-			$window.location.href = '/actions/submit';
+			$location.url('/actions/submit');
 		};
 
     }];

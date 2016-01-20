@@ -1,7 +1,6 @@
-define(['app', 'angular', 'authentication'], function() { 'use strict';
+define(['app'], function() { 'use strict';
 
-	return ['$scope', '$rootScope', '$route', '$browser', '$location', '$window', 'authentication',
-    function ($scope, $rootScope, $route, $browser, $location, $window, authentication) {
+	return ['$scope', function ($scope) {
 		var panels = {};
         $scope.toggleCss = function (elementID, targetElementID) {
 
