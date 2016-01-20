@@ -19,7 +19,7 @@ define(['app', 'lodash', 'text!views/index.html', 'views/index', 'providers/exte
             when('/actions', { redirectTo: '/actions/worldwide' }).
             when('/actions/worldwide',                               { templateUrl: 'views/actions/worldwide.html',     label:'Worldwide',             resolveController: true , reloadOnSearch : false}).
             when('/actions/country',                                 { templateUrl: 'views/actions/country.html',     label:'By Country',             resolveController: true }).
-            when('/actions/country/:code',                           { templateUrl: 'views/actions/country-profile.html', label :'Profile',            resolveController: true }).
+            when('/actions/countries/:code',                           { templateUrl: 'views/actions/country-profile.html', label :'Profile',            resolveController: true }).
            // when('/actions/un',                                      { templateUrl: 'views/actions/un.html',     label:'By UN Organization',     resolveController: true }).
             when('/actions/calendar',                                { templateUrl: 'views/actions/calendar.html',     label:'Calendar',               resolveController: true }).
             when('/actions/participate',                             { templateUrl: 'views/actions/participate.html',     label:'Participate',            resolveController: true }).

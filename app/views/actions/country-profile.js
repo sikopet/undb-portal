@@ -22,6 +22,7 @@ define(['app', 'angular', 'authentication'], function() { 'use strict';
 				c.cssClass='flag-icon-'+c.code;
 			});
 			$scope.countries = res.data;
+			console.log($scope.countries);
 		});
 
 		//=======================================================================
