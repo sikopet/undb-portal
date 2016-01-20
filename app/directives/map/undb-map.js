@@ -33,6 +33,8 @@ define(['text!./undb-map.html',
         $scope.subQueries = {};
         $scope.queriesStrings = {};
         $scope.message='';
+        $scope.toggleCaption=1;
+
         $http.get("/api/v2013/countries", {
           cache: true
         }).then(function(o) {
@@ -57,7 +59,211 @@ define(['text!./undb-map.html',
           'projects':{active:false},
           'actions':{active:false},
         };
-  
+
+        $scope.actions=[{},{     "lat_d": 200.5597832,
+             "lng_d": -200.9917114},{
+   "title_s": "Big Project",
+   logo_s:"http://files.sharenator.com/28110.jpg",
+   "country_s": "ca",
+   "address_s": "413 St.Jacques, Montreal, Canada",
+   "phone_s": "123 123 1234",
+   "description_s": "Senator Patrick Brazeau is Recovering in hospital Following after- surgery found gravement He Was Injured In His home last night , selon Officials at a hospital in Gatineau , Que.\n\nPolice and paramedics called Expired Were to Brazeau 's home in Mayo , Que. , Northeast of Ottawa , just after- 10 pm ET on Monday, sources Told CBC News .",
+   "descriptionNative_s": "Senator Patrick Brazeau is Recovering in hospital Following after- surgery found gravement He Was Injured In His home last night , selon Officials at a hospital in Gatineau , Que.\n\nPolice and paramedics called Expired Were to Brazeau 's home in Mayo , Que. , Northeast of Ottawa , just after- 10 pm ET on Monday, sources Told CBC News .",
+   "notes_s": "test",
+   "email_s": "randy.houlahan@cbd.int",
+   "googleMaps_s": "https://www.google.fr/maps/place/Montr%C3%A9al,+QC,+Canada/@45.5597832,-73.9917114,10z/data=!4m2!3m1!1s0x4cc91a541c64b70d:0x654e3138211fefef",
+   "facebook_s": "http://facebook.com/ddd_Ddd",
+   "twitter_s": "http://twitter.com/_ddd_dddd",
+   "youtube_s": "http://youtube.com/_ddd_dddd",
+   "website_s": "http://youtube.com/_ddd_dddd",
+   "startDate_s":'2016-01-205 05:00',
+   "endDate_s":'2016-01-21 23:00',
+     "lat_d": 45.5597832,
+     "lng_d": -73.9917114
+   },
+   {
+     logo_s:"https://media.giphy.com/media/26tP7vexsaMrS4UpO/giphy.gif",
+ "title_s": "Big Event",
+ "country_s": "ca",
+ "address_s": "413 St.Jacques, Montreal, Canada",
+ "phone_s": "123 123 1234",
+ "description_s": "Senator Patrick Brazeau is Recovering in hospital Following after- surgery found gravement He Was Injured In His home last night , selon Officials at a hospital in Gatineau , Que.\n\nPolice and paramedics called Expired Were to Brazeau 's home in Mayo , Que. , Northeast of Ottawa , just after- 10 pm ET on Monday, sources Told CBC News .",
+ "descriptionNative_s": "Senator Patrick Brazeau is Recovering in hospital Following after- surgery found gravement He Was Injured In His home last night , selon Officials at a hospital in Gatineau , Que.\n\nPolice and paramedics called Expired Were to Brazeau 's home in Mayo , Que. , Northeast of Ottawa , just after- 10 pm ET on Monday, sources Told CBC News .",
+ "notes_s": "test",
+ "email_s": "randy.houlahan@cbd.int",
+ "googleMaps_s": "https://www.google.fr/maps/place/Montr%C3%A9al,+QC,+Canada/@45.5597832,-73.9917114,10z/data=!4m2!3m1!1s0x4cc91a541c64b70d:0x654e3138211fefef",
+ "facebook_s": "http://facebook.com/ddd_Ddd",
+ "twitter_s": "http://twitter.com/_ddd_dddd",
+ "youtube_s": "http://youtube.com/_ddd_dddd",
+ "website_s": "http://youtube.com/_ddd_dddd",
+ "startDate_s":'2016-01-205 05:00',
+ "endDate_s":'2016-01-21 23:00',
+ "lat_d": 45.5597832,
+ "lng_d": 25.9917114,
+},
+ {
+   logo_s:"https://media.giphy.com/media/26tP7vexsaMrS4UpO/giphy.gif",
+ "title_s": "Huge Big Ginormous Action",
+ "country_s": "ca",
+ "address_s": "413 St.Jacques, Montreal, Canada",
+ "phone_s": "123 123 1234",
+ "description_s": "Senator Patrick Brazeau is Recovering in hospital Following after- surgery found gravement He Was Injured In His home last night , selon Officials at a hospital in Gatineau , Que.\n\nPolice and paramedics called Expired Were to Brazeau 's home in Mayo , Que. , Northeast of Ottawa , just after- 10 pm ET on Monday, sources Told CBC News .",
+ "descriptionNative_s": "Senator Patrick Brazeau is Recovering in hospital Following after- surgery found gravement He Was Injured In His home last night , selon Officials at a hospital in Gatineau , Que.\n\nPolice and paramedics called Expired Were to Brazeau 's home in Mayo , Que. , Northeast of Ottawa , just after- 10 pm ET on Monday, sources Told CBC News .",
+ "notes_s": "test",
+ "email_s": "randy.houlahan@cbd.int",
+ "googleMaps_s": "https://www.google.fr/maps/place/Montr%C3%A9al,+QC,+Canada/@45.5597832,-73.9917114,10z/data=!4m2!3m1!1s0x4cc91a541c64b70d:0x654e3138211fefef",
+ "facebook_s": "http://facebook.com/ddd_Ddd",
+ "twitter_s": "http://twitter.com/_ddd_dddd",
+ "youtube_s": "http://youtube.com/_ddd_dddd",
+ "website_s": "http://youtube.com/_ddd_dddd",
+ "startDate_s":'2016-01-205 05:00',
+ "endDate_s":'2016-01-21 23:00',
+ "lat_d": 15.5597832,
+ "lng_d": 13.9917114,
+ },
+ {
+   logo_s:"https://media.giphy.com/media/26tP7vexsaMrS4UpO/giphy.gif",
+ "title_s": "Bigger Action",
+ "country_s": "ca",
+ "address_s": "413 St.Jacques, Montreal, Canada",
+ "phone_s": "123 123 1234",
+ "description_s": "Senator Patrick Brazeau is Recovering in hospital Following after- surgery found gravement He Was Injured In His home last night , selon Officials at a hospital in Gatineau , Que.\n\nPolice and paramedics called Expired Were to Brazeau 's home in Mayo , Que. , Northeast of Ottawa , just after- 10 pm ET on Monday, sources Told CBC News .",
+ "descriptionNative_s": "Senator Patrick Brazeau is Recovering in hospital Following after- surgery found gravement He Was Injured In His home last night , selon Officials at a hospital in Gatineau , Que.\n\nPolice and paramedics called Expired Were to Brazeau 's home in Mayo , Que. , Northeast of Ottawa , just after- 10 pm ET on Monday, sources Told CBC News .",
+ "notes_s": "test",
+ "email_s": "randy.houlahan@cbd.int",
+ "googleMaps_s": "https://www.google.fr/maps/place/Montr%C3%A9al,+QC,+Canada/@45.5597832,-73.9917114,10z/data=!4m2!3m1!1s0x4cc91a541c64b70d:0x654e3138211fefef",
+ "facebook_s": "http://facebook.com/ddd_Ddd",
+ "twitter_s": "http://twitter.com/_ddd_dddd",
+ "youtube_s": "http://youtube.com/_ddd_dddd",
+ "website_s": "http://youtube.com/_ddd_dddd",
+ "startDate_s":'2016-01-205 05:00',
+ "endDate_s":'2016-01-21 23:00',
+ "lat_d": 25.5597832,
+ "lng_d": -33.9917114
+ },
+ {
+   logo_s:"https://media.giphy.com/media/26tP7vexsaMrS4UpO/giphy.gif",
+ "title_s": "Big Action",
+ "country_s": "ca",
+ "address_s": "413 St.Jacques, Montreal, Canada",
+ "phone_s": "123 123 1234",
+ "description_s": "Senator Patrick Brazeau is Recovering in hospital Following after- surgery found gravement He Was Injured In His home last night , selon Officials at a hospital in Gatineau , Que.\n\nPolice and paramedics called Expired Were to Brazeau 's home in Mayo , Que. , Northeast of Ottawa , just after- 10 pm ET on Monday, sources Told CBC News .",
+ "descriptionNative_s": "Senator Patrick Brazeau is Recovering in hospital Following after- surgery found gravement He Was Injured In His home last night , selon Officials at a hospital in Gatineau , Que.\n\nPolice and paramedics called Expired Were to Brazeau 's home in Mayo , Que. , Northeast of Ottawa , just after- 10 pm ET on Monday, sources Told CBC News .",
+ "notes_s": "test",
+ "email_s": "randy.houlahan@cbd.int",
+ "googleMaps_s": "https://www.google.fr/maps/place/Montr%C3%A9al,+QC,+Canada/@45.5597832,-73.9917114,10z/data=!4m2!3m1!1s0x4cc91a541c64b70d:0x654e3138211fefef",
+ "facebook_s": "http://facebook.com/ddd_Ddd",
+ "twitter_s": "http://twitter.com/_ddd_dddd",
+ "youtube_s": "http://youtube.com/_ddd_dddd",
+ "website_s": "http://youtube.com/_ddd_dddd",
+ "startDate_s":'2016-01-205 05:00',
+ "endDate_s":'2016-01-21 23:00',
+ "lat_d": 55.5597832,
+ "lng_d": -23.9917114
+},
+ ];
+        $scope.actors=[{},{     "lat_d": 200.5597832,
+             "lng_d": -200.9917114},{
+   "title_s": "Big Org",
+   logo_s:"https://media.giphy.com/media/26tP7vexsaMrS4UpO/giphy.gif",
+   "country_s": "ca",
+   "address_s": "413 St.Jacques, Montreal, Canada",
+   "phone_s": "123 123 1234",
+   "description_s": "Senator Patrick Brazeau is Recovering in hospital Following after- surgery found gravement He Was Injured In His home last night , selon Officials at a hospital in Gatineau , Que.\n\nPolice and paramedics called Expired Were to Brazeau 's home in Mayo , Que. , Northeast of Ottawa , just after- 10 pm ET on Monday, sources Told CBC News .",
+   "descriptionNative_s": "Senator Patrick Brazeau is Recovering in hospital Following after- surgery found gravement He Was Injured In His home last night , selon Officials at a hospital in Gatineau , Que.\n\nPolice and paramedics called Expired Were to Brazeau 's home in Mayo , Que. , Northeast of Ottawa , just after- 10 pm ET on Monday, sources Told CBC News .",
+   "notes_s": "test",
+   "email_s": "randy.houlahan@cbd.int",
+   "googleMaps_s": "https://www.google.fr/maps/place/Montr%C3%A9al,+QC,+Canada/@45.5597832,-73.9917114,10z/data=!4m2!3m1!1s0x4cc91a541c64b70d:0x654e3138211fefef",
+   "facebook_s": "http://facebook.com/ddd_Ddd",
+   "twitter_s": "http://twitter.com/_ddd_dddd",
+   "youtube_s": "http://youtube.com/_ddd_dddd",
+   "website_s": "http://youtube.com/_ddd_dddd",
+   "startDate_s":'2016-01-205 05:00',
+   "endDate_s":'2016-01-21 23:00',
+     "lat_d": 45.5597832,
+     "lng_d": -73.9917114
+   },
+   {
+     logo_s:"https://media.giphy.com/media/26tP7vexsaMrS4UpO/giphy.gif",
+ "title_s": "Big Org",
+ "country_s": "ca",
+ "address_s": "413 St.Jacques, Montreal, Canada",
+ "phone_s": "123 123 1234",
+ "description_s": "Senator Patrick Brazeau is Recovering in hospital Following after- surgery found gravement He Was Injured In His home last night , selon Officials at a hospital in Gatineau , Que.\n\nPolice and paramedics called Expired Were to Brazeau 's home in Mayo , Que. , Northeast of Ottawa , just after- 10 pm ET on Monday, sources Told CBC News .",
+ "descriptionNative_s": "Senator Patrick Brazeau is Recovering in hospital Following after- surgery found gravement He Was Injured In His home last night , selon Officials at a hospital in Gatineau , Que.\n\nPolice and paramedics called Expired Were to Brazeau 's home in Mayo , Que. , Northeast of Ottawa , just after- 10 pm ET on Monday, sources Told CBC News .",
+ "notes_s": "test",
+ "email_s": "randy.houlahan@cbd.int",
+ "googleMaps_s": "https://www.google.fr/maps/place/Montr%C3%A9al,+QC,+Canada/@45.5597832,-73.9917114,10z/data=!4m2!3m1!1s0x4cc91a541c64b70d:0x654e3138211fefef",
+ "facebook_s": "http://facebook.com/ddd_Ddd",
+ "twitter_s": "http://twitter.com/_ddd_dddd",
+ "youtube_s": "http://youtube.com/_ddd_dddd",
+ "website_s": "http://youtube.com/_ddd_dddd",
+ "startDate_s":'2016-01-205 05:00',
+ "endDate_s":'2016-01-21 23:00',
+ "lat_d": 45.5597832,
+ "lng_d": 25.9917114,
+},
+ {
+   logo_s:"https://media.giphy.com/media/26tP7vexsaMrS4UpO/giphy.gif",
+ "title_s": "Big Org",
+ "country_s": "ca",
+ "address_s": "413 St.Jacques, Montreal, Canada",
+ "phone_s": "123 123 1234",
+ "description_s": "Senator Patrick Brazeau is Recovering in hospital Following after- surgery found gravement He Was Injured In His home last night , selon Officials at a hospital in Gatineau , Que.\n\nPolice and paramedics called Expired Were to Brazeau 's home in Mayo , Que. , Northeast of Ottawa , just after- 10 pm ET on Monday, sources Told CBC News .",
+ "descriptionNative_s": "Senator Patrick Brazeau is Recovering in hospital Following after- surgery found gravement He Was Injured In His home last night , selon Officials at a hospital in Gatineau , Que.\n\nPolice and paramedics called Expired Were to Brazeau 's home in Mayo , Que. , Northeast of Ottawa , just after- 10 pm ET on Monday, sources Told CBC News .",
+ "notes_s": "test",
+ "email_s": "randy.houlahan@cbd.int",
+ "googleMaps_s": "https://www.google.fr/maps/place/Montr%C3%A9al,+QC,+Canada/@45.5597832,-73.9917114,10z/data=!4m2!3m1!1s0x4cc91a541c64b70d:0x654e3138211fefef",
+ "facebook_s": "http://facebook.com/ddd_Ddd",
+ "twitter_s": "http://twitter.com/_ddd_dddd",
+ "youtube_s": "http://youtube.com/_ddd_dddd",
+ "website_s": "http://youtube.com/_ddd_dddd",
+ "startDate_s":'2016-01-205 05:00',
+ "endDate_s":'2016-01-21 23:00',
+ "lat_d": 15.5597832,
+ "lng_d": 13.9917114,
+ },
+ {
+   logo_s:"https://media.giphy.com/media/26tP7vexsaMrS4UpO/giphy.gif",
+ "title_s": "Big Org",
+ "country_s": "ca",
+ "address_s": "413 St.Jacques, Montreal, Canada",
+ "phone_s": "123 123 1234",
+ "description_s": "Senator Patrick Brazeau is Recovering in hospital Following after- surgery found gravement He Was Injured In His home last night , selon Officials at a hospital in Gatineau , Que.\n\nPolice and paramedics called Expired Were to Brazeau 's home in Mayo , Que. , Northeast of Ottawa , just after- 10 pm ET on Monday, sources Told CBC News .",
+ "descriptionNative_s": "Senator Patrick Brazeau is Recovering in hospital Following after- surgery found gravement He Was Injured In His home last night , selon Officials at a hospital in Gatineau , Que.\n\nPolice and paramedics called Expired Were to Brazeau 's home in Mayo , Que. , Northeast of Ottawa , just after- 10 pm ET on Monday, sources Told CBC News .",
+ "notes_s": "test",
+ "email_s": "randy.houlahan@cbd.int",
+ "googleMaps_s": "https://www.google.fr/maps/place/Montr%C3%A9al,+QC,+Canada/@45.5597832,-73.9917114,10z/data=!4m2!3m1!1s0x4cc91a541c64b70d:0x654e3138211fefef",
+ "facebook_s": "http://facebook.com/ddd_Ddd",
+ "twitter_s": "http://twitter.com/_ddd_dddd",
+ "youtube_s": "http://youtube.com/_ddd_dddd",
+ "website_s": "http://youtube.com/_ddd_dddd",
+ "startDate_s":'2016-01-205 05:00',
+ "endDate_s":'2016-01-21 23:00',
+ "lat_d": 25.5597832,
+ "lng_d": -33.9917114
+ },
+ {
+   logo_s:"https://media.giphy.com/media/26tP7vexsaMrS4UpO/giphy.gif",
+ "title_s": "Big Org",
+ "country_s": "ca",
+ "address_s": "413 St.Jacques, Montreal, Canada",
+ "phone_s": "123 123 1234",
+ "description_s": "Senator Patrick Brazeau is Recovering in hospital Following after- surgery found gravement He Was Injured In His home last night , selon Officials at a hospital in Gatineau , Que.\n\nPolice and paramedics called Expired Were to Brazeau 's home in Mayo , Que. , Northeast of Ottawa , just after- 10 pm ET on Monday, sources Told CBC News .",
+ "descriptionNative_s": "Senator Patrick Brazeau is Recovering in hospital Following after- surgery found gravement He Was Injured In His home last night , selon Officials at a hospital in Gatineau , Que.\n\nPolice and paramedics called Expired Were to Brazeau 's home in Mayo , Que. , Northeast of Ottawa , just after- 10 pm ET on Monday, sources Told CBC News .",
+ "notes_s": "test",
+ "email_s": "randy.houlahan@cbd.int",
+ "googleMaps_s": "https://www.google.fr/maps/place/Montr%C3%A9al,+QC,+Canada/@45.5597832,-73.9917114,10z/data=!4m2!3m1!1s0x4cc91a541c64b70d:0x654e3138211fefef",
+ "facebook_s": "http://facebook.com/ddd_Ddd",
+ "twitter_s": "http://twitter.com/_ddd_dddd",
+ "youtube_s": "http://youtube.com/_ddd_dddd",
+ "website_s": "http://youtube.com/_ddd_dddd",
+ "startDate_s":'2016-01-205 05:00',
+ "endDate_s":'2016-01-21 23:00',
+ "lat_d": 55.5597832,
+ "lng_d": -23.9917114
+},
+ ];
         $scope.champs=[
           {
             rank: 1,
@@ -204,7 +410,7 @@ define(['text!./undb-map.html',
         //=======================================================================
         $scope.buildQuery = function() {
           // NOT version_s:* remove non-public records from resultset
-          var q = 'NOT version_s:* ';//'NOT version_s:* AND realm_ss:' + realm.toLowerCase(); //+ ' AND schema_s:* '
+          var q = ' ';//'NOT version_s:* AND realm_ss:' + realm.toLowerCase(); //+ ' AND schema_s:* '
 
           var subQueries = [];
 
@@ -220,7 +426,7 @@ define(['text!./undb-map.html',
           });
 
           if (subQueries.length)
-          q += " AND " + subQueries.join(" AND ");
+          q += "  " + subQueries.join(" AND ");
 
           return q;
         }; //$scope.buildQuery
@@ -277,12 +483,18 @@ define(['text!./undb-map.html',
 
               return;
             }
-            // if($scope.selectedSchema  === 'actors'){
-            //   filterActive('actors');
-            //   $scope.documents = _.clone($scope.actors);
-            //   addSubQuery(_.cloneDeep($scope.urlStrings.actors), 'actors');
-            //   return;
-            // }
+            if($scope.selectedSchema  === 'actors'){
+              filterActive('actors');
+              $scope.documents = _.clone($scope.actors);
+              addSubQuery(_.cloneDeep($scope.urlStrings.actors), 'actors');
+              return;
+            }
+            if($scope.selectedSchema  === 'actions'){
+              filterActive('actions');
+              $scope.documents = _.clone($scope.actions);
+              addSubQuery(_.cloneDeep($scope.urlStrings.actors), 'actions');
+              return;
+            }
 
             var queryParameters = {
               'q': $scope.buildQuery(),
@@ -299,19 +511,20 @@ define(['text!./undb-map.html',
             }
 
             canceler = $q.defer();
-            updateQueryString();
 
-            $http.get('/api/v2013/index/select', {
-              params: queryParameters,
-              timeout: canceler.promise,
-              cache: true
-            }).success(function(data) {
-              canceler = null;
+            if($scope.buildQuery()!==' ')
+              $http.get('/api/v2013/index/select', {
+                params: queryParameters,
+                timeout: canceler.promise,
+                cache: true
+              }).success(function(data) {
+                canceler = null;
 
-              $scope.count = data.response.numFound;
-              $scope.count = data.response.docs.length;
-              $scope.documents = data.response.docs;
-            });
+                $scope.count = data.response.numFound;
+                $scope.count = data.response.docs.length;
+                $scope.documents = data.response.docs;
+                updateQueryString();
+              });
           } // query
 
           //=======================================================================
@@ -410,6 +623,7 @@ define(['text!./undb-map.html',
               });
               if (activeFilter)
                 $scope.filters[activeFilter].active = true;
+              $(document).find(".mapPopup").show();
           }
 
           //=======================================================================

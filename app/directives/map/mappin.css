@@ -6,8 +6,15 @@
     height: 18px;
     margin: 0 auto;
     margin-bottom: 5px;
+    font-weight: bold;
   }
-
+.custom-title{
+    font-size: 25px;
+    font-family: Helvetica, sans-serif;
+    line-height: 25px;
+    color: #333;
+    margin: 0px;
+}
   .leggendItem {
     text-align: center;
     font-size: 11px;
