@@ -39,6 +39,12 @@
 
         <div class="row article">
                <h1> List of partners from database</h1>
+
+               <div ng-repeat="p in partners track by p.identifier_s">
+                   <pre>{{p|json}}</pre>
+               </div>
+
+
         </div>
     </div>
 </div>
