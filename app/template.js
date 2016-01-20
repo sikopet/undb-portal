@@ -19,6 +19,60 @@ define(['app', 'authentication', 'providers/locale'], function(app) {
             $scope.user = user;
         });
 
+
+
+        // handling sub menus
+        $("#siteMenu .dropdown-menu>li>a").click(function(e){
+        	 e.stopPropagation();
+
+        	if($(this).siblings('ul').length > 0){
+        		if($(this).parent('li').hasClass('open')){
+        			// $(this).parent('li').removeClass('open');
+        		}
+        		else{
+        			e.preventDefault();
+        			$('#siteMenu li.open').removeClass('open');
+        			$(this).parent('li').addClass('open');
+        		}
+        	}
+        });
+
+        // close open sub menus when the dropdown is closed
+        $('.darkbox').click(function(){
+        	$('.dropdown-menu li.open').removeClass('open');
+        });
+        $('#siteMenu').click(function(){
+        	$('.dropdown-menu li.open').removeClass('open');
+        });
+        // close dropdown & open sub menus on window resize
+        $(window).resize(function(){
+        	$('.dropdown').removeClass('open');
+        	$('.dropdown-menu li.open').removeClass('open');
+        	$('.darkbox').removeClass('open');
+        });
+
+
+
+        // activate darkbox
+        // $('.dropdown').on('show.bs.dropdown', function () {
+        //   $('.darkbox').addClass('open');
+        // });
+        // // deactivate darkbox
+        // $('.dropdown').on('hide.bs.dropdown', function () {
+        //   $('.darkbox').removeClass('open');
+        // });
+
+
+
+        //============================================================
+        //
+        //
+        //============================================================
+        $scope.actionSignUp = function() {
+            var redirect_uri = $window.encodeURIComponent($location.protocol() + '://' + $location.host() + ':' + $location.port() + '/');
+            $window.location.href = 'https://accounts.cbd.int/signup?returnUrl=' + redirect_uri;
+        };
+
         //============================================================
         //
         //

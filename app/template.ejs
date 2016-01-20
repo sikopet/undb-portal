@@ -52,10 +52,10 @@
         }
 
         .navbar-default {
-            background-image: none;
-            background-color: #009b48;
+                background-image: none;
+                background-color: white;
+                border-color: white;
         }
-
         .navbar-default .navbar-nav > li > a {
             color: #bdbdbd;
         }
@@ -68,97 +68,194 @@
 
     <div id="outdated"></div>
 
-    <nav class="navbar navbar-default navbar-static-top bg-white">
-        <div ng-cloak class="alert alert-info" style="margin-bottom: 0px; text-align: center" ng-show="showEmailVerificationMessage">
-            <button type="button" ng-click="showEmailVerificationMessage = undefined" class="close" style="opacity: 1;">&times;</button>
-            <strong>{{showEmailVerificationMessage}}</strong>
-            <br/>
-            Please click on the verification link in the email sent on {{user.email}}. Click <a href="https://accounts.cbd.int/activate/resend">here</a> to resend the activation email.
+    <div id="mobileMenu" class="visible-xs">
+
+        <div class="dropdown" id="siteMenu">
+
+            <button type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="app/images/menu.svg" alt=""></button>
+              <ul class="dropdown-menu">
+                <li><a href="./">Home</a></li>
+                <li>
+                    <a role="button" href="about">About</a>
+                    <button type="button" class="arrow_open_submenu"></button>
+                    <ul class="sub-menu">
+                        <li><a href="about/undb">UNDB</a></li>
+                        <li><a href="about/goals">Goals</a></li>
+                        <li><a href="about/biodiversity">Biodiversity</a></li>
+                        <li><a href="about/iyb2010">IYB2010</a></li>
+                        <li><a href="about/sdgs">SDGs</a></li>
+                    </ul>
+                </li>
+                <li>
+
+                    <a role="button" href="actions">Actions</a>
+                    <button type="button" class="arrow_open_submenu"></button>
+                    <ul class="sub-menu">
+                        <li><a href="actions/worldwide">Worldwide</a></li>
+                        <li><a href="actions/country">By countries</a></li>
+                        <li><a href="actions/organizations">By UN organizations</a></li>
+                        <li><a href="actions/calendar">Calendar</a></li>
+                        <li><a href="actions/participate">Participate</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a role="button" href="actors">Actors</a>
+                    <button type="button" class="arrow_open_submenu"></button>
+                    <ul class="sub-menu">
+                        <li><a href="actors/abttf">ABTTF</a></li>
+                        <li><a href="actors/champions">Biodiversity Champions</a></li>
+                        <li><a href="actors/blg">BLG</a></li>
+                        <li><a href="actors/jlg">JLG</a></li>
+                        <li><a href="actors/partners">UNDB Partners</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a role="button" href="resources">Resources</a>
+                    <button type="button" class="arrow_open_submenu"></button>
+                    <ul class="sub-menu">
+                        <li><a href="resources/logo">Logo</a></li>
+                        <li><a href="resources/materials">Printed  materials</a></li>
+                        <li><a href="resources/multimedia">Multimedia</a></li>
+                    </ul>
+                </li>
+                <li class="li-social">
+                    <ul class="social">
+                        <li><a href="#"><img src="app/images/facebook.svg" alt=""></a></li>
+                        <li><a href="#"><img src="app/images/twitter.svg" alt=""></a></li>
+                        <li><a href="#"><img src="app/images/instagram.svg" alt=""></a></li>
+                        <li><a href="#"><img src="app/images/youtube.svg" alt=""></a></li>
+                        <li><a href="#"><img src="app/images/flickr.svg" alt=""></a></li>
+                    </ul>
+                </li>
+              </ul>
         </div>
-        <div class="container">
-            <div class="navbar-header">
-            <a class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1"><i class="fa fa-bars"></i></a>
+
+        <div class="dropdown" id="languageMenuX" >
+            <button type="button" class="bg-undb-blue" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="app/images/web_white.svg" alt=""></button>
+
+            <ul class="dropdown-menu" style="left:auto; right:0px;">
+                <li ng-hide="user.isAuthenticated" >
+                    <a class="signin" href="#" ng-click="actionSignIn()">Sign up for an account	</a>
+                </li>
+                <li ng-hide="user.isAuthenticated" >
+                    <a  class="signin" href="#" ng-click="actionSignIn()">
+                        <i class="fa fa-power-off"></i> <span>Sign in</span>
+                    </a>
+                </li>
+                <li ng-show="user && user.isAuthenticated">
+                    <a href="#" ng-click="actionProfile()">
+                        <i class="fa fa-user" style="font-size:15px"></i>&nbsp; Profile</a>
+                </li ng-show="user && user.isAuthenticated">
+                <li ng-show="user && user.isAuthenticated">
+                    <a href="#" ng-click="actionPassword()">
+                        <i class="fa fa-user" style="font-size:15px"></i>&nbsp; Password</a>
+                </li>
+                <li ng-show="user && user.isAuthenticated">
+                    <a href="#" ng-click="actionSignOut()">
+                        <i class="fa fa-sign-out" style="font-size:15px"></i>&nbsp; Sign-out</a>
+                </li>
+            </ul>
+        </div>
+        <!-- <div class="darkbox"></div>   -->
+    </div>
+
+    <div class="container">
+        <nav class="navbar navbar-cbd navbar-default navbar-static-top hidden-xs" id="anchorTop" ng-cloak>
+            <div ng-cloak class="alert alert-info" style="margin-bottom: 0px; text-align: center" ng-show="showEmailVerificationMessage">
+                <button type="button" ng-click="showEmailVerificationMessage = undefined" class="close" style="opacity: 1;">&times;</button>
+                <strong>{{showEmailVerificationMessage}}</strong>
+                <br/>
+                Please click on the verification link in the email sent on {{user.email}}. Click <a href="https://accounts.cbd.int/activate/resend">here</a> to resend the activation email.
             </div>
-            <!--div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div-->
+          <div class="container-fluid container-cbd">
+               <ul class="navlist navbar-right">
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="navbar-collapse-1">
-
-                <ul class="nav navbar-nav" style="display:none">
-                    <li><a href="./">العربية</a></li>
-                    <li><a class="color-litegrey">|</a></li>
-                    <li><a href="./" class="important color-grey">English</a></li>
-                    <li><a class="color-litegrey">|</a></li>
-                    <li><a href="./">Español</a></li>
-                    <li><a class="color-litegrey">|</a></li>
-                    <li><a href="./">Français</a></li>
-                    <li><a class="color-litegrey">|</a></li>
-                    <li><a href="./">Русский</a></li>
-                    <li><a class="color-litegrey">|</a></li>
-                    <li><a href="./"> 中文 </a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right" ng-cloak ng-show="user">
-                    <li><a ng-hide="user.isAuthenticated" href="#" ng-click="actionSignIn()">Sign up for an account	</a></li>
-                    <li><a ng-hide="user.isAuthenticated" class="color-litegrey">|</a></li>
-                    <li style="margin-right:0;">
-                        <a ng-hide="user.isAuthenticated" href="#" ng-click="actionSignIn()"> Sign In </a>
-                        <a ng-show="user.isAuthenticated" href="#" data-toggle="dropdown">
-                            <i class="fa fa-chevron-down"></i> <span> {{user.name}}</span>
+                <li class="pull-right hidden" style="margin-right:0;padding-right:0;">
+                        <a class="set-languages" data-toggle="dropdown" href="#">
+                            <span class="badge badge-default bg-white">en</span>
                         </a>
-                        <ul class="dropdown-menu bg-darkgrey" role="menu" >
+                        <ul class="dropdown-menu" role="menu">
+                            <li class="disabled" style="font-weight:bold;color:#BBB;padding-left:3px;">LANGUAGES</li>
+                            <hr style="padding;0;margin:0;">
+                            <li class="disabled"><a>لعربية</a></li>
+                            <li class="disabled"><a>中文</a></li>
+                            <li><a href="#"><strong>English</strong></a></li>
+                            <li class="disabled"><a>Español</a></li>
+                            <li class="disabled"><a>Français</a></li>
+                            <li class="disabled"><a>Русский</a></li>
+                        </ul>
+                </li>
+                <li class="pull-right hidden" ng-cloak id="dropdownNotification" ng-show="user && user.isAuthenticated"  >
+
+                       <a id="dLabel" ng-href="/register#notifications" class="notification-btn hidden-sm hidden-md hidden-lg">
+                            <span ng-show="(notifications|filter:isUnread).length > 0 " >
+                                <i class="fa fa-bell"></i>
+                                <span class="label label-default">{{(notifications|filter:isUnread).length}}</span>
+                            </span>
+                            <span ng-show="(notifications|filter:isUnread).length <= 0">
+                                <i class="fa fa-bell-o" class="bg-grey"></i>
+                            </span>
+                        </a>
+
+                        <a id="dLabel" role="button" data-toggle="dropdown" data-target="#" ng-href="#" class="notification-btn hidden-xs">
+                            <span ng-show="(notifications|filter:isUnread).length > 0 " >
+                                <i class="fa fa-bell"></i>
+                                <span class="label label-default">{{(notifications|filter:isUnread).length}}</span>
+                            </span>
+                            <span ng-show="(notifications|filter:isUnread).length <= 0">
+                                <i class="fa fa-bell-o" class="bg-grey"></i>
+                            </span>
+                        </a>
+
+                        <div class="dropdown-menu hidden-xs handleSearchPage" role="menu" aria-labelledby="dLabel">
+                            <div class="panel panel-danger" style="width:500px;padding:0;margin:0;">
+                                <div class="panel-heading">
+                                    <h4>User Notifications and Recent Activity</h4>
+                                </div>
+                                <div class="panel-body" >
+                                    <div xuser-notifications></div>
+                                </div>
+                                <div class="panel-footer">
+                                    <a ng-href="/dashboard">
+                                        <h4 class="menu-title">View all<i class="glyphicon glyphicon-circle-arrow-right"></i></h4>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                </li>
+
+                <li class="pull-right" style="padding:5px 5px">
+
+                    <a ng-hide="user.isAuthenticated" class="signin" href="#" ng-click="actionSignUp()">Sign up for an account	</a>
+                    <a ng-hide="user.isAuthenticated" class="signin color-grey">|</a>
+
+                     <a ng-hide="user && user.isAuthenticated"  class="signin" href="#" ng-click="actionSignIn()">
+                         <i class="fa fa-power-off"></i> <span>Sign in</span>
+                     </a>
+
+                     <a ng-show="user && user.isAuthenticated"  href="#" data-toggle="dropdown">
+                         <span class="hidden-xs"><i class="fa fa-chevron-down"></i>  {{user.name}}</span>
+                         <span class="hidden-sm hidden-md hidden-lg"><i class="fa fa-user"></i></span>
+                     </a>
+                        <ul class="dropdown-menu" role="menu" style="left:auto; right:0px;">
                             <li>
-                                <a href="#" ng-click="actionProfile()"><i class="fa fa-user" style="font-size:15px"></i>&nbsp; Profile</a>
+                                <a href="#" ng-click="actionProfile()">
+                                    <i class="fa fa-user" style="font-size:15px"></i>&nbsp; Profile</a>
                             </li>
                             <li>
-                                <a href="#" ng-click="actionPassword()"><i class="fa fa-user" style="font-size:15px"></i>&nbsp; Password</a>
+                                <a href="#" ng-click="actionPassword()">
+                                    <i class="fa fa-user" style="font-size:15px"></i>&nbsp; Password</a>
                             </li>
                             <li>
-                                <a href="#" ng-click="actionSignOut()"><i class="fa fa-sign-out" style="font-size:15px"></i>&nbsp; Sign-out</a>
+                                <a href="#" ng-click="actionSignOut()">
+                                    <i class="fa fa-sign-out" style="font-size:15px"></i>&nbsp; Sign-out</a>
                             </li>
                         </ul>
-                    </li>
-
-                    <!--notifications-->
-                    <!-- <li class="navbar-right">
-                        <div user-notifications></div>
-                    </li> -->
-
-                    <!--signin-->
-                    <!-- <li ng-cloak ng-show="user" class="navbar-right">
-
-                        <a ng-hide="user.isAuthenticated" title="Sign In" class="fa fa-power-off" href="/signin" style="color: black"> sign in </a>
-
-                        <a ng-show="user.isAuthenticated" href="#" data-toggle="dropdown">
-                            <i class="fa fa-chevron-down"></i>
-                            <span> {{user.name}}</span>
-                        </a>
-
-                        <ul class="dropdown-menu bg-darkgrey" role="menu">
-                            <li><a href="#" ng-click="actionProfile()"><i class="fa fa-user" style="font-size:15px"></i>&nbsp; Profile</a></li>
-                            <li class="dropdown-submenu">
-                                <a tabindex="-1" href="#"><i class="fa fa-lock" style="font-size:15px"></i>&nbsp; My Roles</a>
-                                <ul class="dropdown-menu bg-darkgrey" role="menu" style="min-width:200px">
-                                    <li ng-repeat="role in user.roles|orderBy:'toString()'"><a tabindex="-1" href="#">{{role}}</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="#" ng-click="actionPassword()"><i class="fa fa-user" style="font-size:15px"></i>&nbsp; Password</a></li>
-                            <li><a href="#" ng-click="signOut()"><i class="fa fa-sign-out" style="font-size:15px"></i>&nbsp; Sign-out</a></li>
-                        </ul>
-                    </li> -->
-                    <!--  end sign in-->
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container-fluid -->
-    </nav>
+               </li> <!--  end sign in-->
+              </ul>
+          </div><!-- /.container-fluid -->
+        </nav>
+    </div>
     <div class="bg-litegrey">
     <div class="container" >
         <div class="push20"></div>
@@ -176,7 +273,7 @@
         </div>
     </div>
     </div>
-    <div class="wrapper bg-cbdgreen">
+    <div class="wrapper bg-cbdgreen hidden-xs">
         <div class="container">
             <div class="menu-bg">
                 <div class="main-navbar" role="navigation">
@@ -222,19 +319,6 @@
             <div class="push50"></div>
         </div>
     </footer>
-    <!-- <footer class="row" ng-show="routeLoaded">
-        <div class="col-xs-12 text-center" style="border:1px solid red">
-
-            <a href="https://www.cbd.int/terms" class="copyright">Terms of Use</a>
-            <a href="https://www.cbd.int/privacy" class="copyright">Privacy Policy</a>
-            <a href="https://www.cbd.int/credits" class="copyright">Credits</a>
-            <a href="https://www.cbd.int/copyright" class="copyright">&copy; CBD Secretariat</a>
-
-            <div class="push50"></div>
-
-        </div>
-    </footer> -->
-
 
     <script src="app/libs/outdated-browser/outdatedbrowser/outdatedbrowser.min.js"></script>
 
