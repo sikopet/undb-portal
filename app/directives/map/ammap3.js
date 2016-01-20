@@ -1,4 +1,17 @@
-define(['text!./ammap3.html', 'app', 'lodash', 'text!./pin-popup-projects.html', 'text!./pin-popup-title-projects.html', 'text!./pin-popup-bio-champs.html', 'text!./pin-popup-title-bio-champs.html', 'text!./pin-popup-actions.html', 'text!./pin-popup-title-actions.html', 'ammap3', 'ammap3WorldHigh', 'ammap-theme', 'ammap-export', 'ammap-ex-fabric', 'ammap-ex-filesaver', 'ammap-ex-pdfmake', 'ammap-ex-vfs-fonts', 'ammap-ex-jszip', 'ammap-ex-xlsx'], function(template, app, _, popoverTemplateProjects, popoverTitleProjects, popoverTemplateBioChamps, popoverTitleBioChamps, popoverTemplateActions, popoverTitleActions) {
+define(['text!./ammap3.html', 'app', 'lodash', 'text!./pin-popup-projects.html', 'text!./pin-popup-title-projects.html', 'text!./pin-popup-bio-champs.html', 'text!./pin-popup-title-bio-champs.html', 'text!./pin-popup-actions.html', 'text!./pin-popup-title-actions.html',
+    'ammap',
+    'ammap/plugins/export/libs/FileSaver.js/FileSaver.min',
+    'ammap/plugins/export/libs/jszip/jszip.min',
+    'shim!./worldEUHigh[ammap]',
+    'shim!ammap/themes/light[ammap]',
+    'shim!ammap/plugins/export/export.min[ammap]',
+    'shim!ammap/plugins/export/libs/fabric.js/fabric.min[ammap]',
+    'shim!ammap/plugins/export/libs/pdfmake/pdfmake.min[ammap]',
+    'shim!ammap/plugins/export/libs/pdfmake/vfs_fonts[ammap]',
+    'shim!ammap/plugins/export/libs/xlsx/xlsx.min[ammap]',
+    'css!ammap/plugins/export/export.css',
+    'css!./mappin.css',
+], function(template, app, _, popoverTemplateProjects, popoverTitleProjects, popoverTemplateBioChamps, popoverTitleBioChamps, popoverTemplateActions, popoverTitleActions) {
   'use strict';
 
   app.directive('ammap3', ['$timeout', 'locale', '$http', function($timeout, locale, $http) {
