@@ -1,8 +1,9 @@
 define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows'], function(_, guid) { 'use strict';
 
-    return ['$scope', '$http', '$q', 'locale', 'realm', 'workflows', 'user', '$route', '$anchorScroll',
-    function($scope,   $http,   $q,   locale,   realm,   workflows,   user,   $route,   $anchorScroll) {
+    return ['$scope', '$http', '$q', 'locale', 'realm', 'workflows', 'user', '$route', '$anchorScroll', '$location',
+    function($scope,   $http,   $q,   locale,   realm,   workflows,   user,   $route,   $anchorScroll,   $location) {
 
+        $scope.loading = true;
         $scope.save = save;
         $scope.upload = upload;
         $scope.googleMapsChange = updateGeoLocation;
@@ -34,14 +35,10 @@ define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows'], func
         //
         //==============================
 
-        if($route.current.params.uid) {
+        if($route.current.params.uid)
             load($route.current.params.uid);
-        }
-        else {
-            discover().then(load).catch(res_Error).finally(function() {
-                delete $scope.loading;
-            });
-        }
+        else
+            discover();
 
         //==============================
         //
@@ -61,16 +58,18 @@ define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows'], func
 
                 var records = _.flatten([res[0].Items, res[1].Items]);
 
-                if(records.length)
-                    return records[0].identifier;
+                if(records.length) {
+                    $location.url('/actors/partners/register/'+records[0].identifier);
+                }
+                else {
+                    return load();
+                }
 
             }).catch(function(err) {
 
-                res_Error(err);
-
                 delete $scope.loading;
 
-                throw err;
+                res_Error(err);
             });
         }
 
@@ -86,8 +85,8 @@ define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows'], func
             var resDraft, resDoc;
 
             if(uid) {
-                resDraft = $http.get("https://api.cbd.int/api/v2013/documents/"+uid+"/versions/draft").then(res_Data).catch(nullOn404);
-                resDoc   = $http.get("https://api.cbd.int/api/v2013/documents/"+uid                  ).then(res_Data).catch(nullOn404);
+                resDraft = $http.get("https://api.cbd.int/api/v2013/documents/"+uid+"/versions/draft/info").then(res_Data).catch(nullOn404);
+                resDoc   = $http.get("https://api.cbd.int/api/v2013/documents/"+uid+'/info'               ).then(res_Data).catch(nullOn404);
             }
 
             return $q.all([resDraft, resDoc]).then(function(res) {
@@ -99,23 +98,25 @@ define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows'], func
 
                 return records[0];
 
-            }).then(function(record){
+            }).then(function(docInfo) {
 
-                if(record) {
-
-                    if(record.header.schema!='undbPartner')
-                        throw { code : "invalidRecordType" };
-
-                    $scope.document = record;
+                if(!docInfo) {//create new document;
+                    return { header : { identifier : guid(), schema : 'undbPartner' } };
                 }
-                else {
-                    $scope.document = {
-                        header : {
-                            identifier : guid(),
-                            schema : 'undbPartner'
-                        }
-                    };
+
+                if(docInfo.type!='undbPartner') {
+                    throw { code : "invalidRecordType" };
                 }
+
+                $scope.documentInfo = docInfo;
+
+                return docInfo.workingDocumentID ?
+                       $http.get("https://api.cbd.int/api/v2013/documents/"+uid+"/versions/draft").then(res_Data) :
+                       $http.get("https://api.cbd.int/api/v2013/documents/"+uid).then(res_Data);
+
+            }).then(function(doc){
+
+                $scope.document = doc;
 
             }).catch(res_Error).finally(function() {
 
