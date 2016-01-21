@@ -32,7 +32,15 @@
         </div>
 
         <div class="row">
-            <form name="form" novalidate class="form-horizontal single" ng-submit="save();" ng-hide="loading">
+
+            <div class="alert alert-info" ng-show="documentInfo.workingDocumentLock">
+                <a class="pull-right" href="https://chm.cbd.int/management/requests/{{documentInfo.workingDocumentLock.lockID.replace('workflow-', '')}}" target="_request">See your request</a>
+                Your request is pending review by the secretariat.....
+            </div>
+
+
+
+            <form name="form" novalidate class="form-horizontal single" ng-submit="save();">
 
                 <div class="form-group">
                     <label for="name" class="col-sm-3 control-label required">Organisation :</label>
@@ -155,8 +163,4 @@
             </div>
         </div>
     </div>
-
-
-    <pre>{{document|json}}</pre>
-
 </div>
