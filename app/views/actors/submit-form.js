@@ -7,6 +7,11 @@ define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows'], func
         $scope.save = save;
         $scope.upload = upload;
         $scope.googleMapsChange = updateGeoLocation;
+        $scope.disabled = function() {
+            return $scope.loading ||
+                   $scope.saving ||
+                  ($scope.documentInfo||{}).workingDocumentLock;
+        }
 
         $scope.patterns = {
             facebook : /^http[s]?:\/\/(www.)?facebook.com\/.+/i,
