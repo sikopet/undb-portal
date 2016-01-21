@@ -1,12 +1,17 @@
 define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows'], function(_, guid) { 'use strict';
 
-    return ['$scope', '$http', '$q', 'locale', 'realm', 'workflows',  function($scope, $http, $q, locale, realm, workflows) {
+    return ['$scope', '$http', '$q', 'locale', 'realm', 'workflows', 'user', '$route', '$anchorScroll',
+    function($scope,   $http,   $q,   locale,   realm,   workflows,   user,   $route,   $anchorScroll) {
 
         $scope.save = save;
         $scope.upload = upload;
         $scope.googleMapsChange = updateGeoLocation;
 
         // Init
+        //==============================
+        //
+        //
+        //==============================
         $http.get('https://api.cbd.int/api/v2015/countries', { cache:true, params: { f : { code : 1, name : 1 } } }).then(function(res) {
 
             res.data.forEach(function(c) {
@@ -17,59 +22,84 @@ define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows'], func
             $scope.countries = res.data;
         });
 
-        load();
-
         //==============================
         //
         //
         //==============================
-        function updateGeoLocation(url) {
 
-            var matches = /@(-?\d+\.\d+),(-?\d+\.\d+)/g.exec(url || "");
-
-            if(matches) {
-                $scope.document.geoLocation = {
-                    lat : parseFloat(matches[1]),
-                    lng : parseFloat(matches[2])
-                 };
-            }
-            else {
-                delete $scope.document.geoLocation;
-            }
+        if($route.current.params.uid) {
+            load($route.current.params.uid);
+        }
+        else {
+            discover().then(load).catch(res_Error).finally(function() {
+                delete $scope.loading;
+            });
         }
 
         //==============================
         //
         //
         //==============================
-        function load() {
+        function discover() {
 
+            delete $scope.errors;
             $scope.loading = true;
 
-            var filter = "type eq 'undbPartner'";
+            var filter = "type eq 'undbPartner' and createdBy/userID eq "+user.userID;
 
-            var resDrafts = $http.get("https://api.cbd.int/api/v2013/documents", { params : { collection : 'mydraft', $filter : filter } });
-            var resDocs   = $http.get("https://api.cbd.int/api/v2013/documents", { params : { $filter : filter } });
+            var resDrafts = $http.get("https://api.cbd.int/api/v2013/documents", { params : { $filter : filter, collection : 'mydraft' } }).then(res_Data);
+            var resDocs   = $http.get("https://api.cbd.int/api/v2013/documents", { params : { $filter : filter } }).then(res_Data);
 
-            $q.all([resDrafts, resDocs]).then(function(res) {
+            return $q.all([resDrafts, resDocs]).then(function(res) {
 
-                var records = _.flatten([res[0].data.Items, res[1].data.Items]);
+                var records = _.flatten([res[0].Items, res[1].Items]);
 
                 if(records.length)
-                    return records[0];
+                    return records[0].identifier;
+
+            }).catch(function(err) {
+
+                res_Error(err);
+
+                delete $scope.loading;
+
+                throw err;
+            });
+        }
+
+        //==============================
+        //
+        //
+        //==============================
+        function load(uid) {
+
+            delete $scope.errors;
+            $scope.loading = true;
+
+            var resDraft, resDoc;
+
+            if(uid) {
+                resDraft = $http.get("https://api.cbd.int/api/v2013/documents/"+uid+"/versions/draft").then(res_Data).catch(nullOn404);
+                resDoc   = $http.get("https://api.cbd.int/api/v2013/documents/"+uid                  ).then(res_Data).catch(nullOn404);
+            }
+
+            return $q.all([resDraft, resDoc]).then(function(res) {
+
+                var records = _.compact(res);
+
+                if(!records.length && uid)
+                    throw { code : "notFound" };
+
+                return records[0];
 
             }).then(function(record){
 
-                if(!record)
-                    return;
+                if(record) {
 
-                if(record.workingDocumentID) return $http.get('https://api.cbd.int/api/v2013/documents/'+record.identifier+'/versions/draft');
-                else                         return $http.get('https://api.cbd.int/api/v2013/documents/'+record.identifier);
+                    if(record.header.schema!='undbPartner')
+                        throw { code : "invalidRecordType" };
 
-            }).then(function(res) {
-
-                if(res) {
-                    $scope.document = res.data;
+                    $scope.document = record;
                 }
                 else {
                     $scope.document = {
@@ -80,13 +110,7 @@ define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows'], func
                     };
                 }
 
-            }).catch(function(err) {
-
-                err = (err||{}).data || err;
-
-                console.error(err);
-
-            }).finally(function(){
+            }).catch(res_Error).finally(function() {
 
                 delete $scope.loading;
 
@@ -164,6 +188,36 @@ define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows'], func
                 delete $scope.saving;
 
             });
+        }
+
+        //==============================
+        //
+        //
+        //==============================
+        function updateGeoLocation(url) {
+
+            var matches = /@(-?\d+\.\d+),(-?\d+\.\d+)/g.exec(url || "");
+
+            if(matches) {
+                $scope.document.geoLocation = {
+                    lat : parseFloat(matches[1]),
+                    lng : parseFloat(matches[2])
+                 };
+            }
+            else {
+                delete $scope.document.geoLocation;
+            }
+        }
+
+        //==============================
+        //
+        //
+        //==============================
+        function nullOn404(res) {
+
+            if(res.status==404)
+                return null;
+            throw res;
         }
 
         //==============================
