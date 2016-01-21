@@ -42,7 +42,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row" ng-hide="loading">
 
             <div class="alert alert-info" ng-show="documentInfo.workingDocumentLock">
                 <a class="pull-right" href="https://chm.cbd.int/management/requests/{{documentInfo.workingDocumentLock.lockID.replace('workflow-', '')}}" target="_request">See your request</a>
