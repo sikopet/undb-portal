@@ -203,13 +203,13 @@ p{
 	}
 
 
-a, a:hover{
+	nav a, nav a:hover{
 	font-size: 13px;
 	font-family: Helvetica, Verdana, sans-serif;
 	line-height: 14px;
 }
 
-	a:hover{
+	nav a:hover{
 		text-decoration: underline;
 	}
 
