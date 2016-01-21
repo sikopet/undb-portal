@@ -270,7 +270,7 @@ ol.basic-list
 }
 .border-bottom-cbd-green h5 {
     line-height: 1.2em;
-    margin-top: 14px;
+    margin-top: 20px;
     margin-left:14px;
     font-weight: bold;
     color: #004844;
@@ -295,7 +295,7 @@ ol.basic-list
     color: #069554;
 }
 .border-bottom-cbd-green img.image-icon{
-    margin-top: 25%;
+    margin-top: 40px;
     margin-bottom: 25%;
     max-width: 80px;
     float:right;
