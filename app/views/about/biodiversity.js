@@ -1,7 +1,7 @@
 define(['app'], function() { 'use strict';
 
 	return ['$scope', function ($scope) {
-		var panels = {};
+		var panels = {"firstCollapse": true};
         $scope.toggleCss = function (elementID, targetElementID) {
 
             $('#accordion .panel-heading').removeClass('bg-tall');
