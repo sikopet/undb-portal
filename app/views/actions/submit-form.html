@@ -1,5 +1,15 @@
 <div id="submit">
 
+    <style>
+    .help-block.error {
+        text-transform: uppercase;
+        font-size: 10px;
+        font-weight: bold;
+        margin-top: -20px;
+        margin-bottom: -10px;
+    }
+    </style>
+
     <div class="container article">
 
         <div class="row">
@@ -16,47 +26,37 @@
         <div class="row">
             <div class="col-xs-12">
                 <h1>Information about your Action</h1>
-                <p>
-                    The following information will appear online unless indicated otherwise.
-                    <br>
-                    <em>Fields marked with a * are mandatory.</em>
-                </p>
+                <p>The following information will appear online unless indicated otherwise.</p>
             </div>
         </div>
 
         <div class="row">
             <form novalidate name="form" class="form-horizontal single" ng-submit="save()" ng-hide="loading">
 
-                <div class="form-group" ng-class="{ 'has-warning': ((form.$submitted || form.title.$touched) && form.title.$invalid) }">
-                    <label for="title" class="col-sm-3 control-label required">Title :</label>
+                <div class="form-group" ng-class="{ 'has-warning': form.title.$invalid }">
+                    <label for="title" class="col-sm-3 control-label required">Title</label>
                     <div class="col-sm-6">
                         <input type="text" class="form-control" id="title" name="title" ng-model="document.title" placeholder="Title of action, activity, event, etc." required>
-                        <div ng-show="(form.$submitted || form.title.$touched)">
-                            <p class="help-block error" ng-show="form.title.$invalid">This field is mandatory</p>
-                        </div>
+                        <p class="help-block error" ng-show="form.title.$invalid">This field is mandatory</p>
                     </div>
                 </div>
 
-                <div class="form-group" ng-class="{ 'has-warning': ((form.$submitted || form.startDate.$touched || form.endDate.$touched) && (form.startDate.$invalid || form.endDate.$invalid)) }">
-                    <label for="startDate" class="col-sm-3 control-label required">Date :</label>
+                <div class="form-group" ng-class="{ 'has-warning': form.endDate.$invalid }">
+                    <label for="startDate" class="col-sm-3 control-label required">Date</label>
                     <label for="startDate" class="col-sm-1 control-label">From</label>
                     <div class="col-sm-2">
                         <input type="date" class="form-control" name="startDate" id="startDate" ng-model="document.startDate" required placeholder="yyyy/mm/dd">
-                        <div ng-show="(form.$submitted || form.startDate.$touched)">
-                            <p class="help-block error" ng-show="form.startDate.$invalid">This field is mandatory</p>
-                        </div>
+                        <p class="help-block error" ng-show="form.startDate.$invalid">This field is mandatory</p>
                     </div>
                     <label for="endDate" class="col-sm-1 control-label">To</label>
                     <div class="col-sm-2">
                         <input type="date" class="form-control" name="endDate" id="endDate" ng-model="document.endDate" required placeholder="yyyy/mm/dd">
-                        <div ng-show="(form.$submitted || form.endDate.$touched)">
-                            <p class="help-block error" ng-show="form.endDate.$invalid">This field is mandatory</p>
-                        </div>
+                        <p class="help-block error" ng-show="form.endDate.$invalid">This field is mandatory</p>
                     </div>
                 </div>
 
-                <div class="form-group" ng-class="{ 'has-warning': ((form.$submitted || form.startTime.$touched || form.endTime.$touched) && (form.startTime.$invalid || form.endTime.$invalid)) }">
-                    <label for="startTime" class="col-sm-3 control-label">Time :</label>
+                <div class="form-group" ng-class="{ 'has-warning': form.endTime.$invalid }">
+                    <label for="startTime" class="col-sm-3 control-label">Time</label>
                     <label for="startTime" class="col-sm-1 control-label">From</label>
                     <div class="col-sm-2">
                         <input type="text" class="form-control" name="startTime" id="startTime" ng-model="document.startTime" ng-pattern="patterns.time" ng-trim="true" placeholder="00:00">
@@ -65,32 +65,26 @@
                     <div class="col-sm-2">
                         <input type="text" class="form-control" name="endTime" id="endTime" ng-model="document.endTime" ng-pattern="patterns.time" ng-trim="true" placeholder="24:00">
                     </div>
-
-                    <div class="col-md-offset-3 col-sm-6" ng-show="(form.$submitted || form.startTime.$touched || form.endTime.$touched)">
+                    <div class="col-md-offset-3 col-sm-6">
                         <p class="help-block error" ng-show="form.startTime.$invalid || form.endTime.$invalid">Time format is invalid. Must be a HH:MM format in 24 hours(00:00 to 23:59)</p>
                     </div>
-
                 </div>
 
-                <div class="form-group" ng-class="{ 'has-warning': ((form.$submitted || form.country.$touched) && form.country.$invalid) }">
-                    <label for="country" class="col-sm-3 control-label required">Country :</label>
+                <div class="form-group" ng-class="{ 'has-warning': form.country.$invalid }">
+                    <label for="country" class="col-sm-3 control-label required">Country</label>
                     <div class="col-sm-6">
                         <select class="form-control" id="country" name="country" ng-model="document.country" placeholder="country" required ng-options="c.code as c.name for c in countries|orderBy:'name.toLowerCase()' ">
                             <option value="">Select your country</option>
                         </select>
-                        <div ng-show="(form.$submitted || form.country.$touched)">
-                            <p class="help-block error" ng-show="form.country.$invalid">This field is mandatory</p>
-                        </div>
+                        <p class="help-block error" ng-show="form.country.$invalid">This field is mandatory</p>
                     </div>
                 </div>
 
-                <div class="form-group" ng-class="{ 'has-warning': ((form.$submitted || form.address.$touched) && form.address.$invalid) }">
-                    <label for="address" class="col-sm-3 control-label" required>Address:</label>
+                <div class="form-group" ng-class="{ 'has-warning': form.address.$invalid }">
+                    <label for="address" class="col-sm-3 control-label" required>Address</label>
                     <div class="col-sm-6">
                         <input type="text" class="form-control" name="address" id="address" ng-model="document.address"  ng-required="!document.onlineEvent" placeholder="1000 34th Street, New City">
-                        <div ng-show="(form.$submitted || form.address.$touched)">
-                            <p class="help-block error" ng-show="form.address.$invalid">This field is mandatory</p>
-                        </div>
+                        <p class="help-block error" ng-show="form.address.$invalid">This field is mandatory</p>
                     </div>
                 </div>
 
@@ -105,93 +99,77 @@
                     </div>
                 </div>
 
-                <div class="form-group" ng-class="{ 'has-warning': ((form.$submitted || form.googleMaps.$touched) && form.googleMaps.$invalid) }">
-                    <label for="googleMaps" class="col-sm-3 control-label required">Google maps link :</label>
+                <div class="form-group" ng-class="{ 'has-warning': form.googleMaps.$invalid }">
+                    <label for="googleMaps" class="col-sm-3 control-label required">Google maps link</label>
                     <div class="col-sm-6">
                         <input type="text" class="form-control" name="googleMaps" id="googleMaps" ng-model="document.googleMaps" ng-pattern="'http[s]?:\/\/([a-z]+\.)?google\.[a-z]+\/maps\/.+'" ng-change="googleMapsChange(document.googleMaps)" placeholder="Google maps website address" required>
-                        <div ng-show="(form.$submitted || form.googleMaps.$touched)">
-                            <p class="help-block error" ng-show="form.googleMaps.$error.required">This field is mandatory</p>
-                            <p class="help-block error" ng-show="form.googleMaps.$error.pattern">This is not a valid google maps address</p>
-                        </div>
+                        <p class="help-block error" ng-show="form.googleMaps.$error.required">This field is mandatory</p>
+                        <p class="help-block error" ng-show="form.googleMaps.$error.pattern">This is not a valid google maps address</p>
                     </div>
                 </div>
 
-                <div class="form-group" ng-class="{ 'has-warning': ((form.$submitted || form.email.$touched) && form.email.$invalid) }">
-                    <label for="email" class="col-sm-3 control-label required">Email :</label>
+                <div class="form-group" ng-class="{ 'has-warning': form.email.$invalid }">
+                    <label for="email" class="col-sm-3 control-label required">Email</label>
                     <div class="col-sm-6">
                         <input type="email" class="form-control" name="email" id="email" ng-model="document.email" placeholder="Contact email" required>
-                        <div ng-show="(form.$submitted || form.email.$touched)">
-                            <p class="help-block error" ng-show="form.email.$error.required">This field is mandatory</p>
-                            <p class="help-block error" ng-show="form.email.$error.email">This is not a valid email</p>
-                        </div>
+                        <p class="help-block error" ng-show="form.email.$error.required">This field is mandatory</p>
+                        <p class="help-block error" ng-show="form.email.$error.email">This is not a valid email</p>
                     </div>
                 </div>
 
-                <div class="form-group" ng-class="{ 'has-warning': ((form.$submitted || form.phone.$touched) && form.phone.$invalid) }">
-                    <label for="phone" class="col-sm-3 control-label required">Telephone :</label>
+                <div class="form-group" ng-class="{ 'has-warning': form.phone.$invalid }">
+                    <label for="phone" class="col-sm-3 control-label required">Telephone</label>
                     <div class="col-sm-6">
                         <input type="text" class="form-control" name="phone" id="phone" ng-model="document.phone" ng-pattern="patterns.phone" placeholder="Contact telephone number" required>
-                        <div ng-show="(form.$submitted || form.phone.$touched)">
-                            <p class="help-block error" ng-show="form.phone.$error.required">This field is mandatory</p>
-                            <p class="help-block error" ng-show="form.phone.$error.pattern">
-                                Please use the following format: + (country code) (city code) (telephone number) (extension, if necessary);<br>Example: <b>+1 514 288-2220 ext 221</b> (where 1 = North America, 514 = Montreal, 288-2220 = CBD Secretariat number, ext 221 = direct extension to the switchboard).
-                            </p>
-                        </div>
+                        <p class="help-block error" ng-show="form.phone.$error.required">This field is mandatory</p>
+                        <p class="help-block error" ng-show="form.phone.$error.pattern">Please use the following format: + (country code) (city code) (telephone number) (extension, if necessary);<br>Example: <b>+1 514 288-2220 ext 221</b> (where 1 = North America, 514 = Montreal, 288-2220 = CBD Secretariat number, ext 221 = direct extension to the switchboard).</p>
                     </div>
                 </div>
 
-                <div class="form-group" ng-class="{ 'has-warning': ((form.$submitted || form.facebook.$touched) && form.facebook.$invalid) }">
-                    <label for="facebook" class="col-sm-3 control-label">Facebook :</label>
+                <div class="form-group" ng-class="{ 'has-warning': form.facebook.$invalid }">
+                    <label for="facebook" class="col-sm-3 control-label">Facebook</label>
                     <div class="col-sm-6">
                         <input type="url" class="form-control" name="facebook" id="facebook" ng-model="document.facebook" ng-pattern="patterns.facebook" placeholder="https://www.facebook.com/organisation">
-                        <div ng-show="(form.$submitted || form.facebook.$touched)">
-                            <p class="help-block error" ng-show="form.facebook.$error.url">This is not a valid web address</p>
-                            <p class="help-block error" ng-show="form.facebook.$error.pattern">Facebook address is invalid. It should look like: <em>https://www.facebook.com/your-facebook-page</em></p>
-                        </div>
+                        <p class="help-block error" ng-show="form.facebook.$error.url">This is not a valid web address</p>
+                        <p class="help-block error" ng-show="form.facebook.$error.pattern">Facebook address is invalid. It should look like: <em>https://www.facebook.com/your-facebook-page</em></p>
                     </div>
                 </div>
 
-                <div class="form-group" ng-class="{ 'has-warning': ((form.$submitted || form.twitter.$touched) && form.twitter.$invalid) }">
-                    <label for="twitter" class="col-sm-3 control-label" >Twitter :</label>
+                <div class="form-group" ng-class="{ 'has-warning': form.twitter.$invalid }">
+                    <label for="twitter" class="col-sm-3 control-label" >Twitter</label>
                     <div class="col-sm-6">
                         <input type="url" class="form-control" name="twitter" id="twitter" ng-model="document.twitter" ng-pattern="patterns.twitter" placeholder="https://twitter.com/organisation">
-                        <div ng-show="(form.$submitted || form.twitter.$touched)">
-                            <p class="help-block error" ng-show="form.twitter.$error.url">This is not a valid web address</p>
-                            <p class="help-block error" ng-show="form.twitter.$error.pattern">Twitter address is invalid. It should look like: <em>https://twitter.com/your-twitter-account</em></p>
-                        </div>
+                        <p class="help-block error" ng-show="form.twitter.$error.url">This is not a valid web address</p>
+                        <p class="help-block error" ng-show="form.twitter.$error.pattern">Twitter address is invalid. It should look like: <em>https://twitter.com/your-twitter-account</em></p>
                     </div>
                 </div>
 
-                <div class="form-group" ng-class="{ 'has-warning': ((form.$submitted || form.youtube.$touched) && form.youtube.$invalid) }">
-                    <label for="twitter" class="col-sm-3 control-label" required>Youtube :</label>
+                <div class="form-group" ng-class="{ 'has-warning': form.youtube.$invalid }">
+                    <label for="twitter" class="col-sm-3 control-label" required>Youtube</label>
                     <div class="col-sm-6">
                         <input type="url" class="form-control" name="youtube" id="youtube" ng-model="document.youtube" ng-pattern="patterns.youtube" placeholder="https://www.youtube.com/user/organisation">
-                        <div ng-show="(form.$submitted || form.youtube.$touched)">
-                            <p class="help-block error" ng-show="form.youtube.$error.url">This is not a valid web address</p>
-                            <p class="help-block error" ng-show="form.youtube.$error.pattern">Youtube address is invalid. It should look like: <em>https://www.youtube.com/user/your-youtube-channel</em></p>
-                        </div>
+                        <p class="help-block error" ng-show="form.youtube.$error.url">This is not a valid web address</p>
+                        <p class="help-block error" ng-show="form.youtube.$error.pattern">Youtube address is invalid. It should look like: <em>https://www.youtube.com/user/your-youtube-channel</em></p>
                     </div>
                 </div>
 
-                <div class="form-group" ng-class="{ 'has-warning': ((form.$submitted || form.description.$touched) && form.description.$invalid) }">
-                    <label for="description" class="col-sm-3 control-label required">Short description of your Action in one of the 6 United Nations languages (max. 1000 characters) :</label>
+                <div class="form-group" ng-class="{ 'has-warning': form.description.$invalid }">
+                    <label for="description" class="col-sm-3 control-label required">Short description of your Action in one of the 6 United Nations languages (max. 1000 characters)</label>
                     <div class="col-sm-6">
                         <textarea class="form-control" name="description" id="description" ng-model="document.description" cols="30" rows="10" required placeholder="Briefly describe your organisation and your work related to the United Nations Decade on Biodiversity (max. 1000 characters)"></textarea>
-                        <div ng-show="(form.$submitted || form.description.$touched)">
-                            <p class="help-block error" ng-show="form.description.$invalid">This field is mandatory</p>
-                        </div>
+                        <p class="help-block error" ng-show="form.description.$invalid">This field is mandatory</p>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="descriptionNative" class="col-sm-3 control-label">Short description of your Action in your official language (max. 1000 characters) :</label>
+                    <label for="descriptionNative" class="col-sm-3 control-label">Short description of your Action in your official language (max. 1000 characters)</label>
                     <div class="col-sm-6">
                         <textarea class="form-control" id="descriptionNative" ng-model="document.descriptionNative" cols="30" rows="10" placeholder="Briefly describe your organisation and your work related to the United Nations Decade on Biodiversity (max. 1000 characters)"></textarea>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="notes" class="col-sm-3 control-label">Comments or additional information (not visible online) :</label>
+                    <label for="notes" class="col-sm-3 control-label">Comments or additional information (not visible online)</label>
                     <div class="col-sm-6">
                         <textarea class="form-control" id="notes" ng-model="document.notes" cols="30" rows="5" placeholder="300 characters"></textarea>
                     </div>
@@ -214,24 +192,9 @@
                     </div>
                 </div>
 
-                <div class="errorMessage">
-                    <pre>{{errors|json}}</pre>
-                </div>
-
-                <div class="successMessage">
-                    <h6>Thank you for submitting your information</h3>
-                        <p>
-                            Once we have reviewed it we will send you a confirmation message. In the meantime we invite you to start using the logo of the United Nations Decade on Biodiversity on your website, information materials, etc., and join us on <a href="#">facebook</a> and <a href="#">twitter</a>.
-                        </p>
-                        <p>
-                            Please don’t hesitate to <a href="mailto:UNBiodiversity@cbd.int">contact us</a> if you have any questions.
-                        </p>
-                    </div>
                 </form>
             </div>
         </div>
     </div>
-
-    <pre>{{document|json}}</pre>
 
 </div>
