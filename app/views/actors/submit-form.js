@@ -64,7 +64,7 @@ define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows'], func
                 var records = _.flatten([res[0].Items, res[1].Items]);
 
                 if(records.length) {
-                    $location.url('/actors/partners/register/'+records[0].identifier);
+                    $location.url('/actors/partners/edit/'+records[0].identifier);
                 }
                 else {
                     return load();
