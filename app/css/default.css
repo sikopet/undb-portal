@@ -338,6 +338,7 @@ div.title{
 	font-family: Helvetica, sans-serif;
 	text-transform: inherit;
 	padding: 0px;
+	z-index:100;
 }
 
 	.navbar-nav li.active a{
