@@ -151,7 +151,9 @@ define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows'], func
 
             delete $scope.errors;
 
-            var doc = $scope.document;
+            var doc = _.omit($scope.document, function(value) {
+                return value==="" || value===undefined || value===null;
+            });
 
             return $http.put('https://api.cbd.int/api/v2013/documents/validate', doc, { params : { schema : doc.header.schema }}).then(function(res) {
 
