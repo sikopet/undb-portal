@@ -40,9 +40,23 @@
         <div class="row article">
                <h1> List of partners from database</h1>
 
-               <div ng-repeat="p in partners track by p.identifier_s">
-                   <pre>{{p|json}}</pre>
+               <div class="listImg">
+                   <ul>
+                       <li ng-repeat="p in partners track by p.identifier_s">
+                           <div class="col-sm-3">
+                               <img src="{{p.logo_s}}/thumbnail" style="max-width:200px" alt="">
+                           </div>
+                           <div class="col-sm-9">
+                               <h5>{{p.title_t}}</h5>
+                               <a href="{{p.website_s}}">{{p.website_s}}</a>
+                               <p>
+                                   {{p.description_t}}
+                               </p>
+                           </div>
+                       </li>
+                   </ul>
                </div>
+
 
 
         </div>

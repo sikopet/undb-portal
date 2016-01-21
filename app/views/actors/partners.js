@@ -5,7 +5,7 @@ define(['app', 'angular', 'authentication'], function() { 'use strict';
         var qsParams =
         {
             "q"  : 'schema_s:undbPartner AND _state_s:public',
-            "fl" : "identifier_s, title_t, description_t",
+            "fl" : "identifier_s, title_t, description_t,website_s,logo_s",
             "sort"  : "updatedDate_dt desc",
             "start" : 0,
             "row"   : 1000,
