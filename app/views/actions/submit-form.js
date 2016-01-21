@@ -133,7 +133,7 @@ define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows'], func
 
             }).then(function() {
 
-                $location.path('/actions/submit');
+                $location.url('/actions/submit-form-done');
 
             })
             .catch(res_Error).finally(function() {

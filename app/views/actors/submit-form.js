@@ -163,21 +163,18 @@ define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows'], func
                 return $http.put('https://api.cbd.int/api/v2013/documents/'+doc.header.identifier+'/versions/draft', doc, { params : { schema : doc.header.schema }});
 
             }).then(function(res) {
+
                 return workflows.addWorkflow(res.data);
-            }).then(function(res) {
-                alert('Record saved successfully');
+
+            }).then(function() {
+
+                $location.url('/actions/submit-form-done');
+
             }).catch(function(err) {
-
-                err = err.data || err;
-
-                $scope.errors = err.errors || [err];
-
-                console.error(err);
-
-            }).finally(function(){
 
                 delete $scope.saving;
 
+                res_Error(err);
             });
         }
 
