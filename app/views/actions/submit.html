@@ -59,7 +59,6 @@
             <table class="table table-striped">
             	<thead>
             		<tr>
-            		<th style="white-space:nowrap;" >Type</th>
             		<th style="white-space:nowrap;" >Summary</th>
             		<th style="white-space:nowrap;" class="hidden-xs">Created By</th>
             		<th style="white-space:nowrap;" >Last Update</th>
@@ -69,17 +68,6 @@
             	</thead>
             	<tbody>
             		<tr ng-repeat="record in records">
-            			<td class="type" style="max-width:150px;">
-                            <b>{{record.schemaName | lstring}}
-                                <span ng-switch="subSchema">
-                                    <span ng-switch-when="nr"></span>
-                                    <span ng-switch-when="nbsap">: NBSAP</span>
-                                    <span ng-switch-when="other">: Other</span>
-                                    <span ng-switch-default></span>
-                                </span>
-                            </b>
-                            <div>{{record.reportTypeName | lstring}}</div>
-                        </td>
             			<td class="descr">
                             <h5 class="title" style="margin:0;padding:0;">
                                 <span ng-if="record._state_s=='draft'">{{(record.title ||  record.identifier_s) | lstring}}</span>
