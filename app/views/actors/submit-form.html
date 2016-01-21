@@ -13,8 +13,10 @@
                     you have any questions please <a href="mailto:undb@cbd.int">contact us</a>.
                 </p>
 
-                <p>
-                    <input type="checkbox"> I have read and I understand the requirements explained at <a href="http://www.cbd.int/2011-2020/participate/partner">www.cbd.int/2011-2020/participate/partner</a>
+                <a name="agreed"></a>
+                <p ng-class="{ 'alert': (form.$submitted && !agreed), 'alert-warning' : (form.$submitted && !agreed) }">
+
+                    <input type="checkbox" ng-model="agreed"> I have read and I understand the requirements explained at <a href="http://www.cbd.int/2011-2020/participate/partner">www.cbd.int/2011-2020/participate/partner</a>
                 </p>
 
                 <h2>Information about your organisation</h2>
@@ -30,7 +32,7 @@
         </div>
 
         <div class="row">
-            <form class="form-horizontal single" ng-submit="save();" ng-hide="loading">
+            <form name="form" novalidate class="form-horizontal single" ng-submit="save();" ng-hide="loading">
 
                 <div class="form-group">
                     <label for="name" class="col-sm-3 control-label required">Organisation :</label>

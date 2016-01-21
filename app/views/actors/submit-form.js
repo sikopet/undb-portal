@@ -7,7 +7,14 @@ define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows'], func
         $scope.upload = upload;
         $scope.googleMapsChange = updateGeoLocation;
 
-        // Init
+        $scope.patterns = {
+            facebook : /^http[s]?:\/\/(www.)?facebook.com\/.+/i,
+            twitter  : /^http[s]?:\/\/twitter.com\/.+/i,
+            youtube  : /^http[s]?:\/\/(www.)?youtube.com\/user\/.+/i,
+            phone    : /^\+\d+(\d|\s|-|ext|#|\*)+$/i,
+            time     : /^([0-1][0-9]|2[0-3]|[0-9]):[0-5][0-9]$/
+        };
+
         //==============================
         //
         //
@@ -122,6 +129,17 @@ define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows'], func
         //
         //==============================
         function save() {
+
+            if(!$scope.agreed) {
+                $anchorScroll('agreed');
+                return;
+            }
+
+            if($scope.form.$invalid) {
+                $scope.errors = [{code : "invalidForm" }];
+                return;
+            }
+
 
             $scope.saving = true;
 
@@ -240,6 +258,5 @@ define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows'], func
         function res_Data(res) {
             return res.data;
         }
-
     }];
 });
