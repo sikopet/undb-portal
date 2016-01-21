@@ -78,7 +78,7 @@
   margin-top: 16px;
 }
 .closeButton {
-  background-image: url('/app/img/x.svg');
+  background-image: url('../../img/x.svg');
   background-repeat: no-repeat;
   border: none;
   border-radius: 25px;
