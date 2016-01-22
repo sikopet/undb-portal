@@ -346,8 +346,9 @@ div.title{
 		border-bottom: 1px solid #fff;
 	}
 
-	.navbar-nav li.active a:hover, .navbar-nav li a:hover{
+	.navbar-nav li.active a:focus, .navbar-nav li a:focus, .navbar-nav li.active a:hover, .navbar-nav li a:hover{
 		color: #fff;
+        background-color: transparent;
 	}
 
 .nav-bordertop:before{
