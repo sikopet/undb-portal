@@ -1,5 +1,7 @@
-/* jshint node: true, browser: false */
+/* jshint node: true, browser: false, esnext: true */
 'use strict';
+
+process.on('SIGTERM', ()=>process.exit());
 
 // CREATE HTTP SERVER AND PROXY
 
