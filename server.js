@@ -11,10 +11,6 @@ app.set('view engine', 'ejs');
 
 app.use(require('morgan')('dev'));
 
-// LOAD CONFIGURATION
-
-app.set('port', process.env.PORT || 2020);
-
 // CONFIGURE /APP/* ROUTES
 
 app.use('/app',   require('serve-static')(__dirname + '/app_build'));
@@ -27,6 +23,6 @@ app.get('/*', function (req, res) { res.render('template', { baseUrl: req.header
 
 // START SERVER
 
-app.listen(app.get('port'), function () {
+app.listen(process.env.PORT || 2020, function () {
 	console.log('Server listening on %j', this.address());
 });
