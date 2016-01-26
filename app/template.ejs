@@ -34,6 +34,15 @@
         .ng-cloak {
             display: none !important;
         }
+
+        a[href="#"] { background-color: yellow; }
+        a[href="#"] p { background-color: yellow; }
+        a[href="#"] H1 { background-color: yellow; }
+        a[href="#"] H2 { background-color: yellow; }
+        a[href="#"] H3 { background-color: yellow; }
+        a[href="#"] H4 { background-color: yellow; }
+        a[href="#"] H5 { background-color: yellow; }
+
     </style>
 </head>
 
@@ -136,23 +145,23 @@
 
             <ul class="dropdown-menu" style="left:auto; right:0px;">
                 <li ng-hide="user.isAuthenticated" >
-                    <a class="signin" href="#" ng-click="actionSignIn()">Sign up for an account	</a>
+                    <a class="signin" href="##" ng-click="actionSignIn()">Sign up for an account	</a>
                 </li>
                 <li ng-hide="user.isAuthenticated" >
-                    <a  class="signin" href="#" ng-click="actionSignIn()">
+                    <a  class="signin" href="##" ng-click="actionSignIn()">
                         <i class="fa fa-power-off"></i> <span>Sign in</span>
                     </a>
                 </li>
                 <li ng-show="user && user.isAuthenticated">
-                    <a href="#" ng-click="actionProfile()">
+                    <a href="##" ng-click="actionProfile()">
                         <i class="fa fa-user" style="font-size:15px"></i>&nbsp; Profile</a>
                 </li ng-show="user && user.isAuthenticated">
                 <li ng-show="user && user.isAuthenticated">
-                    <a href="#" ng-click="actionPassword()">
+                    <a href="##" ng-click="actionPassword()">
                         <i class="fa fa-user" style="font-size:15px"></i>&nbsp; Password</a>
                 </li>
                 <li ng-show="user && user.isAuthenticated">
-                    <a href="#" ng-click="actionSignOut()">
+                    <a href="##" ng-click="actionSignOut()">
                         <i class="fa fa-sign-out" style="font-size:15px"></i>&nbsp; Sign-out</a>
                 </li>
             </ul>
@@ -161,7 +170,7 @@
     </div>
     <nav class="navbar navbar-cbd navbar-default navbar-static-top hidden-xs" id="anchorTop" ng-cloak>
     <div class="container">
-        
+
             <div ng-cloak class="alert alert-info" style="margin-bottom: 0px; text-align: center" ng-show="showEmailVerificationMessage">
                 <button type="button" ng-click="showEmailVerificationMessage = undefined" class="close" style="opacity: 1;">&times;</button>
                 <strong>{{showEmailVerificationMessage}}</strong>
@@ -227,10 +236,10 @@
 
                 <li class="pull-right" style="padding:5px 5px">
 
-                    <a ng-hide="user.isAuthenticated" class="signin" href="#" ng-click="actionSignUp()">Sign up for an account	</a>
+                    <a ng-hide="user.isAuthenticated" class="signin" href="##" ng-click="actionSignUp()">Sign up for an account	</a>
                     <a ng-hide="user.isAuthenticated" class="signin color-grey">|</a>
 
-                     <a ng-hide="user && user.isAuthenticated"  class="signin" href="#" ng-click="actionSignIn()">
+                     <a ng-hide="user && user.isAuthenticated"  class="signin" href="##" ng-click="actionSignIn()">
                          <i class="fa fa-power-off"></i> <span>Sign in</span>
                      </a>
 
@@ -255,7 +264,7 @@
                </li> <!--  end sign in-->
               </ul>
           </div><!-- /.container-fluid -->
-       
+
     </div>
      </nav>
     <div class="bg-litegrey">
