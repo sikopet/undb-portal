@@ -5,7 +5,7 @@ define(['text!./zoom-map.html', 'app', 'lodash',
 ], function(template, app, _) {
   'use strict';
 
-  app.directive('zoomMap', [ function() {
+  app.directive('zoomMap', ['$location','$timeout', function($location,$timeout) {
     return {
       restrict: 'EAC',
       template: template,
@@ -35,6 +35,14 @@ define(['text!./zoom-map.html', 'app', 'lodash',
         } //$scope.legendHide
 
 
+        $scope.map.addListener("clickMapObject", function(event) {
+
+            if(event.mapObject.id != $scope.zoomTo)
+            $timeout(function(){
+                $location.url('/actions/countries/'+event.mapObject.id.toUpperCase());
+            });
+
+        }); //$scope.map.addListener("clickMapObject",
 
         $scope.images = [{
           "label": "EU",
@@ -177,11 +185,14 @@ define(['text!./zoom-map.html', 'app', 'lodash',
           var index = _.findIndex($scope.map.dataProvider.areas, function(area) {
             return area.id === id;
           });
-          return $scope.map.dataProvider.areas[index];
+          if(index < 0)
+            return 0;
+          else
+            return $scope.map.dataProvider.areas[index];
         } //getMapObject
 
 
-        this.getMapObject = getMapObject;
+
         this.getMapObject = getMapObject;
         this.writeMap = writeMap;
         this.getMapData = getMapData;

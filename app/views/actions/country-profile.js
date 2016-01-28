@@ -15,10 +15,8 @@ define(['app', '../../directives/map/zoom-map'], function() { 'use strict';
 				$scope.country.code = $scope.country.code.toLowerCase();
 				$scope.country.name = $scope.country.name[locale];
 				$scope.country.cssClass='flag-icon-'+$scope.country.code;
+				$scope.country = res.data;
 
-
-			$scope.country = res.data;
-			console.log($scope.country);
 		}).then(function(){
 
 			var queryParameters = {
@@ -34,7 +32,7 @@ define(['app', '../../directives/map/zoom-map'], function() { 'use strict';
 				}).success(function(data) {
 					$scope.count = data.response.numFound;
 					$scope.partners = data.response.docs;
-console.log($scope.partners);
+
 				});
 				queryParameters = {
 					'q': 'schema_s:undbAction  AND country_s:'+$scope.country.code, //AND _state_s:public removed for test
@@ -56,9 +54,6 @@ console.log($scope.partners);
 								a.endDate_s=dateObject2.toDateString();
 						});
 
-
-
-console.log($scope.actions);
 					});
 		});
 
