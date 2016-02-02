@@ -670,7 +670,7 @@ a.button-green-link{
   max-width: 775px;
 }
 
-.listImg {
+/*.listImg {
   max-width: 755px;
   margin: 42px auto;
 }
@@ -720,6 +720,7 @@ a.button-green-link{
   color: #069554;
   font-weight: bold;
 }
+*/
 /*country list search*/
 .listCountries li {
   margin: 12px 0;
