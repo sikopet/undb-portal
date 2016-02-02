@@ -5,8 +5,8 @@
         text-transform: uppercase;
         font-size: 10px;
         font-weight: bold;
-        margin-top: -20px;
-        margin-bottom: -10px;
+        margin-top: -5px;
+        margin-bottom: 10px;
     }
     </style>
 
@@ -34,8 +34,6 @@
 
                 <p>
                     The following information will appear online unless indicated otherwise.
-                    <br>
-                    <em>Fields marked with a * are mandatory.</em>
                 </p>
 
 
@@ -52,7 +50,7 @@
             <form name="form" novalidate class="form-horizontal single" ng-submit="save();">
 
                 <div class="form-group" ng-class="{ 'has-warning': !loading && form.name.$invalid }">
-                    <label for="name" class="col-sm-3 control-label required">Organisation :</label>
+                    <label for="name" class="col-sm-3 control-label required">Organisation</label>
                     <div class="col-sm-6">
                         <input type="text" class="form-control" name="name" id="name" ng-model="document.name" placeholder="Org. name" required ng-disabled="disabled()">
                         <p class="help-block error" ng-show="!loading && form.name.$invalid">This field is mandatory</p>
@@ -60,7 +58,7 @@
                 </div>
 
                 <div class="form-group" ng-class="{ 'has-warning': !loading && form.website.$invalid }">
-                    <label for="webite" class="col-sm-3 control-label">Website :</label>
+                    <label for="webite" class="col-sm-3 control-label">Website</label>
                     <div class="col-sm-6">
                         <input type="url" class="form-control" name="website" id="website" ng-model="document.website" placeholder="Org. website" ng-disabled="disabled()">
                         <p class="help-block error" ng-show="!loading && form.website.$error.url">This is not a valid web address</p>
@@ -78,7 +76,7 @@
                 </div>
 
                 <div class="form-group" ng-class="{ 'has-warning': !loading && form.address.$invalid }">
-                    <label for="address" class="col-sm-3 control-label" required>Address:</label>
+                    <label for="address" class="col-sm-3 control-label" required>Address</label>
                     <div class="col-sm-6">
                         <input type="text" class="form-control" name="address" id="address" ng-model="document.address" placeholder="Org. address" required ng-disabled="disabled()">
                         <p class="help-block error" ng-show="!loading && form.country.$invalid">This field is mandatory</p>
@@ -134,19 +132,19 @@
                     <label for="description" class="col-sm-3 control-label" required>Short description of your organisation in one of the 6 United Nations languages (max. 1000 characters)</label>
                     <div class="col-sm-6">
                         <textarea class="form-control" name="description" id="description" ng-model="document.description" cols="30" rows="10" required placeholder="Briefly describe your organisation and your work related to the United Nations Decade on Biodiversity (max. 1000 characters)" ng-disabled="disabled()"></textarea>
-                        <p class="help-block error" ng-show="!loading && form.description.$invalid">This field is mandatory</p>
+                        <p class="help-block error" ng-show="!loading && form.description.$invalid" style="margin-top:2px">This field is mandatory</p>
                     </div>
                 </div>
 
                 <div class="form-group" ng-class="{ 'has-warning': !loading && form.descriptionNative.$invalid }">
-                    <label for="descriptionNative" class="col-sm-3 control-label">Short description of your organisation in your official language (max. 1000 characters) :</label>
+                    <label for="descriptionNative" class="col-sm-3 control-label">Short description of your organisation in your official language (max. 1000 characters)</label>
                     <div class="col-sm-6">
                         <textarea class="form-control" name="descriptionNative" id="descriptionNative" ng-model="document.descriptionNative" cols="30" rows="10" placeholder="Briefly describe your organisation and your work related to the United Nations Decade on Biodiversity (max. 1000 characters)" ng-disabled="disabled()"></textarea>
                     </div>
                 </div>
 
                 <div class="form-group" ng-class="{ 'has-warning': !loading && form.notes.$invalid }">
-                    <label for="notes" class="col-sm-3 control-label">Comments or additional information (not visible online) :</label>
+                    <label for="notes" class="col-sm-3 control-label">Comments or additional information (not visible online)</label>
                     <div class="col-sm-6">
                         <textarea class="form-control" name="notes" id="notes" ng-model="document.notes" cols="30" rows="5" placeholder="300 characters" ng-disabled="disabled()"></textarea>
                     </div>
