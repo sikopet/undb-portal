@@ -405,7 +405,7 @@ a.button-green-link{
     background: url("../images/backgrounds/bird-green-t.png") no-repeat bottom -3px right 15px;
     background-size: 15%;
 }
-.linkBlock
+/*.linkBlock
 {
 	border: 2px solid #f9f9f9;
 	border-radius: 10px;
@@ -659,6 +659,7 @@ a.button-green-link{
     display: table;
     vertical-align: middle;
 }
+*/
 .center {
   max-width: 1024px;
   margin: 0 auto;
