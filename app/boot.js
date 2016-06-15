@@ -10,6 +10,7 @@ require.config({
         'bootstrap'        : 'libs/bootstrap/dist/js/bootstrap',
         'lodash'           : 'libs/lodash/lodash',
         'jquery'           : 'libs/jquery/dist/jquery',
+        'bootstrap-datepicker': 'libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min',
         'URIjs'               : 'libs/uri.js/src',
         'linqjs'              : 'libs/linqjs/linq.min',
         'guid'                : 'libs/ui-guid-generator/dist/ui-guid-generator.min',
@@ -22,6 +23,7 @@ require.config({
         'angular'                  : { deps: ['libs/angular/angular'] },
         'angular-route'            : { deps: ['angular'] },
         'bootstrap'                : { deps: ['jquery'] },
+        'bootstrap-datepicker'     : { deps: ['css!libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css'] },
         'guid'                     : { exports: 'ui_guid_generator' },
     },
     packages: [

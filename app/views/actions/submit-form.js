@@ -1,4 +1,4 @@
-define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows'], function(_, guid) { 'use strict';
+define(['lodash', 'jquery', 'guid', 'app', 'directives/file', 'utilities/workflows', 'bootstrap-datepicker'], function(_, $, guid) { 'use strict';
 
     return ['$scope', '$http', '$q', 'locale', '$route', 'realm', 'workflows', '$location',
      function($scope, $http, $q, locale, $route, realm, workflows, $location) {
@@ -12,8 +12,19 @@ define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows'], func
             twitter  : /^http[s]?:\/\/twitter.com\/.+/i,
             youtube  : /^http[s]?:\/\/(www.)?youtube.com\/user\/.+/i,
             phone    : /^\+\d+(\d|\s|-|ext|#|\*)+$/i,
+            date     : /^\d{4}-\d{1,2}-\d{1,2}$/,
             time     : /^([0-1][0-9]|2[0-3]|[0-9]):[0-5][0-9]$/
         };
+
+        $('form#action input.date').datepicker({ format: "yyyy-mm-dd", startDate : '2010-01-01' , endDate : '2019-12-31' });
+
+        $scope.$watch('document.startDate', function(d) {
+            $('form#action input.date[name="endDate"]').datepicker('setStartDate', d || '2010-01-01');
+        });
+
+        $scope.$watch('document.endDate', function(d) {
+            $('form#action input.date[name="startDate"]').datepicker('setEndDate', d || '2019-12-31');
+        });
 
         // Init
         $http.get('https://api.cbd.int/api/v2015/countries', { cache:true, params: { f : { code : 1, name : 1 } } }).then(function(res) {
@@ -81,9 +92,6 @@ define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows'], func
                     if(record.header.schema!='undbAction')
                         throw { code : "invalidRecordType" };
 
-                    if(record.startDate) record.startDate = new Date(record.startDate); //Fix date
-                    if(record.endDate)   record.endDate   = new Date(record.endDate); //Fix date
-
                     $scope.document = record;
                 }
                 else {
@@ -115,8 +123,6 @@ define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows'], func
 
             delete $scope.errors;
             $scope.saving = true;
-
-            delete $scope.errors;
 
             var doc = _.omit($scope.document, function objectFilter(value) {
                 return value==="" || value===undefined || value===null;

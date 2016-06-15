@@ -31,7 +31,7 @@
         </div>
 
         <div class="row">
-            <form novalidate name="form" class="form-horizontal single" ng-submit="save()" ng-hide="loading">
+            <form id="action" novalidate name="form" class="form-horizontal single" ng-submit="save()" ng-hide="loading">
 
                 <div class="form-group" ng-class="{ 'has-warning': form.title.$invalid }">
                     <label for="title" class="col-sm-3 control-label required">Title</label>
@@ -41,17 +41,19 @@
                     </div>
                 </div>
 
-                <div class="form-group" ng-class="{ 'has-warning': form.endDate.$invalid }">
+                <div class="form-group" ng-class="{ 'has-warning': (form.startDate.$invalid || form.endDate.$invalid) }">
                     <label for="startDate" class="col-sm-3 control-label required">Date</label>
                     <label for="startDate" class="col-sm-1 control-label">From</label>
                     <div class="col-sm-2">
-                        <input type="date" class="form-control" name="startDate" id="startDate" ng-model="document.startDate" required placeholder="yyyy/mm/dd">
-                        <p class="help-block error" ng-show="form.startDate.$invalid">This field is mandatory</p>
+                        <input type="text" class="form-control date" name="startDate" id="startDate" ng-model="document.startDate" required ng-pattern="patterns.date" ng-trim="true" placeholder="yyyy-mm-dd">
+                        <p class="help-block error" ng-show="form.startDate.$error.required">This field is mandatory</p>
+                        <p class="help-block error" ng-show="form.startDate.$error.pattern">The date format must be YYYY-MM-DD</p>
                     </div>
                     <label for="endDate" class="col-sm-1 control-label">To</label>
                     <div class="col-sm-2">
-                        <input type="date" class="form-control" name="endDate" id="endDate" ng-model="document.endDate" required placeholder="yyyy/mm/dd">
-                        <p class="help-block error" ng-show="form.endDate.$invalid">This field is mandatory</p>
+                        <input type="text" class="form-control date" name="endDate" id="endDate" ng-model="document.endDate" required ng-pattern="patterns.date" ng-trim="true" placeholder="yyyy-mm-dd">
+                        <p class="help-block error" ng-show="form.endDate.$error.required">This field is mandatory</p>
+                        <p class="help-block error" ng-show="form.endDate.$error.pattern">The date format must be YYYY-MM-DD</p>
                     </div>
                 </div>
 
