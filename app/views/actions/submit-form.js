@@ -18,6 +18,14 @@ define(['lodash', 'jquery', 'guid', 'app', 'directives/file', 'utilities/workflo
 
         $('form#action input.date').datepicker({ format: "yyyy-mm-dd", startDate : '2010-01-01' , endDate : '2019-12-31' });
 
+        $scope.$watch('document.startDate', function(d) {
+            $('form#action input.date[name="endDate"]').datepicker('setStartDate', d || '2010-01-01');
+        });
+
+        $scope.$watch('document.endDate', function(d) {
+            $('form#action input.date[name="startDate"]').datepicker('setEndDate', d || '2019-12-31');
+        });
+
         // Init
         $http.get('https://api.cbd.int/api/v2015/countries', { cache:true, params: { f : { code : 1, name : 1 } } }).then(function(res) {
 
