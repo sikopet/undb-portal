@@ -1,4 +1,5 @@
-# UNDB portal (www.cbd.int/2011-2020)
-UN decade on biodiversity portal
+# undp-portal
 
-[![Dependency Status](https://david-dm.org/scbd/undb.cbd.int.svg)](https://david-dm.org/scbd/undb.cbd.int) [![Circle CI](https://circleci.com/gh/scbd/undb.cbd.int/tree/master.svg?style=shield)](https://circleci.com/gh/scbd/undb.cbd.int/tree/master)
+United Nations Decade on Biodiversity Portal
+
+[![Dependency Status](https://david-dm.org/scbd/undb-portal.svg)](https://david-dm.org/scbd/undb-portal) [![Circle CI](https://circleci.com/gh/scbd/undb-portal/tree/master.svg?style=shield)](https://circleci.com/gh/scbd/undb-portal/tree/master)
