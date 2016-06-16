@@ -174,15 +174,13 @@ define(['lodash', 'app', 'authentication', 'utilities/km-utilities', 'utilities/
             query.push("schema_s:" + solr.escape(options.schema));
             query.push(["realm_ss:" + realm.toLowerCase(), "(*:* NOT realm_ss:*)"]);
 
-            // Apply ownership
+            // Apply ownership/contributor
 
-                 query.push(["realm_ss:" + realm.toLowerCase(), "(*:* NOT realm_ss:*)"]);
-
-            // Apply ownership
-
-            query.push(_.map(user.userGroups, function(v){
-                return "_ownership_s:"+solr.escape(v);
-            }));
+            query.push(_.union(["_contributor_is:"+user.userID],
+                       _.map(user.userGroups, function(v){
+                            return "_ownership_s:"+solr.escape(v);
+                        }))
+            );
 
             // Status
 
