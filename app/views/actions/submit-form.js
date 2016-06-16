@@ -1,7 +1,7 @@
 define(['lodash', 'jquery', 'guid', 'app', 'directives/file', 'utilities/workflows', 'bootstrap-datepicker'], function(_, $, guid) { 'use strict';
 
-    return ['$scope', '$http', '$q', 'locale', '$route', 'realm', 'workflows', '$location',
-     function($scope, $http, $q, locale, $route, realm, workflows, $location) {
+    return ['$scope', '$http', '$q', 'locale', '$route', 'realm', 'workflows', '$location', '$anchorScroll',
+     function($scope, $http, $q, locale, $route, realm, workflows, $location, $anchorScroll) {
 
         $scope.save = save;
         $scope.upload = upload;
@@ -10,8 +10,8 @@ define(['lodash', 'jquery', 'guid', 'app', 'directives/file', 'utilities/workflo
         $scope.patterns = {
             facebook : /^http[s]?:\/\/(www.)?facebook.com\/.+/i,
             twitter  : /^http[s]?:\/\/twitter.com\/.+/i,
-            youtube  : /^http[s]?:\/\/(www.)?youtube.com\/user\/.+/i,
-            phone    : /^\+\d+(\d|\s|-|ext|#|\*)+$/i,
+            youtube  : /^http[s]?:\/\/(www.)?youtube.com\/\w+\/.+/i,
+            phone    : /^\+\d+(\d|\s|ext|[\.,\-#*()]|)+$/i,
             date     : /^\d{4}-\d{1,2}-\d{1,2}$/,
             time     : /^([0-1][0-9]|2[0-3]|[0-9]):[0-5][0-9]$/
         };
@@ -24,6 +24,11 @@ define(['lodash', 'jquery', 'guid', 'app', 'directives/file', 'utilities/workflo
 
         $scope.$watch('document.endDate', function(d) {
             $('form#action input.date[name="startDate"]').datepicker('setEndDate', d || '2019-12-31');
+        });
+
+        $scope.$watch('errors', function(errors) {
+            if(errors && errors.length)
+                $anchorScroll('form');
         });
 
         // Init
