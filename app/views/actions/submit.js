@@ -6,7 +6,6 @@ define(['lodash', 'app', 'authentication', 'utilities/km-utilities', 'utilities/
         var pageSize = 15;
 
         $scope.schema      = _.camelCase('undbAction'/*$route.current.params.schema*/);
-        $scope.subSchema   = $route.current.params.type;
         $scope.facets      = undefined;
         $scope.records     = null;
         $scope.status      = "";
@@ -163,7 +162,6 @@ define(['lodash', 'app', 'authentication', 'utilities/km-utilities', 'utilities/
 
             options = _.assign({
                 schema    : $scope.schema,
-                subSchema : $scope.subSchema,
                 status    : $scope.status,
                 latest    : true,
                 freetext  : $scope.freetext
@@ -171,25 +169,10 @@ define(['lodash', 'app', 'authentication', 'utilities/km-utilities', 'utilities/
 
             var query  = [];
 
-
             // Add Schema
 
             query.push("schema_s:" + solr.escape(options.schema));
-
-            if(options.subSchema) {
-
-                var nbsap = [ 'B0EBAE91-9581-4BB2-9C02-52FCF9D82721' ]; //NBSAP
-                var nr    = [ 'F27DBC9B-FF25-471B-B624-C0F73E76C8B3',   //1st NR
-                              'A49393CA-2950-4EFD-8BCC-33266D69232F',   //2nd NR
-                              'DA7E04F1-D2EA-491E-9503-F7923B1FD7D4',   //3rd NR
-                              '272B0A17-5569-429D-ADF5-2A55C588F7A7',   //4th NR
-                              'B3079A36-32A3-41E2-BDE0-65E4E3A51601'    //5th NR
-                ];
-
-                if(options.subSchema=="nr")    query.push("    reportType_s:("+ _(nr   ).map(solr.escape).values().join(' ') +")");
-                if(options.subSchema=="nbsap") query.push("    reportType_s:("+ _(nbsap).map(solr.escape).values().join(' ') +")");
-                if(options.subSchema=="other") query.push("NOT reportType_s:("+ _(nbsap).union(nr).map(solr.escape).values().join('  ') +")");
-            }
+            query.push(["realm_ss:" + realm.toLowerCase(), "(*:* NOT realm_ss:*)"]);
 
             // Apply ownership
 
