@@ -91,7 +91,7 @@
 		</div>
 		<div class="col-md-10 col-xs-12" style="padding-left:0px;margin-left:0px;">
 			<ammap3 ng-model='documents' schema='selectedSchema'></ammap3>
-			<div class="mapPopup" ng-click="toggleCaption=!toggleCaption;" ng-show="toggleCaption">
+			<div class="mapPopup" ng-class="{'mapPopupParties':selectedSchema==='parties'}"  ng-click="toggleCaption=!toggleCaption;" ng-show="toggleCaption">
 				<p>{{message}}</p>
 				<button type="button" class="closeButton"></button>
 			</div>
