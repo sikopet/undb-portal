@@ -5,10 +5,8 @@ define(['text!./undb-map.html',
   './ammap3',
   "factories/km-utilities",
   "./filter-parties",
-  "./filter-case-studies",
   "./filter-actors",
   "./filter-actions",
-  "./filter-projects",
   "./filter-bio-champs",
 ], function(template, app, $, _) {
   'use strict';
@@ -35,15 +33,13 @@ define(['text!./undb-map.html',
         }).then(function(o) {
           $scope.countries = $filter('orderBy')(o.data, 'title|lstring');
           return;
-        }).then(function() {
-          reportingDisplay.addSubQuery(_.cloneDeep($scope.urlStrings.actors), 'actors');
-          reportingDisplay.search();
         });
 
 
-        $element.find("#customHome").on('click', function(event) {
+        $element.find("#customHome").on('click', function() {
           $scope.$broadcast('customHome', 'show');
         });
+
         $scope.message = "The UNDB Network comprises all Actors contributing to the implementation of the 2011-2020 Strategic Plan for Biodiversity.";
         $scope.toggleCaption = 1;
         $scope.filters = {
@@ -435,50 +431,6 @@ define(['text!./undb-map.html',
         };
 
 
-        //=======================================================================
-        //
-        //=======================================================================
-        $scope.buildQuery = function() {
-          // NOT version_s:* remove non-public records from resultset
-          var q = ' '; //'NOT version_s:* AND realm_ss:' + realm.toLowerCase(); //+ ' AND schema_s:* '
-
-          var subQueries = [];
-
-          _.each($scope.subQueries, function(filter, filterName) {
-
-            if (filterName == "parties") return q = 'parties';
-
-            subQueries = _.compact([
-              getFormatedSubQuery(filterName, 'schema_s'),
-              getFormatedSubQuery(filterName, 'expired_b'),
-              getFormatedSubQuery(filterName, '_state_s'),
-            ]);
-          });
-
-          if (subQueries.length)
-            q += "  " + subQueries.join(" AND ");
-
-          return q;
-        }; //$scope.buildQuery
-
-        //=======================================================================
-        //
-        //=======================================================================
-        function getFormatedSubQuery(filter, name) {
-
-          if (!filter) return '';
-          var fil = $scope.subQueries[filter];
-
-          if (!fil) return '';
-          if (!fil[name]) return '';
-
-          var subQ = '';
-          subQ += name + ':' + fil[name].join(' OR ' + name + ":");
-          subQ = '(' + subQ + ')';
-
-          return subQ;
-        } //function getFormatedSubQuery (name)
-
       }, //link
 
       //=======================================================================
@@ -510,7 +462,6 @@ define(['text!./undb-map.html',
               filterActive('bioChamps');
               $scope.documents = _.clone($scope.champs);
               addSubQuery(_.cloneDeep($scope.urlStrings.actors), 'bioChamps');
-
               return;
             }
             if ($scope.selectedSchema === 'actors') {
@@ -526,35 +477,7 @@ define(['text!./undb-map.html',
               return;
             }
 
-            var queryParameters = {
-              'q': $scope.buildQuery(),
-              //  'sort': 'createdDate_dt desc, title_t asc',
-              //'fl': 'reportType_s,documentID,identifier_s,id,title_t,description_t,url_ss,schema_EN_t,date_dt,government_EN_t,schema_s,number_d,aichiTarget_ss,reference_s,sender_s,meeting_ss,recipient_ss,symbol_s,eventCity_EN_t,eventCountry_EN_t,startDate_s,endDate_s,body_s,code_s,meeting_s,group_s,function_t,department_t,organization_t,summary_EN_t,reportType_EN_t,completion_EN_t,jurisdiction_EN_t,development_EN_t,_latest_s,nationalTarget_EN_t,progress_EN_t,year_i,text_EN_txt,nationalTarget_EN_t,government_s',
-              'fl': 'title_s,schema_EN_t,thumbnail_s,coordinates_s,url_ss,googleMaps_s,startDate_s,endDate_s,country_s,description_s,lat_d,lng_d,descriptionNative_s,email_s,facebook_s,twitter_s,youtube_s,logo_s,facebook_s,twitter_s,youtube_s, address_s, phone_s',
-              'wt': 'json',
-              'start': 0,
-              'rows': 1000000,
-            };
 
-            if (canceler) {
-              canceler.resolve(true);
-            }
-
-            canceler = $q.defer();
-
-            if ($scope.buildQuery() !== ' ')
-              $http.get('/api/v2013/index/select', {
-                params: queryParameters,
-                timeout: canceler.promise,
-                cache: true
-              }).success(function(data) {
-                canceler = null;
-
-                $scope.count = data.response.numFound;
-                $scope.count = data.response.docs.length;
-                $scope.documents = data.response.docs;
-                updateQueryString();
-              });
           } // query
 
           //=======================================================================
@@ -574,41 +497,6 @@ define(['text!./undb-map.html',
                 }
               });
             } //if not list
-            if (!countries)
-              _.each(list, function(doc) {
-                if (!docsByCountry[doc.government_s]) // if country object not created created
-                {
-                  docsByCountry[doc.government_s] = [];
-                  docsByCountry[doc.government_s] = getCountryById(doc.government_s); //insert country data
-                  docsByCountry[doc.government_s].docs = {}; // initializes the countries docs
-                }
-
-                if (!docsByCountry[doc.government_s].docs[doc.schema_s]) //order docs by schema
-                  docsByCountry[doc.government_s].docs[doc.schema_s] = [];
-
-                if (doc.reportType_s && doc.reportType_s == 'B0EBAE91-9581-4BB2-9C02-52FCF9D82721') {
-                  if (!docsByCountry[doc.government_s].docs.nbsaps)
-                    docsByCountry[doc.government_s].docs.nbsaps = [];
-                  docsByCountry[doc.government_s].docs.nbsaps.push(doc);
-                } else
-                  docsByCountry[doc.government_s].docs[doc.schema_s].push(doc); // insert doc
-
-                docsByCountry[doc.government_s].expanded = false;
-                docsByCountry[doc.government_s].hidden = false;
-
-                if (docsByCountry[doc.government_s].docs[doc.schema_s].length > 1 && doc.schema_s === 'nationalAssessment')
-                  docsByCountry[doc.government_s].docs[doc.schema_s].sort(
-                    function(a, b) {
-                      if (b.date_dt && a.date_dt) return new Date(b.date_dt) - new Date(a.date_dt);
-                    }); // sort by date
-
-                if (docsByCountry[doc.government_s].docs[doc.schema_s].length > 1 && doc.schema_s === 'nationalAssessment')
-                  docsByCountry[doc.government_s].docs[doc.schema_s].sort(function(a, b) {
-                    if (b.progress_EN_t && a.progress_EN_t)
-                      return progressToNum(b.progress_EN_t) - progressToNum(a.progress_EN_t);
-                  }); // sort sort by progress
-                docsByCountry[doc.government_s].isEUR = false;
-              });
 
             if (docsByCountry.EU)
               docsByCountry.EU.isEUR = true;
