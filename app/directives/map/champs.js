@@ -1,4 +1,5 @@
-{champs:[
+define (['app'],function (){
+var champs = [
   {
     name: 'India',
     rank: 1,
@@ -79,5 +80,6 @@
     link: "http://www.sustainabledevelopment.in/",
     aichiTargets: "1 to 16",
     pledge: "The <a href='http://www.cii.in'>Confederation of Indian Industry (CII)</a> is hosting the India Business & Biodiversity Initiative (IBBI) that is a national platform for business and its stakeholders for dialogue, sharing and learning on biodiversity management. Being a business-led multi-stakeholder initiative, the aim of IBBI is to mainstream sustainable management of biological diversity into business.  <a href='https://www.cbd.int/doc/champions/pledge-2014-01-31-cii-en.pdf' class='atc-link'>More</a>"
-  }]
-}
+  }];
+return champs;
+});
