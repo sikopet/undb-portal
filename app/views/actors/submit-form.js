@@ -11,15 +11,20 @@ define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows'], func
             return $scope.loading ||
                    $scope.saving ||
                   ($scope.documentInfo||{}).workingDocumentLock;
-        }
+        };
 
         $scope.patterns = {
             facebook : /^http[s]?:\/\/(www.)?facebook.com\/.+/i,
             twitter  : /^http[s]?:\/\/twitter.com\/.+/i,
-            youtube  : /^http[s]?:\/\/(www.)?youtube.com\/user\/.+/i,
-            phone    : /^\+\d+(\d|\s|-|ext|#|\*)+$/i,
+            youtube  : /^http[s]?:\/\/(www.)?youtube.com\/\w+\/.+/i,
+            phone    : /^\+\d+(\d|\s|ext|[\.,\-#*()]|)+$/i,
             time     : /^([0-1][0-9]|2[0-3]|[0-9]):[0-5][0-9]$/
         };
+
+        $scope.$watch('errors', function(errors) {
+            if(errors && errors.length)
+                $anchorScroll('form');
+        });
 
         //==============================
         //
@@ -136,15 +141,20 @@ define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows'], func
         //==============================
         function save() {
 
+            delete $scope.errors;
+
             if(!$scope.agreed) {
-                $anchorScroll('agreed');
-                return;
+                $scope.errors = $scope.errors || [];
+                $scope.errors.push({code : "conditions" });
             }
 
             if($scope.form.$invalid) {
-                $scope.errors = [{code : "invalidForm" }];
-                return;
+                $scope.errors = $scope.errors || [];
+                $scope.errors.push({code : "invalidForm" });
             }
+
+            if($scope.errors)
+                return;
 
 
             $scope.saving = true;
