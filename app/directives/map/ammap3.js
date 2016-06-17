@@ -335,21 +335,22 @@ define(['text!./ammap3.html',
                                 title: popoverTitleParsed,
                                 template: popoverTemplateParsed
                             };
+
                         case 'actions':
                             popoverTitleParsed = _.clone(popoverTitleActions);
                             popoverTemplateParsed = _.clone(popoverTemplateActions);
 
                             popoverTitleParsed = popoverTitleParsed.replace('{{title}}', image.title ? image.title : ' ');
-                            if (image.startDate_s) image.startDate_s = '<b>Start Date:</b> ' + image.startDate_s + '<br>';
-                            popoverTitleParsed = popoverTitleParsed.replace('{{startDate_s}}', image.startDate_s ? image.startDate_s : ' ');
-                            if (image.endDate_s) image.endDate_s = '<b>End Date:</b> ' + image.endDate_s;
-                            popoverTitleParsed = popoverTitleParsed.replace('{{endDate_s}}', image.endDate_s ? image.endDate_s : ' ');
+
+                            popoverTitleParsed = popoverTitleParsed.replace('{{startDate_s}}', image.startDate_s ? moment(image.startDate_s).format('YYYY-MM-DD HH:mm')  : ' ');
+                            popoverTitleParsed = popoverTitleParsed.replace('{{endDate_s}}', image.endDate_s ? moment(image.endDate_s).format('YYYY-MM-DD HH:mm') : ' ');
 
 
-                            popoverTemplateParsed = popoverTemplateParsed.replace('{{countryCode}}', image.countryCode ? image.countryCode : ' ');
                             if (image.countryCode) image.countryName = _.findWhere($scope.countries, {
                                 code: image.countryCode.toUpperCase()
                             }).name;
+                            popoverTemplateParsed = popoverTemplateParsed.replace('{{countryCode}}', image.countryCode ? image.countryCode : ' ');
+                            popoverTemplateParsed = popoverTemplateParsed.replace('{{countryCode}}', image.countryCode ? image.countryCode : ' ');
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{countryName}}', image.countryName ? image.countryName : ' ');
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{description_s}}', image.description_s ? image.description_s : ' ');
                             if (image.descriptionNative_s) image.descriptionNative_s = image.descriptionNative_s + '<br>';
