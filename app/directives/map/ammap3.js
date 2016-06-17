@@ -712,13 +712,13 @@ define(['text!./ammap3.html',
 
                     switch (country.treatyComb) {
                         case 'CBD,':
-              return '#ADD7F6';
+                            return '#009B48';
                         case 'CBD,CPB,':
-              return '#87BFFF';
+                            return '#8cc65d';
                         case 'CBD,CPB,ABS,':
-              return '#3F8EFC';
+                            return '#AFD78E';
                         case 'CBD,ABS,':
-              return '#2667FF';
+                            return '#D1E8BE';
                         default:
                             return '#dddddd';
                     }
