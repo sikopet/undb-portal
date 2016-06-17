@@ -1,18 +1,20 @@
 define(['text!./ammap3.html',
     'app',
     'lodash',
+    'moment',
     'text!./pin-popup-bio-champs.html',
     'text!./pin-popup-title-bio-champs.html',
     'text!./pin-popup-actions.html',
     'text!./pin-popup-title-actions.html',
+    'text!./pin-popup-title-actors.html',
     'ammap',
     'shim!./worldEUHigh[ammap]',
     'shim!ammap/themes/light[ammap]',
     'css!./mappin.css',
-], function(template, app, _,  popoverTemplateBioChamps, popoverTitleBioChamps, popoverTemplateActions, popoverTitleActions) {
+], function(template, app, _,moment,  popoverTemplateBioChamps, popoverTitleBioChamps, popoverTemplateActions, popoverTitleActions, popoverTitleActors) {
     'use strict';
 
-    app.directive('ammap3', ['$timeout', 'locale', '$http', function($timeout, locale, $http) {
+    app.directive('ammap3', ['$timeout', 'locale', '$http',function($timeout, locale, $http) {
         return {
             restrict: 'E',
             template: template,
@@ -56,22 +58,7 @@ define(['text!./ammap3.html',
                         title: 'Not a Party',
                         visible: true,
                         color: '#dddddd'
-                    }, ],
-                    nationalReport: [
-
-                        {
-                            id: 0,
-                            title: 'Not Reported',
-                            visible: true,
-                            color: '#dddddd'
-                        }, {
-                            id: 1,
-                            title: 'Reported',
-                            visible: true,
-                            color: '#428bca'
-                        },
-
-                    ]
+                    }, ]
                 };
 
 
@@ -300,21 +287,6 @@ define(['text!./ammap3.html',
                     var popoverTemplateParsed = '';
 
                     switch ($scope.schema) {
-                        case 'projects':
-                            popoverTitleParsed = _.clone(popoverTitleProjects);
-                            popoverTemplateParsed = _.clone(popoverTemplateProjects);
-                            popoverTitleParsed = popoverTitleParsed.replace('{{schema}}', image.schema);
-                            popoverTemplateParsed = popoverTemplateParsed.replace('{{projectImage}}', image.thumbnail_s);
-                            popoverTemplateParsed = popoverTemplateParsed.replace('{{projectTitle}}', image.title);
-                            if (image.url_ss)
-                                popoverTemplateParsed = popoverTemplateParsed.replace('{{recordURL}}', image.url_ss);
-                            return {
-                                html: true,
-                                trigger: 'click',
-                                placement: 'top',
-                                title: popoverTitleParsed,
-                                template: popoverTemplateParsed
-                            };
                         case 'bioChamps':
                             popoverTitleParsed = _.clone(popoverTitleBioChamps);
                             popoverTemplateParsed = _.clone(popoverTemplateBioChamps);
@@ -384,20 +356,17 @@ define(['text!./ammap3.html',
                             };
 
                         case 'actors':
-                            popoverTitleParsed = _.clone(popoverTitleActions);
+                            popoverTitleParsed = _.clone(popoverTitleActors);
                             popoverTemplateParsed = _.clone(popoverTemplateActions);
 
                             popoverTitleParsed = popoverTitleParsed.replace('{{title}}', image.title ? image.title : ' ');
-                            if (image.startDate_s) image.startDate_s = 'Start Date: ' + image.startDate_s;
-                            popoverTitleParsed = popoverTitleParsed.replace('{{startDate_s}}', image.startDate_s ? image.startDate_s : ' ');
-                            if (image.endDate_s) image.endDate_s = 'End Date: ' + image.endDate_s;
-                            popoverTitleParsed = popoverTitleParsed.replace('{{endDate_s}}', image.endDate_s ? image.endDate_s : ' ');
 
-                            popoverTemplateParsed = popoverTemplateParsed.replace('{{countryCode}}', image.countryCode ? image.countryCode : ' ');
 
                             if (image.countryCode) image.countryName = _.findWhere($scope.countries, {
                                 code: image.countryCode.toUpperCase()
                             }).name;
+                            popoverTemplateParsed = popoverTemplateParsed.replace('{{countryCode}}', image.countryCode ? image.countryCode : ' ');
+                            popoverTemplateParsed = popoverTemplateParsed.replace('{{countryCode}}', image.countryCode ? image.countryCode : ' ');
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{countryName}}', image.countryName ? image.countryName : ' ');
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{description_s}}', image.description_s ? image.description_s : ' ');
                             if (image.descriptionNative_s) image.descriptionNative_s = image.descriptionNative_s + '<br>';
@@ -775,36 +744,6 @@ define(['text!./ammap3.html',
                     area.balloonText += balloonText2;
                 } //buildProgressBaloon
 
-                // =======================================================================
-                //
-                // =======================================================================
-                function buildBaloon(country) {
-
-                    var area = getMapObject(country.identifier);
-                    area.balloonText = "<div class='panel panel-default' ><div class='panel-heading' style='font-weight:bold; font-size:large;''>";
-                    var euImg = "<img src='app/images/flags/Flag_of_Europe.svg' style='width:25px;hight:21px;' ng-if='country.isEUR'></img>";
-
-                    if (country.isEUR)
-                        area.balloonText += euImg + area.title + "</div>";
-                    else
-                        area.balloonText += "<i class='flag-icon flag-icon-" + country.identifier + " ng-if='country.isEUR'></i>&nbsp;" + area.title + "</div>";
-
-                    var balloonBody = '';
-
-                    if (Object.keys(country.docs).length == 1) {
-                        _.each(country.docs, function(schema, schemaName) {
-
-                            switch (schemaName) {
-                                case 'nationalReport':
-                                    if ($scope.schema !== 'all')
-                                        balloonBody = " <div class='panel-body' style='text-align:left;'>" + country.docs.nationalReport[0].reportType_EN_t + "</div>";
-                                    break;
-                            }
-                        }); //_.each
-                    }
-                    area.balloonText += balloonBody;
-                } //buildBaloon
-
 
                 // =======================================================================
                 //
@@ -813,7 +752,7 @@ define(['text!./ammap3.html',
 
                     $scope.treatyCombinations = {};
                     $scope.treaties = ['XXVII8', 'XXVII8a', 'XXVII8b', 'XXVII8c'];
-                    _.each($scope.items, function(country, code) {
+                    _.each($scope.items, function(country) {
                         if (country.treaties.XXVII8.party) country.treatyComb = 'CBD,';
                         if (country.treaties.XXVII8a.party) country.treatyComb += 'CPB,';
                         if (country.treaties.XXVII8b.party) country.treatyComb += 'ABS,';

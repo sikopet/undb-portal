@@ -43,26 +43,7 @@ define(['text!./undb-map.html',
 
         $scope.message = "The UNDB Network comprises all Actors contributing to the implementation of the 2011-2020 Strategic Plan for Biodiversity.";
         $scope.toggleCaption = 1;
-        $scope.filters = {
-          'parties': {
-            active: false
-          },
-          'actors': {
-            active: true
-          },
-          'caseStudies': {
-            active: false
-          },
-          'bioChamps': {
-            active: false
-          },
-          'projects': {
-            active: false
-          },
-          'actions': {
-            active: false
-          },
-        };
+
 
         $http.get("https://api.cbd.int/api/v2013/index", {
             params: {
@@ -73,7 +54,6 @@ define(['text!./undb-map.html',
                 'rows': 1000000,
             }
         }).then(function(o) {
-            console.log('actions', o.data.response.docs);
             $scope.actions = o.data.response.docs;
             return;
         });
@@ -132,6 +112,7 @@ define(['text!./undb-map.html',
             ],
           },
         };
+
       }, //link
 
       //=======================================================================
@@ -139,6 +120,33 @@ define(['text!./undb-map.html',
       //=======================================================================
       controller: ["$scope", function($scope) {
           var queryScheduled = null;
+          $scope.filters = {
+            'parties': {
+              active: false
+            },
+            'actors': {
+              active: true
+            },
+            'caseStudies': {
+              active: false
+            },
+            'bioChamps': {
+              active: false
+            },
+            'projects': {
+              active: false
+            },
+            'actions': {
+              active: false
+            },
+          };
+
+          //=======================================================================
+          //
+          //=======================================================================
+          $scope.goTo = function(path) {
+                $location.path(path);
+          }; // goTo
 
           //=======================================================================
           //
