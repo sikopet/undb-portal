@@ -133,49 +133,36 @@ define(['text!./ammap3.html',
                         "responsive": {
                             "enabled": true
                         },
-
                         "dataProvider": {
                             "map": "worldEUHigh",
                             "getAreasFromMap": true,
-
                         },
 
                         "areasSettings": {
                             "autoZoom": true,
-              "selectedColor": "#000000",
-              "rollOverColor": "#423f3f",
+                            "selectedColor": "#00483A",
+                            "rollOverColor": "#D1E8BE",
                             "selectable": true,
-              "color": "#428bca",
+                            "color": "#8cc65d"
                         },
-            "smallMap": {
 
-              "rectangleColor": '#069554',
-              "backgroundAlpha": 0.5,
-              "mapColor": '#069554',
-
-            },
                         "zoomControl": {
                             "left": 28,
-            },
-            "export": {
-              "libs": {
-                "autoLoad": false
-              },
-              "enabled": true,
-              "position": "bottom-right"
-            },
-
-
+                        }
                     }; //
                     $scope.mapData.images = _.clone($scope.images);
                 } //$scope.initMap
-        //not working
+            }, //link
 
 
-      }, //link
-      //////controller
+            //=======================================================================
+            // controller
+            //=======================================================================
             controller: ["$scope", function($scope) {
 
+                //=======================================================================
+                // this function will take current images on the map and create HTML elements for them
+                //=======================================================================
                 function closePopovers(pin) {
                     // get map object
                     var map = $scope.map;
