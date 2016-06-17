@@ -521,47 +521,93 @@ define(['text!./ammap3.html',
                             });
                         else mapTypeFunction(country);
                     });
+
+                    changeAreaColor('divider1', "#8cc65d");
+                    var area = getMapObject('EU');
+                    area.outlineAlpha = '.5';
+                    area = getMapObject('divider1');
+                    area.outlineAlpha = '.5';
+
+                    $scope.map.dataProvider.images[0].label = 'EU';
                     $scope.map.validateData(); // updates map with color changes
                 } //progressColorMap
+
 
                 //=======================================================================
                 //
                 //=======================================================================
                 function pinMap(mapTypeFunction) {
 
-          $scope.legendTitle = ""; // rest legend title
-
+                    $scope.legendTitle = ""; // reset legend title
                     _.each($scope.items, function(item) {
                         mapTypeFunction(item);
                     });
                     $scope.map.validateData(); // updates map with color changes
-
                     updateCustomMarkers();
-
                 } //progressColorMap
+
+
+                //=======================================================================
+                //
+                //=======================================================================
+                function colorMap(mapTypeFunction) {
+
+                    _.each($scope.map.dataProvider.areas, function(country) {
+                        mapTypeFunction({
+                            'code': country.id
+                        });
+                    });
+                    $scope.map.validateData(); // updates map with color changes
+                } //colorMap
+
 
                 //=======================================================================
                 //
                 //=======================================================================
                 function partiesMap(country) {
-          genTreatyCombinations();
 
+                    genTreatyCombinations();
                     changeAreaColor(country.code, getPartyColor(country));
                     buildProgressBaloonParties(country);
-
                     legendTitle($scope.schema);
+                } // partiesMap
 
-        } // aichiMap
+
                 //=======================================================================
                 //
                 //=======================================================================
-        function defaultPinMap(item) {
+                function resetMap(country) {
 
+                    if (!country.code) return;
+
+                    if (country.code !== 'EU')
+                        changeAreaColor(country.code, "#8cc65d");
+                    else {
+
+                        changeAreaColor(country.code, "#99CDE8");
+                        changeAreaColor('divider1', "#99CDE8");
+
+
+                        var area = getMapObject(country.code);
+                        area.outlineAlpha = 0;
+                        area = getMapObject('divider1');
+                        area.outlineAlpha = 0;
+
+                        $scope.map.dataProvider.images[0].label = ' ';
+                    }
+                } //resetMap
+
+
+                //=======================================================================
+                //
+                //=======================================================================
+                function defaultPinMap(item) {
 
                     if (itemToImagePin(item))
                         $scope.map.dataProvider.images.push(itemToImagePin(item));
+                } // defaultPinMap
 
-        } // aichiMap
+
                 //=======================================================================
                 //
                 //=======================================================================
