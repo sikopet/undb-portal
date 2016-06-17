@@ -87,12 +87,19 @@ define(['text!./undb-map.html',
                 'rows': 1000000,
             }
         }).then(function(o) {
-            console.log('actors', o.data.response.docs);
             $scope.actors = o.data.response.docs;
+            reportingDisplay.filterActive('actors');
+            reportingDisplay.addSubQuery({
+              'actors': {
+                'schema_s': ['undbPartner'],
+                '_state_s':['public']
+              }
+            }, 'actors');
+            reportingDisplay.search();
             return;
         });
 
-        $scope.champs=champs();
+        $scope.champs=champs;
 
         $scope.urlStrings = {
           'parties': {
