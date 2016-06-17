@@ -516,7 +516,7 @@ img[src*=soi-logo]{
 	width: 620px;
 }*/
 
-.carousel-caption{
+/*.carousel-caption{
 	background: rgba(217,217,217,0.75);
 	right: 0%;
 	left: 0%;
@@ -524,7 +524,7 @@ img[src*=soi-logo]{
 	padding: 15px 0px 0px 15px;
 	text-align: left;
 	text-shadow: none;
-}
+}*/
 
 /* BLOCKS */
 .textbox{
