@@ -1,15 +1,15 @@
 <div>
 
-    <div class="sub-nav hidden-xs">
-        <div class="container">
-            <ul class="nav navbar-nav">
-                <li ng-mouseover="highlightLink='worldwide'" ng-mouseleave="highlightLink=''"><a href="actions/worldwide">Worldwide</a> <i ng-if="highlightLink=='worldwide' || path=='/actions/worldwide'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
-                <li ng-mouseover="highlightLink='country'" ng-mouseleave="highlightLink=''"><a href="actions/country" >By Country</a> <i ng-if="highlightLink=='country' ||  path=='/actions/country'" style="position:relative;top:-4px;left:30px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
-                <li ng-mouseover="highlightLink='calendar'" ng-mouseleave="highlightLink=''"><a href="actions/calendar" >Calendar</a> <i ng-if="highlightLink=='calendar' ||  path=='/actions/calendar'" style="position:relative;top:-4px;left:22px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
-                <li ng-mouseover="highlightLink='participate'" ng-mouseleave="highlightLink=''"><a href="actions/participate" >Participate</a> <i ng-if="highlightLink=='participate' ||  path=='/actions/participate'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
-            </ul>
-        </div>
+  <div class="sub-nav hidden-xs">
+    <div class="container">
+      <ul class="nav navbar-nav">
+        <li ng-mouseover="highlightLink='worldwide'" ng-mouseleave="highlightLink=''"><a href="actions/worldwide">Worldwide</a> <i ng-if="highlightLink=='worldwide' || path=='/actions/worldwide'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+        <li ng-mouseover="highlightLink='country'" ng-mouseleave="highlightLink=''"><a href="actions/country">By Country</a> <i ng-if="highlightLink=='country' ||  path=='/actions/country'" style="position:relative;top:-4px;left:30px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+        <li ng-mouseover="highlightLink='calendar'" ng-mouseleave="highlightLink=''"><a href="actions/calendar">Calendar</a> <i ng-if="highlightLink=='calendar' ||  path=='/actions/calendar'" style="position:relative;top:-4px;left:22px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+        <li ng-mouseover="highlightLink='participate'" ng-mouseleave="highlightLink=''"><a href="actions/participate">Participate</a> <i ng-if="highlightLink=='participate' ||  path=='/actions/participate'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+      </ul>
     </div>
+  </div>
 
   <div class="container">
     <div class="row article">
@@ -59,14 +59,19 @@
 
   <div class="center narrow">
     <ul class="listCountries">
-      <li class="col-md-3 col-sm-4 col-xs-6" ng-repeat="country in countries | filter:{name:search}">
-        <a ng-click="actionCountryProfile(country.code)">
+      <li class="col-md-4 col-sm-4 col-xs-6" ng-repeat="country in countries | filter:{name:search}">
+
+        <a ng-click="actionCountryProfile(country.code)" style="margin-left:5px;">
           <div class="flag-icon-background listCountriesFlag" ng-class="country.cssClass" ng-attr-title="{{country.name}}" ng-if="country.code!='eu'"></div>
-          <img src="app/img/Flag_of_Europe.svg" class="listCountriesFlag"  ng-attr-title="{{country.name}}" ng-if="country.code==='eu'">
+          <img src="app/img/Flag_of_Europe.svg" class="listCountriesFlag" ng-attr-title="{{country.name}}" ng-if="country.code==='eu'">
           <div class="listCountriesName">
+            &nbsp;&nbsp;
             <span>{{country.name}}</span>
+
           </div>
+          <span class="badge pull-left" style="margin-top:25px;margin-left:5px;">{{country.facet}}</span>
         </a>
+
       </li>
     </ul>
   </div>
