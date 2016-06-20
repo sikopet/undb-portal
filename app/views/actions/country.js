@@ -56,12 +56,5 @@ define(['app','lodash'], function(app,_) { 'use strict';
 				$location.url('/actions/countries/'+code.toUpperCase());
 		};
 
-		//=======================================================================
-		//
-		//=======================================================================
-		$scope.actionRegister = function () {
-			$location.url('/actions/submit');
-		};
-
     }];
 });

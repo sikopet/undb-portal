@@ -71,6 +71,17 @@ define(['lodash', 'app', 'authentication', 'utilities/km-utilities', 'utilities/
 
             var qRecords = $http.get('https://api.cbd.int/api/v2013/index', { params : qsParams }).then(function(res) {
 
+                if($route.current.params.auto && !res.data.response.numFound) {
+                    $location.replace();
+                    $location.url('actions/submit-form');
+                    return;
+                }
+
+                if($route.current.params.auto) {
+                    $location.replace();
+                    $location.search('auto', undefined);
+                }
+
                 $scope.recordCount = res.data.response.numFound;
                 $scope.records     = _.map(res.data.response.docs, function(v){
                     return _.defaults(v, {
