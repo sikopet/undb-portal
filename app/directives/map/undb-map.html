@@ -1,4 +1,4 @@
-<div>
+<div style="position:relative;">
 	<style>
 		map_wrapper {
 			background-color: #069554;
@@ -10,7 +10,11 @@
 			max-width: 1200px;
 			overflow: hidden;
 		}
-
+.map-button{
+	position:absolute;
+	top:15px;
+	right:15px;
+}
 		.sideSelection {
 			display: inline-block;
 			padding: 15px 0;
@@ -80,7 +84,7 @@
 	</style>
 
 	<div id="map">
-		<div class="col-md-2 col-xs-12" style="margin-right:0px;padding-right:0px;">
+		<div class="col-md-2 col-xs-12" style="margin-right:0px;padding:0 0 0 0;">
 			<div class="row sideSelection">
 				<h5>UNDB Network</h5>
 				<filter-actors title='Actors' active='filters.actors.active' message='message'></filter-actors>
@@ -89,12 +93,14 @@
 				<filter-actions title='Actions' active='filters.actions.active' message='message'></filter-actions>
 			</div>
 		</div>
-		<div class="col-md-10 col-xs-12" style="padding-left:0px;margin-left:0px;">
+		<div class="col-md-10 col-xs-12" style="padding:0 0 0 0;margin-left:0px;">
 			<ammap3 ng-model='documents' schema='selectedSchema'></ammap3>
-			<div class="mapPopup" ng-click="toggleCaption=!toggleCaption;" ng-show="toggleCaption">
+			<div class="mapPopup" ng-class="{'mapPopupParties':selectedSchema==='parties'}"  ng-click="toggleCaption=!toggleCaption;" ng-show="toggleCaption">
 				<p>{{message}}</p>
 				<button type="button" class="closeButton"></button>
 			</div>
 		</div>
 	</div>
+	<button type="button" class="btn btn-primary map-button" ng-if="selectedSchema=='actors'" ng-click="goTo('/actors/partners/register');"> Become a Partner <i class="fa fa-chevron-right"></i></button>
+	<button type="button" class="btn btn-success map-button" ng-if="selectedSchema=='actions'" ng-click="goTo('/actions/submit-form/');"> Register your Action <i class="fa fa-chevron-right"></i></button>
 </div>
