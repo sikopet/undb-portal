@@ -1,0 +1,74 @@
+<div id="submit">
+
+	<style>
+		.help-block.error {
+			text-transform: uppercase;
+			font-size: 10px;
+			font-weight: bold;
+			margin-top: -5px;
+			margin-bottom: 10px;
+		}
+	</style>
+	<div class="sub-nav">
+		<div class="container">
+			<ul class="nav navbar-nav">
+				<li ng-mouseover="highlightLink='worldwide'" ng-mouseleave="highlightLink=''"><a href="actions/worldwide">Worldwide</a> <i ng-if="highlightLink=='worldwide' || path=='/actions/worldwide'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+				<li ng-mouseover="highlightLink='country'" ng-mouseleave="highlightLink=''"><a href="actions/country">By Country</a> <i ng-if="highlightLink=='country' ||  path=='/actions/country'" style="position:relative;top:-4px;left:30px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+				<li ng-mouseover="highlightLink='calendar'" ng-mouseleave="highlightLink=''"><a href="actions/calendar">Calendar</a> <i ng-if="highlightLink=='calendar' ||  path=='/actions/calendar'" style="position:relative;top:-4px;left:22px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+				<li ng-mouseover="highlightLink='participate'" ng-mouseleave="highlightLink=''"><a href="actions/participate">Participate</a> <i ng-if="highlightLink=='participate' ||  path=='/actions/participate'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+			</ul>
+		</div>
+	</div>
+
+
+
+	<div class="container center profile">
+
+		<div class="row">
+			<div class="col-xs-12 flag">
+				<h1><i class="fa fa-edit"></i> Edit Profile for {{country.name}}
+					<span class="flag-icon flag-icon-{{country.code}}"></span>
+				</h1>
+
+			</div>
+		</div>
+
+		<ul class="nav nav-tabs" role="tablist" style="margin-bottom:15px;">
+			<li role="presentation" class="active" style="margin-top:5px;" ng-click="tab='profile'"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
+			<li role="presentation" style="margin-top:5px;" ng-click="tab='publications'"><a href="#publications" aria-controls="publications" role="tab" data-toggle="tab">Publications</a></li>
+			<li role="presentation" style="margin-top:5px;" ng-click="tab='images'"><a href="#images" aria-controls="images" role="tab" data-toggle="tab">Images</a></li>
+			<li role="presentation" style="margin-top:5px;" ng-click="tab='videos'"><a href="#videos" aria-controls="videos" role="tab" data-toggle="tab">Videos</a></li>
+			<li role="presentation" style="margin-top:5px;" ng-click="tab='links'"><a href="#links" aria-controls="links" role="tab" data-toggle="tab">links</a></li>
+		</ul>
+
+
+		<div class="row text-left" ng-show="tab==='profile'">
+			<form id="profile" novalidate name="form" class="form-horizontal single" ng-submit="save()" ng-hide="loading">
+
+
+
+				<div class="form-group" ng-class="{ 'has-warning': form.description.$invalid }">
+					<label for="description" class="col-sm-2 control-label required">Description</label>
+					<div class="col-sm-9">
+						<textarea class="form-control" name="description" id="description" ng-model="document.description" cols="30" rows="10" required placeholder="Briefly describe your parties’ contributions to UNDB"></textarea>
+						<p class="help-block error" ng-show="form.description.$invalid" style="margin-top:2px">This field is mandatory</p>
+					</div>
+				</div>
+
+
+				<div class="form-group">
+					<label for="" class="col-sm-3 control-label"></label>
+					<div class="col-sm-6">
+						<input type="submit" class="btn btn-primary btn-lg" value="Submit">
+					</div>
+				</div>
+			</form>
+			{{document}}
+		</div>
+
+		<div class="row text-left" ng-show="tab==='publications'">
+			{{document.publications}}
+			<edit-link schema="undb-party-profile" name="publication" document="document" links="document.publications" save="save()"></edit-link>
+			{{document.publications}}
+		</div>
+	</div>
