@@ -23,6 +23,7 @@
             </div>
         </div>
 
+        <a name="form"></a>
         <div class="row">
             <div class="col-xs-12">
                 <h1>Information about your Action</h1>
@@ -30,10 +31,28 @@
             </div>
         </div>
 
+        <div ng-repeat="e in errors">
+            <div ng-switch="e.code">
+                <div ng-switch-when="invalidForm" class="alert alert-warning" role="alert">
+                    Oh, it looks like there ares errors in your form.  Sorry for the inconveniences, but we really need some more information about your action.
+                </div>
+                <div ng-switch-when="fileSize" class="alert alert-warning" role="alert">
+                    The file you submited is too large. The maximum file size is limited to <u>500 kB</u>.
+                </div>
+                <div ng-switch-when="invalidImageType" class="alert alert-warning" role="alert">
+                    The file type you submited is not supported. Please upload a file that is commonly supported ont the web (eg: JPEG, PNG GIF).
+                </div>
+                <div ng-switch-default class="alert alert-danger" role="alert">
+                    An unknown error has occured:
+                    <div>{{e.message||e}}</div>
+                </div>
+            </div>
+        </div>
+
         <div class="row">
             <form id="action" novalidate name="form" class="form-horizontal single" ng-submit="save()" ng-hide="loading">
 
-                <div class="form-group" ng-class="{ 'has-warning': form.title.$invalid }">
+                <div class="form-group" ng-class="{ 'has-warning': form.title.$invalid, 'has-error' : form.$submitted && form.title.$invalid }">
                     <label for="title" class="col-sm-3 control-label required">Title</label>
                     <div class="col-sm-6">
                         <input type="text" class="form-control" id="title" name="title" ng-model="document.title" placeholder="Title of action, activity, event, etc." required>
@@ -41,7 +60,7 @@
                     </div>
                 </div>
 
-                <div class="form-group" ng-class="{ 'has-warning': (form.startDate.$invalid || form.endDate.$invalid) }">
+                <div class="form-group" ng-class="{ 'has-warning': (form.startDate.$invalid || form.endDate.$invalid), 'has-error' : form.$submitted && (form.startDate.$invalid || form.endDate.$invalid) }">
                     <label for="startDate" class="col-sm-3 control-label required">Date</label>
                     <label for="startDate" class="col-sm-1 control-label">From</label>
                     <div class="col-sm-2">
@@ -57,7 +76,7 @@
                     </div>
                 </div>
 
-                <div class="form-group" ng-class="{ 'has-warning': form.endTime.$invalid }">
+                <div class="form-group" ng-class="{ 'has-warning': form.endTime.$invalid, 'has-error' : form.$submitted && form.endTime.$invalid}">
                     <label for="startTime" class="col-sm-3 control-label">Time</label>
                     <label for="startTime" class="col-sm-1 control-label">From</label>
                     <div class="col-sm-2">
@@ -72,7 +91,7 @@
                     </div>
                 </div>
 
-                <div class="form-group" ng-class="{ 'has-warning': form.country.$invalid }">
+                <div class="form-group" ng-class="{ 'has-warning': form.country.$invalid, 'has-error' : form.$submitted && form.country.$invalid }">
                     <label for="country" class="col-sm-3 control-label required">Country</label>
                     <div class="col-sm-6">
                         <select class="form-control" id="country" name="country" ng-model="document.country" placeholder="country" required ng-options="c.code as c.name for c in countries|orderBy:'name.toLowerCase()' ">
@@ -82,7 +101,7 @@
                     </div>
                 </div>
 
-                <div class="form-group" ng-class="{ 'has-warning': form.address.$invalid }">
+                <div class="form-group" ng-class="{ 'has-warning': form.address.$invalid, 'has-error' : form.$submitted && form.address.$invalid }">
                     <label for="address" class="col-sm-3 control-label" required>Address</label>
                     <div class="col-sm-6">
                         <input type="text" class="form-control" name="address" id="address" ng-model="document.address"  ng-required="!document.onlineEvent" placeholder="1000 34th Street, New City">
@@ -95,13 +114,13 @@
                     <div class="col-sm-6">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" id="onlineEvent" name="onlineEvent" ng-model="document.onlineEvent"  style="margin-top:-5px; height:20px; width:18px;"> Is Event Online? 
+                                <input type="checkbox" id="onlineEvent" name="onlineEvent" ng-model="document.onlineEvent"  style="margin-top:-5px; height:20px; width:18px;"> Is Event Online?
                             </label>
                         </div>
                     </div>
                 </div>
 
-                <div class="form-group" ng-class="{ 'has-warning': form.googleMaps.$invalid }">
+                <div class="form-group" ng-class="{ 'has-warning': form.googleMaps.$invalid, 'has-error' : form.$submitted && form.googleMaps.$invalid }">
                     <label for="googleMaps" class="col-sm-3 control-label required">Google maps link</label>
                     <div class="col-sm-6">
                         <input type="text" class="form-control" name="googleMaps" id="googleMaps" ng-model="document.googleMaps" ng-pattern="'http[s]?:\/\/([a-z]+\.)?google\.[a-z]+\/maps\/.+'" ng-change="googleMapsChange(document.googleMaps)" placeholder="Google maps website address" required>
@@ -110,7 +129,7 @@
                     </div>
                 </div>
 
-                <div class="form-group" ng-class="{ 'has-warning': form.email.$invalid }">
+                <div class="form-group" ng-class="{ 'has-warning': form.email.$invalid, 'has-error' : form.$submitted && form.email.$invalid}">
                     <label for="email" class="col-sm-3 control-label required">Email</label>
                     <div class="col-sm-6">
                         <input type="email" class="form-control" name="email" id="email" ng-model="document.email" placeholder="Contact email" required>
@@ -119,7 +138,7 @@
                     </div>
                 </div>
 
-                <div class="form-group" ng-class="{ 'has-warning': form.phone.$invalid }">
+                <div class="form-group" ng-class="{ 'has-warning': form.phone.$invalid, 'has-error' : form.$submitted && form.phone.$invalid}">
                     <label for="phone" class="col-sm-3 control-label required">Telephone</label>
                     <div class="col-sm-6">
                         <input type="text" class="form-control" name="phone" id="phone" ng-model="document.phone" ng-pattern="patterns.phone" placeholder="Contact telephone number" required>
@@ -128,7 +147,7 @@
                     </div>
                 </div>
 
-                <div class="form-group" ng-class="{ 'has-warning': form.facebook.$invalid }">
+                <div class="form-group" ng-class="{ 'has-warning': form.facebook.$invalid, 'has-error' : form.$submitted && form.facebook.$invalid}">
                     <label for="facebook" class="col-sm-3 control-label">Facebook</label>
                     <div class="col-sm-6">
                         <input type="url" class="form-control" name="facebook" id="facebook" ng-model="document.facebook" ng-pattern="patterns.facebook" placeholder="https://www.facebook.com/organisation">
@@ -137,7 +156,7 @@
                     </div>
                 </div>
 
-                <div class="form-group" ng-class="{ 'has-warning': form.twitter.$invalid }">
+                <div class="form-group" ng-class="{ 'has-warning': form.twitter.$invalid, 'has-error' : form.$submitted && form.twitter.$invalid}">
                     <label for="twitter" class="col-sm-3 control-label" >Twitter</label>
                     <div class="col-sm-6">
                         <input type="url" class="form-control" name="twitter" id="twitter" ng-model="document.twitter" ng-pattern="patterns.twitter" placeholder="https://twitter.com/organisation">
@@ -146,7 +165,7 @@
                     </div>
                 </div>
 
-                <div class="form-group" ng-class="{ 'has-warning': form.youtube.$invalid }">
+                <div class="form-group" ng-class="{ 'has-warning': form.youtube.$invalid, 'has-error' : form.$submitted && form.youtube.$invalid}">
                     <label for="twitter" class="col-sm-3 control-label" required>Youtube</label>
                     <div class="col-sm-6">
                         <input type="url" class="form-control" name="youtube" id="youtube" ng-model="document.youtube" ng-pattern="patterns.youtube" placeholder="https://www.youtube.com/user/organisation">
@@ -155,7 +174,7 @@
                     </div>
                 </div>
 
-                <div class="form-group" ng-class="{ 'has-warning': form.description.$invalid }">
+                <div class="form-group" ng-class="{ 'has-warning': form.description.$invalid, 'has-error' : form.$submitted && form.description.$invalid}">
                     <label for="description" class="col-sm-3 control-label required">Short description of your Action in one of the 6 United Nations languages (max. 1000 characters)</label>
                     <div class="col-sm-6">
                         <textarea class="form-control" name="description" id="description" ng-model="document.description" cols="30" rows="10" required placeholder="Briefly describe your organisation and your work related to the United Nations Decade on Biodiversity (max. 1000 characters)"></textarea>
