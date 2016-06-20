@@ -15,6 +15,7 @@
                 <img src="app/img/Flag_of_Europe.svg" class="profileFlag"  ng-attr-title="{{country.name}}" ng-if="country.code==='eu'">
 			<!-- <img src="/undb/img/flag/World-Flags-cc-53.svg" alt=""> -->
 			<h1>{{country.name}} </h1>
+			<a class="pull-right" style="cursor:pointer;" ng-click="goTo('/actions/countries/edit/',country.code);" ng-if="user.isAuthenticated">Edit Profile <i class="fa fa-edit"></i></a>
 		</div>
 
 	  <ul class="nav nav-tabs" role="tablist">

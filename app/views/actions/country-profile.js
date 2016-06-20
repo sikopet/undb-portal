@@ -1,9 +1,17 @@
 
-define(['app', '../../directives/map/zoom-map'], function() { 'use strict';
-	return ['$scope','locale','$http', '$location', '$route',
-    function ($scope,locale, $http, $location,$route) {
+define(['app','lodash', 'directives/map/zoom-map'], function(app,_) { 'use strict';
+	return ['$scope','locale','$http', '$location', '$route','authentication',
+    function ($scope,locale, $http, $location,$route,authentication) {
 
 		$scope.code      = $route.current.params.code;
+
+		authentication.getUser().then(function (user) {
+
+			$scope.user=user;
+			console.log('$scope.user',$scope.user);
+		});
+
+
 		//=======================================================================
 		//
 		//=======================================================================
@@ -64,6 +72,18 @@ define(['app', '../../directives/map/zoom-map'], function() { 'use strict';
 			$location.url('/actions/countries/'+code.toUpperCase());
 		};
 
+		//=======================================================================
+		//
+		//=======================================================================
+		$scope.goTo= function (url,code){
+			$location.url(url+code);
+		};
 
+		//=======================================================================
+		//
+		//=======================================================================
+		$scope.isAdmin= function (){
+			return _.intersection($scope.user.roles, ['Administrator','undb-administrator','UNDBPublishingAuthority']).length>0;
+		};
     }];
 });
