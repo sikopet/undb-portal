@@ -23,7 +23,7 @@ define(['app', 'lodash', 'text!views/index.html', 'views/index', 'providers/exte
            // when('/actions/un',                 { templateUrl: 'views/actions/un.html',               label:'By UN Organization',   resolveController: true }).
             when('/actions/calendar',             { templateUrl: 'views/actions/calendar.html',         label:'Calendar'              }).
             when('/actions/participate',          { templateUrl: 'views/actions/participate.html',      label:'Participate'           }).
-            when('/actions/submit',               { templateUrl: 'views/actions/submit.html',           label:'Participate',          resolveController: true, resolve : { user : securize(['User']) } }).
+            when('/actions/submit',               { templateUrl: 'views/actions/submit.html',           label:'Participate',          resolveController: true, resolve : { user : securize(['User']) }, reloadOnSearch : false }).
             when('/actions/submit-form/:uid?',    { templateUrl: 'views/actions/submit-form.html',      label:'Form',                 resolveController: true, resolve : { user : securize(['User']) } }).
             when('/actions/submit-form-done',     { templateUrl: 'views/actions/submit-form-done.html', label:'Thanks',                                        resolve : { user : securize(['User']) } }).
 

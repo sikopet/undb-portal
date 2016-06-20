@@ -101,6 +101,6 @@
 			</div>
 		</div>
 	</div>
-	<button type="button" class="btn btn-primary map-button" ng-if="selectedSchema=='actors'" ng-click="goTo('/actors/partners/register');"> Become a Partner <i class="fa fa-chevron-right"></i></button>
-	<button type="button" class="btn btn-success map-button" ng-if="selectedSchema=='actions'" ng-click="goTo('/actions/submit-form/');"> Register your Action <i class="fa fa-chevron-right"></i></button>
+	<a href="actors/partners/register" class="btn btn-primary map-button" ng-if="selectedSchema=='actors'"> Become a Partner <i class="fa fa-chevron-right"></i></a>
+	<a href="actions/submit?auto"      class="btn btn-success map-button" ng-if="selectedSchema=='actions'"> Register your Action <i class="fa fa-chevron-right"></i></a>
 </div>
