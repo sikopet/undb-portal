@@ -20,6 +20,7 @@ define(['app', 'lodash', 'text!views/index.html', 'views/index', 'providers/exte
             when('/actions/worldwide',            { templateUrl: 'views/actions/worldwide.html',        label:'Worldwide',            resolveController: true , reloadOnSearch : false}).
             when('/actions/country',              { templateUrl: 'views/actions/country.html',          label:'By Country',           resolveController: true }).
             when('/actions/countries/:code',      { templateUrl: 'views/actions/country-profile.html',  label :'Profile',             resolveController: true }).
+            when('/actions/countries/edit/:code', { templateUrl: 'views/actions/country-profile-form.html', label:'Edit Party Profile',   resolveController: true, resolve : { user : securize(["UNDBPublishingAuthority", "undb-administrator"]) } }).
            // when('/actions/un',                 { templateUrl: 'views/actions/un.html',               label:'By UN Organization',   resolveController: true }).
             when('/actions/calendar',             { templateUrl: 'views/actions/calendar.html',         label:'Calendar'              }).
             when('/actions/participate',          { templateUrl: 'views/actions/participate.html',      label:'Participate'           }).
