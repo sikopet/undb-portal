@@ -326,8 +326,7 @@ a.button-green-link{
 }
 
 .border-bottom-lightblue{
-    border-bottom: 10px solid #55a2d5;
-      /*#9acae7; */
+    border-bottom: 10px solid #4DA7D7;
 }
 
 .box-dark-blue {
@@ -356,6 +355,10 @@ a.button-green-link{
     background: url("../images/backgrounds/tree-blue-t.png") no-repeat bottom -3px right 15px;
     background-size: 15%;
 }
+.box-bg-tree-blue2 {
+    background: url("../images/backgrounds/tree-blue2-t.png") no-repeat bottom -3px right 15px;
+    background-size: 25%;
+}
 .box-bg-flower-blue {
     background: url("../images/backgrounds/flower-blue-t.png") no-repeat bottom -3px right 15px;
     background-size: 15%;
@@ -367,6 +370,10 @@ a.button-green-link{
 .box-bg-bear-blue {
     background: url("../images/backgrounds/bear-blue-t.png") no-repeat bottom -3px right 15px;
     background-size: 25%;
+}
+.box-bg-bear-blue2 {
+    background: url("../images/backgrounds/bear-blue2-t.png") no-repeat bottom -3px right 15px;
+    background-size: 32%;
 }
 .box-bg-bird-blue {
     background: url("../images/backgrounds/bird-blue-t.png") no-repeat bottom -3px right 15px;
@@ -977,24 +984,32 @@ form input, form select, form .bootstrap-select button {
     margin: 8px 0;
     padding: 6px 12px;
 }
-/*left carousel-control*/
-.carousel-control .glyphicon-chevron-left, .carousel-control .glyphicon-chevron-right, .carousel-control .icon-next, .carousel-control .icon-prev {
-    top: 90%;
+
+#logos .img-responsive {
+    margin: 0 auto;
 }
 
-.carousel-control.right {
-    left: 25%;
+.main-navbar ul:first-child li {
+    margin: 0px 25px;
+}
+.sub-nav ul li {
+    margin: 0px 25px;
+}
+.carousel-control .glyphicon-chevron-left {
+    left: 20%;
+    top: 90%;
+}
+.carousel-control .glyphicon-chevron-right {
+    right: 20%;
+    top: 90%;
 }
 .carousel-text {
     position:absolute;
     bottom: 0;
-    left:0;
-    right:400;
-    width:40%;
-    height:100%;
-    background-color:rgba(0,0,0,0.55);
+    width: 100%;
+    background-color:rgba(0,72,68,0.8);
     color:#fff;
-    padding:10px 15px;
+    padding:10px 50px;
     font-size:12px;
     display:flex;
     justify-content:center;
@@ -1022,7 +1037,7 @@ form input, form select, form .bootstrap-select button {
     transform: translate(-15%,15%);
 }
 /*xs*/
-@media(max-width:992px){
+/*@media(max-width:992px){
     #welcome {
         height:200px;
     }
@@ -1053,7 +1068,7 @@ form input, form select, form .bootstrap-select button {
         justify-content:center;
         align-items:center;
     }
-}
+}*/
 
 h1, h2, h3, h4, h5, h6 {
     text-transform: none;
@@ -1063,6 +1078,7 @@ h1, h2, h3, h4, h5, h6 {
 @media(min-width:768px){
     #welcome {
         height:270px;
+        padding-left: 0px;
     }
     #welcome::before {
         background-position: -210px;
@@ -1071,7 +1087,8 @@ h1, h2, h3, h4, h5, h6 {
 /*md*/
 @media(min-width:992px){
     #welcome {
-        height:350px;
+        height:344px;
+        padding-left: 0px;
     }
     #welcome::before {
         width: 105%;
@@ -1081,7 +1098,8 @@ h1, h2, h3, h4, h5, h6 {
 /*lg*/
 @media(min-width:1200px){
     #welcome {
-        height:474px;
+        height:468px;
+        padding-left: 0px;
     }
     #welcome::before {
         width: 140%;
