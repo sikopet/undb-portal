@@ -31,12 +31,5 @@ define(['app'], function() { 'use strict';
 				$location.url('/actions/countries/'+code.toUpperCase());
 		};
 
-		//=======================================================================
-		//
-		//=======================================================================
-		$scope.actionRegister = function () {
-			$location.url('/actions/submit');
-		};
-
     }];
 });
