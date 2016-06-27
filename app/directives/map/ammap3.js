@@ -29,8 +29,7 @@ define(['text!./ammap3.html',
 
                 var ammap3 = requiredDirectives[0];
 
-                initMap();
-                ammap3.writeMap();
+
 
                 $scope.leggends = {
                     parties: [{
@@ -83,23 +82,20 @@ define(['text!./ammap3.html',
                         c.name = c.name[locale];
                     });
                     $scope.countries = res.data;
-                });
-
-
-                //=======================================================================
-                //
-                //=======================================================================
-                $scope.map.addListener("click", function(event) {
-                    ammap3.closePopovers();
-                    var info = event.chart.getDevInfo();
-                    $timeout(function() {
-                        $("#mapdiv").find("#pin").popover('hide');
-                        if ($scope.debug)
-                            console.log({
-                                "latitude": info.latitude,
-                                "longitude": info.longitude,
-                                "all": info,
-                            });
+                    initMap();
+                    ammap3.writeMap();
+                    $scope.map.addListener("click", function(event) {
+                        ammap3.closePopovers();
+                        var info = event.chart.getDevInfo();
+                        $timeout(function() {
+                            $("#mapdiv").find("#pin").popover('hide');
+                            if ($scope.debug)
+                                console.log({
+                                    "latitude": info.latitude,
+                                    "longitude": info.longitude,
+                                    "all": info,
+                                });
+                        });
                     });
                 });
 
