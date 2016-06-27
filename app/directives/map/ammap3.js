@@ -128,9 +128,9 @@ define(['text!./ammap3.html',
                         "areasSettings": {
                             "autoZoom": true,
                             "selectedColor": "#00483A",
-                            "rollOverColor": "#D1E8BE",
+                            "rollOverColor": "#8cc65d",
                             "selectable": true,
-                            "color": "#8cc65d"
+                            "color": "#009B48"
                         },
 
                         "zoomControl": {
@@ -491,7 +491,7 @@ define(['text!./ammap3.html',
                         else mapTypeFunction(country);
                     });
 
-                    changeAreaColor('divider1', "#8cc65d");
+                    changeAreaColor('divider1', "#009B48");
                     var area = getMapObject('EU');
                     area.outlineAlpha = '.5';
                     area = getMapObject('divider1');
@@ -550,7 +550,7 @@ define(['text!./ammap3.html',
                     if (!country.code) return;
 
                     if (country.code !== 'EU')
-                        changeAreaColor(country.code, "#8cc65d");
+                        changeAreaColor(country.code, "#009B48");
                     else {
 
                         changeAreaColor(country.code, "#99CDE8");
