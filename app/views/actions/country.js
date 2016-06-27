@@ -23,7 +23,7 @@ define(['app','lodash'], function(app,_) { 'use strict';
 			});
 			$http.get("https://api.cbd.int/api/v2013/index", {
 					 params: {
-							 'q': 'schema_s:undbAction',
+							 'q': 'schema_s:undbAction OR schema_s:undbPartner ',
 							 'sort': 'createdDate_dt desc, title_t asc',
 							 'wt': 'json',
 							 'start': 0,
@@ -37,7 +37,7 @@ define(['app','lodash'], function(app,_) { 'use strict';
 					_.each(resData.data.response.docs,function(action){
 
 								country = _.find(res.data,{code:action.country_s});
-								if(!country) throw "No country found forcode: " + action.country_s;
+								if(!country) throw "No country found for code: " + action.country_s;
 								else {
 									if(!_.find($scope.countries,{code:action.country_s})){
 										index=resData.data.facet_counts.facet_fields.country_s.indexOf(action.country_s)+1;
@@ -46,8 +46,32 @@ define(['app','lodash'], function(app,_) { 'use strict';
 									}
 								}
 					});
+			}).then(function(){
+
+				$http.get('/api/v2016/undb-party-profiles/',{'params':{q:{'description':{'$exists':true}},'f':{'code':1}}}).then(function(res2){
+					_.each(res2.data,function(profileCode){
+
+									var country = _.find(res.data,{code:profileCode.code});
+									if(!_.find($scope.countries,{code:profileCode.code})){
+										country.facet=1;
+										$scope.countries.push(country);
+									}
+
+					});
+
+				});
+
 			});
 		});
+
+
+		//=======================================================================
+ 	 //
+ 	 //=======================================================================
+ 		 $scope.getCountryFlag = function(code) {
+ 				 return 'https://www.cbd.int/images/flags/96/flag-'+code+'-96.png';
+
+ 		 };
 
 		//=======================================================================
 		//
