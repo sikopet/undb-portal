@@ -11,6 +11,11 @@
   height: 36px;
   font-size: 1.1em;
 }
+.calendar-result tr:last-child {
+  border-bottom: 1px solid #004844;
+  height: 36px;
+  font-size: 1.1em;
+}
 .calendar-result tr.section {
   border-bottom: 1px solid #069554;
 
@@ -677,7 +682,7 @@ a.button-green-link{
   max-width: 775px;
 }
 
-/*.listImg {
+.listImg {
   max-width: 755px;
   margin: 42px auto;
 }
@@ -727,7 +732,7 @@ a.button-green-link{
   color: #069554;
   font-weight: bold;
 }
-*/
+
 /*country list search*/
 .listCountries li {
   margin: 12px 0;
@@ -772,6 +777,15 @@ a.button-green-link{
 }
 
 /*Country Profiles*/
+
+.profile h3{
+  color:#069554;
+}
+
+.profile a{
+  color:#069554;
+}
+
 .profile .flag {
   margin: 32px 0;
   height: 64px;
@@ -1015,6 +1029,8 @@ form input, form select, form .bootstrap-select button {
     justify-content:center;
     align-items:center;
 }
+
+
 
 #welcome::before {
     content: '';

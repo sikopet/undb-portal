@@ -415,11 +415,35 @@ div.title{
     }
 
 /** content */
-.article{padding:0 60px;}
-    .article p{
-        margin: 14px 0
-    }
-
+.article {
+  padding: 0 60px;
+}
+.article p {
+  margin: 14px 0
+}
+.article h1 {
+  color: #00483A;
+}
+.article a {
+  color: #069554;
+}
+.search {
+  padding: 0 60px;
+	  color: #333333;
+		font-size:14px;
+}
+.search .label{
+	  color: #333333;
+		font-size:14px;
+		font-weight: normal;
+		line-height: 28px;
+}
+.search h1 {
+  color: #069554;
+}
+.search {
+  background-color: #f9f9f9;
+}
 /*.sub-menu:before{
 	content: "";
 	width: 9999px;
