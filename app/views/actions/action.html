@@ -1,3 +1,29 @@
+<style>
+	.action-title h1 {
+		color: #069554;
+		font-size: 26px;
+		font-family: 'Lato', sans-serif;
+		font-weight: 400;
+		line-height: 29px;
+		padding-bottom: 20px;
+	}
+
+	.action-detail {
+		padding: 5px 5px 5px 0px;
+	}
+
+	.action-detail .detail {
+		padding-left: 10px;
+	}
+
+	.action-detail .map {
+		font-size: 10px;
+	}
+
+	.action-detail .action-labels {
+		color: #069554;
+	}
+</style>
 <div class="sub-nav">
 	<div class="container">
 		<ul class="nav navbar-nav">
@@ -12,23 +38,25 @@
 
 
 	<div class="profile-border">
-		<!-- DIV BORDER ( colum + center )  -->
 
 		<div class="col-md-3 col-lg-3 profile-column">
 
-			<img src="{{action.logo_s}}" style="max-height:200px;"></img>
+			<iframe ng-if="isGooleMap()" width="200" height="200" frameborder="0" style="border:0" src="{{trustSrc()}}" allowfullscreen>
+			</iframe>
+			<img src="{{action.logo_s}}"  style="max-height:200px;" ng-if="action.logo_s"></img>
+			<zoom-map zoom-to="action.country_s" ng-if="isZoomMap()"></zoom-map>
 
 			<ul class="links text-left" style="font-size:10.5px;padding-top:10px;">
 				<li ng-if="country.website">
 					<a href="country.website" class="text-nowrap">
 						<span class="www-icon">www</span>
-						<span>[{{country.website}}]</span>
+						<span>[{{country.website | trunc:'30':'...'}}]</span>
 					</a>
 				</li>
 				<li ng-if="action.email">
 					<a href="{{country.email}}" class="text-nowrap">
 						<span class="at-icon">@</span>
-						<span>[{{country.email}}]</span>
+						<span>[{{country.email | trunc:'30':'...'}}]</span>
 					</a>
 				</li>
 				<li ng-if="action.facebook_s" class="text-nowrap">
@@ -41,7 +69,7 @@
 	c0,0-1.3-0.4-2.6-0.4c-1.2,0-2.3,0.4-2.3,1.7v3.6h5.1l-0.4,4.6h-4.7v16h-6v-16h-3.2V18.8z" />
 							</svg>
 						</span>
-						<span>[{{action.facebook_s}}]</span>
+						<span>[{{action.facebook_s | trunc:'30':'...'}}]</span>
 					</a>
 				</li>
 				<li ng-if="action.twitter_s" class="text-nowrap">
@@ -59,13 +87,13 @@
 								</g>
 							</svg>
 						</span>
-						<span>[{{action.twitter_s}}]</span>
+						<span>[{{action.twitter_s | trunc:'35':'...'}}]</span>
 					</a>
 				</li>
 				<li ng-if="action.youtube_s" class="text-nowrap">
 					<a href="{{action.youtube_s}}">
 						<i class="fa fa-youtube fa-2x" style="padding:0 15px 0 8px;"></i>
-						<span>[{{action.youtube_s}}]</span>
+						<span>[{{action.youtube_s | trunc:'30':'...'}}]</span>
 					</a>
 				</li>
 			</ul>
@@ -74,11 +102,33 @@
 		<div class="col-xs-12  col-sm-12 col-md-9 col-lg-9 tab-content text-left">
 			<div role="tabpanel" class="tab-pane fade in  active" id="UNDB">
 				<div class="article">
-					<div>
-							{{action.title_s}}
+					<div class="action-title">
+						<h1>{{action.title_s}}</h1>
 					</div>
-					<div >
-							{{action.description_s}}
+					<div class="action-detail" ng-if="action.startDate_s">
+						<span class="action-labels">Date(s)</span>:
+						<span class="detail">{{action.startDate_s | date:'yyyy MM dd hh:mm'}}</span>
+					</div>
+					<div class="action-detail" ng-if="action.country_s">
+						<span class="action-labels">Country:</span>
+						<span class="detail">
+							<a href="" ng-click="goTo('/actions/countries/',action.country_s);">
+								<img src="{{getCountryFlag(action.country_s)}}"> {{action.country_EN_s}} </a>
+						</span>
+					</div>
+					<div class="action-detail" ng-if="action.address_s">
+						<span class="action-labels">Address:</span>
+						<span class="detail">{{action.address_s}}</span>
+					</div>
+					<div class="action-detail" ng-if="action.googleMaps_s">
+						<span class="action-labels">Map:</span>
+						<span class="detail">
+							<a href="{{action.googleMaps_s}}" style="margin-left:25px;"> <i class="fa fa-map "></i></a>
+						</span>
+						<a href="{{action.googleMaps_s}}" class="map">{{action.googleMaps_s | trunc:'50':'...'}}</a>
+					</div>
+					<div>
+						<p>{{action.description_s}}</p>
 					</div>
 				</div>
 			</div>
