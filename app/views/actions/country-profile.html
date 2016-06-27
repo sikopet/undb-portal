@@ -127,17 +127,21 @@
 					<h4 class="darkGreen">UNDB Network</h4>
 					<div class="listImg">
 						<ul>
-							<li ng-repeat="partner in partners">
+							<li ng-repeat="partner in partners" ng-click="goTo('/actors/partners/',partner.identifier_s);">
 								<div class="col-sm-3">
+									<a href=""  ng-click="goTo('/actors/partners/',partner.identifier_s);">
 									<img src="{{partner.logo_s}}" alt="{{partner.title_s}}" ng-if="partner.logo_s">
 									<img src="app/img/ic_nature_people_black_48px.svg" alt="{{partner.title_s}}" ng-if="!partner.logo_s">
+									</a>
 								</div>
 								<div class="col-sm-9">
 									<h5>{{partner.title_s}}</h5>
 									<a href="{{partner.website_s}}">{{partner.website_s}}</a>
 									<p>
 										{{partner.description_s}}
+										<a href="" ng-click="goTo('/actors/partners/',partner.identifier_s);">» Documents</a>
 									</p>
+
 								</div>
 							</li>
 
