@@ -1,0 +1,78 @@
+<div class="col-xs-6" style="color:#333;font-size:14px;padding:25px 0 15px 0;">
+
+    <span>Showing <span class="badge">{{filteredActions.length}}</span> of <span class="badge">{{count}}</span> results<span>
+
+    </div>
+
+    <div class="col-xs-6">
+  <nav class="pull-right">
+    <ul class="pagination">
+      <li ng-click="changePage(0)"  ng-class="{'disabled':isActive(0)}">
+        <a aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      <li ng-repeat="i in filtered = (getNumberPages()) track by $index" ng-class="{'active':isActive($index)}"><a href="#" ng-click="changePage($index)">{{$index+1}}</a></li>
+
+      <li ng-click="changePage(filtered.length-1)" ng-class="{'disabled':isActive(filtered.length-1)}">
+        <a href="#" aria-label="Next" >
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+<table class="calendar-result" >
+  <!-- Header -->
+  <tr>
+    <th>Dates and Venue</th>
+    <th>Activity</th>
+  </tr>
+
+  <!-- Section -->
+  <tr class="section" ng-repeat-start="action in filteredActions =(actions) track by $index" ng-show="showSection(action.startDate_s,$index);">
+    <td colspan="2">{{sectionTitle(action.startDate_s)}}</td>
+  </tr>
+
+  <!-- Lines -->
+  <tr ng-repeat-end>
+    <td width="35%">
+      <span class="color-darkgreen">
+        <!-- <strong>Start Date:</strong>  -->
+        {{action.startDate_s |date:'dd MMM yyyy'}}</span>
+      <!-- <span class="color-darkgreen" ng-if="action.endDate_s">
+        <strong>End Date:</strong> {{action.endDate_s |date:'dd MMM yyyy'}}</span> -->
+      <span class="color-grey">
+        <!-- <strong>Country:</strong>  -->
+        <a href="" ng-click="goTo('/actions/countries/',action.country_s)">{{action.country_EN_t}}</a> <i>
+          <img src="{{getCountryFlag(action.country_s)}}" style="max-height:15px;" ng-if="country.code!=='eu'"/>
+          <img src="{{getCountryFlag('eur')}}" style="max-height:15px;" ng-if="country.code==='eu'"/>
+        </i></span>
+    </td>
+    <td>
+      <p>{{action.title_s}}</p>
+      <a href="" ng-click="goTo('/actions/',action.identifier_s)">» Documents</a>
+    </td>
+  </tr>
+</table>
+<div style="color:#333;font-size:14px;margin:15px 0 15px 0;">
+
+    <span>Showing <span class="badge">{{filteredActions.length}}</span> of <span class="badge">{{count}}</span> results<span>
+    <button ng-show="hidePagenation" type="button" class="btn pull-right" style="background-color:#069554;color:white;margin-top:0px;" ng-click="goTo('/actions/calendar');">More activites ></button>
+    <nav class="pull-right" ng-show="!hidePagenation">
+      <ul class="pagination">
+        <li ng-click="changePage(0)"  ng-class="{'disabled':isActive(0)}">
+          <a aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <li ng-repeat="i in filtered = (getNumberPages()) track by $index" ng-class="{'active':isActive($index)}"><a href="#" ng-click="changePage($index)">{{$index+1}}</a></li>
+
+        <li ng-click="changePage(filtered.length-1)" ng-class="{'disabled':isActive(filtered.length-1)}">
+          <a href="#" aria-label="Next" >
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+</div>
