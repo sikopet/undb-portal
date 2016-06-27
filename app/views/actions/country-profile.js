@@ -1,89 +1,144 @@
-
-define(['app','lodash', 'directives/map/zoom-map'], function(app,_) { 'use strict';
-	return ['$scope','locale','$http', '$location', '$route','authentication',
-    function ($scope,locale, $http, $location,$route,authentication) {
-
-		$scope.code      = $route.current.params.code;
-
-		authentication.getUser().then(function (user) {
-
-			$scope.user=user;
-			console.log('$scope.user',$scope.user);
-		});
+define(['app', 'lodash', 'directives/map/zoom-map', 'directives/link-list', 'directives/activities-list'], function(app, _) {
+    'use strict';
+    return ['$scope', 'locale', '$http', '$location', '$route', 'authentication',
+        function($scope, locale, $http, $location, $route, authentication) {
 
 
-		//=======================================================================
-		//
-		//=======================================================================
-		$http.get('https://api.cbd.int/api/v2013/countries/'+$scope.code.toUpperCase(), {
-			cache: true,
-		}).then(function(res) {
+            init();
 
-				$scope.country =  res.data;
-				$scope.country.code = $scope.country.code.toLowerCase();
-				$scope.country.name = $scope.country.name[locale];
-				$scope.country.cssClass='flag-icon-'+$scope.country.code;
-				$scope.country = res.data;
+            //=======================================================================
+            //
+            //=======================================================================
+            authentication.getUser().then(function(user) {
+                $scope.user = user;
+            });
 
-		}).then(function(){
 
-			var queryParameters = {
-				'q': 'schema_s:undbPartner AND _state_s:public AND country_s:'+$scope.country.code,
-				//  'sort': 'createdDate_dt desc, title_t asc',
-				'wt': 'json',
-				'start': 0,
-				'rows': 1000000,
-			};
-				$http.get('https://api.cbd.int/api/v2013/index/select', {
-					params: queryParameters,
-					cache: true
-				}).success(function(data) {
-					$scope.count = data.response.numFound;
-					$scope.partners = data.response.docs;
+            //=======================================================================
+            //
+            //=======================================================================
+            function init() {
+                $scope.code = $route.current.params.code;
+                loadCountries()
+                    .then(loadProfile())
+                    .then(loadPartners());
+            } // init
 
-				});
-				queryParameters = {
-					'q': 'schema_s:undbAction  AND country_s:'+$scope.country.code, //AND _state_s:public removed for test
-					//  'sort': 'createdDate_dt desc, title_t asc',
-					'wt': 'json',
-					'start': 0,
-					'rows': 1000000,
-				};
-					$http.get('https://api.cbd.int/api/v2013/index/select', {
-						params: queryParameters,
-						cache: true
-					}).success(function(data) {
-						$scope.count = data.response.numFound;
-						$scope.actions = data.response.docs;
-						$scope.actions.forEach(function(a) {
-								var dateObject = new Date(Date.parse(a.startDate_s));
-								a.startDate_s = dateObject.toDateString();
-								var dateObject2 = new Date(Date.parse(a.endDate_s));
-								a.endDate_s=dateObject2.toDateString();
-						});
 
-					});
-		});
+            //=======================================================================
+            //
+            //=======================================================================
+            function loadCountries() {
+                return $http.get('https://api.cbd.int/api/v2013/countries/' + $scope.code.toUpperCase(), {
+                    cache: true,
+                }).then(function(res) {
 
-		//=======================================================================
-		//
-		//=======================================================================
-		$scope.actionCountryProfile= function (code){
-			$location.url('/actions/countries/'+code.toUpperCase());
-		};
+                    $scope.country = res.data;
+                    $scope.country.code = $scope.country.code.toLowerCase();
+                    $scope.country.name = $scope.country.name[locale];
+                    $scope.country.cssClass = 'flag-icon-' + $scope.country.code;
+                    $scope.country = res.data;
 
-		//=======================================================================
-		//
-		//=======================================================================
-		$scope.goTo= function (url,code){
-			$location.url(url+code);
-		};
+                });
+            } // init
 
-		//=======================================================================
-		//
-		//=======================================================================
-		$scope.isAdmin= function (){
-			return _.intersection($scope.user.roles, ['Administrator','undb-administrator','UNDBPublishingAuthority']).length>0;
-		};
-    }];
+
+            //=======================================================================
+            //
+            //=======================================================================
+            function loadPartners() {
+                var queryParameters = {
+                    'q': 'schema_s:undbPartner AND _state_s:public AND country_s:' + $scope.country.code,
+                    'wt': 'json',
+                    'start': 0,
+                    'rows': 1000000,
+                };
+                return $http.get('https://api.cbd.int/api/v2013/index/select', {
+                    params: queryParameters,
+                    cache: true
+                }).success(function(data) {
+                    $scope.partners = data.response.docs;
+                });
+            } // loadPartners
+
+
+            //=======================================================================
+            //
+            //=======================================================================
+            function loadProfile() {
+
+                return $http.get('/api/v2016/undb-party-profiles/', {
+                    'params': {
+                        q: {
+                            'code': $scope.country.code
+                        }
+                    }
+                }).then(function(res2) {
+                    if (_.isArray(res2.data) && res2.data.length > 1)
+                        throw "Error: cannot have more then one profile with same code.";
+                    else if (_.isArray(res2.data) && res2.data.length === 1)
+                        $scope.country = extend($scope.country, res2.data[0]);
+                });
+            } // loadProfile
+
+
+            //=======================================================================
+            //
+            //=======================================================================
+            function extend(obj, objExt) {
+                for (var i in objExt) {
+                    if (objExt.hasOwnProperty(i)) {
+                        obj[i] = objExt[i];
+                    }
+                }
+                return obj;
+            } // extend
+
+
+            //=======================================================================
+            //
+            //=======================================================================
+            $scope.getCountryFlag = function(code) {
+                return 'https://www.cbd.int/images/flags/96/flag-' + code + '-96.png';
+
+            };
+
+
+            //=======================================================================
+            //
+            //=======================================================================
+            $scope.actionCountryProfile = function(code) {
+                $location.url('/actions/countries/' + code.toUpperCase());
+            };
+
+
+            //=======================================================================
+            //
+            //=======================================================================
+            $scope.goTo = function(url, code) {
+                if (code)
+                    $location.url(url + code);
+                else
+                    $location.url(url);
+            };
+
+
+            //=======================================================================
+            //
+            //=======================================================================
+            $scope.countryCode = function(code) {
+                if (code.toLowerCase() === 'eu') return 'eur';
+                else return code;
+            };
+
+
+            //=======================================================================
+            //
+            //=======================================================================
+            $scope.isAdmin = function() {
+                return _.intersection($scope.user.roles, ['Administrator', 'undb-administrator', 'UNDBPublishingAuthority']).length > 0;
+            };
+
+        }
+    ];
 });
