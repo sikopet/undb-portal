@@ -56,7 +56,10 @@ html {
 	height: 50px;
 	display: block;
 }
-
+.push60{
+	height: 60px;
+	display: block;
+}
 .divider{
 	height: 5px;
 	padding-top: 5px;
