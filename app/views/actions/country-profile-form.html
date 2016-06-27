@@ -8,6 +8,28 @@
 			margin-top: -5px;
 			margin-bottom: 10px;
 		}
+
+		ta-scroll-window .ta-bind {
+			padding: 20px 20px 20px 20px;
+		}
+
+		.ta-scroll-window> .ta-bind ol {
+			list-style: decimal;
+			list-style-position: inside;
+		}
+
+		.ta-scroll-window> .ta-bind ul {
+			list-style: disc;
+			list-style-position: inside;
+		}
+
+		.ta-scroll-window> .ta-bind li {
+			text-indent: 50px;
+		}
+
+		.ta-scroll-window .ta-bind i {
+			font-style: italic;
+		}
 	</style>
 	<div class="sub-nav">
 		<div class="container">
@@ -22,14 +44,14 @@
 
 
 
-	<div class="container center profile">
-
+	<div class="container profile">
 		<div class="row">
 			<div class="col-xs-12 flag">
-				<h1><i class="fa fa-edit"></i> Edit Profile for {{country.name}}
-					<span class="flag-icon flag-icon-{{country.code}}"></span>
+				<h1 style="line-height:40px;"><i class="fa fa-edit"></i> Edit Profile for {{document.name}}
+					<img class="pull-right" src="{{getCountryFlag(document.code)}}" ng-attr-title="{{country.name}}" style="max-height:40px;display:inline;margin-left:5px;" ng-if="document.code!=='eu'">
+					<img class="pull-right" src="{{getCountryFlag('eur')}}" ng-attr-title="{{country.name}}" style="max-height:40px;display:inline;margin-left:5px;" ng-if="document.code==='eu'">
 				</h1>
-
+				<button type="button" class="btn btn-default  pull-right" ng-click="close();"><i class="fa fa-times"></i></button>
 			</div>
 		</div>
 
@@ -42,33 +64,109 @@
 		</ul>
 
 
-		<div class="row text-left" ng-show="tab==='profile'">
-			<form id="profile" novalidate name="form" class="form-horizontal single" ng-submit="save()" ng-hide="loading">
+		<div id="profile" class="row tab-pane fade in active text-left" ng-show="tab==='profile'">
+			<form novalidate name="form" class="form-horizontal single" ng-submit="save();close(3);" ng-hide="loading">
 
 
 
 				<div class="form-group" ng-class="{ 'has-warning': form.description.$invalid }">
 					<label for="description" class="col-sm-2 control-label required">Description</label>
 					<div class="col-sm-9">
-						<textarea class="form-control" name="description" id="description" ng-model="document.description" cols="30" rows="10" required placeholder="Briefly describe your parties’ contributions to UNDB"></textarea>
+						<!-- <textarea class="form-control" name="description" id="description" ng-model="document.description" cols="30" rows="10" required placeholder="Briefly describe your parties’ contributions to UNDB"></textarea> -->
+						<text-angular name="description" id="description" ng-model="document.description" cols="30" rows="10" required placeholder="Briefly describe your parties’ contributions to UNDB"></text-angular>
 						<p class="help-block error" ng-show="form.description.$invalid" style="margin-top:2px">This field is mandatory</p>
 					</div>
 				</div>
-
-
-				<div class="form-group">
-					<label for="" class="col-sm-3 control-label"></label>
+				<div class="form-group" ng-class="{ 'has-warning': form.website.$invalid }" style="margin-top:20px;">
+					<label for="title" class="col-sm-2  control-label required">Website</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" id="website" name="website" ng-model="document.website" placeholder="Enter the URI">
+						<p class="help-block error" ng-show="form.website.$error.url">This is not a valid web address</p>
+					</div>
+				</div>
+				<div class="form-group" ng-class="{ 'has-warning': form.facebook.$invalid }" style="margin-top:20px;">
+					<label for="title" class="col-sm-2  control-label required">Facebook</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" id="facebook" name="facebook" ng-model="document.facebook" ng-pattern="patterns.facebook" placeholder="https://www.facebook.com/organisation">
+						<p class="help-block error" ng-show="facebook.$error.url">This is not a valid web address</p>
+						<p class="help-block error" ng-show="form.facebook.$error.pattern">Facebook address is invalid. It should look like:
+							<em>https://www.facebook.com/your-facebook-page</em>
+						</p>
+					</div>
+				</div>
+				<div class="form-group" ng-class="{ 'has-warning': form.twitter.$invalid, 'has-error' : form.$submitted && form.twitter.$invalid}">
+					<label for="twitter" class="col-sm-2  control-label">Twitter</label>
 					<div class="col-sm-6">
-						<input type="submit" class="btn btn-primary btn-lg" value="Submit">
+						<input type="url" class="form-control" name="twitter" id="twitter" ng-model="document.twitter" ng-pattern="patterns.twitter" placeholder="https://twitter.com/organisation">
+						<p class="help-block error" ng-show="form.twitter.$error.url">This is not a valid web address</p>
+						<p class="help-block error" ng-show="form.twitter.$error.pattern">Twitter address is invalid. It should look like:
+							<em>https://twitter.com/your-twitter-account</em>
+						</p>
+					</div>
+				</div>
+
+				<div class="form-group" ng-class="{ 'has-warning': form.youtube.$invalid, 'has-error' : form.$submitted && form.youtube.$invalid}">
+					<label for="twitter" class="col-sm-2  control-label" required>Youtube</label>
+					<div class="col-sm-6">
+						<input type="url" class="form-control" name="youtube" id="youtube" ng-model="document.youtube" ng-pattern="patterns.youtube" placeholder="https://www.youtube.com/user/organisation">
+						<p class="help-block error" ng-show="form.youtube.$error.url">This is not a valid web address</p>
+						<p class="help-block error" ng-show="form.youtube.$error.pattern">Youtube address is invalid. It should look like:
+							<em>https://www.youtube.com/user/your-youtube-channel</em>
+						</p>
+					</div>
+				</div>
+				<div class="form-group" ng-class="{ 'has-warning': form.email.$invalid, 'has-error' : form.$submitted && form.email.$invalid}">
+					<label for="email" class="col-sm-2  control-label required">Email</label>
+					<div class="col-sm-6">
+						<input type="email" class="form-control" name="email" id="email" ng-model="document.email" placeholder="Contact email">
+						<p class="help-block error" ng-show="form.email.$error.email">This is not a valid email</p>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="" class="col-sm-2  control-label"></label>
+					<div class="col-sm-3">
+						<input type="submit" class="btn btn-primary btn-lg" value="Save">
+					</div>
+					<div class="col-sm-3">
+						<input type="button" class="btn btn-default btn-lg" value="Cancel" ng-click="close();">
 					</div>
 				</div>
 			</form>
-			{{document}}
 		</div>
 
-		<div class="row text-left" ng-show="tab==='publications'">
-			{{document.publications}}
-			<edit-link schema="undb-party-profile" name="publication" document="document" links="document.publications" save="save()"></edit-link>
-			{{document.publications}}
+		<div id="publications" class="tab-pane fade" ng-show="tab==='publications'">
+			<div>
+				<link-list ng-show="!showEdit()" fa-class="fa-book" index="editIndex" name="publications" document="document" links="document.publications" save="save()"></link-list>
+			</div>
+			<div class="text-left">
+				<edit-link ng-show="showEdit()" index="editIndex" schema="undb-party-profile" name="publication" document="document" links="document.publications" save="save()"></edit-link>
+			</div>
+		</div>
+
+		<div id="images" class="tab-pane fade" ng-show="tab==='images'">
+			<div>
+				<link-list ng-show="!showEdit()" fa-class="fa-image" index="editIndex" name="images" document="document" links="document.images" save="save()"></link-list>
+			</div>
+			<div class="text-left">
+				<edit-link ng-show="showEdit()" file-types="image/*" index="editIndex" schema="undb-party-profile" name="image" document="document" links="document.images" save="save()"></edit-link>
+			</div>
+		</div>
+
+		<div id="videos" class="tab-pane fade" ng-show="tab==='videos'">
+			<div>
+				<link-list ng-show="!showEdit()" fa-class="fa-video-camera" index="editIndex" name="videos" document="document" links="document.videos" save="save()"></link-list>
+			</div>
+			<div class="text-left">
+				<edit-link ng-show="showEdit()" file-types="mp4,ood,webm" index="editIndex" schema="undb-party-profile" name="video" document="document" links="document.videos" save="save()"></edit-link>
+			</div>
+		</div>
+
+		<div id="links" class="tab-pane fade" ng-show="tab==='links'">
+			<div>
+				<link-list ng-show="!showEdit()" fa-class="fa-link" index="editIndex" name="links" document="document" links="document.links" save="save()"></link-list>
+			</div>
+			<div class="text-left">
+				<edit-link ng-show="showEdit()" file-types="image/*" index="editIndex" schema="undb-party-profile" name="link" document="document" links="document.links" save="save()"></edit-link>
+			</div>
 		</div>
 	</div>
