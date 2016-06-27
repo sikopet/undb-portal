@@ -19,16 +19,14 @@ define(['app', 'lodash', 'directives/map/zoom-map', 'directives/link-list', 'dir
             //=======================================================================
             function init() {
                 $scope.code = $route.current.params.code;
-                loadCountries()
-                    .then(loadProfile())
-                    .then(loadPartners());
+                loadCountry();
             } // init
 
 
             //=======================================================================
             //
             //=======================================================================
-            function loadCountries() {
+            function loadCountry() {
                 return $http.get('https://api.cbd.int/api/v2013/countries/' + $scope.code.toUpperCase(), {
                     cache: true,
                 }).then(function(res) {
@@ -37,8 +35,9 @@ define(['app', 'lodash', 'directives/map/zoom-map', 'directives/link-list', 'dir
                     $scope.country.code = $scope.country.code.toLowerCase();
                     $scope.country.name = $scope.country.name[locale];
                     $scope.country.cssClass = 'flag-icon-' + $scope.country.code;
-                    $scope.country = res.data;
 
+                    loadProfile();
+                    loadPartners();
                 });
             } // init
 
