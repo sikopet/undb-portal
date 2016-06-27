@@ -39,7 +39,7 @@
 
     <div class="row article">
       <div class="col-sm-2 col-sm-offset-10">
-        <a href="actions/submit?auto" class="btn bg-cbdgreen" aria-haspopup="true" aria-expanded="false">
+        <a href="actions/submit?auto" class="btn bg-cbdgreen" aria-haspopup="true" aria-expanded="false" style="color:white;">
           Register your actions <i class="fa fa-chevron-right"></i>
         </a>
       </div>
@@ -59,18 +59,24 @@
 
   <div class="center narrow">
     <ul class="listCountries">
-      <li class="col-md-4 col-sm-4 col-xs-6" ng-repeat="country in countries | filter:{name:search}">
+      <li class="col-md-4 col-sm-4 col-xs-6" ng-repeat="country in countries | filter:{name:search} |orderBy:'name':desc">
+        <div style="position:relative;">
+          <a ng-click="actionCountryProfile(country.code)">
+            <!-- <div class="flag-icon-background listCountriesFlag" ng-class="country.cssClass" ng-attr-title="{{country.name}}" ng-if="country.code!='eu'"></div> -->
+            <!-- <img src="app/img/Flag_of_Europe.svg" class="listCountriesFlag" ng-attr-title="{{country.name}}" ng-if="country.code==='eu'"> -->
+            <img src="{{getCountryFlag(country.code)}}" class="pull-left" ng-attr-title="{{country.name}}" style="position:absolute;top:0;bottom:0;margin:auto;left:0px;" ng-if="country.code!=='eu'">
+            <img src="{{getCountryFlag('eur')}}" class="pull-left" ng-attr-title="{{country.name}}" style="position:absolute;top:0;bottom:0;margin:auto;left:0px;" ng-if="country.code==='eu'">
+            <div class="listCountriesName pull-left" style="margin-left:25px;">
+              &nbsp;&nbsp;
+              <span>{{country.name}}</span>
 
-        <a ng-click="actionCountryProfile(country.code)" style="margin-left:5px;">
-          <div class="flag-icon-background listCountriesFlag" ng-class="country.cssClass" ng-attr-title="{{country.name}}" ng-if="country.code!='eu'"></div>
-          <img src="app/img/Flag_of_Europe.svg" class="listCountriesFlag" ng-attr-title="{{country.name}}" ng-if="country.code==='eu'">
-          <div class="listCountriesName">
-            &nbsp;&nbsp;
-            <span>{{country.name}}</span>
+            </div>
+            <div style="position:absolute;top:0;bottom:0;margin:auto;right:0px;">
+              <span class="badge">{{country.facet}}</span>
+            </div>
+          </a>
+        </div>
 
-          </div>
-          <span class="badge pull-left" style="margin-top:25px;margin-left:5px;">{{country.facet}}</span>
-        </a>
 
       </li>
     </ul>
