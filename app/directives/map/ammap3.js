@@ -29,8 +29,7 @@ define(['text!./ammap3.html',
 
                 var ammap3 = requiredDirectives[0];
 
-                initMap();
-                ammap3.writeMap();
+
 
                 $scope.leggends = {
                     parties: [{
@@ -83,23 +82,20 @@ define(['text!./ammap3.html',
                         c.name = c.name[locale];
                     });
                     $scope.countries = res.data;
-                });
-
-
-                //=======================================================================
-                //
-                //=======================================================================
-                $scope.map.addListener("click", function(event) {
-                    ammap3.closePopovers();
-                    var info = event.chart.getDevInfo();
-                    $timeout(function() {
-                        $("#mapdiv").find("#pin").popover('hide');
-                        if ($scope.debug)
-                            console.log({
-                                "latitude": info.latitude,
-                                "longitude": info.longitude,
-                                "all": info,
-                            });
+                    initMap();
+                    ammap3.writeMap();
+                    $scope.map.addListener("click", function(event) {
+                        ammap3.closePopovers();
+                        var info = event.chart.getDevInfo();
+                        $timeout(function() {
+                            $("#mapdiv").find("#pin").popover('hide');
+                            if ($scope.debug)
+                                console.log({
+                                    "latitude": info.latitude,
+                                    "longitude": info.longitude,
+                                    "all": info,
+                                });
+                        });
                     });
                 });
 
@@ -128,9 +124,9 @@ define(['text!./ammap3.html',
                         "areasSettings": {
                             "autoZoom": true,
                             "selectedColor": "#00483A",
-                            "rollOverColor": "#D1E8BE",
+                            "rollOverColor": "#8cc65d",
                             "selectable": true,
-                            "color": "#8cc65d"
+                            "color": "#009B48"
                         },
 
                         "zoomControl": {
@@ -491,7 +487,7 @@ define(['text!./ammap3.html',
                         else mapTypeFunction(country);
                     });
 
-                    changeAreaColor('divider1', "#8cc65d");
+                    changeAreaColor('divider1', "#009B48");
                     var area = getMapObject('EU');
                     area.outlineAlpha = '.5';
                     area = getMapObject('divider1');
@@ -550,7 +546,7 @@ define(['text!./ammap3.html',
                     if (!country.code) return;
 
                     if (country.code !== 'EU')
-                        changeAreaColor(country.code, "#8cc65d");
+                        changeAreaColor(country.code, "#009B48");
                     else {
 
                         changeAreaColor(country.code, "#99CDE8");

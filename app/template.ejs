@@ -25,9 +25,8 @@
     <link href="app/libs/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="app/libs/flag-icon-css/css/flag-icon.min.css" rel="stylesheet">
     <link href="app/libs/outdated-browser/outdatedbrowser/outdatedbrowser.min.css" rel="stylesheet">
-
     <link rel="icon" href="app/favicon.ico" type="image/x-icon"/>
-
+    <link rel="stylesheet" type="text/css" href="app/libs/angular-toastr/dist/angular-toastr.css" />
     <style>
         [ng\:cloak],
         [ng-cloak],
@@ -43,6 +42,18 @@
         a[href="#"] H4 { background-color: yellow; }
         a[href="#"] H5 { background-color: yellow; }
 
+        .toast-info{
+          background-color: rgba(34,34,34,.9);
+          padding: 15px 5px 15px 5px;
+        }
+        #toast-container>:hover {
+          -moz-box-shadow: 0 0 9pt #000;
+          -webkit-box-shadow: 0 0 9pt #000;
+          box-shadow: 0 0 9pt #000;
+          opacity: 1;
+          cursor: pointer;
+        }
+        #toast-container > div .title {  padding: 15px 15px 15px 15px; }
     </style>
 </head>
 

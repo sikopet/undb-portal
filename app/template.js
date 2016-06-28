@@ -1,7 +1,7 @@
-define(['app', 'authentication', 'providers/locale'], function(app) {
+define(['app', 'text!./toast.html', 'authentication', 'providers/locale', 'toastr'], function(app, toastTemplate) {
     'use strict';
 
-    app.controller('TemplateController', ['$scope', '$rootScope', '$window', '$location', '$route', 'authentication', function($scope, $rootScope, $window, $location, $route, authentication) {
+    app.controller('TemplateController', ['$scope', '$rootScope', '$window', '$location', '$route', 'authentication', 'toastr', '$templateCache', function($scope, $rootScope, $window, $location, $route, authentication, toastr, $templateCache) {
 
         $scope.path = $location.path();
 
@@ -12,43 +12,42 @@ define(['app', 'authentication', 'providers/locale'], function(app) {
             $scope.$root.breadcrumb = getPage($route.current.$$route.originalPath);
             $scope.path = $location.path();
         });
-        $rootScope.$on('event:auth-emailVerification', function(evt, data){
+        $rootScope.$on('event:auth-emailVerification', function(evt, data) {
             $scope.showEmailVerificationMessage = data.message;
         });
-        authentication.getUser().then(function (user) {
+        authentication.getUser().then(function(user) {
             $scope.user = user;
         });
 
 
 
         // handling sub menus
-        $("#siteMenu .dropdown-menu>li>a").click(function(e){
-        	 e.stopPropagation();
+        $("#siteMenu .dropdown-menu>li>a").click(function(e) {
+            e.stopPropagation();
 
-        	if($(this).siblings('ul').length > 0){
-        		if($(this).parent('li').hasClass('open')){
-        			// $(this).parent('li').removeClass('open');
-        		}
-        		else{
-        			e.preventDefault();
-        			$('#siteMenu li.open').removeClass('open');
-        			$(this).parent('li').addClass('open');
-        		}
-        	}
+            if ($(this).siblings('ul').length > 0) {
+                if ($(this).parent('li').hasClass('open')) {
+                    // $(this).parent('li').removeClass('open');
+                } else {
+                    e.preventDefault();
+                    $('#siteMenu li.open').removeClass('open');
+                    $(this).parent('li').addClass('open');
+                }
+            }
         });
 
         // close open sub menus when the dropdown is closed
-        $('.darkbox').click(function(){
-        	$('.dropdown-menu li.open').removeClass('open');
+        $('.darkbox').click(function() {
+            $('.dropdown-menu li.open').removeClass('open');
         });
-        $('#siteMenu').click(function(){
-        	$('.dropdown-menu li.open').removeClass('open');
+        $('#siteMenu').click(function() {
+            $('.dropdown-menu li.open').removeClass('open');
         });
         // close dropdown & open sub menus on window resize
-        $(window).resize(function(){
-        	$('.dropdown').removeClass('open');
-        	$('.dropdown-menu li.open').removeClass('open');
-        	$('.darkbox').removeClass('open');
+        $(window).resize(function() {
+            $('.dropdown').removeClass('open');
+            $('.dropdown-menu li.open').removeClass('open');
+            $('.darkbox').removeClass('open');
         });
 
 
@@ -80,7 +79,7 @@ define(['app', 'authentication', 'providers/locale'], function(app) {
         $scope.actionSignIn = function() {
             var redirect_uri = $window.encodeURIComponent($location.protocol() + '://' + $location.host() + ':' + $location.port() + '/');
             $window.location.href = 'https://accounts.cbd.int/signin?returnUrl=' + redirect_uri;
-//            $location.url('/signin');
+            //            $location.url('/signin');
         };
 
         //============================================================
@@ -216,6 +215,38 @@ define(['app', 'authentication', 'providers/locale'], function(app) {
                 }
             }
         }
+
+        $templateCache.put("directives/toast/toast.html", toastTemplate);
+
+
+        //==============================
+        //
+        //==============================
+        $rootScope.$on("showInfo", function(evt, msg) {
+            toastr.info(msg);
+        });
+
+        //==============================
+        //
+        //==============================
+        $rootScope.$on("showWarning", function(evt, msg) {
+            toastr.warning(msg);
+        });
+
+        //==============================
+        //
+        //==============================
+        $rootScope.$on("showSuccess", function(evt, msg) {
+            toastr.success(msg);
+        });
+
+        //==============================
+        //
+        //==============================
+        $rootScope.$on("showError", function(evt, msg) {
+            toastr.error(msg);
+        });
+
 
     }]);
 });
