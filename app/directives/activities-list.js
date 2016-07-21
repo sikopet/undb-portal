@@ -180,6 +180,10 @@ define(['text!./activities-list.html', 'app','moment' ], function(template, app,
               }
               $scope.trustSrc = search;
 
+              $scope.extractId = function(id){                  ;
+                  return parseInt(id.replace('52000000cbd08', ''), 16);
+              }
+
             }],
         }; // return
     }]); //app.directive('searchFilterCountries
