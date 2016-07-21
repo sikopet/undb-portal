@@ -37,13 +37,13 @@
           <a href="{{doc.uri}}">
             <img src="{{doc.thumb}}" ng-show="doc.thumb  && !isMovie()" style="max-width:100px;max-height:100px;">
             <i class="fa {{faClass}}  fa-5x" ng-if="(!doc.thumb && !isMovie(doc.uri))"></i>
-            <iframe width="150px" height="100px" ng-if="isYoutube(doc.uri)" src="{{trustSrc(doc.uri)}}">
+            <iframe width="150px" height="100px" ng-if="isYoutube(doc.uri)" ng-src="{{trustSrc(doc.uri)}}">
             </iframe>
 
             <video width="150px" height="100px" ng-if="(!isYoutube(doc.uri) && isMovie(doc.uri))">
-              <source src="{{trustSrc(doc.uri)}}" type="video/mp4">
-              <source src="{{trustSrc(doc.uri)}}" type="video/ogg">
-              <source src="{{trustSrc(doc.uri)}}" type="video/webm"> Your browser does not support the video tag.
+              <source ng-src="{{trustSrc(doc.uri)}}" type="video/mp4">
+              <source ng-src="{{trustSrc(doc.uri)}}" type="video/ogg">
+              <source ng-src="{{trustSrc(doc.uri)}}" type="video/webm"> Your browser does not support the video tag.
             </video>
 
           </a>

@@ -12,8 +12,8 @@
 
 		<div class="flag text-left text-nowarp" >
 			<!-- <div class="flag-icon-background profileFlag" ng-class="country.cssClass" ng-attr-title="{{country.name}}" ng-if="country.code!='eu'"></div> -->
-			<img class="pull-left" src="{{getCountryFlag(country.code)}}" ng-attr-title="{{country.name}}"  style="max-height:40px;display:inline;" ng-if="country.code && country.code!=='eu'">
-			<img class="pull-left" src="{{getCountryFlag('eur')}}" ng-attr-title="{{country.name}}"  style="max-height:40px;display:inline;" ng-if="country.code && country.code==='eu'">
+			<img class="pull-left" ng-src="{{getCountryFlag(country.code)}}" ng-attr-title="{{country.name}}"  style="max-height:40px;display:inline;" ng-if="country.code && country.code!=='eu'">
+			<img class="pull-left" ng-src="{{getCountryFlag('eur')}}" ng-attr-title="{{country.name}}"  style="max-height:40px;display:inline;" ng-if="country.code && country.code==='eu'">
 			<!-- <img src="/undb/img/flag/World-Flags-cc-53.svg" alt=""> -->
 			<h1 class="pull-left" style="display:inline;margin: 0 0 0 0;padding-left:5px;line-height:50px;">{{country.name}} </h1>
 			<a class="pull-right"  style="padding-right:10px;cursor:pointer;" ng-click="goTo('/actions/countries/edit/',country.code);" ng-if="user.isAuthenticated">Edit Profile <i class="fa fa-edit"></i></a>
