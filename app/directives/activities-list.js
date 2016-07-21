@@ -11,7 +11,7 @@ define(['text!./activities-list.html', 'app','moment' ], function(template, app,
                 year: '=?year',
                 month: '=?month',
                 search: '=?search',
-                count: '=?count'
+                count: '=?count',
             },
 
 
@@ -26,25 +26,36 @@ define(['text!./activities-list.html', 'app','moment' ], function(template, app,
                     $scope.itemsPerPage =5;
                   else
                     $scope.itemsPerPage =$attr.itemsPerPage;
+
+                    if(!$attr.hideCountryReference)
+                      $scope.hideCountryReference =false;
+                    else
+                      $scope.hideCountryReference =true;
+
+  console.log('$scope.hideCountryReference',$scope.hideCountryReference);                    
                   $scope.prevDate = false;
             }, //link
 
             controller: ["$scope", function($scope) {
-              $scope.$watch('year', function() {
+              $scope.$watch('year', function(newValue, oldValue) {
+                if(newValue!==oldValue)
                   search();
               });
-              $scope.$watch('month', function() {
+              $scope.$watch('month', function(newValue, oldValue) {
+                if(newValue!==oldValue)
                   search();
               });
-              $scope.$watch('country', function() {
-
+              $scope.$watch('country', function(newValue, oldValue) {
+                if(newValue!==oldValue || (newValue && newValue.length === 2))
                   search();
               });
-              $scope.$watch('search', function() {
+              $scope.$watch('search', function(newValue, oldValue) {
+                if(newValue!==oldValue)
                   search();
               });
-              $scope.$watch('currentPage', function() {
-                  search();
+              $scope.$watch('currentPage', function(newValue, oldValue) {
+                  if(newValue!==oldValue)
+                    search();
               });
 
               $scope.getNumberPages = function() {
@@ -141,7 +152,7 @@ define(['text!./activities-list.html', 'app','moment' ], function(template, app,
               //=======================================================================
               function search() {
                 var q = 'schema_s:undbAction';
-
+                $scope.loading=true;
                 if($scope.search)
                     q= q+' AND (title_t:"' + $scope.search + '*" OR description_t:"' + $scope.search + '*")';
                 if($scope.country)
@@ -164,6 +175,7 @@ define(['text!./activities-list.html', 'app','moment' ], function(template, app,
                   }).success(function(data) {
                     $scope.count = data.response.numFound;
                     $scope.actions = data.response.docs;
+                    $scope.loading = false;
                   });
               }
               $scope.trustSrc = search;
