@@ -112,7 +112,7 @@
 					<div class="action-detail" ng-if="action.country_s">
 						<span class="action-labels">Country:</span>
 						<span class="detail">
-							<a href="" ng-click="goTo('/actions/countries/',action.country_s);">
+							<a href="" ng-click="goTo('/actions/countries/',action.country_s.toUpperCase());">
 								<img src="{{getCountryFlag(action.country_s)}}"> {{action.country_EN_s}} </a>
 						</span>
 					</div>

@@ -44,14 +44,14 @@
         <strong>End Date:</strong> {{action.endDate_s |date:'dd MMM yyyy'}}</span> -->
       <span class="color-grey">
         <!-- <strong>Country:</strong>  -->
-        <a href="" ng-click="goTo('/actions/countries/',action.country_s)">{{action.country_EN_t}}</a> <i>
-          <img src="{{getCountryFlag(action.country_s)}}" style="max-height:15px;" ng-if="country.code!=='eu'"/>
-          <img src="{{getCountryFlag('eur')}}" style="max-height:15px;" ng-if="country.code==='eu'"/>
+        <a href="" ng-click="goTo('/actions/countries/',action.country_s.toUpperCase())">{{action.country_EN_t}}</a> <i>
+          <img ng-src="{{getCountryFlag(action.country_s)}}" style="max-height:15px;" ng-if="country.code!=='eu'"/>
+          <img ng-src="{{getCountryFlag('eur')}}" style="max-height:15px;" ng-if="country.code==='eu'"/>
         </i></span>
     </td>
     <td>
       <p>{{action.title_s}}</p>
-      <a href="" ng-click="goTo('/actions/',action.identifier_s)">» Documents</a>
+      <a href="" ng-click="goTo('/actions/',extractId(action.id))">» Documents</a>
     </td>
   </tr>
 </table>
