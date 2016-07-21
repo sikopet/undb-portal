@@ -24,6 +24,10 @@
     "ammap3": "3.17.1",
     "ui-guid-generator": "ui_guid_generator#*",
     "textAngular": "~1.5.1",
-    "angular-toastr": "1.7.0"
+    "angular-toastr": "1.7.0",
+    "ng-ckeditor": "^0.2.1"
+  },
+  "resolutions": {
+    "angular": "1.4.8"
   }
 }

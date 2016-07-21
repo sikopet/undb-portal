@@ -73,7 +73,8 @@
 					<label for="description" class="col-sm-2 control-label required">Description</label>
 					<div class="col-sm-9">
 						<!-- <textarea class="form-control" name="description" id="description" ng-model="document.description" cols="30" rows="10" required placeholder="Briefly describe your parties’ contributions to UNDB"></textarea> -->
-						<text-angular name="description" id="description" ng-model="document.description" cols="30" rows="10" required placeholder="Briefly describe your parties’ contributions to UNDB"></text-angular>
+						<!-- <text-angular name="description" id="description" ng-model="document.description" cols="30" rows="10" required placeholder="Briefly describe your parties’ contributions to UNDB"></text-angular> -->
+<textarea ckeditor="editorOptions" ng-model="document.description"></textarea>
 						<p class="help-block error" ng-show="form.description.$invalid" style="margin-top:2px">This field is mandatory</p>
 					</div>
 				</div>

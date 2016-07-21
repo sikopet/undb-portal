@@ -25,6 +25,8 @@ require.config({
         'text-angular-sanitize' : 'libs/textAngular/dist/textAngular-sanitize',
         'toastr'                : 'libs/angular-toastr/dist/angular-toastr.tpls.min',
         'URIjs'                 : 'libs/uri.js/src',
+        'ng-ckeditor'              :'libs/ng-ckeditor/ng-ckeditor',
+        'ckeditor':'libs/ng-ckeditor/libs/ckeditor/ckeditor'
     },
     shim: {
         'libs/angular/angular'     : { deps: ['jquery'] },
@@ -39,7 +41,8 @@ require.config({
         'text-angular-setup'       : { deps: ['angular','text-angular-rangy' ]},
         'text-angular-sanitize'    : { deps: ['angular']},
         'text-angular'             : { deps: ['angular','css!libs/textAngular/dist/textAngular.css','rangy-core','rangy-saveselection','text-angular-rangy','text-angular-setup','text-angular-sanitize'] },
-        'toastr'                   : { deps: ['angular']}
+        'toastr'                   : { deps: ['angular']},
+        'ng-ckeditor'                   : { deps: ['angular','ckeditor']}
     },
     packages: [
         { name: 'ammap', main: 'ammap', location : 'libs/ammap3/ammap' }
