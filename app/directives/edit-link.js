@@ -221,7 +221,6 @@ define(['text!./edit-link.html', 'app', 'lodash', 'directives/file', 'ngSmoothSc
                 //
                 //=======================================================================
                 function upload(files,uri) {
-      console.log(files);
                     _.each(files, function(file) {
                             mongoStorage.uploadDocAtt($scope.schema, $scope.doc._id, file).then(function(){
                                       $scope.document[uri] = 'https://s3.amazonaws.com/mongo.document.attachments/'+$scope.schema+'/' + $scope.doc._id + '/' +  mongoStorage.awsFileNameFix(file.name);

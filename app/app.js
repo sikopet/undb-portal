@@ -1,6 +1,6 @@
 define(['angular','text-angular-setup','text-angular','text-angular-sanitize'], function(angular) { 'use strict';
 
-    var deps = ['ngRoute','smoothScroll','textAngularSetup','ngSanitize','textAngular','toastr'];
+    var deps = ['ngRoute','smoothScroll','textAngularSetup','ngSanitize','textAngular','toastr','ngCkeditor'];
 
     angular.defineModules(deps);
 
