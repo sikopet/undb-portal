@@ -1,4 +1,4 @@
-define(['app', 'lodash', 'moment', 'providers/locale', 'factories/devRouter'], function(app, _, moment) {
+define(['app', 'lodash', 'moment', 'providers/locale', 'factories/dev-router'], function(app, _, moment) {
 
     app.factory("mongoStorage", ['$http', 'authentication', '$q', 'locale', '$filter', 'devRouter','$timeout', function($http, authentication, $q, locale, $filter, devRouter,$timeout) {
 
@@ -742,10 +742,11 @@ define(['app', 'lodash', 'moment', 'providers/locale', 'factories/devRouter'], f
         //
         //=======================================================================
         function uploadDocAtt(schema, _id, file) {
+
             if (!schema) throw "Error: no schema set to upload attachment";
             if (!_id) throw "Error: no docId set to upload attachment";
 
-            return uploadTempFile(schema, file, {'_id':_id}).then(function(target) {
+            return uploadTempFile(schema, file, {'_id':_id, 'public':true}).then(function(target) {
                   return moveTempFileToPermanent(target.data);
             });
         } // touch
@@ -755,6 +756,7 @@ define(['app', 'lodash', 'moment', 'providers/locale', 'factories/devRouter'], f
         function uploadTempFile(schema, file, options) {
             if (!schema) throw "Error: no schema set to upload attachment";
             if(!options)options={};
+
             var postData = {
                 filename: replaceAllSpaces(file.name),
                 mongo:true,
@@ -769,6 +771,7 @@ define(['app', 'lodash', 'moment', 'providers/locale', 'factories/devRouter'], f
                     filename: replaceAllSpaces(file.name),
                 }
             };
+
             return $http.post('/api/v2015/temporary-files', postData).then(function(res) {
                 return $http.put(res.data.url, file, {
                     headers: {
