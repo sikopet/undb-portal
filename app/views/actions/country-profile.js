@@ -1,7 +1,7 @@
-define(['app', 'lodash', 'directives/map/zoom-map', 'directives/link-list', 'directives/activities-list'], function(app, _) {
+define(['app', 'lodash', 'directives/map/zoom-map', 'directives/link-list', 'directives/activities-list','angular-sanitize'], function(app, _) {
     'use strict';
-    return ['$scope', 'locale', '$http', '$location', '$route', 'authentication',
-        function($scope, locale, $http, $location, $route, authentication) {
+    return ['$scope', 'locale', '$http', '$location', '$route', 'authentication','$sce','$sanitize',
+        function($scope, locale, $http, $location, $route, authentication,$sce,$sanitize) {
 
 
             init();
@@ -13,7 +13,13 @@ define(['app', 'lodash', 'directives/map/zoom-map', 'directives/link-list', 'dir
                 $scope.user = user;
             });
 
-
+            //=======================================================================
+            //
+            //=======================================================================
+            function trustHtml(src) {
+                return $sce.trustAsHtml(src);
+            }
+            $scope.trustHtml = trustHtml;
             //=======================================================================
             //
             //=======================================================================
@@ -115,6 +121,7 @@ define(['app', 'lodash', 'directives/map/zoom-map', 'directives/link-list', 'dir
             //
             //=======================================================================
             $scope.goTo = function(url, code) {
+              alert(code);
                 if (code)
                     $location.url(url + code);
                 else
@@ -136,6 +143,10 @@ define(['app', 'lodash', 'directives/map/zoom-map', 'directives/link-list', 'dir
             //=======================================================================
             $scope.isAdmin = function() {
                 return _.intersection($scope.user.roles, ['Administrator', 'undb-administrator', 'UNDBPublishingAuthority']).length > 0;
+            };
+
+            $scope.extractId = function(id){
+                return parseInt(id.replace('52000000cbd08', ''), 16);
             };
 
         }

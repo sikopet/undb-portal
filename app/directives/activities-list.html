@@ -57,7 +57,7 @@
         </i></span>
     </td>
     <td>
-      <p><a href="" ng-click="goTo('/actions/',action.identifier_s)">{{action.title_s}}</a></p>
+      <p><a href="" ng-click="goTo('/actions/',extractId(action.id))">{{action.title_s}}</a></p>
       <p>{{action.description_s | lstring | truncate:(action.truncate||350):'...'}} <a ng-hide="action.truncate || (action.description_s | lstring).length<=350" href="#" ng-click="action.truncate=100000">more <i class="fa fa-caret-down"></i></a><a ng-show="action.truncate" href="#" ng-click="action.truncate=undefined">less <i class="fa fa-caret-up"></i></a></p>
     </td>
   </tr>

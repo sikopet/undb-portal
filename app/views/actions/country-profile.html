@@ -1,22 +1,23 @@
-<div class="sub-nav">
-	<div class="container">
-		<ul class="nav navbar-nav">
-			<li ng-mouseover="highlightLink='worldwide'" ng-mouseleave="highlightLink=''"><a href="actions/worldwide">Worldwide</a> <i ng-if="highlightLink=='worldwide' || path=='/actions/worldwide'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
-			<li ng-mouseover="highlightLink='country'" ng-mouseleave="highlightLink=''"><a href="actions/country">By Country</a> <i ng-if="highlightLink=='country' ||  path=='/actions/country'" style="position:relative;top:-4px;left:30px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
-			<li ng-mouseover="highlightLink='calendar'" ng-mouseleave="highlightLink=''"><a href="actions/calendar">Calendar</a> <i ng-if="highlightLink=='calendar' ||  path=='/actions/calendar'" style="position:relative;top:-4px;left:22px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
-			<li ng-mouseover="highlightLink='participate'" ng-mouseleave="highlightLink=''"><a href="actions/participate">Participate</a> <i ng-if="highlightLink=='participate' ||  path=='/actions/participate'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
-		</ul>
+<div>
+	<div class="hidden-xs">
+		<div class="container sub-nav">
+			<ul class="nav navbar-nav">
+				<li ng-mouseover="highlightLink='worldwide'" ng-mouseleave="highlightLink=''"><a href="actions/worldwide">Worldwide</a> <i ng-if="highlightLink=='worldwide' || path=='/actions/worldwide'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+				<li ng-mouseover="highlightLink='country'" ng-mouseleave="highlightLink=''"><a href="actions/country">By Country</a> <i ng-if="highlightLink=='country' ||  path=='/actions/country'" style="position:relative;top:-4px;left:30px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+				<li ng-mouseover="highlightLink='calendar'" ng-mouseleave="highlightLink=''"><a href="actions/calendar">Calendar</a> <i ng-if="highlightLink=='calendar' ||  path=='/actions/calendar'" style="position:relative;top:-4px;left:22px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+				<li ng-mouseover="highlightLink='participate'" ng-mouseleave="highlightLink=''"><a href="actions/participate">Participate</a> <i ng-if="highlightLink=='participate' ||  path=='/actions/participate'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+			</ul>
+		</div>
 	</div>
-</div>
-<div class="container center profile">
+	<div class="container center profile">
 
-		<div class="flag text-left text-nowarp" >
+		<div class="flag text-left text-nowarp">
 			<!-- <div class="flag-icon-background profileFlag" ng-class="country.cssClass" ng-attr-title="{{country.name}}" ng-if="country.code!='eu'"></div> -->
-			<img class="pull-left" ng-src="{{getCountryFlag(country.code)}}" ng-attr-title="{{country.name}}"  style="max-height:40px;display:inline;" ng-if="country.code && country.code!=='eu'">
-			<img class="pull-left" ng-src="{{getCountryFlag('eur')}}" ng-attr-title="{{country.name}}"  style="max-height:40px;display:inline;" ng-if="country.code && country.code==='eu'">
+			<img class="pull-left" ng-src="{{getCountryFlag(country.code)}}" ng-attr-title="{{country.name}}" style="max-height:40px;display:inline;" ng-if="country.code && country.code!=='eu'">
+			<img class="pull-left" ng-src="{{getCountryFlag('eur')}}" ng-attr-title="{{country.name}}" style="max-height:40px;display:inline;" ng-if="country.code && country.code==='eu'">
 			<!-- <img src="/undb/img/flag/World-Flags-cc-53.svg" alt=""> -->
 			<h1 class="pull-left" style="display:inline;margin: 0 0 0 0;padding-left:5px;line-height:50px;">{{country.name}} </h1>
-			<a class="pull-right"  style="padding-right:10px;cursor:pointer;" ng-click="goTo('/actions/countries/edit/',country.code);" ng-if="user.isAuthenticated">Edit Profile <i class="fa fa-edit"></i></a>
+			<a class="pull-right" style="padding-right:10px;cursor:pointer;" ng-click="goTo('/actions/countries/edit/',country.code);" ng-if="user.isAuthenticated">Edit Profile <i class="fa fa-edit"></i></a>
 		</div>
 
 		<ul class="nav nav-tabs" role="tablist">
@@ -110,15 +111,15 @@
 			<div class="col-xs-12  col-sm-12 col-md-9 col-lg-9 tab-content text-left">
 				<div role="tabpanel" class="tab-pane fade in  active" id="UNDB">
 					<div class="article">
-						<div ta-bind ng-model="country.description">
+						<div ng-bind-html="trustHtml(country.description)">
 
 						</div>
 					</div>
 
-					<div ng-show="activitiesCount" >
-							<h4 class="color-darkgreen" style="padding-top:25px;">Actions</h4>
-							<activities-list hide-country-reference="true" country="country.code" items-per-page="10" hide-pagenation="true" count="activitiesCount"></activities-list>
-							<button  type="button" class="btn pull-right" style="background-color:#069554;color:white;margin-top:0px;" ng-click="goTo('/actions/calendar?code='+country.code);">More ></button>
+					<div ng-show="activitiesCount">
+						<h4 class="color-darkgreen" style="padding-top:25px;">Actions</h4>
+						<activities-list hide-country-reference="true" country="country.code" items-per-page="10" hide-pagenation="true" count="activitiesCount"></activities-list>
+						<button type="button" class="btn pull-right" style="background-color:#069554;color:white;margin-top:0px;" ng-click="goTo('/actions/calendar?code='+country.code);">More ></button>
 
 					</div>
 					<!-- <div class="space">
@@ -126,28 +127,28 @@
 						</div> -->
 
 					<div style="margin-top:60px;" ng-if="partners.length">
-										<h4 class="darkGreen">UNDB Network</h4>
-										<div class="listImg">
-											<ul>
-												<li ng-repeat="partner in partners" ng-click="goTo('/actors/partners/',partner.identifier_s);">
-													<div class="col-sm-3">
-														<a href=""  ng-click="goTo('/actors/partners/',partner.identifier_s);">
-														<img src="{{partner.logo_s}}" alt="{{partner.title_s}}" ng-if="partner.logo_s">
-														<img src="app/img/ic_nature_people_black_48px.svg" alt="{{partner.title_s}}" ng-if="!partner.logo_s">
-														</a>
-													</div>
-													<div class="col-sm-9">
-														<h5>{{partner.title_s}}</h5>
-														<a href="{{partner.website_s}}">{{partner.website_s}}</a>
-														<p>
-															{{partner.description_s}}
-															<a href="" ng-click="goTo('/actors/partners/',partner.identifier_s);">» Documents</a>
-														</p>
-													</div>
-												</li>
-											</ul>
-													<button  type="button" class="btn pull-right" style="background-color:#069554;color:white;margin-top:15px;" ng-click="goTo('/actors/partners');">More ></button>
-										</div>
+						<h4 class="darkGreen">UNDB Network</h4>
+						<div class="listImg">
+							<ul>
+								<li ng-repeat="partner in partners" ng-click="goTo('/actors/partners/',extractId(partner.id))">
+									<div class="col-sm-3">
+										<a href="" ng-click="goTo('/actors/partners/',extractId(partner.id))">
+											<img src="{{partner.logo_s}}" alt="{{partner.title_s}}" ng-if="partner.logo_s">
+											<img src="app/img/ic_nature_people_black_48px.svg" alt="{{partner.title_s}}" ng-if="!partner.logo_s">
+										</a>
+									</div>
+									<div class="col-sm-9">
+										<h5>	<a href="" ng-click="goTo('/actors/partners/',extractId(partner.id))">{{partner.title_s}}</a></h5>
+										<a href="{{partner.website_s}}">{{partner.website_s}}</a>
+										<p>
+											{{partner.description_s}}
+											<a href="" ng-click="goTo('/actors/partners/',partner.identifier_s);">» Documents</a>
+										</p>
+									</div>
+								</li>
+							</ul>
+							<button type="button" class="btn pull-right" style="background-color:#069554;color:white;margin-top:15px;" ng-click="goTo('/actors/partners');">More ></button>
+						</div>
 					</div>
 					<!-- <div class="space">
 							<a href="" class="button green">More</a>
@@ -227,6 +228,7 @@
 			</div>
 			<!-- END DIV BORDER ( colum + center ) -->
 
+		</div>
+		<!-- END DIV CENTER -->
 	</div>
-	<!-- END DIV CENTER -->
 </div>
