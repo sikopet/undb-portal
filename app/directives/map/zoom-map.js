@@ -18,13 +18,14 @@ define(['text!./zoom-map.html', 'app', 'lodash',
 
 
 
-        $scope.$watch('zoomTo', function() {
-          zoomTo();
-        }); //
+        // $scope.$watch('zoomTo', function() {
+        //   zoomTo();
+        // }); //
 
         initMap();
         zoomMap.writeMap();
 
+        $timeout(zoomTo,1000).then(addListener);
 
         //=======================================================================
         //
@@ -34,7 +35,10 @@ define(['text!./zoom-map.html', 'app', 'lodash',
             $scope.map.clickMapObject(zoomMap.getMapObject(_.clone($scope.zoomTo).toUpperCase()));
         } //$scope.legendHide
 
-
+        //=======================================================================
+        //
+        //=======================================================================
+        function addListener() {
         $scope.map.addListener("clickMapObject", function(event) {
 
             if(event.mapObject.id != $scope.zoomTo)
@@ -43,7 +47,7 @@ define(['text!./zoom-map.html', 'app', 'lodash',
             });
 
         }); //$scope.map.addListener("clickMapObject",
-
+        }
         $scope.images = [{
           "label": "EU",
           "latitude": -5.02,

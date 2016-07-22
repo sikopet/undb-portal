@@ -51,13 +51,13 @@
 
 		<div class="col-md-3 col-lg-3 profile-column">
 
-			<iframe ng-if="isGooleMap()" width="200" height="200" frameborder="0" style="border:0" ng-src="{{trustSrc()}}" allowfullscreen>
-			</iframe>
+			<!-- <iframe ng-if="isGooleMap()" width="200" height="200" frameborder="0" style="border:0" ng-src="{{trustSrc()}}" allowfullscreen>
+			</iframe> -->
 
 			<div class="img-container" ng-if="action.logo_s">
 						<img ng-src="{{action.logo_s}}"  class="img-responsive" style="width:100%;" ></img>
 			</div>
-			<zoom-map zoom-to="action.country_s" ng-if="isZoomMap()"></zoom-map>
+			<zoom-map zoom-to="action.country_s" ng-if="!action.logo_s" ></zoom-map>
 
 		<links-display document="action"></links-display>
 		</div>
@@ -66,30 +66,37 @@
 			<div role="tabpanel" class="tab-pane fade in  active" id="UNDB">
 				<div class="article">
 					<div class="action-title">
-						<h1>{{action.title_s}}</h1>
+						<h1>{{action.title_s}} <span class="pull-right" ng-if="action.onlineEvent">(Online Event)</span></h1>
 					</div>
 					<div class="action-detail" ng-if="action.startDate_s">
-						<span class="action-labels">Date(s)</span>:
-						<span class="detail">{{action.startDate_s | date:'yyyy MM dd hh:mm'}}</span>
+						<span class="action-labels">Date </span>
+						<span class="detail" style="margin-left:35px;">{{action.startDate_s | date:'yyyy.MM.dd'}} <span ng-if="action.endDate_s"> - {{action.endDate_s | date:'yyyy.MM.dd'}}</span></span>
+					</div>
+					<div class="action-detail" ng-if="action.startDate_s">
+						<span class="action-labels">Time </span>
+						<span class="detail" style="margin-left:35px;">{{action.startTime}}<span ng-if="action.endTime"> - {{action.endTime}}</span></span>
+					</div>
+					<div class="action-detail" ng-if="action.address">
+						<span class="action-labels">Address</span>
+						<span class="detail" style="margin-left:14px;">{{action.address}}</span>
 					</div>
 					<div class="action-detail" ng-if="action.country_s">
-						<span class="action-labels">Country:</span>
+						<span class="action-labels">Country</span>
 						<span class="detail">
-							<a href="" ng-click="goTo('/actions/countries/',action.country_s.toUpperCase());">
+							<a href="" ng-click="goTo('/actions/countries/',action.country_s.toUpperCase());" style="margin-left:15px;">
 								<img ng-src="{{getCountryFlag(action.country_s)}}"> {{action.country_EN_s}} </a>
 						</span>
 					</div>
-					<div class="action-detail" ng-if="action.address_s">
-						<span class="action-labels">Address:</span>
-						<span class="detail">{{action.address_s}}</span>
-					</div>
+
 					<div class="action-detail" ng-if="action.googleMaps_s">
-						<span class="action-labels">Map:</span>
+						<span class="action-labels">Directions</span>
 						<span class="detail">
-							<a href="{{action.googleMaps_s}}" style="margin-left:25px;"> <i class="fa fa-map "></i></a>
-						</span>
+							<a href="{{action.googleMaps_s}}" style="margin-left:4px;"> <i class="fa fa-map "></i></a>
+
 						<a href="{{action.googleMaps_s}}" class="map">{{action.googleMaps_s | trunc:'50':'...'}}</a>
+						</span>
 					</div>
+
 					<div>
 						<p>{{action.description_s}}</p>
 					</div>
