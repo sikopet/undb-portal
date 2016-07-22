@@ -25,9 +25,9 @@
     "ui-guid-generator": "ui_guid_generator#*",
     "angular-toastr": "1.7.0",
     "ng-ckeditor": "^0.2.1",
-    "angular-sanitize": "^1.5.7"
+    "angular-sanitize": "1.4.8"
   },
   "resolutions": {
-    "angular": "1.5.7"
+    "angular": "1.4.8"
   }
 }
