@@ -1,7 +1,7 @@
-define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows'], function(_, guid) { 'use strict';
+define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows', 'utilities/km-storage'], function(_, guid) { 'use strict';
 
-    return ['$scope', '$http', '$q', 'locale', 'realm', 'workflows', 'user', '$route', '$anchorScroll', '$location',
-    function($scope,   $http,   $q,   locale,   realm,   workflows,   user,   $route,   $anchorScroll,   $location) {
+    return ['$scope', '$http', '$q', 'locale', 'realm', 'workflows', 'user', '$route', '$anchorScroll', '$location', 'IStorage',
+    function($scope,   $http,   $q,   locale,   realm,   workflows,   user,   $route,   $anchorScroll,   $location, storage) {
 
         $scope.loading = true;
         $scope.save = save;
@@ -10,7 +10,7 @@ define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows'], func
         $scope.disabled = function() {
             return $scope.loading ||
                    $scope.saving ||
-                  ($scope.documentInfo||{}).workingDocumentLock;
+                  (($scope.documentInfo||{}).workingDocumentLock && !$scope.editWorkflow);
         };
 
         $scope.patterns = {
@@ -45,8 +45,11 @@ define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows'], func
         //
         //==============================
 
-        if($route.current.params.uid)
+        if($route.current.params.uid){
             load($route.current.params.uid);
+            if($location.search().workflowId)
+                loadWorkflow($location.search().workflowId);
+        }
         else
             discover();
 
@@ -172,15 +175,38 @@ define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows'], func
                 if(report.errors && report.errors.length)
                     throw report;
 
-                return $http.put('https://api.cbd.int/api/v2013/documents/'+doc.header.identifier+'/versions/draft', doc, { params : { schema : doc.header.schema }});
-
             }).then(function(res) {
 
-                return workflows.addWorkflow(res.data);
+                if($scope.editWorkflow){
+                    // $http.put('https://api.cbd.int/api/v2013/documents/'+doc.header.identifier+'/versions/draft', doc, { params : { schema : doc.header.schema }});
+
+                    return storage.drafts.locks.get(doc.header.identifier,{lockID:''})
+                            .then(function(lockInfo){
+                                return storage.drafts.locks.delete(doc.header.identifier, lockInfo.data[0].lockID)
+                                        .then(function(){
+                                            return storage.drafts.put(doc.header.identifier, doc);
+                                        })
+                                        .then(function(draftInfo){
+                                            return storage.drafts.locks.put(doc.header.identifier, {lockID:lockInfo.data[0].lockID});
+                                        })
+                            });
+                }
+                else
+                    return $http.put('https://api.cbd.int/api/v2013/documents/'+doc.header.identifier+'/versions/draft', doc, { params : { schema : doc.header.schema }});
+
+            }).then(function(res) {
+                if($scope.editWorkflow){
+                    //publish
+                    return workflows.updateActivity($location.search().workflowId, 'publishRecord', { action : 'approve' });
+                }
+                else
+                    return workflows.addWorkflow(res.data);
 
             }).then(function() {
-
-                $location.url('/actions/submit-form-done');
+                if($scope.editWorkflow)
+                    $location.url('/submit/undbPartner');
+                else
+                    $location.url('/actions/submit-form-done');
 
             }).catch(function(err) {
 
@@ -272,6 +298,15 @@ define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows'], func
         //==============================
         function res_Data(res) {
             return res.data;
+        }
+
+        function loadWorkflow(workflowId){
+            $q.when(workflows.getWorkflow(workflowId))
+            .then(function(data){
+                if(!data.closedOn && _.contains(data.activities[0].assignedTo, user.userID)){
+                    $scope.editWorkflow = true;
+                }
+            })
         }
     }];
 });

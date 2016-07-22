@@ -48,7 +48,7 @@ define(['text!./undb-map.html',
                 }).then(function(o) {
                     $scope.actions = o.data.response.docs;
                     if ($attr.schema === 'actions') {
-                        activateFilter();                      
+                        activateFilter();
                         $scope.message = "All around the world people are taking action to safeguard biodiversity. See how you can participate!";
                     }
                 });
@@ -240,7 +240,7 @@ define(['text!./undb-map.html',
                         };
 
 
-                        $http.get('/api/v2013/index/select', {
+                        $http.get('https://api.cbd.int/api/v2013/index', {
                             params: queryParameters,
                             cache: false
                         }).success(function(data) {

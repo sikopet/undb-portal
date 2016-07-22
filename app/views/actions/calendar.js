@@ -3,7 +3,7 @@ define(['app','lodash','directives/activities-list'], function(app,_) { 'use str
 	return ['$scope','$location', '$http', '$route','locale',
     function ($scope,$location,$http,$route,locale) {
 
-		//$scope.code      = $route.current.params.code;
+    $scope.loading=true;
 
 		$http.get('https://api.cbd.int/api/v2015/countries', { cache:true, params: { f : { code : 1, name : 1 } } }).then(function(res) {
 
@@ -12,6 +12,9 @@ define(['app','lodash','directives/activities-list'], function(app,_) { 'use str
 						c.name = c.name[locale];
 				});
 				$scope.countries = res.data;
+		}).then(function(){
+			$scope.code =$scope.searchCountry     = $route.current.params.code;
+			$scope.loading=false;			
 		});
 
 		//=======================================================================

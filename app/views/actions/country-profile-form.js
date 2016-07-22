@@ -1,4 +1,4 @@
-define(['app', 'lodash', 'rangy-core', 'directives/edit-link', 'directives/link-list'], function(app, _, rangy) {
+define(['app', 'lodash', 'directives/edit-link', 'directives/link-list','ng-ckeditor'], function(app, _) {
     'use strict';
     return ['$scope', 'locale', '$http', '$location', '$route', '$timeout',
         function($scope, locale, $http, $location, $route, $timeout) {
@@ -13,7 +13,10 @@ define(['app', 'lodash', 'rangy-core', 'directives/edit-link', 'directives/link-
                 youtube: /^http[s]?:\/\/(www.)?youtube.com\/\w+\/.+/i,
                 phone: /^\+\d+(\d|\s|ext|[\.,\-#*()]|)+$/i
             };
-
+            $scope.editorOptions = {
+                language: 'en',
+                uiColor: '#069554'
+            };
             //=======================================================================
             //
             //=======================================================================
@@ -101,13 +104,9 @@ define(['app', 'lodash', 'rangy-core', 'directives/edit-link', 'directives/link-
             //=======================================================================
             //
             //=======================================================================
-            function close(time) {
-                if (!time)
+            function close() {
                     $location.url('/actions/countries/' + $scope.document.code);
-                else
-                    $timeout(function() {
-                        if (!confirm('Would you like to continue editing the profile?')) $location.url('/actions/countries/' + $scope.document.code);
-                    }, time * 1000);
+
             }
             $scope.close = close;
 
@@ -116,8 +115,6 @@ define(['app', 'lodash', 'rangy-core', 'directives/edit-link', 'directives/link-
             //
             //=======================================================================
             function init() {
-                rangy.init();
-                window.rangy = rangy;
 
                 $scope.editIndex = false;
                 load().then(function() {

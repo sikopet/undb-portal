@@ -89,7 +89,8 @@
                 <div class="form-group" ng-class="{ 'has-warning': !loading && form.country.$invalid, 'has-error' : form.$submitted && form.country.$invalid }">
                     <label for="country" class="col-sm-3 control-label required">Country</label>
                     <div class="col-sm-6">
-                        <select class="form-control" id="country" name="country" ng-model="document.country" placeholder="country" required ng-options="c.code as c.name for c in countries|orderBy:'name.toLowerCase()' ">
+                        <select class="form-control" id="country" name="country" ng-model="document.country" placeholder="country"
+                        required ng-options="c.code as c.name for c in countries|orderBy:'name.toLowerCase()'" ng-disabled="disabled()">
                             <option value="">Select your country</option>
                         </select>
                         <p class="help-block error" ng-show="!loading && form.country.$invalid">This field is mandatory</p>
@@ -107,7 +108,7 @@
                 <div class="form-group" ng-class="{ 'has-warning': !loading && form.googleMaps.$invalid, 'has-error' : form.$submitted && form.googleMaps.$invalid }">
                     <label for="googleMaps" class="col-sm-3 control-label required">Google maps link</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" name="googleMaps" id="googleMaps" ng-model="document.googleMaps" ng-pattern="'http[s]?:\/\/([a-z]+\.)?google\.[a-z]+\/maps\/.+'" ng-change="googleMapsChange(document.googleMaps)" placeholder="Google maps website address" required>
+                        <input ng-disabled="disabled()" type="text" class="form-control" name="googleMaps" id="googleMaps" ng-model="document.googleMaps" ng-pattern="'http[s]?:\/\/([a-z]+\.)?google\.[a-z]+\/maps\/.+'" ng-change="googleMapsChange(document.googleMaps)" placeholder="Google maps website address" required>
                         <p class="help-block error" ng-show="!loading && form.googleMaps.$error.required">This field is mandatory</p>
                         <p class="help-block error" ng-show="!loading && form.googleMaps.$error.pattern">This is not a valid google maps address</p>
                     </div>
@@ -116,7 +117,7 @@
                 <div class="form-group" ng-class="{ 'has-warning': !loading && form.email.$invalid, 'has-error' : form.$submitted && form.email.$invalid }">
                     <label for="email" class="col-sm-3 control-label required">Email</label>
                     <div class="col-sm-6">
-                        <input type="email" class="form-control" name="email" id="email" ng-model="document.email" placeholder="Contact email" required>
+                        <input ng-disabled="disabled()" type="email" class="form-control" name="email" id="email" ng-model="document.email" placeholder="Contact email" required>
                         <p class="help-block error" ng-show="!loading && form.email.$error.required">This field is mandatory</p>
                         <p class="help-block error" ng-show="!loading && form.email.$error.email">This is not a valid email</p>
                     </div>
@@ -125,7 +126,7 @@
                 <div class="form-group" ng-class="{ 'has-warning': !loading && form.phone.$invalid, 'has-error' : form.$submitted && form.phone.$invalid }">
                     <label for="phone" class="col-sm-3 control-label required">Telephone</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" name="phone" id="phone" ng-model="document.phone" ng-pattern="patterns.phone" placeholder="Contact telephone number" required>
+                        <input ng-disabled="disabled()" type="text" class="form-control" name="phone" id="phone" ng-model="document.phone" ng-pattern="patterns.phone" placeholder="Contact telephone number" required>
                         <p class="help-block error" ng-show="!loading && form.phone.$error.required">This field is mandatory</p>
                         <p class="help-block error" ng-show="!loading && form.phone.$error.pattern">Please use the following format: + (country code) (city code) (telephone number) (extension, if necessary);<br>Example: <b>+1 514 288-2220 ext 221</b> (where 1 = North America, 514 = Montreal, 288-2220 = CBD Secretariat number, ext 221 = direct extension to the switchboard).</p>
                     </div>
@@ -134,7 +135,7 @@
                 <div class="form-group" ng-class="{ 'has-warning': !loading && form.facebook.$invalid, 'has-error' : form.$submitted && form.facebook.$invalid }">
                     <label for="facebook" class="col-sm-3 control-label">Facebook</label>
                     <div class="col-sm-6">
-                        <input type="url" class="form-control" name="facebook" id="facebook" ng-model="document.facebook" ng-pattern="patterns.facebook" placeholder="https://www.facebook.com/organisation">
+                        <input ng-disabled="disabled()" type="url" class="form-control" name="facebook" id="facebook" ng-model="document.facebook" ng-pattern="patterns.facebook" placeholder="https://www.facebook.com/organisation">
                         <p class="help-block error" ng-show="!loading && form.facebook.$error.url">This is not a valid web address</p>
                         <p class="help-block error" ng-show="!loading && form.facebook.$error.pattern">Facebook address is invalid. It should look like: <em>https://www.facebook.com/your-facebook-page</em></p>
                     </div>
@@ -143,7 +144,7 @@
                 <div class="form-group" ng-class="{ 'has-warning': !loading && form.twitter.$invalid, 'has-error' : form.$submitted && form.twitter.$invalid }">
                     <label for="twitter" class="col-sm-3 control-label" >Twitter</label>
                     <div class="col-sm-6">
-                        <input type="url" class="form-control" name="twitter" id="twitter" ng-model="document.twitter" ng-pattern="patterns.twitter" placeholder="https://twitter.com/organisation">
+                        <input ng-disabled="disabled()" type="url" class="form-control" name="twitter" id="twitter" ng-model="document.twitter" ng-pattern="patterns.twitter" placeholder="https://twitter.com/organisation">
                         <p class="help-block error" ng-show="!loading && form.twitter.$error.url">This is not a valid web address</p>
                         <p class="help-block error" ng-show="!loading && form.twitter.$error.pattern">Twitter address is invalid. It should look like: <em>https://twitter.com/your-twitter-account</em></p>
                     </div>
@@ -187,14 +188,16 @@
 
                 <div class="form-group" ng-class="{ 'has-warning': (form.$submitted && !agreed) }">
                     <div class="col-sm-12 text-center">
-                        <label class="control-label"><input type="checkbox" style="width:auto;height:auto" ng-model="agreed"> I have read and I understand the requirements explained at</label> <a target="conditions" href="http://www.cbd.int/2011-2020/participate/partner">www.cbd.int/2011-2020/participate/partner</a>.
+                        <label class="control-label">
+                            <input ng-disabled="disabled()" type="checkbox" style="width:auto;height:auto" ng-model="agreed"> I have read and I understand the requirements explained at</label> <a target="conditions" href="http://www.cbd.int/2011-2020/participate/partner">www.cbd.int/2011-2020/participate/partner</a>.
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="" class="col-sm-3 control-label"></label>
                     <div class="col-sm-6">
-                        <input type="submit" class="btn btn-primary btn-lg" value="Submit" ng-disabled="disabled()">
+                        <input ng-hide="editWorkflow" type="submit" class="btn btn-primary btn-lg" value="Submit" ng-disabled="disabled()">
+                        <input ng-show="editWorkflow" type="submit" class="btn btn-primary btn-lg" value="Publish" ng-disabled="disabled()">
                     </div>
                 </div>
 

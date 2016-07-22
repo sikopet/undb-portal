@@ -14,7 +14,9 @@ app.factory('workflows', ['$http', 'realm', function($http, realm) {
         };
 
         return {
-            addWorkflow : addWorkflow
+            addWorkflow     : addWorkflow,
+            updateActivity  : updateActivity,
+            getWorkflow     : get
         };
 
         function addWorkflow(draftInfo){
@@ -46,5 +48,24 @@ app.factory('workflows', ['$http', 'realm', function($http, realm) {
 
         }
 
+        //===========================
+        //
+        //===========================
+        function get(id) {
+            return $http.get("https://api.cbd.int/api/v2013/workflows/" + id).then(
+                function(resp) {
+                    return resp.data;
+                });
+        };
+
+        //===========================
+        //
+        //===========================
+        function updateActivity(id, activityName, data) {
+            return $http.put("https://api.cbd.int/api/v2013/workflows/" + id + "/activities/" + activityName, data).then(
+                function(resp) {
+                    return resp.data;
+                });
+        }
     }]);
 });

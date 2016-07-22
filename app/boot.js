@@ -5,6 +5,7 @@ require.config({
     paths: {
         'angular'               : 'libs/angular-flex/angular-flex',
         'angular-route'         : 'libs/angular-route/angular-route',
+        'angular-sanitize'         : 'libs/angular-sanitize/angular-sanitize.min',
         'authentication'        : 'factories/authentication',
         'bootstrap'             : 'libs/bootstrap/dist/js/bootstrap',
         'bootstrap-datepicker'  : 'libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min',
@@ -17,14 +18,10 @@ require.config({
         'ngSmoothScroll'        : 'libs/ngSmoothScroll/lib/angular-smooth-scroll',
         'shim'                  : 'libs/require-shim/src/shim',
         'text'                  : 'libs/requirejs-text/text',
-        'rangy-core'            :'libs/rangy/rangy-core',
-        'rangy-saveselection'   :'libs/rangy/rangy-selectionsaverestore',
-        'text-angular-rangy'    : 'libs/textAngular/dist/textAngular-rangy.min',
-        'text-angular-setup'    : 'libs/textAngular/dist/textAngularSetup',
-        'text-angular'          : 'libs/textAngular/dist/textAngular',
-        'text-angular-sanitize' : 'libs/textAngular/dist/textAngular-sanitize',
         'toastr'                : 'libs/angular-toastr/dist/angular-toastr.tpls.min',
         'URIjs'                 : 'libs/uri.js/src',
+        'ng-ckeditor'              :'libs/ng-ckeditor/ng-ckeditor',
+        'ckeditor':'libs/ng-ckeditor/libs/ckeditor/ckeditor'
     },
     shim: {
         'libs/angular/angular'     : { deps: ['jquery'] },
@@ -34,12 +31,9 @@ require.config({
         'bootstrap-datepicker'     : { deps: ['css!libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css'] },
         'ngSmoothScroll'           : { deps:[ 'angular']},
         'guid'                     : { exports: 'ui_guid_generator' },
-        'rangy-core'               : { deps: ['jquery']},
-        'text-angular-rangy'       : { deps: ['angular']},
-        'text-angular-setup'       : { deps: ['angular','text-angular-rangy' ]},
-        'text-angular-sanitize'    : { deps: ['angular']},
-        'text-angular'             : { deps: ['angular','css!libs/textAngular/dist/textAngular.css','rangy-core','rangy-saveselection','text-angular-rangy','text-angular-setup','text-angular-sanitize'] },
-        'toastr'                   : { deps: ['angular']}
+        'toastr'                   : { deps: ['angular']},
+        'angular-sanitize'          : { 'deps': ['angular'] },
+        'ng-ckeditor'                   : { deps: ['angular','ckeditor']}
     },
     packages: [
         { name: 'ammap', main: 'ammap', location : 'libs/ammap3/ammap' }

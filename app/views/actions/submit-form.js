@@ -1,7 +1,7 @@
-define(['lodash', 'jquery', 'guid', 'app', 'directives/file', 'utilities/workflows', 'bootstrap-datepicker'], function(_, $, guid) { 'use strict';
+define(['lodash', 'jquery', 'guid', 'app', 'directives/file', 'utilities/workflows', 'utilities/km-storage', 'bootstrap-datepicker'], function(_, $, guid) { 'use strict';
 
-    return ['$scope', '$http', '$q', 'locale', '$route', 'realm', 'workflows', '$location', '$anchorScroll',
-     function($scope, $http, $q, locale, $route, realm, workflows, $location, $anchorScroll) {
+    return ['$scope', '$http', '$q', 'locale', '$route', 'realm', 'workflows', '$location', '$anchorScroll','IStorage',
+     function($scope, $http, $q, locale, $route, realm, workflows, $location, $anchorScroll, storage) {
 
         $scope.save = save;
         $scope.upload = upload;
@@ -43,6 +43,9 @@ define(['lodash', 'jquery', 'guid', 'app', 'directives/file', 'utilities/workflo
         });
 
         load();
+        if($location.search().workflowId)
+            loadWorkflow($location.search().workflowId);
+
 
         //==============================
         //
@@ -133,20 +136,40 @@ define(['lodash', 'jquery', 'guid', 'app', 'directives/file', 'utilities/workflo
                 return value==="" || value===undefined || value===null;
             });
 
-            return $http.put('https://api.cbd.int/api/v2013/documents/validate', doc, { params : { schema : doc.header.schema }}).then(res_Data).then(function(report) {
+            return $http.put('https://api.cbd.int/api/v2013/documents/validate', doc, { params : { schema : doc.header.schema }})
+            .then(res_Data).then(function(report) {
 
                 if(report.errors && report.errors.length)
                     throw report;
-
-                return $http.put('https://api.cbd.int/api/v2013/documents/'+doc.header.identifier+'/versions/draft', doc, { params : { schema : doc.header.schema }}).then(res_Data);
+                if($scope.editWorkflow){
+                    return storage.drafts.locks.get(doc.header.identifier,{lockID:''})
+                            .then(function(lockInfo){
+                                return storage.drafts.locks.delete(doc.header.identifier, lockInfo.data[0].lockID)
+                                        .then(function(){
+                                            return storage.drafts.put(doc.header.identifier, doc);
+                                        })
+                                        .then(function(draftInfo){
+                                            return storage.drafts.locks.put(doc.header.identifier, {lockID:lockInfo.data[0].lockID});
+                                        })
+                            });
+                }
+                else
+                    return $http.put('https://api.cbd.int/api/v2013/documents/'+doc.header.identifier+'/versions/draft', doc, { params : { schema : doc.header.schema }}).then(res_Data);
 
             }).then(function(docInfo) {
 
-                return workflows.addWorkflow(docInfo);
+                if($scope.editWorkflow){ //publish
+                    return workflows.updateActivity($location.search().workflowId, 'publishRecord', { action : 'approve' });
+                }
+                else
+                    return workflows.addWorkflow(docInfo);
 
             }).then(function() {
 
-                $location.url('/actions/submit-form-done');
+                if($scope.editWorkflow)
+                    $location.url('/submit/undbAction');
+                else
+                    $location.url('/actions/submit-form-done');
 
             })
             .catch(res_Error).finally(function() {
@@ -215,6 +238,15 @@ define(['lodash', 'jquery', 'guid', 'app', 'directives/file', 'utilities/workflo
         //==============================
         function res_Data(res) {
             return res.data;
+        }
+
+        function loadWorkflow(workflowId){
+            $q.when(workflows.getWorkflow(workflowId))
+            .then(function(data){
+                if(!data.closedOn && _.contains(data.activities[0].assignedTo, user.userID)){
+                    $scope.editWorkflow = true;
+                }
+            })
         }
     }];
 });

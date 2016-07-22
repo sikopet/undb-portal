@@ -1,14 +1,14 @@
 <div>
-  <div class="sub-nav hidden-xs">
-    <div class="container">
-      <ul class="nav navbar-nav">
-        <li ng-mouseover="highlightLink='worldwide'" ng-mouseleave="highlightLink=''"><a href="actions/worldwide">Worldwide</a> <i ng-if="highlightLink=='worldwide' || path=='/actions/worldwide'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
-        <li ng-mouseover="highlightLink='country'" ng-mouseleave="highlightLink=''"><a href="actions/country">By Country</a> <i ng-if="highlightLink=='country' ||  path=='/actions/country'" style="position:relative;top:-4px;left:30px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
-        <li ng-mouseover="highlightLink='calendar'" ng-mouseleave="highlightLink=''"><a href="actions/calendar">Calendar</a> <i ng-if="highlightLink=='calendar' ||  path=='/actions/calendar'" style="position:relative;top:-4px;left:22px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
-        <li ng-mouseover="highlightLink='participate'" ng-mouseleave="highlightLink=''"><a href="actions/participate">Participate</a> <i ng-if="highlightLink=='participate' ||  path=='/actions/participate'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
-      </ul>
-    </div>
-  </div>
+  <div class="hidden-xs">
+		<div class="container sub-nav">
+			<ul class="nav navbar-nav">
+				<li ng-mouseover="highlightLink='worldwide'" ng-mouseleave="highlightLink=''"><a href="actions/worldwide">Worldwide</a> <i ng-if="highlightLink=='worldwide' || path=='/actions/worldwide'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+				<li ng-mouseover="highlightLink='country'" ng-mouseleave="highlightLink=''"><a href="actions/country">By Country</a> <i ng-if="highlightLink=='country' ||  path=='/actions/country'" style="position:relative;top:-4px;left:30px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+				<li ng-mouseover="highlightLink='calendar'" ng-mouseleave="highlightLink=''"><a href="actions/calendar">Calendar</a> <i ng-if="highlightLink=='calendar' ||  path=='/actions/calendar'" style="position:relative;top:-4px;left:22px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+				<li ng-mouseover="highlightLink='participate'" ng-mouseleave="highlightLink=''"><a href="actions/participate">Participate</a> <i ng-if="highlightLink=='participate' ||  path=='/actions/participate'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+			</ul>
+		</div>
+	</div>
 
   <div class="container">
     <div class="row">
@@ -20,13 +20,14 @@
     </div>
     <div class="row">
       <div class="col-xs-12 search">
-        <h1><i class="fa fa-search"></i> Search Criteria</h1>
+        <h1><i class="fa fa-search"></i> Search Criteria </h1>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 search">
         <div class="form-group">
           <span class="label col-xs-12 col-sm-12 col-md-3 col-lg-2">Country:</span>
-          <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
-            <select class="form-control" id="country" name="country" ng-model="searchCountry" placeholder="Country" ng-options="c.code as c.name for c in countries|orderBy:'name.toLowerCase()' ">
+          <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 text-center">
+            <span ng-if="loading">Loading ... <i class="fa fa-spinner fa-2x" ng-class="{ 'fa-spin':loading }"></i></span>
+            <select ng-show="!loading" class="form-control" id="country" name="country" ng-model="searchCountry" placeholder="Country" ng-options="c.code as c.name for c in countries|orderBy:'name.toLowerCase()' ">
               <option value="">Select your country</option>
             </select>
           </div>

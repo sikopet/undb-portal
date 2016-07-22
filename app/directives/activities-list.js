@@ -6,16 +6,17 @@ define(['text!./activities-list.html', 'app','moment' ], function(template, app,
             restrict: 'E',
             template: template,
             replace: false,
+            require:'activitiesList',
             scope: {
                 country: '=?country',
                 year: '=?year',
                 month: '=?month',
                 search: '=?search',
-                count: '=?count'
+                count: '=?count',
             },
 
 
-            link: function($scope, $element, $attr) {
+            link: function($scope, $element, $attr,ctrl) {
                   $scope.currentPage =0;
                   if(!$attr.hidePagenation)
                       $scope.hidePagenation=false;
@@ -26,26 +27,40 @@ define(['text!./activities-list.html', 'app','moment' ], function(template, app,
                     $scope.itemsPerPage =5;
                   else
                     $scope.itemsPerPage =$attr.itemsPerPage;
+
+                    if(!$attr.hideCountryReference)
+                      $scope.hideCountryReference =false;
+                    else
+                      $scope.hideCountryReference =true;
+                  ctrl.search();
                   $scope.prevDate = false;
             }, //link
 
-            controller: ["$scope", function($scope) {
-              $scope.$watch('year', function() {
-                  search();
-              });
-              $scope.$watch('month', function() {
-                  search();
-              });
-              $scope.$watch('country', function() {
+            controller: ['$scope','$timeout', function($scope,$timeout) {
 
-                  search();
-              });
-              $scope.$watch('search', function() {
-                  search();
-              });
-              $scope.$watch('currentPage', function() {
-                  search();
-              });
+              $timeout(function(){
+                $scope.$watch('year', function(newValue, oldValue) {
+                  if(newValue!==oldValue)
+                    search();
+                });
+                $scope.$watch('month', function(newValue, oldValue) {
+                  if(newValue!==oldValue)
+                    search();
+                });
+                $scope.$watch('country', function(newValue, oldValue) {
+                  if(newValue!==oldValue || (newValue && newValue.length === 2))
+                    search();
+                });
+                $scope.$watch('search', function(newValue, oldValue) {
+                  if(newValue!==oldValue)
+                    search();
+                });
+                $scope.$watch('currentPage', function(newValue, oldValue) {
+                    if(newValue!==oldValue)
+                      search();
+                });
+              },1000);
+
 
               $scope.getNumberPages = function() {
                   if($scope.count && $scope.itemsPerPage && ($scope.count > $scope.itemsPerPage))
@@ -141,7 +156,7 @@ define(['text!./activities-list.html', 'app','moment' ], function(template, app,
               //=======================================================================
               function search() {
                 var q = 'schema_s:undbAction';
-
+                $scope.loading=true;
                 if($scope.search)
                     q= q+' AND (title_t:"' + $scope.search + '*" OR description_t:"' + $scope.search + '*")';
                 if($scope.country)
@@ -158,15 +173,20 @@ define(['text!./activities-list.html', 'app','moment' ], function(template, app,
                   'start': $scope.currentPage * $scope.itemsPerPage,
   								'rows': $scope.itemsPerPage,
                 };
-                  $http.get('https://api.cbd.int/api/v2013/index/select', {
+                  $http.get('/api/v2013/index/select', {
                     params: queryParameters,
                     cache: true
                   }).success(function(data) {
                     $scope.count = data.response.numFound;
                     $scope.actions = data.response.docs;
+                    $scope.loading = false;
                   });
               }
-              $scope.trustSrc = search;
+              this.search = search;
+
+              $scope.extractId = function(id){
+                  return parseInt(id.replace('52000000cbd08', ''), 16);
+              };
 
             }],
         }; // return

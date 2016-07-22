@@ -44,10 +44,12 @@
                    <ul>
                        <li ng-repeat="p in partners track by p.identifier_s">
                            <div class="col-sm-3">
-                               <img src="{{p.logo_s}}/thumbnail" style="max-width:200px" alt="">
+                               <a ng-href="#" ng-click="goTo('/actors/partners/',p.id)">
+                                   <img src="{{p.logo_s}}/thumbnail" style="max-width:200px" alt="">
+                               </a>
                            </div>
                            <div class="col-sm-9">
-                               <h5>{{p.title_t}}</h5>
+                               <h5><a ng-href="#" ng-click="goTo('/actors/partners/',p.id)">{{p.title_t}}</a></h5>
                                <a href="{{p.website_s}}">{{p.website_s}}</a>
                                <p>
                                    {{p.description_t}}
