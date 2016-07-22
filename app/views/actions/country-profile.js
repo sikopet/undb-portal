@@ -121,7 +121,7 @@ define(['app', 'lodash', 'directives/map/zoom-map', 'directives/link-list', 'dir
             //
             //=======================================================================
             $scope.goTo = function(url, code) {
-              alert(code);
+
                 if (code)
                     $location.url(url + code);
                 else
