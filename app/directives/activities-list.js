@@ -6,6 +6,7 @@ define(['text!./activities-list.html', 'app','moment' ], function(template, app,
             restrict: 'E',
             template: template,
             replace: false,
+            require:'activitiesList',
             scope: {
                 country: '=?country',
                 year: '=?year',
@@ -15,7 +16,7 @@ define(['text!./activities-list.html', 'app','moment' ], function(template, app,
             },
 
 
-            link: function($scope, $element, $attr) {
+            link: function($scope, $element, $attr,ctrl) {
                   $scope.currentPage =0;
                   if(!$attr.hidePagenation)
                       $scope.hidePagenation=false;
@@ -31,12 +32,12 @@ define(['text!./activities-list.html', 'app','moment' ], function(template, app,
                       $scope.hideCountryReference =false;
                     else
                       $scope.hideCountryReference =true;
-
+                  ctrl.search();
                   $scope.prevDate = false;
             }, //link
 
             controller: ['$scope','$timeout', function($scope,$timeout) {
-              search();
+
               $timeout(function(){
                 $scope.$watch('year', function(newValue, oldValue) {
                   if(newValue!==oldValue)
@@ -172,7 +173,7 @@ define(['text!./activities-list.html', 'app','moment' ], function(template, app,
                   'start': $scope.currentPage * $scope.itemsPerPage,
   								'rows': $scope.itemsPerPage,
                 };
-                  $http.get('/api/v2013/index', {
+                  $http.get('/api/v2013/index/select', {
                     params: queryParameters,
                     cache: true
                   }).success(function(data) {
@@ -181,9 +182,9 @@ define(['text!./activities-list.html', 'app','moment' ], function(template, app,
                     $scope.loading = false;
                   });
               }
-              $scope.trustSrc = search;
+              this.search = search;
 
-              $scope.extractId = function(id){                  
+              $scope.extractId = function(id){
                   return parseInt(id.replace('52000000cbd08', ''), 16);
               };
 
