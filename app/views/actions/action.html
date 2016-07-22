@@ -72,7 +72,7 @@
 						<span class="action-labels">Date </span>
 						<span class="detail" style="margin-left:35px;">{{action.startDate_s | date:'yyyy.MM.dd'}} <span ng-if="action.endDate_s"> - {{action.endDate_s | date:'yyyy.MM.dd'}}</span></span>
 					</div>
-					<div class="action-detail" ng-if="action.startDate_s">
+					<div class="action-detail" ng-if="action.startTime">
 						<span class="action-labels">Time </span>
 						<span class="detail" style="margin-left:35px;">{{action.startTime}}<span ng-if="action.endTime"> - {{action.endTime}}</span></span>
 					</div>
