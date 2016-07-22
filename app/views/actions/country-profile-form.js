@@ -104,13 +104,9 @@ define(['app', 'lodash', 'directives/edit-link', 'directives/link-list','ng-cked
             //=======================================================================
             //
             //=======================================================================
-            function close(time) {
-                if (!time)
+            function close() {
                     $location.url('/actions/countries/' + $scope.document.code);
-                else
-                    $timeout(function() {
-                        if (!confirm('Would you like to continue editing the profile?')) $location.url('/actions/countries/' + $scope.document.code);
-                    }, time * 1000);
+
             }
             $scope.close = close;
 
@@ -119,8 +115,6 @@ define(['app', 'lodash', 'directives/edit-link', 'directives/link-list','ng-cked
             //
             //=======================================================================
             function init() {
-                // rangy.init();
-                // window.rangy = rangy;
 
                 $scope.editIndex = false;
                 load().then(function() {
