@@ -1,4 +1,4 @@
-define([ 'filters/trunc','directives/map/zoom-map'], function() {
+define([ 'filters/trunc','directives/map/zoom-map','directives/links-display'], function() {
     'use strict';
     return ['$scope', 'locale', '$http', '$location', '$route', '$sce',
         function($scope, locale, $http, $location, $route, $sce) {
