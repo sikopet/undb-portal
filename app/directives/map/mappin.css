@@ -138,6 +138,12 @@ body.modal-open div.modal-backdrop {
   background: #f58426;
 }
 .pin-actor {
+  background: #9f5813;
+}
+.pin-action {
+  background: #05483a;
+}
+.pin-champ{
   background: #f58426;
 }
 
@@ -154,7 +160,7 @@ body.modal-open div.modal-backdrop {
   width: 23.21px;
   z-index: 20;
 }
-.pulse-cbd {
+.pulse- {
   background: rgba(0, 0, 0, 0.2);
   -webkit-border-radius: 50%;
   border-radius: 50%;
@@ -171,34 +177,7 @@ body.modal-open div.modal-backdrop {
   transform: rotateX(55deg);
   z-index: 5;
 }
-.pulse-cbd:after {
-  content: "";
-  -webkit-border-radius: 50%;
-  border-radius: 50%;
-  height: 40px;
-  width: 40px;
-  position: absolute;
-  margin: -13px 0 0 -13px;
-}
-
-.pulse-actor {
-  background: rgba(0, 0, 0, 0.2);
-  -webkit-border-radius: 50%;
-  border-radius: 50%;
-  height: 14px;
-  width: 14px;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  margin: 11px 0px 0px -12px;
-  -webkit-transform: rotateX(55deg);
-  -moz-transform: rotateX(55deg);
-  -o-transform: rotateX(55deg);
-  -ms-transform: rotateX(55deg);
-  transform: rotateX(55deg);
-  z-index: 5;
-}
-.pulse-actor:after {
+.pulse-:after {
   content: "";
   -webkit-border-radius: 50%;
   border-radius: 50%;
