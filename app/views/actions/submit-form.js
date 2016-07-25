@@ -1,11 +1,12 @@
-define(['lodash', 'jquery', 'guid', 'app', 'directives/file', 'utilities/workflows', 'utilities/km-storage', 'bootstrap-datepicker'], function(_, $, guid) { 'use strict';
+define(['lodash', 'jquery', 'guid', 'app', 'directives/file','directives/date-helper','directives/time-helper','directives/google-address', 'utilities/workflows', 'utilities/km-storage', 'bootstrap-datepicker'], function(_, $, guid) { 'use strict';
 
-    return ['$scope', '$http', '$q', 'locale', '$route', 'realm', 'workflows', '$location', '$anchorScroll','IStorage',
-     function($scope, $http, $q, locale, $route, realm, workflows, $location, $anchorScroll, storage) {
+    return ['$scope', '$http', '$q', 'locale', '$route', 'realm', 'workflows', '$location', '$anchorScroll','IStorage','$document','$timeout','authentication',
+     function($scope, $http, $q, locale, $route, realm, workflows, $location, $anchorScroll, storage,$document,$timeout,auth) {
 
         $scope.save = save;
         $scope.upload = upload;
         $scope.googleMapsChange = updateGeoLocation;
+        var user = false;
 
         $scope.patterns = {
             facebook : /^http[s]?:\/\/(www.)?facebook.com\/.+/i,
@@ -107,7 +108,8 @@ define(['lodash', 'jquery', 'guid', 'app', 'directives/file', 'utilities/workflo
                         header : {
                             identifier : guid(),
                             schema : 'undbAction'
-                        }
+                        },
+                        onlineEvent:false
                     };
                 }
 
@@ -148,9 +150,9 @@ define(['lodash', 'jquery', 'guid', 'app', 'directives/file', 'utilities/workflo
                                         .then(function(){
                                             return storage.drafts.put(doc.header.identifier, doc);
                                         })
-                                        .then(function(draftInfo){
+                                        .then(function(){
                                             return storage.drafts.locks.put(doc.header.identifier, {lockID:lockInfo.data[0].lockID});
-                                        })
+                                        });
                             });
                 }
                 else
@@ -231,6 +233,56 @@ define(['lodash', 'jquery', 'guid', 'app', 'directives/file', 'utilities/workflo
 
             console.error($scope.errors);
         }
+        //=======================================================================
+        //
+        //=======================================================================
+        function dateHelper(event,val) {
+
+            if (val && val.length===4) {
+                val=val+':';
+                moveCursorToEnd(angular.element(event.srcElement));
+            }
+        }
+        $scope.dateHelper = dateHelper;
+        //=======================================================================
+        //
+        //=======================================================================
+        function onFocusStart(id,start) {
+            if (!$scope.document[id]) {
+                $scope.document[id] = start;
+                moveCursorToEnd($document.find('#'+id)[0]);
+
+            }
+        }
+        $scope.onFocusStart = onFocusStart;
+
+
+
+        //=======================================================================
+        //
+        //=======================================================================
+        function moveCursorToEnd(el) {
+            $timeout(function() {
+                if (typeof el.selectionStart == "number") {
+                    el.selectionStart = el.selectionEnd = el.value.length;
+                } else if (typeof el.createTextRange != "undefined") {
+                    el.focus();
+                    var range = el.createTextRange();
+                    range.collapse(false);
+                    range.select();
+                }
+                el.select();
+            }, 200);
+        }
+        //==============================
+        //
+        //
+        //==============================
+        function getUser() {
+            return auth.getUser().then(function(u){
+                  user = u;
+            });
+        }
 
         //==============================
         //
@@ -241,12 +293,12 @@ define(['lodash', 'jquery', 'guid', 'app', 'directives/file', 'utilities/workflo
         }
 
         function loadWorkflow(workflowId){
-            $q.when(workflows.getWorkflow(workflowId))
+            $q.all([workflows.getWorkflow(workflowId),getUser()])
             .then(function(data){
-                if(!data.closedOn && _.contains(data.activities[0].assignedTo, user.userID)){
+                if(!data[0].closedOn && _.contains(data[0].activities[0].assignedTo, user.userID)){
                     $scope.editWorkflow = true;
                 }
-            })
+            });
         }
     }];
 });
