@@ -99,7 +99,7 @@ define(['text!./edit-link.html', 'app', 'lodash', 'directives/file', 'ngSmoothSc
 
             }, //link
 
-            controller: ['$scope','mongoStorage','$element', function($scope,mongoStorage,$element) {
+            controller: ['$scope','mongoStorage','$element','$timeout', function($scope,mongoStorage,$element,$timeout) {
 
                 $scope.$watch('editIndex', function() {
                     edit();
@@ -229,6 +229,35 @@ define(['text!./edit-link.html', 'app', 'lodash', 'directives/file', 'ngSmoothSc
                 }
                 $scope.upload = upload;
 
+
+                //=======================================================================
+                //
+                //=======================================================================
+                function onFocusStart() {
+                    if (!$scope.document.uri) {
+                        $scope.document.uri = 'http://';
+                        moveCursorToEnd($element.find('#linkUri')[0]);
+                    }
+                }
+                $scope.onFocusStart = onFocusStart;
+
+
+
+                //=======================================================================
+                //
+                //=======================================================================
+                function moveCursorToEnd(el) {
+                    $timeout(function() {
+                        if (typeof el.selectionStart == "number") {
+                            el.selectionStart = el.selectionEnd = el.value.length;
+                        } else if (typeof el.createTextRange != "undefined") {
+                            el.focus();
+                            var range = el.createTextRange();
+                            range.collapse(false);
+                            range.select();
+                        }
+                    }, 200);
+                }
 
 
                 //=======================================================================
