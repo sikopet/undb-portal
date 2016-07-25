@@ -38,21 +38,6 @@ define(['text!./ammap3.html',
                         visible: true,
                         color: '#009B48'
                     }, {
-                        id: 4,
-                        title: 'CBD & CPB',
-                        visible: true,
-                        color: '#8cc65d'
-                    }, {
-                        id: 3,
-                        title: 'CBD & CPB & ABS',
-                        visible: true,
-                        color: '#AFD78E'
-                    }, {
-                        id: 2,
-                        title: 'CBD & ABS',
-                        visible: true,
-                        color: '#D1E8BE'
-                    }, {
                         id: 0,
                         title: 'Not a Party',
                         visible: true,
@@ -207,11 +192,11 @@ define(['text!./ammap3.html',
                 function generateMarker(imageIndex) {
 
                     if ($scope.schema === 'actions')
-                        return makeMarker(imageIndex, 'pin-cbd', 'pulse-cbd', 'app/img/cbd-leaf-green.svg');
+                        return makeMarker(imageIndex, 'pin-action', 'pulse-', 'https://upload.wikimedia.org/wikipedia/commons/c/ce/Transparent.gif');
                     if ($scope.schema === 'actors')
-                        return makeMarker(imageIndex, 'pin-actor', 'pulse-actor', 'app/img/ic_nature_people_black_24px.svg');
+                        return makeMarker(imageIndex, 'pin-actor', 'pulse-', 'https://upload.wikimedia.org/wikipedia/commons/c/ce/Transparent.gif');
                     if ($scope.schema === 'bioChamps')
-                        return makeMarker(imageIndex, 'pin-actor', 'pulse-actor', 'app/img/ic_verified_user_black_24px.svg');
+                        return makeMarker(imageIndex, 'pin-champ', 'pulse-', 'https://upload.wikimedia.org/wikipedia/commons/c/ce/Transparent.gif');
                     if ($scope.schema === 'caseStudies')
                         return makeMarker(imageIndex, 'pin-actor', 'pulse-actor', 'app/img/ic_school_black_24px.svg');
                     if ($scope.schema === 'projects')
@@ -679,11 +664,11 @@ define(['text!./ammap3.html',
                         case 'CBD,':
                             return '#009B48';
                         case 'CBD,CPB,':
-                            return '#8cc65d';
+                            return '#009B48';
                         case 'CBD,CPB,ABS,':
-                            return '#AFD78E';
+                            return '#009B48';
                         case 'CBD,ABS,':
-                            return '#D1E8BE';
+                            return '#009B48';
                         default:
                             return '#dddddd';
                     }

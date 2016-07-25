@@ -48,7 +48,7 @@
           <label for="logo">Enter the URI to your {{name}} or upload the file.
           </label>
 
-          <input type="url" class="form-control" id="linkUri" name="uri" placeholder="Enter in full path to the {{publication}} or upload it below." ng-model="document.uri" required>
+          <input type="url" class="form-control" id="linkUri" name="uri" placeholder="Enter in full path to the {{publication}} or upload it below." ng-model="document.uri" ng-focus="onFocusStart('facebook','http://')" required>
           <p class="help-block error" ng-show="editLinkForm.uri.$error.required && editLinkForm.$submitted">This field is mandatory</p>
           <p class="help-block error" ng-show="editLinkForm.uri.$invalid && editLinkForm.uri.$touched">This is not a proper URI. URI should start with http:// such as http://google.ca or http://www.google.com</p>
 

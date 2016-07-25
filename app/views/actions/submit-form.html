@@ -64,13 +64,13 @@
                     <label for="startDate" class="col-sm-3 control-label required">Date</label>
                     <label for="startDate" class="col-sm-1 control-label">From</label>
                     <div class="col-sm-2">
-                        <input type="text" class="form-control date" name="startDate" id="startDate" ng-model="document.startDate" required ng-pattern="patterns.date" ng-trim="true" placeholder="yyyy-mm-dd">
+                        <input type="text" class="form-control date" name="startDate" id="startDate" ng-model-options="{allowInvalid: true}" ng-model="document.startDate" ng-pattern="patterns.date" required date-helper="document.startDate"  ng-trim="true" placeholder="yyyy-mm-dd">
                         <p class="help-block error" ng-show="form.startDate.$error.required">This field is mandatory</p>
                         <p class="help-block error" ng-show="form.startDate.$error.pattern">The date format must be YYYY-MM-DD</p>
                     </div>
                     <label for="endDate" class="col-sm-1 control-label">To</label>
                     <div class="col-sm-2">
-                        <input type="text" class="form-control date" name="endDate" id="endDate" ng-model="document.endDate" required ng-pattern="patterns.date" ng-trim="true" placeholder="yyyy-mm-dd">
+                        <input type="text" class="form-control date" name="endDate" id="endDate" ng-model="document.endDate" ng-model-options="{allowInvalid: true}" date-helper="document.endDate" required ng-pattern="patterns.date" ng-trim="true" placeholder="yyyy-mm-dd">
                         <p class="help-block error" ng-show="form.endDate.$error.required">This field is mandatory</p>
                         <p class="help-block error" ng-show="form.endDate.$error.pattern">The date format must be YYYY-MM-DD</p>
                     </div>
@@ -80,54 +80,76 @@
                     <label for="startTime" class="col-sm-3 control-label">Time</label>
                     <label for="startTime" class="col-sm-1 control-label">From</label>
                     <div class="col-sm-2">
-                        <input type="text" class="form-control" name="startTime" id="startTime" ng-model="document.startTime" ng-pattern="patterns.time" ng-trim="true" placeholder="00:00">
+                        <input type="text" class="form-control" name="startTime" id="startTime" ng-model-options="{allowInvalid: true}" ng-model="document.startTime" ng-pattern="patterns.time"  time-helper="document.startTime"   ng-trim="true" placeholder="00:00">
                     </div>
                     <label for="endTime" class="col-sm-1 control-label">To</label>
                     <div class="col-sm-2">
-                        <input type="text" class="form-control" name="endTime" id="endTime" ng-model="document.endTime" ng-pattern="patterns.time" ng-trim="true" placeholder="24:00">
+                        <input type="text" class="form-control" name="endTime" id="endTime" ng-model-options="{allowInvalid: true}" ng-model="document.endTime" ng-pattern="patterns.time"  time-helper="document.endTime" ng-trim="true" placeholder="24:00">
                     </div>
                     <div class="col-md-offset-3 col-sm-6">
                         <p class="help-block error" ng-show="form.startTime.$invalid || form.endTime.$invalid">Time format is invalid. Must be a HH:MM format in 24 hours(00:00 to 23:59)</p>
                     </div>
+
+
+
+                </div>
+                <div class="form-group">
+                    <label for="onlineEvent" class="col-sm-3 control-label">&nbsp;</label>
+                    <div class="col-sm-6">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="onlineEvent" name="onlineEvent" ng-model="document.onlineEvent"  style="margin-top:-5px; height:20px; width:18px;"> Action is online only
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{ 'has-warning': form.website.$invalid, 'has-error' : form.$submitted && form.website.$invalid}">
+                    <label for="website" class="col-sm-3 control-label">Website of action</label>
+                    <div class="col-sm-6">
+                        <input type="url" class="form-control" name="website" id="website" ng-model="document.website" ng-required="document.onlineEvent" ng-pattern="patterns.website" ng-focus="onFocusStart('website','http://')" placeholder="http://www.yoursite.com">
+                        <p class="help-block error" ng-show="form.website.$error.url">This is not a valid web address, you are most likely missing (http:// or https:// or .com) portions <em>http://www.yoursite.com or https://www.yoursite.com</em></p>
+                        <p class="help-block error" ng-show="form.website.$error.required">This field is mandatory if the event is online</p>
+                    </div>
+                </div>
+                <div google-address name="address" id="address"   form="form" ng-model="document.address" document="document"  ng-required="!document.onlineEvent"></div>
+
+                <div class="form-group" ng-class="{ 'has-warning': form.googleMaps.$invalid, 'has-error' : form.$submitted && form.googleMaps.$invalid }">
+                    <label for="googleMaps" class="col-sm-3 control-label required">Google maps link <span ng-if="document.onlineEvent">of organizer</span></label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" name="googleMaps" id="googleMaps" ng-model="document.googleMaps" ng-required="!document.onlineEvent"  ng-change="googleMapsChange(document.googleMaps)" placeholder="Google maps website address" required>
+                        <p class="help-block error" ng-show="form.googleMaps.$error.required">This field is mandatory</p>
+                        <p class="help-block error" ng-show="form.googleMaps.$error.pattern">This is not a valid google maps address</p>
+                    </div>
                 </div>
 
+
+
                 <div class="form-group" ng-class="{ 'has-warning': form.country.$invalid, 'has-error' : form.$submitted && form.country.$invalid }">
-                    <label for="country" class="col-sm-3 control-label required">Country</label>
+                    <label for="country" class="col-sm-3 control-label required">Country <span ng-if="document.onlineEvent">of organizer</span></label>
                     <div class="col-sm-6">
-                        <select class="form-control" id="country" name="country" ng-model="document.country" placeholder="country" required ng-options="c.code as c.name for c in countries|orderBy:'name.toLowerCase()' ">
+                        <select class="form-control" id="country" name="country" ng-model="document.country" ng-required="!document.onlineEvent"  placeholder="country" required ng-options="c.code as c.name for c in countries|orderBy:'name.toLowerCase()' ">
                             <option value="">Select your country</option>
                         </select>
                         <p class="help-block error" ng-show="form.country.$invalid">This field is mandatory</p>
                     </div>
                 </div>
 
-                <div class="form-group" ng-class="{ 'has-warning': form.address.$invalid, 'has-error' : form.$submitted && form.address.$invalid }">
-                    <label for="address" class="col-sm-3 control-label" required>Address</label>
+                <!-- <div class="form-group" ng-class="{ 'has-warning': form.address.$invalid, 'has-error' : form.$submitted && form.address.$invalid }">
+                    <label for="address" class="col-sm-3 control-label" required>Address <span ng-if="document.onlineEvent">of organizer</span></label>
                     <div class="col-sm-6">
                         <input type="text" class="form-control" name="address" id="address" ng-model="document.address"  ng-required="!document.onlineEvent" placeholder="1000 34th Street, New City">
                         <p class="help-block error" ng-show="form.address.$invalid">This field is mandatory</p>
                     </div>
-                </div>
+                </div> -->
 
-                <div class="form-group">
-                    <label for="address" class="col-sm-3 control-label">&nbsp;</label>
+                <!-- <div class="form-group" ng-class="{ 'has-warning': form.googleMaps.$invalid, 'has-error' : form.$submitted && form.googleMaps.$invalid }">
+                    <label for="googleMaps" class="col-sm-3 control-label required">Google maps link <span ng-if="document.onlineEvent">of organizer</span></label>
                     <div class="col-sm-6">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" id="onlineEvent" name="onlineEvent" ng-model="document.onlineEvent"  style="margin-top:-5px; height:20px; width:18px;"> Is Event Online?
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group" ng-class="{ 'has-warning': form.googleMaps.$invalid, 'has-error' : form.$submitted && form.googleMaps.$invalid }">
-                    <label for="googleMaps" class="col-sm-3 control-label required">Google maps link</label>
-                    <div class="col-sm-6">
-                        <input type="text" class="form-control" name="googleMaps" id="googleMaps" ng-model="document.googleMaps" ng-pattern="'http[s]?:\/\/([a-z]+\.)?google\.[a-z]+\/maps\/.+'" ng-change="googleMapsChange(document.googleMaps)" placeholder="Google maps website address" required>
+                        <input type="text" class="form-control" name="googleMaps" id="googleMaps" ng-model="document.googleMaps" ng-required="!document.onlineEvent"  ng-pattern="'http[s]?:\/\/([a-z]+\.)?google\.[a-z]+\/maps\/.+'" ng-change="googleMapsChange(document.googleMaps)" placeholder="Google maps website address" required>
                         <p class="help-block error" ng-show="form.googleMaps.$error.required">This field is mandatory</p>
                         <p class="help-block error" ng-show="form.googleMaps.$error.pattern">This is not a valid google maps address</p>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="form-group" ng-class="{ 'has-warning': form.email.$invalid, 'has-error' : form.$submitted && form.email.$invalid}">
                     <label for="email" class="col-sm-3 control-label required">Email</label>
@@ -141,7 +163,7 @@
                 <div class="form-group" ng-class="{ 'has-warning': form.phone.$invalid, 'has-error' : form.$submitted && form.phone.$invalid}">
                     <label for="phone" class="col-sm-3 control-label required">Telephone</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" name="phone" id="phone" ng-model="document.phone" ng-pattern="patterns.phone" placeholder="Contact telephone number" required>
+                        <input type="text" class="form-control" name="phone" id="phone" ng-model="document.phone" ng-pattern="patterns.phone" placeholder="Contact telephone number" ng-focus="onFocusStart('phone','+')" required>
                         <p class="help-block error" ng-show="form.phone.$error.required">This field is mandatory</p>
                         <p class="help-block error" ng-show="form.phone.$error.pattern">Please use the following format: + (country code) (city code) (telephone number) (extension, if necessary);<br>Example: <b>+1 514 288-2220 ext 221</b> (where 1 = North America, 514 = Montreal, 288-2220 = CBD Secretariat number, ext 221 = direct extension to the switchboard).</p>
                     </div>
@@ -150,8 +172,8 @@
                 <div class="form-group" ng-class="{ 'has-warning': form.facebook.$invalid, 'has-error' : form.$submitted && form.facebook.$invalid}">
                     <label for="facebook" class="col-sm-3 control-label">Facebook</label>
                     <div class="col-sm-6">
-                        <input type="url" class="form-control" name="facebook" id="facebook" ng-model="document.facebook" ng-pattern="patterns.facebook" placeholder="https://www.facebook.com/organisation">
-                        <p class="help-block error" ng-show="form.facebook.$error.url">This is not a valid web address</p>
+                        <input type="url" class="form-control" name="facebook" id="facebook" ng-model="document.facebook" ng-pattern="patterns.facebook" ng-focus="onFocusStart('facebook','https://www.facebook.com/')" placeholder="https://www.facebook.com/organisation">
+                        <p class="help-block error" ng-show="form.facebook.$error.url">This is not a valid web address, you are most likely missing (http:// or https:// or .com) portions</p>
                         <p class="help-block error" ng-show="form.facebook.$error.pattern">Facebook address is invalid. It should look like: <em>https://www.facebook.com/your-facebook-page</em></p>
                     </div>
                 </div>
@@ -159,8 +181,8 @@
                 <div class="form-group" ng-class="{ 'has-warning': form.twitter.$invalid, 'has-error' : form.$submitted && form.twitter.$invalid}">
                     <label for="twitter" class="col-sm-3 control-label" >Twitter</label>
                     <div class="col-sm-6">
-                        <input type="url" class="form-control" name="twitter" id="twitter" ng-model="document.twitter" ng-pattern="patterns.twitter" placeholder="https://twitter.com/organisation">
-                        <p class="help-block error" ng-show="form.twitter.$error.url">This is not a valid web address</p>
+                        <input type="url" class="form-control" name="twitter" id="twitter" ng-model="document.twitter" ng-pattern="patterns.twitter" ng-focus="onFocusStart('twitter','https://www.twitter.com/')" placeholder="https://twitter.com/organisation">
+                        <p class="help-block error" ng-show="form.twitter.$error.url">This is not a valid web address, you are most likely missing (http:// or https:// or .com) portions</p>
                         <p class="help-block error" ng-show="form.twitter.$error.pattern">Twitter address is invalid. It should look like: <em>https://twitter.com/your-twitter-account</em></p>
                     </div>
                 </div>
@@ -168,14 +190,14 @@
                 <div class="form-group" ng-class="{ 'has-warning': form.youtube.$invalid, 'has-error' : form.$submitted && form.youtube.$invalid}">
                     <label for="twitter" class="col-sm-3 control-label" required>Youtube</label>
                     <div class="col-sm-6">
-                        <input type="url" class="form-control" name="youtube" id="youtube" ng-model="document.youtube" ng-pattern="patterns.youtube" placeholder="https://www.youtube.com/user/organisation">
-                        <p class="help-block error" ng-show="form.youtube.$error.url">This is not a valid web address</p>
+                        <input type="url" class="form-control" name="youtube" id="youtube" ng-model="document.youtube" ng-pattern="patterns.youtube" ng-focus="onFocusStart('youtube','https://www.youtube.com/')" placeholder="https://www.youtube.com/user/organisation">
+                        <p class="help-block error" ng-show="form.youtube.$error.url">This is not a valid web address, you are most likely missing (http:// or https:// or .com) portions</p>
                         <p class="help-block error" ng-show="form.youtube.$error.pattern">Youtube address is invalid. It should look like: <em>https://www.youtube.com/user/your-youtube-channel</em></p>
                     </div>
                 </div>
 
                 <div class="form-group" ng-class="{ 'has-warning': form.description.$invalid, 'has-error' : form.$submitted && form.description.$invalid}">
-                    <label for="description" class="col-sm-3 control-label required">Short description of your Action in one of the 6 United Nations languages (max. 1000 characters)</label>
+                    <label for="description" class="col-sm-3 control-label required" style="line-height:20px;">Short description of your Action in one of the 6 United Nations languages: Arabic, Chinese, English, French, Russian, or Spanish (max. 1000 characters) </label>
                     <div class="col-sm-6">
                         <textarea class="form-control" name="description" id="description" ng-model="document.description" cols="30" rows="10" required placeholder="Briefly describe your organisation and your work related to the United Nations Decade on Biodiversity (max. 1000 characters)"></textarea>
                         <p class="help-block error" ng-show="form.description.$invalid" style="margin-top:2px">This field is mandatory</p>
@@ -183,21 +205,21 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="descriptionNative" class="col-sm-3 control-label">Short description of your Action in your official language (max. 1000 characters)</label>
+                    <label for="descriptionNative" class="col-sm-3 control-label" style="line-height:20px;">Short description of your Action in your official language (max. 1000 characters)</label>
                     <div class="col-sm-6">
                         <textarea class="form-control" id="descriptionNative" ng-model="document.descriptionNative" cols="30" rows="10" placeholder="Briefly describe your organisation and your work related to the United Nations Decade on Biodiversity (max. 1000 characters)"></textarea>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="notes" class="col-sm-3 control-label">Comments or additional information (not visible online)</label>
+                    <label for="notes" class="col-sm-3 control-label" style="line-height:20px;">Comments or additional information (not visible online)</label>
                     <div class="col-sm-6">
                         <textarea class="form-control" id="notes" ng-model="document.notes" cols="30" rows="5" placeholder="300 characters"></textarea>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="logo" class="col-sm-3 control-label small-margin">Please attach a logo or image of your Action (max. 500KB).
+                    <label for="logo" class="col-sm-3 control-label small-margin" style="line-height:20px;">Please attach a logo or image of your Action (max. 500KB).
                         <br>The image on the profile will be fitted into 200 x 200 px.
                     </label>
                     <div class="col-sm-6">
