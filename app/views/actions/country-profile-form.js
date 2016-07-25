@@ -1,7 +1,7 @@
 define(['app', 'lodash', 'directives/edit-link', 'directives/link-list','ng-ckeditor'], function(app, _) {
     'use strict';
-    return ['$scope', 'locale', '$http', '$location', '$route', '$timeout',
-        function($scope, locale, $http, $location, $route, $timeout) {
+    return ['$scope', 'locale', '$http', '$location', '$route', '$timeout','$document',
+        function($scope, locale, $http, $location, $route, $timeout,$document) {
 
             $scope.code = $route.current.params.code;
             $scope.tab = 'profile';
@@ -101,6 +101,37 @@ define(['app', 'lodash', 'directives/edit-link', 'directives/link-list','ng-cked
             $scope.showEdit = showEdit;
 
 
+
+            //=======================================================================
+            //
+            //=======================================================================
+            function onFocusStart(id,start) {
+                if (!$scope.document[id]) {
+                    $scope.document[id] = start;
+                    moveCursorToEnd($document.find('#'+id)[0]);
+                }
+            }
+            $scope.onFocusStart = onFocusStart;
+
+
+
+            //=======================================================================
+            //
+            //=======================================================================
+            function moveCursorToEnd(el) {
+                $timeout(function() {
+                    if (typeof el.selectionStart == "number") {
+                        el.selectionStart = el.selectionEnd = el.value.length;
+                    } else if (typeof el.createTextRange != "undefined") {
+                        el.focus();
+                        var range = el.createTextRange();
+                        range.collapse(false);
+                        range.select();
+                    }
+                }, 200);
+            }
+
+            
             //=======================================================================
             //
             //=======================================================================
