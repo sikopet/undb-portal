@@ -829,28 +829,29 @@ a.button-green-link{
   float: left;
 }
 .profile .profile-column {
-  max-width: 260px;
-  padding: 30px;
-  display: inline-block;
+  /*max-width: 260px;*/
+  padding: 20px;
+  /*display: inline-block;*/
 }
-.profile .profile-column > img {
+/*.profile .profile-column > img {
   display: block;
   margin: 0 auto;
   width: 200px;
   height: 200px;
-}
-.profile .profile-column .profile-image {
+}*/
+/*.profile .profile-column .profile-image {
   width: 200px;
   height: 200px;
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 100%;
-}
+}*/
 .profile .profile-column .party {
   text-align: left;
   margin: 24px 0;
 }
 .profile .profile-column .party li {
+  list-style-type: none;
   margin: 14px 0;
 }
 .profile .profile-column .party li span {
@@ -866,9 +867,17 @@ a.button-green-link{
   color: #666666;
 }
 .profile .profile-column .links {
+
+  text-align: left;
+}
+.profile .profile-column .links ul{
+font-size:10.5px;
+padding-top:10px;
+padding-left: 2px;
   text-align: left;
 }
 .profile .profile-column .links li {
+  list-style-type: none;
   margin: 8px 0;
   height: 25px;
   width: 100%;
@@ -895,7 +904,7 @@ a.button-green-link{
   margin-right: 6px;
 }
 .profile .profile-column .links li a span:last-child {
-  font-size: 0.9em;
+  font-size: 0.7em;
 }
 .profile .profile-column .links li a span svg {
   width: 22px;
