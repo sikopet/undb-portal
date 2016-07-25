@@ -32,11 +32,9 @@
     </style>
 
     <div class="row" style="padding-top:3px;padding-left:120px;">
-      <div class="col-md-12" style="text-align:center; padding-right:130px;">
-        <h4 class="leggendTitle">{{legendTitle}}</h4>
-      </div>
 
-      <div class="col-xs-2 col-md-2 leggendItem" ng-repeat="item in leggends.parties" ng-click="legendHide(item);">
+
+      <div class="col-xs-2 leggendItem" ng-repeat="item in leggends.parties" ng-click="legendHide(item);" ng-class="{'col-xs-offset-3':!$last}">
         <i class="fa fa-times fa-2x square" ng-if="!item.visible" style="display: block;"></i>
         <div class="square" ng-style="{'background-color':item.color}" ng-if="item.visible"></div> {{item.title}}
       </div>
