@@ -72,23 +72,28 @@
 						<span class="action-labels">Date </span>
 						<span class="detail" style="margin-left:35px;">{{action.startDate_s | date:'yyyy.MM.dd'}} <span ng-if="action.endDate_s"> - {{action.endDate_s | date:'yyyy.MM.dd'}}</span></span>
 					</div>
+
 					<div class="action-detail" ng-if="action.startTime">
 						<span class="action-labels">Time </span>
 						<span class="detail" style="margin-left:35px;">{{action.startTime}}<span ng-if="action.endTime"> - {{action.endTime}}</span></span>
 					</div>
-					<div class="action-detail" ng-if="action.address">
+					<div class="action-detail" ng-if="action.website">
+						<span class="action-labels">Website </span>
+						<span class="detail" style="margin-left:35px;"><a href="{{action.website}}" class="map">{{action.website}}</a></span>
+					</div>
+					<div class="action-detail" ng-if="action.address && !action.onlineEvent">
 						<span class="action-labels">Address</span>
 						<span class="detail" style="margin-left:14px;">{{action.address}}</span>
 					</div>
-					<div class="action-detail" ng-if="action.country_s">
+					<div class="action-detail" ng-if="action.country_s && !action.onlineEvent">
 						<span class="action-labels">Country</span>
 						<span class="detail">
-							<a href="" ng-click="goTo('/actions/countries/',action.country_s.toUpperCase());" style="margin-left:15px;">
+							<a href="" ng-click="goTo('/actions/countries/',action.country_s.toUpperCase());" style="margin-left:15px;" >
 								<img ng-src="{{getCountryFlag(action.country_s)}}"> {{action.country_EN_s}} </a>
 						</span>
 					</div>
 
-					<div class="action-detail" ng-if="action.googleMaps_s">
+					<div class="action-detail" ng-if="action.googleMaps_s && !action.onlineEvent">
 						<span class="action-labels">Directions</span>
 						<span class="detail">
 							<a href="{{action.googleMaps_s}}" style="margin-left:4px;"> <i class="fa fa-map "></i></a>

@@ -28,9 +28,8 @@ define([ 'filters/trunc','directives/map/zoom-map','directives/links-display'], 
                 $http.get('https://api.cbd.int/api/v2013/documents/'+$scope.action.identifier_s, {
                     cache: true
                 }).success(function(d) {
-console.log(d);
-Object.assign($scope.action,d);
-  console.log($scope.action);
+
+                  Object.assign($scope.action,d);
                 });;
             });
 
