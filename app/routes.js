@@ -27,10 +27,10 @@ define(['app', 'lodash', 'text!views/index.html', 'views/index', 'providers/exte
             when('/actions/submit',               { templateUrl: 'views/actions/submit.html',           label:'Participate',          resolveController: true, resolve : { user : securize(['User']) }, reloadOnSearch : false }).
             when('/actions/submit-form/:uid?',    { templateUrl: 'views/actions/submit-form.html',      label:'Form',                 resolveController: true, resolve : { user : securize(['User']) } }).
             when('/actions/submit-form-done',     { templateUrl: 'views/actions/submit-form-done.html', label:'Thanks',                                        resolve : { user : securize(['User']) } }).
-            when('/actions/:uid',          { templateUrl: 'views/actions/action.html',           label:'Action',               resolveController: true }).
+            when('/actions/:uid',                 { templateUrl: 'views/actions/action.html',           label:'Action',               resolveController: true }).
 
-            when('/actors',                      { templateUrl: 'views/actors/index.html',       label:'Actors'                   }).
-            when('/actors/abttf',                { templateUrl: 'views/actors/abttf.html',       label:'ABTTF'                    }).
+            when('/actors',                      { templateUrl: 'views/actors/index.html',       label:'Actors',                resolveController: true}).
+            when('/actors/abttf',                { templateUrl: 'views/actors/abttf.html',       label:'ABTTF',                  resolveController: true  }).
             when('/actors/champions',            { templateUrl: 'views/actors/champions.html',   label:'Biodiversity Champions'   }).
             when('/actors/blg',                  { templateUrl: 'views/actors/blg.html',         label:'BLG'                      }).
             when('/actors/jlg',                  { templateUrl: 'views/actors/jlg.html',         label:'JLG'                      }).
