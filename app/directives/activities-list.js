@@ -173,11 +173,13 @@ define(['text!./activities-list.html', 'app','moment' ], function(template, app,
                   'start': $scope.currentPage * $scope.itemsPerPage,
   								'rows': $scope.itemsPerPage,
                 };
-                  $http.get('/api/v2013/index/select', {
+
+                  $http.get('https://www.cbd.int/api/v2013/index/select', {
                     params: queryParameters,
                     cache: true
                   }).success(function(data) {
-                    $scope.count = data.response.numFound;
+
+                    $scope.count = data.response.docs.length;
                     $scope.actions = data.response.docs;
                     $scope.loading = false;
                   });
