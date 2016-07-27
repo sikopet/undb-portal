@@ -51,7 +51,7 @@ define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows', 'util
                 loadWorkflow($location.search().workflowId);
         }
         else
-            discover();
+            load();
 
         //==============================
         //
