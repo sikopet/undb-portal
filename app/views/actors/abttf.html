@@ -70,8 +70,8 @@
                 <img ng-src="{{doc.logo_s}}" width="90%" alt="" >
             </div>
             <div class="col-xs-8">
-                <h4>{{doc.title_t}}</h4>
-                <p>{{doc.description_t | hack}}  <a ng-click="goTo('',doc.id)">&gt;</a>
+                <h4><a ng-click="goTo('/actors/partners/',doc.id)" style="cursor:pointer;">{{doc.title_t}}</a></h4>
+                <p>{{doc.description_t | hack}}  <a ng-click="goTo('/actors/partners/',doc.id)" style="cursor:pointer;">&gt;</a>
                 </p>
             </div>
         </div>
