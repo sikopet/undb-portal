@@ -52,7 +52,7 @@ define(['app','lodash'], function(app,_) { 'use strict';
 					_.each(res2.data,function(profileCode){
 
 									var country = _.find(res.data,{code:profileCode.code});
-									if(!_.find($scope.countries,{code:profileCode.code})){
+									if(!_.find($scope.countries,{code:profileCode.code}) && country){
 										country.facet=1;
 										$scope.countries.push(country);
 									}
