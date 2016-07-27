@@ -111,6 +111,20 @@
                         <p class="help-block error" ng-show="form.website.$error.required">This field is mandatory if the event is online</p>
                     </div>
                 </div>
+
+                <div class="form-group" ng-class="{ 'has-warning': form.country.$invalid, 'has-error' : form.$submitted && form.country.$invalid }">
+                    <label for="country" class="col-sm-3 control-label required">Country of action</label>
+                    <div class="col-sm-6">
+                        <select class="form-control" ng-show="!document.onlineEvent" id="country" name="country" ng-model="document.country"  placeholder="country" ng-required="document.onlineEvent" ng-options="c.code as c.name for c in countries|orderBy:'name.toLowerCase()' ">
+                            <option value="" >Select your country</option>
+                        </select>
+                        <select class="form-control" ng-show="document.onlineEvent" id="country" name="country" ng-model="document.country"  placeholder="country" ng-required="!document.onlineEvent" ng-options="c.code as c.name for c in countries|orderBy:'name.toLowerCase()' ">
+                            <option value=""  >All Countries</option>
+                        </select>
+                        <p class="help-block error" ng-show="form.country.$invalid">This field is mandatory</p>
+                    </div>
+                </div>
+
                 <div google-address name="address" id="address"   form="form" ng-model="document.address" document="document"  ng-required="!document.onlineEvent"></div>
 
                 <div class="form-group" ng-class="{ 'has-warning': form.googleMaps.$invalid, 'has-error' : form.$submitted && form.googleMaps.$invalid }">
@@ -124,15 +138,7 @@
 
 
 
-                <div class="form-group" ng-class="{ 'has-warning': form.country.$invalid, 'has-error' : form.$submitted && form.country.$invalid }">
-                    <label for="country" class="col-sm-3 control-label required">Country <span ng-if="document.onlineEvent">of organizer</span></label>
-                    <div class="col-sm-6">
-                        <select class="form-control" id="country" name="country" ng-model="document.country" ng-required="!document.onlineEvent"  placeholder="country" required ng-options="c.code as c.name for c in countries|orderBy:'name.toLowerCase()' ">
-                            <option value="">Select your country</option>
-                        </select>
-                        <p class="help-block error" ng-show="form.country.$invalid">This field is mandatory</p>
-                    </div>
-                </div>
+
 
                 <!-- <div class="form-group" ng-class="{ 'has-warning': form.address.$invalid, 'has-error' : form.$submitted && form.address.$invalid }">
                     <label for="address" class="col-sm-3 control-label" required>Address <span ng-if="document.onlineEvent">of organizer</span></label>
