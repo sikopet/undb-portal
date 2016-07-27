@@ -53,38 +53,6 @@ define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows', 'util
         else
             load();
 
-        //==============================
-        //
-        //
-        //==============================
-        function discover() {
-
-            delete $scope.errors;
-            $scope.loading = true;
-
-            var filter = "type eq 'undbPartner' and createdBy/userID eq "+user.userID;
-
-            var resDrafts = $http.get("https://api.cbd.int/api/v2013/documents", { params : { $filter : filter, collection : 'mydraft' } }).then(res_Data);
-            var resDocs   = $http.get("https://api.cbd.int/api/v2013/documents", { params : { $filter : filter } }).then(res_Data);
-
-            return $q.all([resDrafts, resDocs]).then(function(res) {
-
-                var records = _.flatten([res[0].Items, res[1].Items]);
-
-                if(records.length) {
-                    $location.url('/actors/partners/edit/'+records[0].identifier);
-                }
-                else {
-                    return load();
-                }
-
-            }).catch(function(err) {
-
-                delete $scope.loading;
-
-                res_Error(err);
-            });
-        }
 
         //==============================
         //
@@ -175,7 +143,7 @@ define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows', 'util
                 if(report.errors && report.errors.length)
                     throw report;
 
-            }).then(function(res) {
+            }).then(function() {
 
                 if($scope.editWorkflow){
                     // $http.put('https://api.cbd.int/api/v2013/documents/'+doc.header.identifier+'/versions/draft', doc, { params : { schema : doc.header.schema }});
@@ -186,9 +154,9 @@ define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows', 'util
                                         .then(function(){
                                             return storage.drafts.put(doc.header.identifier, doc);
                                         })
-                                        .then(function(draftInfo){
+                                        .then(function(){
                                             return storage.drafts.locks.put(doc.header.identifier, {lockID:lockInfo.data[0].lockID});
-                                        })
+                                        });
                             });
                 }
                 else
@@ -306,7 +274,7 @@ define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows', 'util
                 if(!data.closedOn && _.contains(data.activities[0].assignedTo, user.userID)){
                     $scope.editWorkflow = true;
                 }
-            })
+            });
         }
     }];
 });
