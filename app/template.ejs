@@ -326,7 +326,7 @@
 
     <iframe id="authenticationFrame" src="https://accounts.cbd.int/app/authorize.html" style="display:none" onload="(event.target || event.srcElement).ready = true"></iframe>
     <!-- path={{path}} -->
-    <ng-view></ng-view>
+    <ng-view autoscroll="true"></ng-view>
 
     <!--  FOOTER  -->
     <footer ng-cloak ng-show="routeLoaded">
