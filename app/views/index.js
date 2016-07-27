@@ -9,15 +9,15 @@ define(['app','authentication', '../directives/map/undb-map'], function() { 'use
 											imageUrl : "app/img/undb-slider-cop13.png",
 											targetUrl: "https://www.cbd.int/cop2016/"
 										},{
-						title : "High-level Political Forum on Sustainable Development New",
+						title : "High-level Political Forum on Sustainable Development",
 						description : 'UN chief launches first report to track Sustainable Development Goals.',
 						imageUrl : "app/images/carousel/slider-1.jpg",
-						targetUrl: "http://www.cbd.int"
+						targetUrl: "http://www.un.org/apps/news/story.asp?NewsID=54503#.V5J72PmANBc"
 					},
 					{
 						title : " Sustainable Development Goals",
 						description : "Transforming our world: the 2030 Agenda for Sustainable Development.",
-						imageUrl : "app/img/undb-slider-cop13.png",
+						imageUrl : "app/img/undb-slider-sdg.png",
 						targetUrl: "https://sustainabledevelopment.un.org/sdgs"
 					},
 					{
@@ -31,12 +31,6 @@ define(['app','authentication', '../directives/map/undb-map'], function() { 'use
 						description : "The vision: By 2050, biodiversity is valued, conserved, restored and wisely used, maintaining ecosystem services, sustaining a healthy planet and delivering benefits essential for all people.",
 						imageUrl : "app/img/undb-slider-aichi.png",
 						targetUrl: "https://www.cbd.int/sp"
-					},
-					{
-						title : "Title 5",
-						description : "Description 5",
-						imageUrl : "http://lorempixel.com/865/467/nature/five/",
-						targetUrl: "http://www.cbd.int"
 					},
 ]
 				};
