@@ -57,6 +57,11 @@ define(['lodash', 'jquery', 'guid', 'app', 'directives/file','directives/date-he
             var matches = /@(-?\d+\.\d+),(-?\d+\.\d+)/g.exec(url || "");
 
             if(matches) {
+
+                if(matches[1].length>10) matches[1]=matches[1].substring(0, 9);
+
+                if(matches[2].length>10) matches[2]= matches[2].substring(0, 9);
+
                 $scope.document.geoLocation = {
                     lat : parseFloat(matches[1]),
                     lng : parseFloat(matches[2])
@@ -159,7 +164,7 @@ define(['lodash', 'jquery', 'guid', 'app', 'directives/file','directives/date-he
                     return $http.put('https://api.cbd.int/api/v2013/documents/'+doc.header.identifier+'/versions/draft', doc, { params : { schema : doc.header.schema }}).then(res_Data);
 
             }).then(function(docInfo) {
-
+                $scope.$emit('showInfo', 'Action successfully saved.');
                 if($scope.editWorkflow){ //publish
                     return workflows.updateActivity($location.search().workflowId, 'publishRecord', { action : 'approve' });
                 }
@@ -173,8 +178,10 @@ define(['lodash', 'jquery', 'guid', 'app', 'directives/file','directives/date-he
                 else
                     $location.url('/actions/submit-form-done');
 
+
             })
             .catch(res_Error).finally(function() {
+
                 delete $scope.saving;
             });
         }
@@ -228,22 +235,13 @@ define(['lodash', 'jquery', 'guid', 'app', 'directives/file','directives/date-he
         function res_Error(err) {
 
             err = err.data || err;
-
+            $scope.$emit('showError', 'ERROR: Action was not saved.');
             $scope.errors = err.errors || [err];
 
             console.error($scope.errors);
         }
-        //=======================================================================
-        //
-        //=======================================================================
-        function dateHelper(event,val) {
 
-            if (val && val.length===4) {
-                val=val+':';
-                moveCursorToEnd(angular.element(event.srcElement));
-            }
-        }
-        $scope.dateHelper = dateHelper;
+
         //=======================================================================
         //
         //=======================================================================
