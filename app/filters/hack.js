@@ -5,8 +5,10 @@ define(['app'], function(app) {
 
             if (!text)
                 return '';
-
-            return text.replace('[ABBTTF]','');
+            text=text.replace('[ABTTF]','');
+            text=text.replace('[BLGBLG]','');
+            text=text.replace('[JLGJLG]','');
+            return text;
         };
     });
 });

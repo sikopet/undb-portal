@@ -1,4 +1,4 @@
-define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows', 'utilities/km-storage'], function(_, guid) { 'use strict';
+define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows', 'utilities/km-storage','directives/google-address','directives/on-focus-helper'], function(_, guid) { 'use strict';
 
     return ['$scope', '$http', '$q', 'locale', 'realm', 'workflows', 'user', '$route', '$anchorScroll', '$location', 'IStorage',
     function($scope,   $http,   $q,   locale,   realm,   workflows,   user,   $route,   $anchorScroll,   $location, storage) {
@@ -106,6 +106,7 @@ define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows', 'util
             });
         }
 
+
         //==============================
         //
         //
@@ -163,6 +164,7 @@ define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows', 'util
                     return $http.put('https://api.cbd.int/api/v2013/documents/'+doc.header.identifier+'/versions/draft', doc, { params : { schema : doc.header.schema }});
 
             }).then(function(res) {
+                $scope.$emit('showInfo', 'Actor successfully saved.');
                 if($scope.editWorkflow){
                     //publish
                     return workflows.updateActivity($location.search().workflowId, 'publishRecord', { action : 'approve' });
@@ -254,7 +256,7 @@ define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows', 'util
         function res_Error(err) {
 
             err = err.data || err;
-
+            $scope.$emit('showError', 'ERROR: Actor was not saved.');
             $scope.errors = err.errors || [err];
 
             console.error($scope.errors);

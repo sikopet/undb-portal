@@ -81,7 +81,7 @@
                 <div class="form-group" ng-class="{ 'has-warning': !loading && form.website.$invalid, 'has-error' : form.$submitted && form.website.$invalid }">
                     <label for="webite" class="col-sm-3 control-label">Website</label>
                     <div class="col-sm-6">
-                        <input type="url" class="form-control" name="website" id="website" ng-model="document.website" placeholder="Org. website" ng-disabled="disabled()">
+                        <input type="url" class="form-control" name="website" id="website" ng-model="document.website" placeholder="Org. website" ng-disabled="disabled()" on-focus-helper start="http://">
                         <p class="help-block error" ng-show="!loading && form.website.$error.url">This is not a valid web address</p>
                     </div>
                 </div>
@@ -97,13 +97,7 @@
                     </div>
                 </div>
 
-                <div class="form-group" ng-class="{ 'has-warning': !loading && form.address.$invalid, 'has-error' : form.$submitted && form.address.$invalid }">
-                    <label for="address" class="col-sm-3 control-label" required>Address</label>
-                    <div class="col-sm-6">
-                        <input type="text" class="form-control" name="address" id="address" ng-model="document.address" placeholder="Org. address" required ng-disabled="disabled()">
-                        <p class="help-block error" ng-show="!loading && form.country.$invalid">This field is mandatory</p>
-                    </div>
-                </div>
+                <div google-address name="address" id="address"   form="form" ng-model="document.address" document="document"  ng-required="!document.onlineEvent"></div>
 
                 <div class="form-group" ng-class="{ 'has-warning': !loading && form.googleMaps.$invalid, 'has-error' : form.$submitted && form.googleMaps.$invalid }">
                     <label for="googleMaps" class="col-sm-3 control-label required">Google maps link</label>
@@ -135,7 +129,7 @@
                 <div class="form-group" ng-class="{ 'has-warning': !loading && form.facebook.$invalid, 'has-error' : form.$submitted && form.facebook.$invalid }">
                     <label for="facebook" class="col-sm-3 control-label">Facebook</label>
                     <div class="col-sm-6">
-                        <input ng-disabled="disabled()" type="url" class="form-control" name="facebook" id="facebook" ng-model="document.facebook" ng-pattern="patterns.facebook" placeholder="https://www.facebook.com/organisation">
+                        <input ng-disabled="disabled()" type="url" class="form-control" name="facebook" id="facebook" ng-model="document.facebook" ng-pattern="patterns.facebook" placeholder="https://www.facebook.com/organisation" on-focus-helper start="https://www.facebook.com/">
                         <p class="help-block error" ng-show="!loading && form.facebook.$error.url">This is not a valid web address</p>
                         <p class="help-block error" ng-show="!loading && form.facebook.$error.pattern">Facebook address is invalid. It should look like: <em>https://www.facebook.com/your-facebook-page</em></p>
                     </div>
@@ -144,14 +138,14 @@
                 <div class="form-group" ng-class="{ 'has-warning': !loading && form.twitter.$invalid, 'has-error' : form.$submitted && form.twitter.$invalid }">
                     <label for="twitter" class="col-sm-3 control-label" >Twitter</label>
                     <div class="col-sm-6">
-                        <input ng-disabled="disabled()" type="url" class="form-control" name="twitter" id="twitter" ng-model="document.twitter" ng-pattern="patterns.twitter" placeholder="https://twitter.com/organisation">
+                        <input ng-disabled="disabled()" type="url" class="form-control" name="twitter" id="twitter" ng-model="document.twitter" ng-pattern="patterns.twitter" placeholder="https://twitter.com/organisation" on-focus-helper start="https://twitter.com/">
                         <p class="help-block error" ng-show="!loading && form.twitter.$error.url">This is not a valid web address</p>
                         <p class="help-block error" ng-show="!loading && form.twitter.$error.pattern">Twitter address is invalid. It should look like: <em>https://twitter.com/your-twitter-account</em></p>
                     </div>
                 </div>
 
                 <div class="form-group" ng-class="{ 'has-warning': !loading && form.description.$invalid, 'has-error' : form.$submitted && form.description.$invalid }">
-                    <label for="description" class="col-sm-3 control-label" required>Short description of your organisation in one of the 6 United Nations languages (max. 1000 characters)</label>
+                    <label for="description" class="col-sm-3 control-label" style="line-height:20px;" required>Short description of your organisation in one of the 6 United Nations languages (max. 1000 characters)</label>
                     <div class="col-sm-6">
                         <textarea class="form-control" name="description" id="description" ng-model="document.description" cols="30" rows="10" required placeholder="Briefly describe your organisation and your work related to the United Nations Decade on Biodiversity (max. 1000 characters)" ng-disabled="disabled()"></textarea>
                         <p class="help-block error" ng-show="!loading && form.description.$invalid" style="margin-top:2px">This field is mandatory</p>
@@ -159,21 +153,21 @@
                 </div>
 
                 <div class="form-group" ng-class="{ 'has-warning': !loading && form.descriptionNative.$invalid, 'has-error' : form.$submitted && form.descriptionNative.$invalid }">
-                    <label for="descriptionNative" class="col-sm-3 control-label">Short description of your organisation in your official language (max. 1000 characters)</label>
+                    <label for="descriptionNative" class="col-sm-3 control-label" style="line-height:20px;">Short description of your organisation in your official language (max. 1000 characters)</label>
                     <div class="col-sm-6">
                         <textarea class="form-control" name="descriptionNative" id="descriptionNative" ng-model="document.descriptionNative" cols="30" rows="10" placeholder="Briefly describe your organisation and your work related to the United Nations Decade on Biodiversity (max. 1000 characters)" ng-disabled="disabled()"></textarea>
                     </div>
                 </div>
 
                 <div class="form-group" ng-class="{ 'has-warning': !loading && form.notes.$invalid, 'has-error' : form.$submitted && form.notes.$invalid }">
-                    <label for="notes" class="col-sm-3 control-label">Comments or additional information (not visible online)</label>
+                    <label for="notes" class="col-sm-3 control-label" style="line-height:20px;">Comments or additional information (not visible online)</label>
                     <div class="col-sm-6">
                         <textarea class="form-control" name="notes" id="notes" ng-model="document.notes" cols="30" rows="5" placeholder="300 characters" ng-disabled="disabled()"></textarea>
                     </div>
                 </div>
 
                 <div class="form-group" ng-class="{ 'has-warning': !loading && form.logo.$invalid, 'has-error' : form.$submitted && form.logo.$invalid }">
-                    <label for="logo" class="col-sm-3 control-label small-margin">Please attach a logo or image of your Action (max. 500KB).
+                    <label for="logo" class="col-sm-3 control-label small-margin" style="line-height:20px;">Please attach a logo or image of your Action (max. 500KB).
                         <br>The image on the profile will be fitted into 200 x 200 px.
                     </label>
                     <div class="col-sm-6">
@@ -187,14 +181,14 @@
                 <br>
 
                 <div class="form-group" ng-class="{ 'has-warning': (form.$submitted && !agreed) }">
-                    <div class="col-sm-12 text-center">
+                    <div class="col-sm-12 text-center"><span ng-if="saving"><i  class="fa fa-spinner fa-spin fa-3x fa-fw"></i> Saving...</label></span>
                         <label class="control-label">
                             <input ng-disabled="disabled()" type="checkbox" style="width:auto;height:auto" ng-model="agreed"> I have read and I understand the requirements explained at</label> <a target="conditions" href="http://www.cbd.int/2011-2020/participate/partner">www.cbd.int/2011-2020/participate/partner</a>.
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="" class="col-sm-3 control-label"></label>
+                    <label for="" class="col-sm-3 control-label"><span ng-if="saving"><i  class="fa fa-spinner fa-spin fa-3x fa-fw"></i> Saving...</label></span></label>
                     <div class="col-sm-6">
                         <input ng-hide="editWorkflow" type="submit" class="btn btn-primary btn-lg" value="Submit" ng-disabled="disabled()">
                         <input ng-show="editWorkflow" type="submit" class="btn btn-primary btn-lg" value="Publish" ng-disabled="disabled()">

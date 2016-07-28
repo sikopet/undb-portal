@@ -1,4 +1,4 @@
-define(['app', 'angular', 'authentication'], function() { 'use strict';
+define(['app', 'angular', 'authentication','filters/hack'], function() { 'use strict';
 
 	return ['$scope', '$http','user', '$location', function ($scope, $http, user, $location) {
 
@@ -15,10 +15,10 @@ define(['app', 'angular', 'authentication'], function() { 'use strict';
             $scope.partners = res.data.response.docs;
         });
 
-		$scope.goTo= function (url,code){
-			if(code)
-				$location.url(url + parseInt(code.replace('52000000cbd08', ''), 16));
-		};
+				$scope.goTo= function (url,code){
+					if(code)
+						$location.url(url + parseInt(code.replace('52000000cbd08', ''), 16));
+				};
 
         if(user.isAuthenticated) {
             //TODO CHECK USER ALREADY A PARTNER and disbale subscribe button

@@ -21,8 +21,6 @@
                 <p><span>The Aichi Biodiversity Targets Task Force was established to provide a platform for agencies and organizations to coordinate their activities in support of implementation of the <a href="https://www.cbd.int/sp/"><span  >Strategic Plan for Biodiversity 2011-2020</span></a> and its <a href="https://www.cbd.int/sp/targets/"><span  >Aichi Biodiversity Targets</span></a> at global and national levels during the United Nations Decade on Biodiversity.</span></p>
 
                 <p><span>A <a href="https://www.cbd.int/doc/agreements/agmt-aichi2020-aze-2011-09-20-moc-web-en.pdf"><span  >Memorandum of Cooperation (MoC)</span></a> signed on 20 September 2011 between the Secretariat of the Convention on Biological Diversity (CBD) and 27 international agencies, organizations and environmental conventions, aims to achieve and implement the Strategic Plan for Biodiversity and its Aichi Targets. Two more organizations have joined since.</span></p>
-
-                <p><span>The Members of the Aichi Biodiversity Targets Task Force are:</span></p>
             </div>
         </div>
         <div class="row article">
@@ -61,13 +59,13 @@
         <div class="row article">
             <div class="col-xs-12">
 
-                <h1>The members of the ABTTF are:</h1>
+                <h1 style="padding-bottom:30px;">The members of the ABTTF are:</h1>
             </div>
         </div>
 
         <div ng-repeat-start="doc in docs" class="row article">
-            <div class="col-xs-2 ">
-                <img ng-src="{{doc.logo_s}}" width="90%" alt="" >
+            <div class="col-xs-2 text-center">
+                <img ng-src="{{doc.logo_s}}" width="50%" alt="" >
             </div>
             <div class="col-xs-8">
                 <h4><a ng-click="goTo('/actors/partners/',doc.id)" style="cursor:pointer;">{{doc.title_t}}</a></h4>

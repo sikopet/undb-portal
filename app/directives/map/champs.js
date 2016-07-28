@@ -1,11 +1,13 @@
 define(['app'], function() {
-    var champs = [{
-        rank: 1,
-        coordinates_s: {
-            lat: 21.000000,
-            lng: 78.000000
-        },
-    }, {
+    var champs = [
+    //   {
+    //     rank: 1,
+    //     coordinates_s: {
+    //         lat: 21.000000,
+    //         lng: 78.000000
+    //     },
+    // },
+    {
         name: 'India',
         rank: 1,
         date: "2012-10-16",

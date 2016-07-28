@@ -30,10 +30,10 @@ document:'=document',
                    var place = autoComplete.getPlace();
                    var parsedUrl = parseURL(place.url);
                    $timeout(function(){$scope.document.googleMaps=parsedUrl.protocol+'://'+parsedUrl.host+'/?q='+parsedUrl.params['?q']+'/@'+place.geometry.location.lat()+','+place.geometry.location.lng()+',18z/&ftid='+parsedUrl.params.ftid;
-       $scope.document.geolocation={
-           lat : parseFloat(place.geometry.location.lat()),
-           lng : parseFloat(place.geometry.location.lng())
-        };
+                         $scope.document.geoLocation={
+                             lat : parseFloat(place.geometry.location.lat()),
+                             lng : parseFloat(place.geometry.location.lng())
+                          };
                  });
                 });
               }// init

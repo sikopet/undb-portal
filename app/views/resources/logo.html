@@ -1,30 +1,692 @@
 <div>
-    <div class="hidden-xs">
-        <div class="container sub-nav">
-            <ul class="nav navbar-nav">
-                <li ng-mouseover="highlightLink='logo'" ng-mouseleave="highlightLink=''"><a href="resources/logo">Logo</a> <i ng-if="highlightLink=='logo' || path=='/resources/logo'" style="position:relative;top:-4px;left:10px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
-                <li ng-mouseover="highlightLink='materials'" ng-mouseleave="highlightLink=''"><a href="resources/materials" >Printed Materials</a> <i ng-if="highlightLink=='materials' ||  path=='/resources/materials'" style="position:relative;top:-4px;left:45px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
-                <li ng-mouseover="highlightLink='multimedia'" ng-mouseleave="highlightLink=''"><a href="resources/multimedia" >Multimedia</a> <i ng-if="highlightLink=='multimedia' ||  path=='/resources/multimedia'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
-            </ul>
-        </div>
+  <style>
+    .title{padding-bottom:30px;padding-top:30px;text-transform: capitalize;}
+  </style>
+  <div class="hidden-xs">
+    <div class="container sub-nav">
+      <ul class="nav navbar-nav">
+        <li ng-mouseover="highlightLink='logo'" ng-mouseleave="highlightLink=''"><a href="resources/logo">Logo</a> <i ng-if="highlightLink=='logo' || path=='/resources/logo'" style="position:relative;top:-4px;left:10px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+        <li ng-mouseover="highlightLink='materials'" ng-mouseleave="highlightLink=''"><a href="resources/materials">Printed Materials</a> <i ng-if="highlightLink=='materials' ||  path=='/resources/materials'" style="position:relative;top:-4px;left:45px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+        <li ng-mouseover="highlightLink='multimedia'" ng-mouseleave="highlightLink=''"><a href="resources/multimedia">Multimedia</a> <i ng-if="highlightLink=='multimedia' ||  path=='/resources/multimedia'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+      </ul>
     </div>
+  </div>
 
-    <div class="container">
-        <div class="row article">
-            <div class="col-xs-12"  ng-if="path=='/resources/logo'">
-                <h1>Logo</h1>
-                <p>The United Nations Decade on Biodiversity logo is available in the six United Nations languages (العربية - En - Es - Fr - Ру - 中文), as well as Catalan, Dutch, Portuguese and Turkish (courtesy of Governments and our Partners). The logo is available for use under certain conditions explained in the Brand Usage Guidelines (PDF) for the United Nations Decade on Biodiversity. Usage of the logo requires completion of the Waiver of Liability. United Nations offices, Funds and Programmes and other subsidiary organs and organizations of the United Nations System click here.
-                </p>
-                <p>Users of the logo are encouraged to translate the text into local languages, but they will state clearly that they are solely responsible for the accuracy of the translation. Please send us your translated version.
-                </p>
-                <h3>Brand Usage Guidelines</h3>
-                <p>The United Nations Decade on Biodiversity (UNDB) logo depicts elements of biodiversity and the variety of ecosystem services it provides in support of human well-being. The inclusion of two human figures represents the vision of a future of life in harmony with nature, which is the slogan for the UNDB. The numbers represent the starting and ending years of the Decade.
-                </p>
-                <p>This is the main version of the logo that should be used as much as possible.</p>
-                <p>The logo is available in colour and grayscale EPS, GIF, hi-res JPEG and web JPEG formats. The logo is also available in a white and in a light green outline EPS and GIF format, for use on dark backgrounds. To download, please go to United Nations Decade on Biodiversity - Waiver of Liability.</p>
-                <p>The United Nations Decade on Biodiversity logo is available in the six official United Nations languages: Arabic, Chinese, English, French, Russian and Spanish. Users of the logo are encouraged to translate the text into local languages, but they will state clearly that they are solely responsible for the accuracy of the translation.
-                </p>
-            </div>
+  <div class="container">
+    <div class="row article">
+      <div class="col-xs-12" ng-if="path=='/resources/logo'">
+
+
+
+        <h1>
+        	Logo
+        </h1>
+        <div>
+        	<div>
+        		<div>
+        		<p>	The United Nations Decade on Biodiversity logo is available in the six United Nations languages (
+        			<strong>
+        				العربية
+        			</strong>
+        			-
+        			<strong>
+        				En
+        			</strong>
+        			-
+        			<strong>
+        				Es
+        			</strong>
+        			-
+        			<strong>
+        				Fr
+        			</strong>
+        			-
+        			<strong>
+        				Ру
+        			</strong>
+        			-
+        			<strong>
+        				中文
+        			</strong>
+        			), as well as
+        			<strong>
+        				Catalan
+        			</strong>
+        			,
+        			<strong>
+        				Dutch
+        			</strong>
+        			,
+        			<strong>
+        				Portuguese
+        			</strong>
+        			 and
+        			<strong>
+        				Turkish
+        			</strong>
+        			 (courtesy of Governments and our Partners).The logo is available for use under certain conditions explained in the
+        			<a href="app/img/undb-logo-guidelines-en.pdf">
+        				Brand Usage Guidelines (PDF)
+        			</a>
+        			 for the United Nations Decade on Biodiversity. Usage of the logo requires completion of the
+        			<a href="https://www.cbd.int/2011-2020/waiver">
+        				<strong>
+        					Waiver of Liability
+        				</strong>
+        			</a>
+        			.United Nations offices, Funds and Programmes and other subsidiary organs and organizations of the United Nations System
+        			<a href="https://www.cbd.int/2011-2020/logo/un">
+        				click here
+        			</a>
+        			.Users of the logo are encouraged to translate the text into local languages, but they will state clearly that they are solely responsible for the accuracy of the translation. Please
+        			<a href="mailto:unbiodiversity@cbd.int">
+        				send us
+        			</a>
+        			 your translated version.</p>
+        		</div>
+        	</div>
         </div>
+        <div>
+          <div class="row">
+          <object style="width:600px;height:424px">
+          	<param name="movie" value="http://static.issuu.com/webembed/viewers/style1/v1/IssuuViewer.swf?mode=embed&amp;viewMode=presentation&amp;layout=http%3A%2F%2Fskin.issuu.com%2Fv%2Flight%2Flayout.xml&amp;showFlipBtn=true&amp;documentId=110517212915-92f29ef7754a48849f48ee003d02b8e5&amp;docName=undb-brand-guidelines-en&amp;username=UNBiodiversity&amp;loadingInfoText=UNDB%20Brand%20Usage%20Guidelines&amp;et=1305668106773&amp;er=52">
+          	<param name="allowfullscreen" value="true">
+          	<param name="menu" value="false">
+          	<embed src="http://static.issuu.com/webembed/viewers/style1/v1/IssuuViewer.swf" type="application/x-shockwave-flash" allowfullscreen="true" menu="false" style="width:600px;height:424px" flashvars="mode=embed&amp;viewMode=presentation&amp;layout=http%3A%2F%2Fskin.issuu.com%2Fv%2Flight%2Flayout.xml&amp;showFlipBtn=true&amp;documentId=110517212915-92f29ef7754a48849f48ee003d02b8e5&amp;docName=undb-brand-guidelines-en&amp;username=UNBiodiversity&amp;loadingInfoText=UNDB%20Brand%20Usage%20Guidelines&amp;et=1305668106773&amp;er=52">
+          	</object>
+        </div>
+        		<div>
+        			<h2 class="title">
+        				Brand Usage Guidelines
+        			</h2>
+        			<div>
+        				<div>
+        					<a href="http://issuu.com/UNBiodiversity/docs/undb-brand-guidelines-en?mode=embed&amp;viewMode=presentation&amp;layout=http%3A%2F%2Fskin.issuu.com%2Fv%2Flight%2Flayout.xml&amp;showFlipBtn=true" target="_blank">
+        						Open publication
+        					</a>
+        					 -
+        					<a href="http://issuu.com/" target="_blank">
+        						Free publishing
+        					</a>
+        					-
+        					<a href="http://issuu.com/search?q=biodiversity" target="_blank">
+        						More biodiversity
+        					</a>
+        				</div>
+        			</div>
+        		</div>
+
+        </div>
+        <div>
+          <br><br>
+        	<div>
+        		<div>
+        			<h3>
+        				1. The logo
+        			</h3>
+        			 <ul class=basic-list>
+        				<li>
+        					<a href="#logo" ng-click="scrollTo('#logo')">
+        						The logo
+        					</a>
+        				</li>
+        				<li>
+        					<a href="#grey" ng-click="scrollTo('#grey')">
+        						The grayscale version of the logo
+        					</a>
+        				</li>
+        				<li>
+        					<a href="#outline" ng-click="scrollTo('#outline')">
+        						The outline version of the logo
+        					</a>
+        				</li>
+        				<li>
+        					<a href="#space" ng-click="scrollTo('#space')">
+        						Clear space
+        					</a>
+        				</li>
+        				<li>
+        					<a href="#min" ng-click="scrollTo('#min')">
+        						Minimum sizing
+        					</a>
+        				</li>
+        				<li>
+        					<a href="#dos"  ng-click="scrollTo('#dos')">
+        						Dos and don&rsquo;ts
+        					</a>
+        				</li>
+        				<li>
+        					<a href="#relat" ng-click="scrollTo('#relat')">
+        						Relationship to other logos
+        					</a>
+        				</li>
+        			</ul>
+        			<h3>
+        				2. Colour palette
+        			</h3>
+        			 <ul class=basic-list>
+        				<li>
+        					<a href="#colour" ng-click="scrollTo('#colour')">
+        						Primary colour palette
+        					</a>
+        				</li>
+        				<li>
+        					<a href="#colour2" ng-click="scrollTo('#colour2')">
+        						Secondary colour palette
+        					</a>
+        				</li>
+        			</ul>
+        			<h3>
+        				3. Iconographic style
+        			</h3>
+        			 <ul class=basic-list>
+        				<li>
+        					<a href="#icons" ng-click="scrollTo('#icons')">
+        						Illustrative icons
+        					</a>
+        				</li>
+        			</ul>
+        			<h3>
+        				4. Typography
+        			</h3>
+        			 <ul class=basic-list>
+        				<li>
+        					<a href="#typeface" ng-click="scrollTo('#typeface')">
+        						Typeface
+        					</a>
+        				</li>
+        			</ul>
+        			<h3>
+        				5. Usage Rules
+        			</h3>
+        			 <ul class=basic-list>
+        				<li>
+        					<a href="#use" ng-click="scrollTo('#use')">
+        						Use of the logo by UN offices
+        					</a>
+        				</li>
+        				<li>
+        					<a href="#use2" ng-click="scrollTo('#use2')">
+        						Use of the logo by non-UN entities
+        					</a>
+        				</li>
+        				<li>
+        					<a href="#length" ng-click="scrollTo('#length')">
+        						Length of use of logo
+        					</a>
+        				</li>
+        				<li>
+        					<a href="#liability" ng-click="scrollTo('#liability')">
+        						Liability
+        					</a>
+        				</li>
+        				<li>
+        					<a href="#disclaimer" ng-click="scrollTo('#disclaimer')">
+        						Disclaimer and inquiries
+        					</a>
+        				</li>
+        				<li>
+        					<a href="https://www.cbd.int/2011-2020/waiver">
+        						<strong>
+        							Waiver of Liability
+        						</strong>
+        					</a>
+        				</li>
+        			</ul>
+
+
+              <div id="logo">
+                <h2 class="title">The Logo</h2>
+                <img title="United Nations Decade on Biodiversity" src="app/img/undb-logo-rgb-sm.png?width=306" alt="United Nations Decade on Biodiversity" />
+
+                <p> The United Nations Decade on Biodiversity (UNDB) logo depicts elements of biodiversity and the variety of ecosystem services it provides in support of human well-being. The inclusion of two human figures represents the vision of a future of life in
+                  harmony with nature, which is the slogan for the UNDB. The numbers represent the starting and ending years of the Decade.This is the main version of the logo that should be used as much as possible.The logo is available in colour and grayscale EPS,
+                  GIF, hi-res JPEG and web JPEG formats. The logo is also available in a white and in a light green outline EPS and GIF format, for use on dark backgrounds. To download, please go to
+                  <a href="https://www.cbd.int/2011-2020/waiver/">
+                      				United Nations Decade on Biodiversity - Waiver of Liability
+                      			</a> .The United Nations Decade on Biodiversity logo is available in the six official United Nations languages: Arabic, Chinese, English, French, Russian and Spanish. Users of the logo are encouraged to translate the text into local languages,
+                  but they will state clearly that they are solely responsible for the accuracy of the translation.
+                </p>
+                <p> <a href="app/img/undb-icons.zip">
+                      				Icons can be used as illustrations on your posters, website or other materials:
+                      			</a></p>
+                <a href="app/img/undb-icons.zip">
+                  <img src="app/img/undb-icons.png?width=500" alt="" />
+                </a>
+                  <p> <a href="#top" ng-click="scrollTo('#top')">	Go to the top of the page	</a></p>
+              </div>
+
+
+              <div id="grey">
+                <h2 class="title">
+                  The grayscale version of the logo
+                </h2>
+                  <img title="United Nations Decade on Biodiversity" src="app/img/undb-logo-en-grayscale-sm.png?width=306" alt="United Nations Decade on Biodiversity" />
+                <p>The grayscale version of the logo is for use in black and white documents. To download, please go to
+                  <a href="https://www.cbd.int/2011-2020/waiver">
+                      				United Nations Decade on Biodiversity - Waiver of Liability
+                      			</a>
+                </p>
+                  <p> <a href="#top" ng-click="scrollTo('#top')">	Go to the top of the page	</a></p>
+              </div>
+
+              <div id="outline">
+                <h2 class="title">
+                  The outline version of the logo
+                </h2>
+                  <img title="United Nations Decade on Biodiversity" src="app/img/undb-logo-en-outline-green-sm.png?width=330" alt="United Nations Decade on Biodiversity" />
+                  <img title="United Nations Decade on Biodiversity" src="app/img/undb-logo-en-outline-white-sm.png?width=330" alt="United Nations Decade on Biodiversity" />
+                <p>The outline version of the logo is for use on dark backgrounds. To download, please go to
+                  <a href="https://www.cbd.int/2011-2020/waiver">
+                      				United Nations Decade on Biodiversity - Waiver of Liability
+                      			</a>
+                </p>
+                  <p> <a href="#top" ng-click="scrollTo('#top')">	Go to the top of the page	</a></p>
+              </div>
+
+              <div id="space">
+                <h2 class="title">
+                  Clear space
+                </h2>
+                <img title="United Nations Decade on Biodiversity" src="app/img/undb-logo-en-outline-clearspace.png?width=330" alt="United Nations Decade on Biodiversity" />
+                <p>
+                  A quarter segment of the &ldquo;0&rdquo; should be used as a guide for minimum clear space. To protect the logo from visual interference, this space is required around all of its sides, including background field edges, trim and rules.
+                </p>
+                <p> <a href="#top" ng-click="scrollTo('#top')">	Go to the top of the page	</a></p>
+              </div>
+
+
+              <div id="min">
+                <h2 class="title">
+                  Minimum sizing
+                </h2>
+                <img title="United Nations Decade on Biodiversity" src="app/img/undb-logo-80.png?width=400" alt="United Nations Decade on Biodiversity" />
+                <p>The logo with the campaign title &ldquo;United Nations Decade on Biodiversity&rdquo; should never appear smaller than 80mm in width.</p>
+
+                <img title="United Nations Decade on Biodiversity" src="app/img/undb-logo-55.png?width=290" alt="United Nations Decade on Biodiversity" />
+
+                <p>The only time the logo may appear without campaign title is where it appears at sizes between 55mm and 80mm in width. This logo must never appear at sizes smaller than 55mm.</p>
+                <p> <a href="#top" ng-click="scrollTo('#top')">	Go to the top of the page	</a></p>
+              </div>
+
+
+              <div id="dos">
+                <h2 class="title">
+                  Dos
+                </h2>
+                <img title="Dos" src="app/img/undb-logo-rgb-sm.png?width=306" alt="Dos" />
+                <p>The logo&rsquo;s proportions should be kept as it is and never altered. No filters and effects should be applied.</p>
+                <img title="Dos" src="app/img/undb-logo-rgb-sm.png?width=306" alt="Dos" />
+                <p>The font, size and position of the campaign title should be kept as it is and never altered.</p>
+                <img title="Dos" src="app/img/undb-logo-do3.png" alt="Dos" />
+                <p>The logo should only ever appear in the specific two greens shown here (values specified in the colour palette section on page 9); in grayscale for use on black and white documents and; in white outline, for use on dark backgrounds.</p>
+                <img title="Dos" src="app/img/undb-logo-do5.png" alt="Dos" />
+                <p> On dark backgrounds, the white or light green outline versions of the logo should be used.The logo can be used on light coloured backgrounds. There should always be enough contrast between the logo and the background it is placed on.</p>
+                <h2 class="title">
+                  Don&rsquo;ts
+                </h2>
+                <img title="Don&rsquo;ts" src="app/img/undb-logo-dont1.png" alt="Don&rsquo;ts" />
+                <p>The typeface of the campaign title should never be changed.</p>
+                <img title="Don&rsquo;ts" src="app/img/undb-logo-dont2.png" alt="Don&rsquo;ts" />
+                <p>The size of the campaign title should never be changed.</p>
+                <img title="Don&rsquo;ts" src="app/img/undb-logo-dont3.png" alt="Don&rsquo;ts" />
+                <p>The position of the campaign title should never be changed.</p>
+                <img title="Don&rsquo;ts" src="app/img/undb-logo-dont4.png" alt="Don&rsquo;ts" />
+                <p>Only the white and light green outline versions of the logo should be used on dark backgrounds. No other colours should be used.</p>
+                <img title="United Nations Decade on Biodiversity" src="app/img/undb-logo-dont5.png" alt="United Nations Decade on Biodiversity" />
+                <p>The logo should not be used on dark coloured backgrounds and on backgrounds that do not provide enough contrast.</p>
+                <p> <a href="#top" ng-click="scrollTo('#top')">	Go to the top of the page	</a></p>
+              </div>
+
+
+              <div id="relat">
+                <h2 class="title">
+                  Relationship to other logos
+                </h2>
+                <p>When using the logo beside other logos, it should appear at the same height. Always refer to the guidelines of the other logos as well, particularly regarding clear space. As a rule, enough space should be maintained between the logos to ensure their
+                  integrity by ensuring that each is distinct and recognizable.In instances where other logos appear in grayscale, you should use the grayscale version of the logo.Note that use of the United Nations logo is restricted to UN organizations and agencies
+                  only.</p>
+                <p> <a href="#top" ng-click="scrollTo('#top')">	Go to the top of the page	</a></p>
+              </div>
+
+
+              <div id="colour">
+                <h2 class="title">
+                  Primary colour palette
+                </h2>
+                <img title="Primary colour palette" src="app/img/undb-logo-palette1.png?width=306" alt="Primary colour palette" />
+                <p> These colours are commonly associated with biodiversity and nature. Their use will help to build familiarity and solidarity amongst biodiversity actors and initiatives.</p>
+                <p> <a href="#top" ng-click="scrollTo('#top')">	Go to the top of the page	</a></p>
+              </div>
+
+
+              <div id="colour2">
+                <h2 class="title">
+                  Secondary palette colours
+                </h2>
+                <img title="Secondary palette colours" src="app/img/undb-logo-palette2.png" alt="Secondary palette colours" />
+                <p>These colours have been chosen as representatives of different aspects of biodiversity. Blue represents water, oceans and marine life. Green represents vegetation, forestry and agriculture. Orange represents the sun and feelings of optimism and hope.
+                  The colours are vibrant to reflect the spirit of discovery, realization and action.These colours should not be used for the logo, with the exception of the green which can be used in the outline logo for use on dark backgrounds.</p>
+                <p> <a href="#top" ng-click="scrollTo('#top')">	Go to the top of the page	</a></p>
+              </div>
+
+
+              <div id="icons">
+                <h2 class="title">
+                  Illustrative icons
+                </h2>
+                <img title="Illustrative icons" src="app/img/undb-logo-icons.png?width=600" alt="Illustrative icons" />
+                <p>The elements that make up the logo can be used as icons to represent different aspects of biodiversity. To download, please go to
+                  <a href="https://www.cbd.int/2011-2020/waiver">
+                      				United Nations Decade on Biodiversity - Waiver of Liability
+                      			</a></p>
+                <p> <a href="#top" ng-click="scrollTo('#top')">	Go to the top of the page	</a></p>
+              </div>
+
+
+              <div id="typeface">
+                <h2 class="title">
+                  Typeface
+                </h2>
+                <img title="Typeface" src="app/img/undb-logo-typeface.png?width=510" alt="Typeface" />
+                <p> <a href="#top" ng-click="scrollTo('#top')">	Go to the top of the page	</a></p>
+              </div>
+
+
+              <div id="use">
+                <h2 class="title">
+                  Use of the logo by UN offices
+                </h2>
+                <h4>
+                  Use of the logo by United Nations offices, Funds and Programmes and other subsidiary organs and organizations of the United Nations System.
+                </h4>
+                <p>
+                  United Nations offices, Funds and Programmes and other subsidiary organs and organizations of the United Nations System may use the United Nations Decade on Biodiversity logo without obtaining prior approval from the
+                  <a href="https://www.cbd.int/">
+                      		Secretariat of the Convention on Biological Diversity
+                      	</a> . However, for reporting purposes, the Secretariat of the Convention on Biological Diversity should be informed of events and information materials and items for which the logo is used including, inter alia, publications, posters, brochures,
+                  videos, pins, T-shirts, etc.
+                </p>
+                <p>
+                  The UNDB logo must be used only in its entirety. Moreover, if the UN office, Fund and Programme or other subsidiary organ has its own specific logo, the latter will be displayed side by side with the UNDB logo. The United Nations Decade on Biodiversity
+                  logo and the logo of an organization of the United Nations System should be displayed side by side.
+                </p>
+                <p> <a href="#top" ng-click="scrollTo('#top')">	Go to the top of the page	</a></p>
+              </div>
+
+
+            <div id="use2">
+              <h2 class="title">
+                Use of the logo by non-UN entities
+              </h2>
+              <p>
+                Entities outside the UN system, including Governments, intergovernmental organizations, not-for-profit organizations, and private sector entities, may use the logo after obtaining approval from the Secretariat of the Convention on Biological Diversity
+                in accordance with the requirements outlined below.
+              </p>
+              <p>
+                The logo of the United Nations Decade on Biodiversity is primarily intended for two kinds of promotional use: a) information, and b) fundraising.
+              </p>
+              <p>
+                <strong>
+                  a) Information uses of the logo
+                </strong>
+                Information uses of the logo are those which are:
+              </p>
+              <ul class=basic-list>
+                <li>
+                  Primarily illustrative; and
+                </li>
+                <li>
+                  Not intended to raise funds.
+                </li>
+              </ul>
+              <p>
+                The United Nations Decade on Biodiversity logo must be used only in its entirety.
+              </p>
+              <p>
+                Moreover, it cannot be used alone but must be displayed side by side with the logo of the entity. The logo of the entity must be given preeminence via-&agrave;-vis the UNDB logo and the following sentence must be included below or in the proximity of
+                the entity&rsquo;s logo:
+              </p>
+              <p>
+                &ldquo;
+                <strong>
+                  &lt; the name of the entity &gt;
+                </strong>
+                supports the United Nations Decade on Biodiversity.&rdquo; The authorization is limited to the use of the UNDB logo, and the United Nations emblem cannot be used by the entity.
+              </p>
+              <p>
+                The authorization to use the United Nations Decade on Biodiversity logo does not permit the user of the logo to sub-license or to further authorize the use of the logo to any other entities. Therefore, any non-UN entity interested in using the United
+                Nations Decade on Biodiversity logo must apply for approval directly from the Secretariat of the Convention on Biological Diversity.
+              </p>
+              <p>
+                All entities interested in using the United Nations Decade on Biodiversity logo for information purposes must apply for approval to the Secretariat of the Convention on Biological Diversity. When requesting approval, the entities must provide:
+              </p>
+              <ul class=basic-list>
+                <li>
+                  A short statement of identity (nature of the entity and its objectives);
+                </li>
+                <li>
+                  An explanation of how and where the logo will be used, including the names of countries/territories where the logo will be used.
+                </li>
+                <li>
+                  A
+                  <a href="https://www.cbd.int/2011-2020/waiver">
+                                          			Waiver of Liability
+                                          		</a>
+                </li>
+              </ul>
+              <p>
+                <strong>
+                  b) Fundraising uses of the logo
+                </strong>
+
+
+                Fundraising uses of the logo are those intended to raise resources to cover costs of activities in support of celebrations for the United Nations Decade on Biodiversity to be organized in 2011&ndash;2020.
+              </p>
+              <p>
+                The United Nations Decade on Biodiversity logo must be used only in its entirety.
+              </p>
+              <p>
+                Moreover, it cannot be used alone but must be displayed side by side with the logo of the entity. The logo of the entity must be given preeminence via-&agrave;-vis the UNDB logo and the following sentence must be included below or in the proximity of
+                the entity&rsquo;s logo:
+              </p>
+              <p>
+                &ldquo;
+                <strong>
+                  &lt; the name of the entity &gt;
+                </strong>
+                supports the United Nations Decade on Biodiversity.&rdquo; The authorization is limited to the use of the UNDB logo, and the United Nations emblem cannot be used by the entity.
+              </p>
+              <p>
+                The authorization to use the United Nations Decade on Biodiversity logo does not permit the user of the logo to sub-license or to further authorize the use of the logo to any other entities. Therefore, any non-UN entity interested in using the United
+                Nations Decade on Biodiversity logo must apply for approval directly from the Secretariat of the Convention on Biological Diversity.
+              </p>
+              <p>
+                Before the logo is used for fundraising purposes, a
+                <a href="https://www.cbd.int/2011-2020/waiver">
+                                          		Waiver of Liability
+                                          	</a> must be signed by the entity requesting to use the logo.
+              </p>
+              <p>
+                All entities interested in using the United Nations Decade on Biodiversity logo for fundraising purposes must apply for approval to the Secretariat of the Convention on Biological Diversity. When requesting permission to use the logo for fundraising purposes,
+                the entities must provide:
+              </p>
+              <ul class=basic-list>
+                <li>
+                  A short statement of identity (nature of the entity and its objectives).
+                </li>
+                <li>
+                  An explanation of how and where the logo will be used.
+                </li>
+                <li>
+                  An explanation of how, when and where the fundraising will take place.
+                </li>
+                <li>
+                  A summary budget.
+                </li>
+                <li>
+                  An explanation of how the proceeds would be allocated to cover costs of activities in support of the United Nations Decade on Biodiversity, including any proposed contributions that the entity would make to the United Nations and/or to local, national
+                  or international organizations in support of the United Nations Decade on Biodiversity.
+                </li>
+                <li>
+                  A
+                  <a href="https://www.cbd.int/2011-2020/waiver">
+                                          			Waiver of Liability
+                                          		</a>
+                </li>
+              </ul>
+              <p> <a href="#top" ng-click="scrollTo('#top')">	Go to the top of the page	</a></p>
+            </div>
+
+
+            <div id="length">
+              <h2 class="title">
+                Length of use of logo
+              </h2>
+              <p>
+                The United Nations Decade on Biodiversity logo may be used from May 2011 to December 2021. This period includes celebration of the United Nations Decade on Biodiversity from 22 May 2011 to 31 December 2020, and any subsequent reporting in 2021. The logo
+                may be used beyond early 2021 in reference to publications about the United Nations Decade on Biodiversity.
+              </p>
+              <p> <a href="#top" ng-click="scrollTo('#top')">	Go to the top of the page	</a></p>
+            </div>
+
+
+            <div id="liability">
+              <h2 class="title">
+                Liability
+              </h2>
+              <p>
+                All entities whose request to use the United Nations Decade on Biodiversity logo has been approved for the purposes specified herein must agree to the following provisions on the
+                <a href="https://www.cbd.int/2011-2020/waiver">
+                            		Waiver of Liability
+                            	</a> :
+              </p>
+              <ul class=basic-list>
+                <li>
+                  The entity is responsible for ensuring that the activities are carried out in accordance with the applicable law and for ensuring that the appropriate insurance is maintained to cover the risks arising out of such activities;
+                </li>
+                <li>
+                  The United Nations does not assume any responsibility for the activities of the entity.
+                </li>
+                <li>
+                  The entity shall hold harmless and defend the United Nations and its officials against any action that may be brought against the United Nations or its officials as a result of the use of the logo by the entity.
+                </li>
+              </ul>
+              <p>
+                The
+                <a href="https://www.cbd.int/2011-2020/waiver">
+                            		Waiver of Liability
+                            	</a> form, signed by the entity, must be submitted with the request to use the logo. The entity will not carry out the proposed activities until the request is approved and the duly signed
+                <a href="https://www.cbd.int/2011-2020/waiver">
+                            		Waiver of Liability
+                            	</a> is received by the
+                <a href="https://www.cbd.int/">
+                            		Secretariat of the Convention on Biological Diversity
+                            	</a> .
+              </p>
+              <p> <a href="#top" ng-click="scrollTo('#top')">	Go to the top of the page	</a></p>
+            </div>
+
+
+          <div id="disclaimer">
+            <h2 class="title">
+              Disclaimer and inquiries
+            </h2>
+            <ul class=basic-list>
+              <li>
+                The United Nations Decade on Biodiversity logo is property of the United Nations and the United Nations owns all rights thereto, including its use.
+              </li>
+              <li>
+                The United Nations Decade on Biodiversity logo can only be used to identify events and activities related to the United Nations Decade on Biodiversity.
+              </li>
+              <li>
+                The United Nations Decade on Biodiversity logo may only be used after a
+                <a href="https://www.cbd.int/2011-2020/waiver">
+                  			Waiver of Liability
+                  		</a> for the Use of the Logo of the United Nations Decade on Biodiversity has been received by the
+                <a href="https://www.cbd.int/">
+                  			Secretariat of the Convention on Biological Diversity
+                  		</a> and the request to use the logo has been approved.
+              </li>
+              <li>
+                By using the United Nations Decade on Biodiversity logo, the entity agrees to provide information to the
+                <a href="https://www.cbd.int/">
+                  			Secretariat of the Convention on Biological Diversity
+                  		</a> on the events or activities for which it is used. This information will be used for reporting purposes by the Secretariat of the United Nations Decade on Biodiversity.
+              </li>
+              <li>
+                The authorization to use the United Nations Decade on Biodiversity logo or the publication of an event organized by an outside entity on the website of the
+                <a href="https://www.cbd.int/">
+                  			Convention on Biological Diversity
+                  		</a> does not imply United Nations&rsquo; endorsement of the planned activities or the outside entity.
+              </li>
+              <li>
+                The United Nations Decade on Biodiversity logo may not be reproduced for the purpose of self-promotion, or obtaining any commercial or personal financial gain, nor may it be used in any manner that implies United Nations endorsement of the products or
+                activities of a commercial enterprise.
+              </li>
+              <li>
+                The United Nations will not assume any responsibility or liability arising from the translation of the text of the logo into non-UN official languages.
+              </li>
+              <li>
+                Please give credit to the United Nations when using the United Nations Decade on Biodiversity logo.
+              </li>
+            </ul>
+            <p>
+              <strong>
+                Please send inquiries to:
+              </strong>
+
+
+              <p>Secretariat of the Convention on Biological Diversity <br>
+                Coordination unit for the United Nations Decade on Biodiversity<br>
+                413 Saint-Jacques Street, <br>
+                Suite 800 Montreal, <br>
+                Quebec, Canada <br>
+                H2Y 1N9<br>
+</p>
+              <a href="mailto:UNBiodiversity@cbd.int">
+                  		UNBiodiversity@cbd.int
+                  	</a>
+            </p><br><br>
+            <p> <a href="#top" ng-click="scrollTo('#top')">	Go to the top of the page	</a></p>
+          </div>
+
+
+        <p>
+        	Please read the Brand Usage Guidelines below. You can have a full screen view, then click on the tabs to flip the pages.
+        </p>
+        <div class="row">
+        <object style="width:600px;height:424px">
+          <param name="movie" value="http://static.issuu.com/webembed/viewers/style1/v1/IssuuViewer.swf?mode=embed&amp;viewMode=presentation&amp;layout=http%3A%2F%2Fskin.issuu.com%2Fv%2Flight%2Flayout.xml&amp;showFlipBtn=true&amp;documentId=110517212915-92f29ef7754a48849f48ee003d02b8e5&amp;docName=undb-brand-guidelines-en&amp;username=UNBiodiversity&amp;loadingInfoText=UNDB%20Brand%20Usage%20Guidelines&amp;et=1305668106773&amp;er=52">
+          <param name="allowfullscreen" value="true">
+          <param name="menu" value="false">
+          <embed src="http://static.issuu.com/webembed/viewers/style1/v1/IssuuViewer.swf" type="application/x-shockwave-flash" allowfullscreen="true" menu="false" style="width:600px;height:424px" flashvars="mode=embed&amp;viewMode=presentation&amp;layout=http%3A%2F%2Fskin.issuu.com%2Fv%2Flight%2Flayout.xml&amp;showFlipBtn=true&amp;documentId=110517212915-92f29ef7754a48849f48ee003d02b8e5&amp;docName=undb-brand-guidelines-en&amp;username=UNBiodiversity&amp;loadingInfoText=UNDB%20Brand%20Usage%20Guidelines&amp;et=1305668106773&amp;er=52">
+          </object>
+      </div>
+        	<div>
+        		<a href="http://issuu.com/UNBiodiversity/docs/undb-brand-guidelines-en?mode=embed&amp;viewMode=presentation&amp;layout=http%3A%2F%2Fskin.issuu.com%2Fv%2Flight%2Flayout.xml&amp;showFlipBtn=true" target="_blank">
+        			Open publication
+        		</a>
+-
+        		<a href="http://issuu.com/" target="_blank">
+        			 Free publishing
+        		</a>
+        		-
+        		<a href="http://issuu.com/search?q=biodiversity" target="_blank">
+        			More biodiversity
+        		</a>
+        	</div>
+
+        <p>
+
+        	<a href="https://www.cbd.int/2011-2020/waiver">
+        		Download the logo
+        	</a>
+        </p>
+
+
+
+      </div>
     </div>
+  </div>
 </div>

@@ -15,48 +15,25 @@
         <div class="row article">
             <div class="col-xs-12">
                 <h1>Biodiversity Liaison Group (BLG)</h1>
-                <p>The mandate for establishing the Liaison Group of Biodiversity-related Conventions responds to decision VII/26 (paragraphs 1 and 2) adopted during the seventh meeting of the Conference of the Parties to the Convention on Biological Diversity.
-                </p><p>Through CBD COP decision IX/27 (paragraphs 3 and 4) the Conference of the Parties to the CBD underlined the important role of the Liaison Group of Biodiversity-related Conventions, encouraged more regular meetings and invited the Group to identify options for improved implementation of and cooperation among the biodiversity-related conventions. CBD COP decision X/20 then sought a strengthening of the effectiveness of the Biodiversity Liaison Group, enhanced cooperation and a coherent approach on cross-cutting issues, paragraphs 4, 8 and 9.
-                </p><p>Each of the biodiversity-related conventions works to implement actions at the national, regional and international levels in order to reach shared goals of conservation and sustainable use of biodiversity. To meet their objectives, the conventions have developed a number of complementary approaches and operational tools. Signatories include:
-                </p>
-            </div>
-        </div>
+                <p ><span >The mandate for establishing the Liaison Group of Biodiversity-related Conventions responds to CBD COP</span><span > <a href="https://www.cbd.int/decision/cop/?id=7763"><span >decision VII/26</span></a></span><span > (paragraphs 1 and 2) adopted during the seventh meeting of the Conference of the Parties to the Convention on Biological Diversity.</span></p>
 
-        <div class="row article">
-            <div class="col-xs-2 ">
-                <img src="app/images/cbd-logo-spine-green-en.png" alt="" width="70%">
-            </div>
-            <div class="col-xs-8">
-                <h4>Convention on Biological Diversity (CBD)</h4>
-                <p class="text-box">The CBD is an international treaty which entered into force on 29 December 1993. It has 3 main objectives:</p>
-                <ul class="basic-list">
-                    <li>The conservation of biological diversity
-                    </li><li>The sustainable use of the components of biological diversity
-                    </li><li>The fair and equitable sharing of the benefits arising out of the utilization of genetic resources
-                    </li>
-                </ul>
+                <p ><span >Through CBD COP <a href="https://www.cbd.int/decision/cop/?id=11670"><span >decision IX/27</span></a> (paragraphs 3 and 4) the Conference of the Parties to the CBD underlined the important role of the Liaison Group of Biodiversity-related Conventions, encouraged more regular meetings and invited the Group to identify options for improved implementation of and cooperation among the biodiversity-related conventions. CBD COP <a href="https://www.cbd.int/decision/cop/?id=12295"><span >decision X/20</span></a> then sought a strengthening of the effectiveness of the Biodiversity Liaison Group, enhanced cooperation and a coherent approach on cross-cutting issues, paragraphs 4, 8 and 9.</span></p>
+
+                <p ><span >Each of the biodiversity-related conventions works to implement actions at the national, regional and international levels in order to reach shared goals of conservation and sustainable use of biodiversity. To meet their objectives, the conventions have developed a number of complementary approaches and operational tools. Signatories include:</span></p>
+
             </div>
         </div>
-        <div class="push20"></div>
-        <div class="row article">
-            <div class="col-xs-2 ">
-                <img src="app/images/CITES.png" width="100%"  alt="">
+        <div ng-repeat-start="doc in docs" class="row article">
+            <div class="col-xs-2 text-center">
+                <img ng-src="{{doc.logo_s}}" width="50%" alt="" >
             </div>
             <div class="col-xs-8">
-                <h4>Convention on International Trade in Endangered Species of Wild Fauna and Flora (CITES)</h4>
-                <p>CITES is an international agreement between governments, which aim is to ensure that international trade in specimens of wild animals and plants does not threaten their survival.</p>
-            </div>
-        </div>
-        <div class="push20"></div>
-        <div class="row article">
-            <div class="col-xs-2" >
-                <img src="app/images/ramsar.png" width="90%"  alt="">
-            </div>
-            <div class="col-xs-8">
-                <h4>Ramsar Convention on Wetlands (Ramsar)</h4>
-                    <p>The Ramsar Convention is the intergovernmental treaty that provides the framework for the conservation and wise use of wetlands and their resources. The Convention was adopted in the Iranian city of Ramsar in 1971 and came into force in 1975. Since then, almost 90% of UN member states, from all the world’s geographic regions, have acceded to become “Contracting Parties”.</p>
+                <h4><a ng-click="goTo('/actors/partners/',doc.id)" style="cursor:pointer;">{{doc.title_t}}</a></h4>
+                <p>{{doc.description_t | hack}}  <a ng-click="goTo('/actors/partners/',doc.id)" style="cursor:pointer;">&gt;</a>
                 </p>
             </div>
         </div>
+        <div ng-repeat-end class="push20"></div>
+
     </div>
 </div>

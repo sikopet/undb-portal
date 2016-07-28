@@ -1,0 +1,99 @@
+<div id="submit">
+
+	<style>
+		.help-block.error {
+			text-transform: uppercase;
+			font-size: 10px;
+			font-weight: bold;
+			margin-top: -5px;
+			margin-bottom: 10px;
+		}
+
+		ta-scroll-window .ta-bind {
+			padding: 20px 20px 20px 20px;
+		}
+
+		.ta-scroll-window> .ta-bind ol {
+			list-style: decimal;
+			list-style-position: inside;
+		}
+
+		.ta-scroll-window> .ta-bind ul {
+			list-style: disc;
+			list-style-position: inside;
+		}
+
+		.ta-scroll-window> .ta-bind li {
+			text-indent: 50px;
+		}
+
+		.ta-scroll-window .ta-bind i {
+			font-style: italic;
+		}
+	</style>
+	<div class="hidden-xs">
+			<div class="container sub-nav">
+					<ul class="nav navbar-nav">
+							<li ng-mouseover="highlightLink='worldwide'" ng-mouseleave="highlightLink=''"><a href="actions/worldwide">Worldwide</a> <i ng-if="highlightLink=='worldwide' || path=='/actions/worldwide'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+							<li ng-mouseover="highlightLink='country'" ng-mouseleave="highlightLink=''"><a href="actions/country" >By Country</a> <i ng-if="highlightLink=='country' ||  path=='/actions/country'" style="position:relative;top:-4px;left:30px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+							<li ng-mouseover="highlightLink='calendar'" ng-mouseleave="highlightLink=''"><a href="actions/calendar" >Calendar</a> <i ng-if="highlightLink=='calendar' ||  path=='/actions/calendar'" style="position:relative;top:-4px;left:22px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+							<li ng-mouseover="highlightLink='participate'" ng-mouseleave="highlightLink=''"><a href="actions/participate" >Participate</a> <i ng-if="highlightLink=='participate' ||  path=='/actions/participate'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+					</ul>
+			</div>
+	</div>
+
+
+
+	<div class="container profile">
+		<div class="row">
+			<div class="col-xs-12 flag">
+				<h1 style="line-height:40px;"><i class="fa fa-edit"></i> Edit Multimedia
+				</h1>
+				<button type="button" class="btn btn-default  pull-right" ng-click="close();"><i class="fa fa-times"></i></button>
+			</div>
+		</div>
+
+		<ul class="nav nav-tabs" role="tablist" style="margin-bottom:15px;">
+
+			<li role="presentation" style="margin-top:5px;" ng-click="tab='publications'"><a href="#publications" aria-controls="publications" role="tab" data-toggle="tab">Publications</a></li>
+			<li role="presentation" style="margin-top:5px;" ng-click="tab='images'"><a href="#images" aria-controls="images" role="tab" data-toggle="tab">Images</a></li>
+			<li role="presentation" style="margin-top:5px;" ng-click="tab='videos'"><a href="#videos" aria-controls="videos" role="tab" data-toggle="tab">Videos</a></li>
+			<li role="presentation" style="margin-top:5px;" ng-click="tab='links'"><a href="#links" aria-controls="links" role="tab" data-toggle="tab">links</a></li>
+		</ul>
+
+		<div id="publications" class="tab-pane fade" ng-show="tab==='publications'">
+			<div>
+				<link-list ng-show="!showEdit()" fa-class="fa-book" index="editIndex" name="publications" document="document" links="media" save="save()"></link-list>
+			</div>
+			<div class="text-left">
+				<edit-link ng-show="showEdit()" index="editIndex" schema="undb-party-profile" name="publication" document="document" links="media" save="save()"></edit-link>
+			</div>
+		</div>
+
+		<div id="images" class="tab-pane fade" ng-show="tab==='images'">
+			<div>
+				<link-list ng-show="!showEdit()" fa-class="fa-image" index="editIndex" name="images" document="document" links="media" save="save()"></link-list>
+			</div>
+			<div class="text-left">
+				<edit-link ng-show="showEdit()" file-types="image/*" index="editIndex" schema="undb-party-profile" name="image" document="document" links="media" save="save()"></edit-link>
+			</div>
+		</div>
+
+		<div id="videos" class="tab-pane fade" ng-show="tab==='videos'">
+			<div>
+				<link-list ng-show="!showEdit()" fa-class="fa-video-camera" index="editIndex" name="videos" document="document" links="media" save="save()"></link-list>
+			</div>
+			<div class="text-left">
+				<edit-link ng-show="showEdit()" file-types="mp4,ood,webm" index="editIndex" schema="undb-party-profile" name="video" document="document" links="media" save="save()"></edit-link>
+			</div>
+		</div>
+
+		<div id="links" class="tab-pane fade" ng-show="tab==='links'">
+			<div>
+				<link-list ng-show="!showEdit()" fa-class="fa-link" index="editIndex" name="links" document="document" links="media" save="save()"></link-list>
+			</div>
+			<div class="text-left">
+				<edit-link ng-show="showEdit()" file-types="image/*" index="editIndex" schema="undb-party-profile" name="link" document="document" links="media" save="save()"></edit-link>
+			</div>
+		</div>
+	</div>

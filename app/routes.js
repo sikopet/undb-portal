@@ -29,20 +29,21 @@ define(['app', 'lodash', 'text!views/index.html', 'views/index', 'providers/exte
             when('/actions/submit-form-done',     { templateUrl: 'views/actions/submit-form-done.html', label:'Thanks',                                        resolve : { user : securize(['User']) } }).
             when('/actions/:uid',                 { templateUrl: 'views/actions/action.html',           label:'Action',               resolveController: true }).
 
-            when('/actors',                      { templateUrl: 'views/actors/index.html',       label:'Actors',                resolveController: true}).
-            when('/actors/abttf',                { templateUrl: 'views/actors/abttf.html',       label:'ABTTF',                  resolveController: true  }).
-            when('/actors/champions',            { templateUrl: 'views/actors/champions.html',   label:'Biodiversity Champions'   }).
-            when('/actors/blg',                  { templateUrl: 'views/actors/blg.html',         label:'BLG'                      }).
-            when('/actors/jlg',                  { templateUrl: 'views/actors/jlg.html',         label:'JLG'                      }).
+            when('/actors',                      { templateUrl: 'views/actors/index.html',       label:'Actors',                  resolveController: true}).
+            when('/actors/abttf',                { templateUrl: 'views/actors/abttf.html',       label:'ABTTF',                   resolveController: true}).
+            when('/actors/champions',            { templateUrl: 'views/actors/champions.html',   label:'Biodiversity Champions',  resolveController: true}).
+            when('/actors/blg',                  { templateUrl: 'views/actors/blg.html',         label:'BLG',                     resolveController: true}).
+            when('/actors/jlg',                  { templateUrl: 'views/actors/jlg.html',         label:'JLG' ,                    resolveController: true}).
             when('/actors/partners',             { templateUrl: 'views/actors/partners.html',    label:'UNDB Partners',           resolveController: true, resolve : { user : currentUser() } }).
             when('/actors/partners/register',    { templateUrl: 'views/actors/submit-form.html', label:'Become a UNDB Partner',   resolveController: true, resolve : { user : securize(['User']) } }).
             when('/actors/partners/edit/:uid',   { templateUrl: 'views/actors/submit-form.html', label:'Become a UNDB Partner',   resolveController: true, resolve : { user : securize(['User']) } }).
-            when('/actors/partners/:uid',       { templateUrl: 'views/actors/actor.html',       label:'Actor',                   resolveController: true }).
+            when('/actors/partners/:uid',       { templateUrl: 'views/actors/actor.html',       label:'Actor',                    resolveController: true }).
 
             when('/resources',                   { templateUrl: 'views/resources/index.html',      label:'Resources'         }).
-            when('/resources/logo',              { templateUrl: 'views/resources/logo.html',       label:'Logo'              }).
+            when('/resources/logo',              { templateUrl: 'views/resources/logo.html',       label:'Logo',                  resolveController: true}).
             when('/resources/materials',         { templateUrl: 'views/resources/materials.html',  label:'Printed Materials' }).
-            when('/resources/multimedia',        { templateUrl: 'views/resources/multimedia.html', label:'Multimedia'        }).
+            when('/resources/multimedia',        { templateUrl: 'views/resources/multimedia.html', label:'Multimedia',            resolveController: true}).
+            when('/resources/multimedia/edit',   { templateUrl: 'views/resources/multimedia-form.html', label:'Multimedia',            resolveController: true}).
 
             when('/help/404',                    { templateUrl: 'views/404.html',  label : 'Not found' }).
             when('/help/403',                    { templateUrl: 'views/403.html',  label : 'Forbidden' }).

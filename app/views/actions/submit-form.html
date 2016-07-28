@@ -229,14 +229,16 @@
                         <br>The image on the profile will be fitted into 200 x 200 px.
                     </label>
                     <div class="col-sm-6">
+                        <span ng-if="saving" ><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i> Saving...</span>
                         <img ng-show="document.logo" ng-src="{{document.logo}}?thumbnail=true" style="padding-bottom:10px">
                         <input type="file" class="form-control" id="logo" accept="image/*" placeholder="Logo" ng-model="logo" on-file="upload(files)">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="" class="col-sm-3 control-label"></label>
+                    <label for="" class="col-sm-3 control-label"><span ng-if="saving"><i  class="fa fa-spinner fa-spin fa-3x fa-fw"></i> Saving...</label></span>
                     <div class="col-sm-6">
+
                         <input type="submit" class="btn btn-primary btn-lg" value="Submit">
                     </div>
                 </div>
