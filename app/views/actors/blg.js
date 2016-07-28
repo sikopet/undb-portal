@@ -11,7 +11,7 @@ define(['app', 'angular','filters/hack'], function() {
 
           var qsParams =
           {
-              "q"  : 'schema_s:undbPartner AND _state_s:public AND description_t:(ABTTF*)',
+              "q"  : 'schema_s:undbPartner AND _state_s:public AND description_t:(blgblg*)',
               "fl" : "id,identifier_s, title_t, description_t,website_s,logo_s",
               "sort"  : "updatedDate_dt desc",
               "start" : 0,

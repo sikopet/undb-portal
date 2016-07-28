@@ -52,7 +52,7 @@
                                <h5><a ng-href="#" ng-click="goTo('/actors/partners/',p.id)">{{p.title_t}}</a></h5>
                                <a href="{{p.website_s}}">{{p.website_s}}</a>
                                <p>
-                                   {{p.description_t}}
+                                   {{p.description_t | hack}}
                                </p>
                            </div>
                        </li>
