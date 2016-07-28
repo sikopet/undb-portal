@@ -21,7 +21,13 @@ define([ 'filters/trunc','directives/map/zoom-map','directives/links-display',,'
                 cache: true
             }).success(function(data) {
                 $scope.partner = data.response.docs[0];
-                $scope.partner.identifier = $route.current.params.uid;
+
+                $http.get('https://api.cbd.int/api/v2013/documents/'+$scope.partner.identifier_s, {
+                    cache: true
+                }).success(function(d) {
+
+                  Object.assign($scope.partner,d);
+                });;
             });
 
             //=======================================================================
