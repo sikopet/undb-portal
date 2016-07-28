@@ -1,4 +1,4 @@
-define(['app', 'lodash', 'directives/map/zoom-map', 'directives/link-list', 'directives/activities-list','angular-sanitize','filters/trunc','directives/links-display'], function(app, _) {
+define(['app', 'lodash', 'directives/map/zoom-map', 'directives/link-list', 'directives/activities-list','angular-sanitize','filters/trunc','directives/links-display','filters/hack'], function(app, _) {
     'use strict';
     return ['$scope', 'locale', '$http', '$location', '$route', 'authentication','$sce','$sanitize',
         function($scope, locale, $http, $location, $route, authentication,$sce,$sanitize) {

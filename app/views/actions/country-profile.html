@@ -11,13 +11,13 @@
 	</div>
 	<div class="container center profile">
 
-		<div class="flag text-left text-nowarp">
+		<div class="flag text-left text-nowarp" ng-if="country.code">
 			<!-- <div class="flag-icon-background profileFlag" ng-class="country.cssClass" ng-attr-title="{{country.name}}" ng-if="country.code!='eu'"></div> -->
 			<img class="pull-left" ng-src="{{getCountryFlag(country.code)}}" ng-attr-title="{{country.name}}" style="max-height:40px;display:inline;" ng-if="country.code && country.code!=='eu'">
 			<img class="pull-left" ng-src="{{getCountryFlag('eur')}}" ng-attr-title="{{country.name}}" style="max-height:40px;display:inline;" ng-if="country.code && country.code==='eu'">
 			<!-- <img src="/undb/img/flag/World-Flags-cc-53.svg" alt=""> -->
 			<h1 class="pull-left" style="display:inline;margin: 0 0 0 0;padding-left:5px;line-height:50px;">{{country.name}} </h1>
-			<a class="pull-right" style="padding-right:10px;cursor:pointer;" ng-click="goTo('/actions/countries/edit/',country.code);" ng-if="user.isAuthenticated">Edit Profile <i class="fa fa-edit"></i></a>
+			<a class="pull-right" style="padding-right:10px;cursor:pointer;" ng-click="goTo('/actions/countries/edit/',country.code);" ng-if="isAdmin()">Edit Profile <i class="fa fa-edit"></i></a>
 		</div>
 
 		<ul class="nav nav-tabs" role="tablist">
@@ -55,7 +55,7 @@
 				</ul>
 
 
-<links-display document="country"></links-display>
+      <links-display document="country"></links-display>
 			</div>
 
 			<div class="col-xs-12  col-sm-12 col-md-9 col-lg-9 tab-content text-left">
@@ -91,7 +91,7 @@
 										<h5>	<a href="" ng-click="goTo('/actors/partners/',extractId(partner.id))">{{partner.title_s}}</a></h5>
 										<a href="{{partner.website_s}}">{{partner.website_s}}</a>
 										<p>
-											{{partner.description_s}}
+											{{partner.description_s | hack}}
 											<a href="" ng-click="goTo('/actors/partners/',partner.identifier_s);">» Documents</a>
 										</p>
 									</div>
@@ -175,7 +175,7 @@
 				<div role="tabpanel" class="tab-pane fade in" id="videos">
 					<link-list fa-class="fa-video-camera" document="country" links="country.videos"></link-list>
 				</div>
-				
+
 			</div>
 			<!-- END DIV BORDER ( colum + center ) -->
 
