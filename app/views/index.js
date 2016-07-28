@@ -3,7 +3,14 @@ define(['app','authentication', '../directives/map/undb-map'], function() { 'use
 	return ['$scope', function ($scope) {
 
 		$scope.carouselData=  {
-					items :[					{
+					items :[
+						{
+											title : "Living in harmony with nature",
+											description : " The goal of the United Nations Decade on Biodiversity is to support the implementation of the Strategic Plan for Biodiversity and to promote its overall vision of living in harmony with nature.",
+											imageUrl : "app/img/undb-slider-welcome.png",
+											targetUrl: "https://www.cbd.int/undb-new/about/undb"
+										},
+											{
 											title : "Meetings of the Convention on Biological Diversity and its Protocols",
 											description : "The highest governing body of the CBD brings together government representatives to review and promote the implementation of the Convention. ",
 											imageUrl : "app/img/undb-slider-cop13.png",
