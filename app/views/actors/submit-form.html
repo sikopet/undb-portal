@@ -47,7 +47,7 @@
             <div ng-repeat="e in errors">
                 <div ng-switch="e.code">
                     <div ng-switch-when="invalidForm" class="alert alert-warning" role="alert">
-                        Oh, it looks like there ares errors in your form.  Sorry for the inconveniences, but we really need some more information about your action.
+                        Oh, it looks like there ares errors in your form.  Sorry for the inconveniences, but we really need some more information about your actor.
                     </div>
                     <div ng-switch-when="fileSize" class="alert alert-warning" role="alert">
                         The file you submited is too large. The maximum file size is limited to <u>500 kB</u>.
@@ -166,7 +166,7 @@
                 </div>
 
                 <div class="form-group" ng-class="{ 'has-warning': !loading && form.logo.$invalid, 'has-error' : form.$submitted && form.logo.$invalid }">
-                    <label for="logo" class="col-sm-3 control-label small-margin" style="line-height:20px;">Please attach a logo or image of your Action (max. 500KB).
+                    <label for="logo" class="col-sm-3 control-label small-margin" style="line-height:20px;">Please attach a logo or image of your Actor (max. 500KB).
                         <br>The image on the profile will be fitted into 200 x 200 px.
                     </label>
                     <div class="col-sm-6">
