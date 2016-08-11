@@ -1,4 +1,11 @@
-define(['app', 'lodash', 'linqjs', 'URIjs/URI', "jquery"], function(app, _, Enumerable, URI, $) { 'use strict';
+define(['app', 'lodash', 'linqjs', 'URIjs/URI',  "jquery"], function(app, _, Enumerable, URI, $) { 'use strict';
+
+app.filter("nl2br",function() {
+ return function(data) {
+   if (!data) return data;
+   return data.replace(/\n\r?/g, '<br />');
+ };
+});
 
 app.filter("lstring", function() {
 	return function(ltext, locale) {
