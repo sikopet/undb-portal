@@ -1,4 +1,4 @@
-define(['text!./activities-list.html', 'app','moment' ], function(template, app,moment) {
+define(['text!./activities-list.html', 'app','moment','filters/trunc','filters/hack','factories/km-utilities' ], function(template, app,moment) {
     'use strict';
 
     app.directive('activitiesList', ['$http','$location',  function($http,$location) {
