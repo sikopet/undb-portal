@@ -20,7 +20,7 @@
 </div>
 <div class="col-xs-9">
     <h5><a class="pointer" ng-click="goTo('/actors/partners/',extractId(doc.id))">{{doc.title_s | lstring}}</a></h5>
-    <p style="display:inline;" ng-bind-html="trusted(doc.description_s | nl2br | hack | lstring | truncate:(doc.truncate||400):'  ') ">
+    <p style="display:inline;" ng-bind-html="trusted(doc.description_s | nl2br | hack | lstring | truncate:(400):'  ') ">
 
     </p>
     <a  class="text-nowrap pointer" ng-hide="doc.truncate || (doc.description_s | lstring).length<=350"  ng-click="doc.truncate=100000"><span style="white-space: nowrap;">... more <i class="fa fa-caret-down"></i></span></a><span class="text-nowrap pointer"> <a class="text-nowrap" ng-show="doc.truncate"  ng-click="doc.truncate=undefined"> less <i class="fa fa-caret-up"></i></a></span>
