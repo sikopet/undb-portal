@@ -19,17 +19,10 @@
                 </p>
             </div>
         </div>
-        <div ng-repeat-start="doc in docs" class="row article">
-            <div class="col-xs-2 text-center">
-                <img ng-src="{{doc.logo_s}}" width="50%" alt="" >
-            </div>
-            <div class="col-xs-8">
-                <h4><a ng-click="goTo('/actors/partners/',doc.id)" style="cursor:pointer;">{{doc.title_t}}</a></h4>
-                <p>{{doc.description_t | hack}}  <a ng-click="goTo('/actors/partners/',doc.id)" style="cursor:pointer;">&gt;</a>
-                </p>
-            </div>
-        </div>
-        <div ng-repeat-end class="push20"></div>
+        <div class="article">
+        <!-- <h1> The UNDB Partners are:</h1> -->
+      </div>
+      <actors-list jlg-only="true" items-per-page="10"  ></actors-list>
 
     </div>
 </div>
