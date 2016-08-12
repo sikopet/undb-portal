@@ -1,4 +1,4 @@
-define(['text!./actor.html', 'app','filters/hack' ], function(template, app) {
+define(['text!./actor.html', 'app','filters/hack','filters/uri-to-link' ], function(template, app) {
     'use strict';
 
     app.directive('actor', ['$sce','$location',function($sce,$location) {

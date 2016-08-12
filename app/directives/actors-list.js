@@ -24,7 +24,11 @@ define(['text!./actors-list.html', 'app','moment','filters/trunc','filters/hack'
                       $scope.loadingC=false;
                   });
 
+                  if ($attr.hideSearch)
+                    $scope.hideSearch = true;
+
                   $scope.currentPage = 0;
+
                   if ($attr.partnersOnly)
                       $scope.partnersOnly = true;
 
@@ -37,23 +41,16 @@ define(['text!./actors-list.html', 'app','moment','filters/trunc','filters/hack'
                   if ($attr.ABTTFOnly)
                       $scope.ABTTFOnly = true;
 
-                  if (!$attr.hidePagenation)
-                      $scope.hidePagenation = false;
-                  else
-                      $scope.hidePagenation = $attr.hidePagenation;
+                  if ($attr.hidePagenation)
+                      $scope.hidePagenation = true;
 
-                  if (!$attr.itemsPerPage)
-                      $scope.itemsPerPage = 5;
-                  else
+                  if ($attr.itemsPerPage)
                       $scope.itemsPerPage = $attr.itemsPerPage;
 
-                  if (!$attr.hideCountryReference)
-                      $scope.hideCountryReference = false;
+                  if (!$attr.startEmpty)
+                    ctrl.search();
                   else
-                      $scope.hideCountryReference = true;
-
-                  ctrl.search();
-
+                      $scope.startEmpty=true;
             }, //link
 
 
@@ -64,10 +61,7 @@ define(['text!./actors-list.html', 'app','moment','filters/trunc','filters/hack'
               $scope.country ='';
               $scope.search='';
               $timeout(function(){
-                $scope.$watch('country', function(newValue, oldValue) {
-                  if(newValue!==oldValue || (newValue && newValue.length === 2))
-                    search();
-                });
+
                 $scope.$watch('search', function(newValue, oldValue) {
                   if(newValue!==oldValue)
                     search();
