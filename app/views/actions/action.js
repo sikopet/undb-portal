@@ -1,4 +1,4 @@
-define([ 'filters/trunc','directives/map/zoom-map','directives/links-display'], function() {
+define([ 'filters/trunc','directives/map/zoom-map','directives/links-display','filters/trunc','filters/hack','factories/km-utilities','filters/uri-to-link' ], function() {
     'use strict';
     return ['$scope', 'locale', '$http', '$location', '$route', '$sce',
         function($scope, locale, $http, $location, $route, $sce) {
@@ -30,7 +30,7 @@ define([ 'filters/trunc','directives/map/zoom-map','directives/links-display'], 
                 }).success(function(d) {
 
                   Object.assign($scope.action,d);
-                });;
+                });
             });
 
             //=======================================================================
@@ -41,7 +41,14 @@ define([ 'filters/trunc','directives/map/zoom-map','directives/links-display'], 
                 return $sce.trustAsResourceUrl(src+'&&q='+$scope.action.lat_d+','+$scope.action.lng_d);
             }
             $scope.trustSrc = trustSrc;
+            //=======================================================================
+            // ('nl2br')
+            //=======================================================================
+            function trusted(val) {
+                return $sce.trustAsHtml(val);
 
+            }
+            $scope.trusted=trusted;
 						//=======================================================================
             //
             //=======================================================================
