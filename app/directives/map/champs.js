@@ -19,8 +19,9 @@ define(['app'], function() {
             lat: 21.000000,
             lng: 78.000000
         },
+        targets:[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
         directions: "https://www.google.ca/maps/place/India/@19.9647772,70.6990663,5z/data=!4m2!3m1!1s0x30635ff06b92b791:0xd78c4fa1854213a6",
-        pledge: "<b>US$&nbsp;50 Million</b>for India and developing countries pledged by <b>Dr. Manmohan Singh</b>, <b>Prime Minister of India</b>, at the inauguration of the High-Level Segment of <a href=\"https://www.cbd.int/cop11/\">COP&nbsp;11</a><a  href=\"https://www.cbd.int/doc/speech/2012/sp-2012-10-16-cop11-hls-in-pm-en.pdf\">View the Prime Minister's speech</a>"
+        pledge: "<b>US 50 Million</b>for India and developing countries pledged by <b>Dr. Manmohan Singh</b>, <b>Prime Minister of India</b>, at the inauguration of the High-Level Segment of <a href=\"https://www.cbd.int/cop11/\">COP&nbsp;11</a><a  href=\"https://www.cbd.int/doc/speech/2012/sp-2012-10-16-cop11-hls-in-pm-en.pdf\">View the Prime Minister's speech</a>"
     }, {
         name: "FICCI",
         rank: 2,
@@ -32,6 +33,7 @@ define(['app'], function() {
             lat: 29,
             lng: 77
         },
+        targets:[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
         directions: "http://ficci.in/contact-us.asp",
         pledge: "<a href='http://www.ficci.com/'>FICCI</a> has Launched Campaign on Business to Pledge for Biodiversity. 21 companies have already join the Pledge and many more are expected to join. <a href='https://www.cbd.int/doc/champions/pledge-2012-10-22-ficci-en.pdf'>More</a>"
     }, {
@@ -40,7 +42,8 @@ define(['app'], function() {
         date: "2013-02-05",
         imgURL: "https://www.cbd.int/images/flags/64/flag-mv-64.png",
         link: "/actions/country/mv",
-        aichiTargets: "4, 5, 6, 7, 11 and 15",
+        //aichiTargets: "4, 5, 6, 7, 11 and 15",
+        targets:[0,0,0,1,1,1,1,0,0,0,1,0,0,0,1,0,0,0,0,0],
         coordinates_s: {
             lat: 4.1771005,
             lng: 73.5056351
@@ -54,6 +57,7 @@ define(['app'], function() {
         imgURL: "https://www.cbd.int/images/aichi/48/abt-12-48.png",
         link: "http://www.iucn.org/about/work/programmes/species/our_work/species_and_policy/friends_of_target_12/",
         aichiTargets: "12",
+        targets:[0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0],
         coordinates_s: {
             lat: 50,
             lng: -18
@@ -65,6 +69,7 @@ define(['app'], function() {
         date: "2013-05-18",
         imgURL: "https://www.cbd.int/cooperation/cci/images/cci-64.png",
         aichiTargets: "11 and 12 (also 5, 6, 7, and 10)",
+        targets:[0,0,0,0,1,1,1,0,0,1,1,1,0,0,0,0,0,0,0,0],
         link: "http://www.caribbeanchallengeinitiative.org/",
         coordinates_s: {
             lat: 12.0471534,
@@ -79,6 +84,7 @@ define(['app'], function() {
         imgURL: "https://www.cbd.int/images/champions/bioversity-international-64.png",
         link: "http://www.bioversityinternational.org/",
         aichiTargets: "All",
+        targets:[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
         coordinates_s: {
             lat: 41.878617,
             lng: 12.2350033
@@ -92,6 +98,7 @@ define(['app'], function() {
         imgURL: "https://www.cbd.int/images/champions/bc-medal-64.png",
         link: "http://www.gaboronedeclaration.com/",
         aichiTargets: " 1, 2, 3, 4, 5, 7, 9, 12, 14, 15, 17 and 19 ",
+        targets:[1,1,1,1,1,0,1,0,1,0,0,1,0,1,1,0,1,0,1,0],
         coordinates_s: {
             lat: -24.6090728,
             lng: 25.8604649
@@ -105,6 +112,7 @@ define(['app'], function() {
         imgURL: "https://www.cbd.int/images/champions/ncd-64.jpg",
         link: "http://www.naturalcapitaldeclaration.org",
         aichiTargets: "2",
+        targets:[0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         coordinates_s: {
             lat: 51.75248,
             lng: -1.268347
@@ -118,6 +126,7 @@ define(['app'], function() {
         imgURL: "https://www.cbd.int/images/champions/wphna-64.jpg",
         link: "http://wphna.org/",
         aichiTargets: "1, 4, 12, 13,14, 18, 19",
+        targets:[1,0,0,1,0,0,0,0,0,0,0,1,1,1,0,0,0,1,1,0],
         coordinates_s: {
             lat: 51.5226761,
             lng: -0.1172697
@@ -131,6 +140,7 @@ define(['app'], function() {
         imgURL: "https://www.cbd.int/images/champions/cii-itc.jpg",
         link: "http://www.sustainabledevelopment.in/",
         aichiTargets: "1 to 16",
+        targets:[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0],        
         coordinates_s: {
             lat: 28.6245915,
             lng: 77.2180992
