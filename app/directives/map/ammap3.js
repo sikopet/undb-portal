@@ -11,10 +11,13 @@ define(['text!./ammap3.html',
     'shim!./worldEUHigh[ammap]',
     'shim!ammap/themes/light[ammap]',
     'css!./mappin.css',
+    'filters/hack',
+    'filters/trunc',
+    'utilities/km-utilities'
 ], function(template, app, _,moment,  popoverTemplateBioChamps, popoverTitleBioChamps, popoverTemplateActions, popoverTitleActions, popoverTitleActors) {
     'use strict';
 
-    app.directive('ammap3', ['$timeout', 'locale', '$http',function($timeout, locale, $http) {
+    app.directive('ammap3', ['$timeout', 'locale', '$http','$document','$filter',function($timeout, locale, $http,$document,$filter) {
         return {
             restrict: 'E',
             template: template,
@@ -28,8 +31,6 @@ define(['text!./ammap3.html',
             link: function($scope, $element, $attr, requiredDirectives) {
 
                 var ammap3 = requiredDirectives[0];
-
-
 
                 $scope.leggends = {
                     parties: [{
@@ -45,7 +46,6 @@ define(['text!./ammap3.html',
                     }, ]
                 };
 
-
                 //=======================================================================
                 //
                 //=======================================================================
@@ -55,7 +55,6 @@ define(['text!./ammap3.html',
                         ammap3.generateMap($scope.schema);
                     }
                 });
-
 
                 //=======================================================================
                 //
@@ -68,22 +67,23 @@ define(['text!./ammap3.html',
                     });
                     $scope.countries = res.data;
                     initMap();
-                    ammap3.writeMap();
-                    $scope.map.addListener("click", function(event) {
-                        ammap3.closePopovers();
-                        var info = event.chart.getDevInfo();
-                        $timeout(function() {
-                            $("#mapdiv").find("#pin").popover('hide');
-                            if ($scope.debug)
-                                console.log({
-                                    "latitude": info.latitude,
-                                    "longitude": info.longitude,
-                                    "all": info,
-                                });
-                        });
-                    });
                 });
-
+                //=======================================================================
+                //
+                //=======================================================================
+                function onMapClick(event) {
+                  if(ammap3.isPopoverOpen())
+                      ammap3.closePopovers();
+                  else{
+                    var info = event.chart.getDevInfo();
+                    var zoomLevel = $scope.map.zoomLevel()*8;
+                    var longitude= info.longitude;
+                    var latitude= info.latitude;
+                    $timeout(function(){
+                        $scope.map.zoomToLongLat(zoomLevel, longitude, latitude);
+                    },400);
+                  }
+                }
 
                 //=======================================================================
                 //
@@ -97,7 +97,9 @@ define(['text!./ammap3.html',
                     }];
                     $scope.mapData = {
                         "type": "map",
+                        "developerMode":true,
                         "theme": "light",
+                        "zoomDuration":.3,
                         "responsive": {
                             "enabled": true
                         },
@@ -107,18 +109,34 @@ define(['text!./ammap3.html',
                         },
 
                         "areasSettings": {
-                            "autoZoom": true,
+                            "autoZoom": false,
                             "selectedColor": "#00483A",
                             "rollOverColor": "#8cc65d",
-                            "selectable": true,
+                            "selectable": false,
                             "color": "#009B48"
                         },
 
                         "zoomControl": {
                             "left": 28,
+                            "maxZoomLevel": 262144,
+                            "zoomFactor":8,
+                            "panStepSize":.2
                         }
                     }; //
+
                     $scope.mapData.images = _.clone($scope.images);
+                    ammap3.writeMap();
+                    $document.keyup(function(v){
+                      if(v.keyCode == 27)
+                        ammap3.closePopovers();
+                    });
+                    $scope.map.addListener("homeButtonClicked", ammap3.closePopovers);
+                    $scope.map.addListener("homeButtonClicked", ammap3.updateCustomMarkers);
+                    $scope.map.addListener("positionChanged", ammap3.updateCustomMarkers);
+                    $scope.map.addListener('zoomCompleted',function(){
+                      $timeout(function(){ammap3.updateCustomMarkers();},100);
+                    });
+                    $scope.map.addListener("click",onMapClick );
                 } //$scope.initMap
             }, //link
 
@@ -142,12 +160,26 @@ define(['text!./ammap3.html',
                     }
                 } //close popover
 
+                //=======================================================================
+                // this function will take current images on the map and create HTML elements for them
+                //=======================================================================
+                function isPopoverOpen() {
+                    // get map object
+                    var map = $scope.map;
+                    var pin = null;
+                    // go through all of the images
+                    for (var x in map.dataProvider.images) {
+                        pin = $($scope.map.dataProvider.images[x].externalElement).children('#pin');
+                        if($(pin).next('div.popover:visible').length) return true;
+                    }
+                    return false;
+                } //close popover
+
 
                 //=======================================================================
                 // this function will take current images on the map and create HTML elements for them
                 //=======================================================================
                 function updateCustomMarkers() {
-
                     // get map object
                     if ($scope.schema == 'parties') return;
                     var map = $scope.map;
@@ -170,21 +202,28 @@ define(['text!./ammap3.html',
 
                         if ('undefined' !== typeof image.externalElement) {
                             // reposition the element accoridng to coordinates
-                            image.externalElement.style.top = map.latitudeToY(image.latitude) + 'px';
+                            var adjustTopLevel=adjustmentZ(image.latitude);
+
+                            if(image.latitude>0)
+                               image.externalElement.style.top = map.latitudeToY(image.latitude+adjustTopLevel) + 'px';
+                          else
+                            image.externalElement.style.top = map.latitudeToY(image.latitude+adjustTopLevel) + 'px';
+
                             image.externalElement.style.left = map.longitudeToX(image.longitude) + 'px';
                         }
                     } //for
 
-                    $scope.map.addListener("positionChanged", updateCustomMarkers);
-                    $scope.map.addListener("clickMapObject", function(event) {
-                        var id = event.mapObject.id;
-                        if (event.mapObject.id === 'GL') {
-                            $scope.map.clickMapObject(getMapObject('DK'));
-                            id = 'DK';
-                        }
-                    });
+
                 } //updateCustomMarkers
 
+
+
+                  function adjustmentZ(l){
+                      if($scope.map.zLevelTemp > 1)
+                      return 4/Number($scope.map.zLevelTemp);
+                      else if(l<0) return 6;
+                      else return 4;
+                  }
 
                 //=======================================================================
                 //
@@ -192,11 +231,11 @@ define(['text!./ammap3.html',
                 function generateMarker(imageIndex) {
 
                     if ($scope.schema === 'actions')
-                        return makeMarker(imageIndex, 'pin-action', 'pulse-', 'https://upload.wikimedia.org/wikipedia/commons/c/ce/Transparent.gif');
+                        return makeMarker(imageIndex, 'pin-action', 'pulse-', 'app/img/pointer-undb-green.png');
                     if ($scope.schema === 'actors')
-                        return makeMarker(imageIndex, 'pin-actor', 'pulse-', 'https://upload.wikimedia.org/wikipedia/commons/c/ce/Transparent.gif');
+                        return makeMarker(imageIndex, 'pin-actor', 'pulse-', 'app/img/pointer-undb-blue.png');
                     if ($scope.schema === 'bioChamps')
-                        return makeMarker(imageIndex, 'pin-champ', 'pulse-', 'https://upload.wikimedia.org/wikipedia/commons/c/ce/Transparent.gif');
+                        return makeMarker(imageIndex, 'pin-champ', 'pulse-', 'app/img/pointer-undb-orange.png');
                     if ($scope.schema === 'caseStudies')
                         return makeMarker(imageIndex, 'pin-actor', 'pulse-actor', 'app/img/ic_school_black_24px.svg');
                     if ($scope.schema === 'projects')
@@ -222,21 +261,47 @@ define(['text!./ammap3.html',
                     $(pin).data('toggle', 'popover');
 
                     $(pin).popover(generatePopover(imageIndex));
-                    pin.addEventListener('click', function() {
-                        $(document).find(".mapPopup").hide();
-                        if ($(pin).data('bs.popover').tip().hasClass('in')) {
+                    $(pin).on('show.bs.popover',function(){
 
-                            if ($scope.map.dataProvider.images[imageIndex].latitude > 25)
-                                $scope.map.dataProvider.images[imageIndex].zoomLatitude = $scope.map.dataProvider.images[imageIndex].latitude + 10;
+                        $scope.map.zoomToLongLat($scope.map.zoomLevel(), $scope.map.dataProvider.images[imageIndex].longitude, $scope.map.dataProvider.images[imageIndex].latitude);
+                    });
 
-                            if ($scope.map.dataProvider.images[imageIndex].latitude <= 25)
-                                $scope.map.dataProvider.images[imageIndex].zoomLatitude = $scope.map.dataProvider.images[imageIndex].latitude + 20;
+                    $(pin).on('shown.bs.popover',function(){
+                      if ($(pin).data('bs.popover').tip().hasClass('in')){
 
-                            $scope.map.dataProvider.images[imageIndex].zoomLongitude = $scope.map.dataProvider.images[imageIndex].longitude;
-                            $scope.map.clickMapObject($scope.map.dataProvider.images[imageIndex]);
-                        }
-
-                    }, false);
+                        $timeout(function(){
+                          $scope.map.moveUp();
+                        },500);
+                      }
+                    });
+                    //pin.addEventListener('click', function(event) {
+                    //    //event.stopPropagation();
+                    //    if(ammap3.isPopoverOpen())
+                    //        ammap3.closePopovers();
+                    //     $(document).find(".mapPopup").hide();
+                    //     if ($(pin).data('bs.popover').tip().hasClass('in')) {
+                    //       console.log(event);
+                    //         // $scope.map.moveUp();
+                    //         // $scope.map.moveUp();
+                    //         // $scope.map.moveUp();
+                    //         // $scope.map.moveUp();
+                    //         // $scope.map.moveUp();
+                    //         // $scope.map.moveUp();
+                    //         $timeout(function(){
+                    //           $scope.map.moveUp();
+                    //         },500);
+                    //
+                    //         // if ($scope.map.dataProvider.images[imageIndex].latitude > 25)
+                    //         //     $scope.map.dataProvider.images[imageIndex].zoomLatitude = $scope.map.dataProvider.images[imageIndex].latitude + 100;
+                    //         //
+                    //         // if ($scope.map.dataProvider.images[imageIndex].latitude <= 25)
+                    //         //     $scope.map.dataProvider.images[imageIndex].zoomLatitude = $scope.map.dataProvider.images[imageIndex].latitude + 200;
+                    //         //
+                    //         // $scope.map.dataProvider.images[imageIndex].zoomLongitude = $scope.map.dataProvider.images[imageIndex].longitude;
+                    //       $scope.map.clickMapObject($scope.map.dataProvider.images[imageIndex]);
+                    //    }
+                    //
+                    //}, false);
                     holder.appendChild(pin);
 
                     // // create pulse
@@ -255,9 +320,24 @@ define(['text!./ammap3.html',
                     // append the marker to the map container
                     $scope.map.dataProvider.images[imageIndex].chart.chartDiv.appendChild(holder);
 
+
                     return holder;
                 } //makeMarker
-
+                //=======================================================================
+                //
+                //=======================================================================
+                function filterDescription(text,url) {
+                      return $filter('hack')
+                                        ($filter('trunc')
+                                          ($filter('nl2br')
+                                            ($filter('lstring')(text)), 500, '... <a href="'+url+'">More</a>'));
+                }
+                //=======================================================================
+                //
+                //=======================================================================
+                function extractId (id){
+                    return parseInt(id.replace('52000000cbd08', ''), 16);
+                }
 
                 //=======================================================================
                 //
@@ -274,6 +354,28 @@ define(['text!./ammap3.html',
 
                             popoverTitleParsed = popoverTitleParsed.replace('{{rank}}', image.rank ? image.rank : ' ');
                             popoverTitleParsed = popoverTitleParsed.replace('{{date}}', image.date ? image.date : ' ');
+
+                            popoverTitleParsed = popoverTitleParsed.replace('{{a1}}',image.a1);
+                            popoverTitleParsed = popoverTitleParsed.replace('{{a2}}',image.a2);
+                            popoverTitleParsed = popoverTitleParsed.replace('{{a3}}',image.a3);
+                            popoverTitleParsed = popoverTitleParsed.replace('{{a4}}',image.a4);
+                            popoverTitleParsed = popoverTitleParsed.replace('{{a5}}',image.a5);
+                            popoverTitleParsed = popoverTitleParsed.replace('{{a6}}',image.a6);
+                            popoverTitleParsed = popoverTitleParsed.replace('{{a7}}',image.a7);
+                            popoverTitleParsed = popoverTitleParsed.replace('{{a8}}',image.a8);
+                            popoverTitleParsed = popoverTitleParsed.replace('{{a9}}',image.a9);
+                            popoverTitleParsed = popoverTitleParsed.replace('{{a10}}',image.a10);
+                            popoverTitleParsed = popoverTitleParsed.replace('{{a11}}',image.a11);
+                            popoverTitleParsed = popoverTitleParsed.replace('{{a12}}',image.a12);
+                            popoverTitleParsed = popoverTitleParsed.replace('{{a13}}',image.a13);
+                            popoverTitleParsed = popoverTitleParsed.replace('{{a14}}',image.a14);
+                            popoverTitleParsed = popoverTitleParsed.replace('{{a15}}',image.a15);
+                            popoverTitleParsed = popoverTitleParsed.replace('{{a16}}',image.a16);
+                            popoverTitleParsed = popoverTitleParsed.replace('{{a17}}',image.a17);
+                            popoverTitleParsed = popoverTitleParsed.replace('{{a18}}',image.a18);
+                            popoverTitleParsed = popoverTitleParsed.replace('{{a19}}',image.a19);
+                            popoverTitleParsed = popoverTitleParsed.replace('{{a20}}',image.a20);
+
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{image}}', image.imgURL ? image.imgURL : '#');
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{link}}', image.link ? image.link : '#');
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{title}}', image.title ? image.title : ' ');
@@ -281,6 +383,7 @@ define(['text!./ammap3.html',
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{pledge}}', image.pledge ? image.pledge : ' ');
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{aichiTargets}}', image.aichiTargets ? image.aichiTargets : ' ');
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{directions}}', image.directions ? image.directions : '#');
+
                             return {
                                 html: true,
                                 trigger: 'click',
@@ -305,9 +408,9 @@ define(['text!./ammap3.html',
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{countryCode}}', image.countryCode ? image.countryCode : ' ');
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{countryCode}}', image.countryCode ? image.countryCode : ' ');
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{countryName}}', image.countryName ? image.countryName : ' ');
-                            popoverTemplateParsed = popoverTemplateParsed.replace('{{description_s}}', image.description_s ? image.description_s : ' ');
-                            if (image.descriptionNative_s) image.descriptionNative_s = image.descriptionNative_s + '<br>';
-                            popoverTemplateParsed = popoverTemplateParsed.replace('{{descriptionNative_s}}', image.descriptionNative_s ? image.descriptionNative_s : ' ');
+                            popoverTemplateParsed = popoverTemplateParsed.replace('{{description_s}}', image.description_s ? filterDescription(image.description_s,'/actions/'+extractId(image.id)) : ' ');
+
+
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{logo_s}}', image.logo_s ? image.logo_s : '/app/img/ic_recent_actors_black_48px.svg');
                             if (image.facebook_s) image.facebook_s = '<a href="' + image.facebook_s + '" target="_blank"><i class="fa fa-facebook-square fa-2x"></i></a>';
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{facebook_s}}', image.facebook_s ? image.facebook_s : ' ');
@@ -315,7 +418,7 @@ define(['text!./ammap3.html',
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{twitter_s}}', image.twitter_s ? image.twitter_s : ' ');
                             if (image.youtube_s) image.youtube_s = '<a href="' + image.youtube_s + '" target="_blank"><i class="fa fa-youtube-square fa-2x"></i></a>';
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{youtube_s}}', image.youtube_s ? image.youtube_s : ' ');
-                            if (image.website_s) image.website_s = '<a href="' + image.website_s + '" target="_blank"><i class="fa fa-external-link-square fa-2x"></i></a>';
+                            image.website_s = '<a href="' + '/actions/'+extractId(image.id)+ '" ><i class="fa fa-external-link-square fa-2x"></i></a>';
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{website_s}}', image.website_s ? image.website_s : ' ');
                             if (image.email_s) image.email_s = '<b>Email:</b> <a mailto="' + image.email_s + '">' + image.email_s + '</a><br>';
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{email_s}}', image.email_s ? image.email_s : ' ');
@@ -328,6 +431,8 @@ define(['text!./ammap3.html',
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{phone_s}}', image.phone_s ? image.phone_s : ' ');
                             if (image.directions) image.directions = '<a href="' + image.directions + '" target="_blank"><i class="fa fa-map-signs fa-2x"></i></a>';
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{directions_s}}', image.directions ? image.directions : ' ');
+
+
                             return {
                                 html: true,
                                 trigger: 'click',
@@ -349,7 +454,7 @@ define(['text!./ammap3.html',
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{countryCode}}', image.countryCode ? image.countryCode : ' ');
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{countryCode}}', image.countryCode ? image.countryCode : ' ');
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{countryName}}', image.countryName ? image.countryName : ' ');
-                            popoverTemplateParsed = popoverTemplateParsed.replace('{{description_s}}', image.description_s ? image.description_s : ' ');
+                            popoverTemplateParsed = popoverTemplateParsed.replace('{{description_s}}', image.description_s ? filterDescription(image.description_s,'/actors/partners/'+extractId(image.id)): ' ');
                             if (image.descriptionNative_s) image.descriptionNative_s = image.descriptionNative_s + '<br>';
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{descriptionNative_s}}', image.descriptionNative_s ? image.descriptionNative_s : ' ');
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{logo_s}}', image.logo_s ? image.logo_s : '/app/img/ic_recent_actors_black_48px.svg');
@@ -359,7 +464,7 @@ define(['text!./ammap3.html',
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{twitter_s}}', image.twitter_s ? image.twitter_s : ' ');
                             if (image.youtube_s) image.youtube_s = '<a href="' + image.youtube_s + '" target="_blank"><i class="fa fa-youtube-square fa-2x"></i></a>';
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{youtube_s}}', image.youtube_s ? image.youtube_s : ' ');
-                            if (image.website_s) image.website_s = '<a href="' + image.website_s + '" target="_blank"><i class="fa fa-external-link-square fa-2x"></i></a>';
+                            image.website_s = '<a href="' + '/actors/partners/'+extractId(image.id)+ '" ><i class="fa fa-external-link-square fa-2x"></i></a>';
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{website_s}}', image.website_s ? image.website_s : ' ');
                             if (image.email_s) image.email_s = '<b>Email:</b> <a mailto="' + image.email_s + '">' + image.email_s + '</a><br>';
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{email_s}}', image.email_s ? image.email_s : ' ');
@@ -573,18 +678,18 @@ define(['text!./ammap3.html',
                         switch ($scope.schema) {
                             case 'projects':
                                 return {
-                                    zoomLevel: 5,
+                                    // zoomLevel: 5,
                                     scale: 0.5,
                                     title: item.title_s,
                                     latitude: item.coordinates_s.lat,
                                     longitude: item.coordinates_s.lng,
                                     thumbnail_s: item.thumbnail_s,
                                     schema: item.schema_EN_t,
-                                    url_ss: item.url_ss[0]
+                                    url_ss: item.url_ss[0],
                                 };
                             case 'bioChamps':
                                 return {
-                                    zoomLevel: 5,
+                                    // zoomLevel: 5,
                                     scale: 0.5,
                                     date: item.date,
                                     rank: item.rank,
@@ -596,13 +701,34 @@ define(['text!./ammap3.html',
                                     longitude: _.clone(item.coordinates_s.lng),
                                     imgURL: item.imgURL,
                                     schema: _.clone($scope.schema),
-                                    link: item.link
+                                    link: item.link,
+                                    a1: item.targets[0]? ' ' : 'style="display:none;"',
+                                    a2: item.targets[1]? ' ' : 'style="display:none;"',
+                                    a3: item.targets[2]? ' ' : 'style="display:none;"',
+                                    a4: item.targets[3]? ' ' : 'style="display:none;"',
+                                    a5: item.targets[4]? ' ' : 'style="display:none;"',
+                                    a6: item.targets[5]? ' ' : 'style="display:none;"',
+                                    a7: item.targets[6]? ' ' : 'style="display:none;"',
+                                    a8: item.targets[7]? ' ' : 'style="display:none;"',
+                                    a9: item.targets[8]? ' ' : 'style="display:none;"',
+                                    a10: item.targets[9]? ' ' : 'style="display:none;"',
+                                    a11: item.targets[10]? ' ' : 'style="display:none;"',
+                                    a12: item.targets[11]? ' ' : 'style="display:none;"',
+                                    a13: item.targets[12]? ' ' : 'style="display:none;"',
+                                    a14: item.targets[13]? ' ' : 'style="display:none;"',
+                                    a15: item.targets[14]? ' ' : 'style="display:none;"',
+                                    a16: item.targets[15]? ' ' : 'style="display:none;"',
+                                    a17: item.targets[16]? ' ' : 'style="display:none;"',
+                                    a18: item.targets[17]? ' ' : 'style="display:none;"',
+                                    a19: item.targets[18]? ' ' : 'style="display:none;"',
+                                    a20: item.targets[19]? ' ' : 'style="display:none;"',
 
                                 };
                             case 'actions':
                                 return {
-                                    zoomLevel: 5,
+                                    // zoomLevel: 5,
                                     scale: 0.5,
+                                    id:item.id,
                                     startDate_s: item.startDate_s,
                                     logo_s: item.logo_s,
                                     facebook_s: item.facebook_s,
@@ -628,7 +754,8 @@ define(['text!./ammap3.html',
                                 };
                             case 'actors':
                                 return {
-                                    zoomLevel: 5,
+                                    // zoomLevel: 5,
+                                    id:item.id,
                                     scale: 0.5,
                                     logo_s: item.logo_s,
                                     facebook_s: item.facebook_s,
@@ -790,6 +917,8 @@ define(['text!./ammap3.html',
                 this.generatePopover = generatePopover;
                 this.generateMap = generateMap;
                 this.progressColorMap = progressColorMap;
+                this.updateCustomMarkers=updateCustomMarkers;
+                this.isPopoverOpen=isPopoverOpen;
             }],
         }; // return
     }]); //app.directive('searchFilterCountries
