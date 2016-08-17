@@ -70,10 +70,10 @@
 					</div>
 
 					<div>
-						<p>{{partner.description_s | hack}}</p>
+						<p ng-if="partner.description_s" ng-bind-html="trusted((partner.description_s | uriToLink | nl2br | hack | lstring))"></p>
 					</div>
 					<div>
-						<p>{{partner.descriptionNative_s}}</p>
+						<p ng-if="partner.descriptionNative_s" ng-bind-html="trusted((partner.descriptionNative_s | uriToLink | nl2br | hack ))"></p>
 					</div>
 				</div>
 			</div>

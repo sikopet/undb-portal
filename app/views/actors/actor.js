@@ -1,4 +1,4 @@
-define([ 'filters/trunc','directives/map/zoom-map','directives/links-display',,'filters/hack'], function() {
+define([ 'filters/trunc','directives/map/zoom-map','directives/links-display','filters/trunc','filters/hack','factories/km-utilities','filters/uri-to-link' ], function() {
     'use strict';
     return ['$scope', 'locale', '$http', '$location', '$route', '$sce',
         function($scope, locale, $http, $location, $route, $sce) {
@@ -29,7 +29,14 @@ define([ 'filters/trunc','directives/map/zoom-map','directives/links-display',,'
                   Object.assign($scope.partner,d);
                 });;
             });
+            //=======================================================================
+            // ('nl2br')
+            //=======================================================================
+            function trusted(val) {
+                return $sce.trustAsHtml(val);
 
+            }
+            $scope.trusted=trusted;
             //=======================================================================
             //
             //=======================================================================
