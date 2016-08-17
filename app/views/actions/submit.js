@@ -250,7 +250,7 @@ define(['lodash', 'app', 'authentication', 'utilities/km-utilities', 'utilities/
         //======================================================
         function edit(record)
         {
-            var url = '/actions/submit-form/';
+            var url = '/actions/register/';
 
             if(record && record.identifier_s)
                 url += record.identifier_s;
