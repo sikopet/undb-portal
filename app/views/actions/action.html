@@ -25,7 +25,7 @@
 	}
 	.img-container {
 		width: 200px; /* whatever set width */
-		height: 200px;
+		max-height: 200px;
 		display: inline-block; /* or you could float them */
 		overflow: hidden;
 }
@@ -58,8 +58,8 @@
 						<img ng-src="{{action.logo_s}}"  class="img-responsive" style="width:100%;" ></img>
 			</div>
 			<zoom-map zoom-to="action.country_s" ng-if="!action.logo_s" ></zoom-map>
-
-		<links-display document="action"></links-display>
+<br><br>
+		<links-display document="action" ></links-display>
 		</div>
 
 		<div class="col-xs-12  col-sm-12 col-md-9 col-lg-9 tab-content text-left">
@@ -77,36 +77,23 @@
 						<span class="action-labels">Time </span>
 						<span class="detail" style="margin-left:35px;">{{action.startTime}}<span ng-if="action.endTime"> - {{action.endTime}}</span></span>
 					</div>
-					<div class="action-detail" ng-if="action.website">
-						<span class="action-labels">Website </span>
-						<span class="detail" style="margin-left:35px;"><a href="{{action.website}}" class="map">{{action.website}}</a></span>
-					</div>
 					<div class="action-detail" ng-if="action.address && !action.onlineEvent">
 						<span class="action-labels">Address</span>
-						<span class="detail" style="margin-left:14px;">{{action.address}}</span>
+						<span class="detail" style="margin-left:14px;">{{action.address}} <a ng-src="action.googleMaps_s">(map)</a></span>
 					</div>
 					<div class="action-detail" ng-if="action.country_s && !action.onlineEvent">
 						<span class="action-labels">Country</span>
 						<span class="detail">
 							<a href="" ng-click="goTo('/actions/countries/',action.country_s.toUpperCase());" style="margin-left:15px;" >
-								<img ng-src="{{getCountryFlag(action.country_s)}}"> {{action.country_EN_s}} </a>
-						</span>
-					</div>
-
-					<div class="action-detail" ng-if="action.googleMaps_s && !action.onlineEvent">
-						<span class="action-labels">Directions</span>
-						<span class="detail">
-							<a href="{{action.googleMaps_s}}" style="margin-left:4px;"> <i class="fa fa-map "></i></a>
-
-						<a href="{{action.googleMaps_s}}" class="map">{{action.googleMaps_s | trunc:'50':'...'}}</a>
+								<img ng-src="{{getCountryFlag(action.country_s)}}"></a>
 						</span>
 					</div>
 
 					<div>
-						<p>{{action.description_s}}</p>
+						<p  ng-bind-html="trusted((action.description_s| uriToLink | nl2br | hack | lstring))"></p>
 					</div>
 					<div>
-						<p>{{action.descriptionNative_s}}</p>
+						<p ng-bind-html="trusted((action.descriptionNative_s| uriToLink | nl2br | hack ))"></p>
 					</div>
 				</div>
 			</div>
