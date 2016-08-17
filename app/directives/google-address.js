@@ -9,7 +9,7 @@ define(['text!./google-address.html', 'app', ], function(template, app) {
             require:['^ngModel','googleAddress'],
             scope: {
                 binding: '=ngModel',
-document:'=document',
+                document:'=document',
                 form:'=form'
             },
 
