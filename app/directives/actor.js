@@ -1,4 +1,4 @@
-define(['text!./actor.html', 'app','filters/hack','filters/uri-to-link' ], function(template, app) {
+define(['text!./actor.html', 'app','filters/trunc','filters/hack','factories/km-utilities','filters/uri-to-link' ], function(template, app) {
     'use strict';
 
     app.directive('actor', ['$sce','$location',function($sce,$location) {
@@ -24,7 +24,7 @@ define(['text!./actor.html', 'app','filters/hack','filters/uri-to-link' ], funct
             		//=======================================================================
             		$scope.goTo= function (url,code){
                   if(code)
-            			   $location.url(url+code);
+            			   $location.url(url+$scope.extractId(code));
                   else
                     $location.url(url);
             		};
