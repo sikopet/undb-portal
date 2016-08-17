@@ -25,6 +25,7 @@ define(['app', 'lodash', 'text!views/index.html', 'views/index', 'providers/exte
             when('/actions/calendar',             { templateUrl: 'views/actions/calendar.html',         label:'Calendar',             resolveController: true }).
             when('/actions/participate',          { templateUrl: 'views/actions/participate.html',      label:'Participate'           }).
             when('/actions/submit',               { templateUrl: 'views/actions/submit.html',           label:'Participate',          resolveController: true, resolve : { user : securize(['User']) }, reloadOnSearch : false }).
+            when('/actions/register/:uid?',       { templateUrl: 'views/actions/submit-form.html',      label:'Form',                 resolveController: true, resolve : { user : securize(['User']) } }).
             when('/actions/submit-form/:uid?',    { templateUrl: 'views/actions/submit-form.html',      label:'Form',                 resolveController: true, resolve : { user : securize(['User']) } }).
             when('/actions/submit-form-done',     { templateUrl: 'views/actions/submit-form-done.html', label:'Thanks',                                        resolve : { user : securize(['User']) } }).
             when('/actions/:uid',                 { templateUrl: 'views/actions/action.html',           label:'Action',               resolveController: true }).
@@ -36,8 +37,10 @@ define(['app', 'lodash', 'text!views/index.html', 'views/index', 'providers/exte
             when('/actors/jlg',                  { templateUrl: 'views/actors/jlg.html',         label:'JLG' ,                    resolveController: true}).
             when('/actors/partners',             { templateUrl: 'views/actors/partners.html',    label:'UNDB Partners',           resolveController: true, resolve : { user : currentUser() } }).
             when('/actors/partners/register',    { templateUrl: 'views/actors/submit-form.html', label:'Become a UNDB Partner',   resolveController: true, resolve : { user : securize(['User']) } }).
+            when('/actors/register',             { templateUrl: 'views/actors/submit-form.html', label:'Become a UNDB Partner',   resolveController: true, resolve : { user : securize(['User']) } }).
+            when('/actors/register/:uid',        { templateUrl: 'views/actors/submit-form.html', label:'Become a UNDB Partner',   resolveController: true, resolve : { user : securize(['User']) } }).
             when('/actors/partners/edit/:uid',   { templateUrl: 'views/actors/submit-form.html', label:'Become a UNDB Partner',   resolveController: true, resolve : { user : securize(['User']) } }).
-            when('/actors/partners/:uid',       { templateUrl: 'views/actors/actor.html',       label:'Actor',                    resolveController: true }).
+            when('/actors/partners/:uid',        { templateUrl: 'views/actors/actor.html',       label:'Actor',                   resolveController: true }).
 
             when('/resources',                   { templateUrl: 'views/resources/index.html',      label:'Resources'         }).
             when('/resources/logo',              { templateUrl: 'views/resources/logo.html',       label:'Logo',                  resolveController: true}).

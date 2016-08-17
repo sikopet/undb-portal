@@ -1,14 +1,19 @@
 <div class="row" ng-show="(!hideSearch && (getNumberPages().length>1 || count > 9)) || startEmpty">
+  <div class="col-xs-12 search" >
+    <h1><i class="fa fa-search"></i> Search Criteria </h1>
+  </div>
   <div class="col-xs-12 col-sm-12  col-lg-9 search" >
     <div class="form-group">
       <div class="col-xs-12 col-sm-12 col-md-10 col-lg-12">
-        <input type="text" style="margin-top:15px;margin-bottom:15px;" class="form-control"  ng-model="search" placeholder="Key Word Search">
+        <label>All the Actors of the United Nations Decade on Biodiversity are listed below.</label>
+        <input type="text" style="margin-top:15px;margin-bottom:15px;" class="form-control"  ng-model="search" placeholder="Search by keyword.">
       </div>
     </div>
   </div>
 
   <div class="col-xs-12 col-sm-12  col-lg-3  search">
     <div class="form-group">
+      <label>&nbsp;</label>
       <button type="button" class="btn" style="margin-top:15px;background-color:#069554;color:white;width:100%;" ng-click="clearSearch();">Clear Search</button>
     </div>
   </div>
@@ -47,6 +52,7 @@
 <div class="article">
     <span ng-if="loading">Loading ... <i class="fa fa-spinner fa-2x" ng-class="{ 'fa-spin':loading }"></i></span>
     <div ng-if="!loading" class="row" ng-repeat="p in partners track by p.identifier_s">
+        <hr></hr>
         <actor document="p"></actor>
     </div>
 </div>

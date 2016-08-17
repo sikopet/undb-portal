@@ -166,7 +166,7 @@ define(['app', 'angular', 'jquery','factories/dev-router'], function(app, ng, $)
 
                 if (!inProgress) {
 
-                    inProgress = $http.get('/api/v2013/authentication/user', {
+                    inProgress = $http.get('https://api.' + devRouter.DOMAIN + '/api/v2013/authentication/user', {
                         headers: {
                             Authorization: "Ticket " + token
                         }
