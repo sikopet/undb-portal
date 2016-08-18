@@ -5,7 +5,7 @@ require.config({
     paths: {
         'angular'               : 'libs/angular-flex/angular-flex',
         'angular-route'         : 'libs/angular-route/angular-route',
-        'angular-sanitize'         : 'libs/angular-sanitize/angular-sanitize.min',
+        'angular-sanitize'      : 'libs/angular-sanitize/angular-sanitize.min',
         'authentication'        : 'factories/authentication',
         'bootstrap'             : 'libs/bootstrap/dist/js/bootstrap',
         'bootstrap-datepicker'  : 'libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min',
@@ -20,8 +20,9 @@ require.config({
         'text'                  : 'libs/requirejs-text/text',
         'toastr'                : 'libs/angular-toastr/dist/angular-toastr.tpls.min',
         'URIjs'                 : 'libs/uri.js/src',
-        'ng-ckeditor'              :'libs/ng-ckeditor/ng-ckeditor',
-        'ckeditor':'libs/ng-ckeditor/libs/ckeditor/ckeditor'
+        'ng-ckeditor'           : 'libs/ng-ckeditor/ng-ckeditor',
+        'ckeditor'              : 'libs/ng-ckeditor/libs/ckeditor/ckeditor',
+        'ngDialog'              : 'libs/ng-dialog/js/ngDialog.min',
     },
     shim: {
         'libs/angular/angular'     : { deps: ['jquery'] },
