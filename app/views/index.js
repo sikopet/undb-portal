@@ -9,7 +9,14 @@ define(['app','authentication', '../directives/map/undb-map'], function() { 'use
 											    description: " The goal of the United Nations Decade on Biodiversity is to support the implementation of the Strategic Plan for Biodiversity and to promote its overall vision of living in harmony with nature.",
 											    imageUrl: "app/img/undb-slider-welcome.png",
 											    targetUrl: "https://www.cbd.int/undb-new/about/undb"
-											}, {
+											},
+											{
+											    title: "Aichi Biodiversity Targets Task Force",
+											    description: "The ABTTF was established to provide a platform for agencies and organizations to coordinate their activities at global and national levels during the United Nations Decade on Biodiversity.",
+											    imageUrl: "app/img/undb-slider-abttf.png",
+											    targetUrl: "https://www.cbd.int/undb-new/actors/abttf"
+											},
+											{
 											    title: "Meetings of the Convention on Biological Diversity and its Protocols",
 											    description: "The highest governing body of the CBD brings together government representatives to review and promote the implementation of the Convention. ",
 											    imageUrl: "app/img/undb-slider-cop13.png",
@@ -35,12 +42,7 @@ define(['app','authentication', '../directives/map/undb-map'], function() { 'use
 											    imageUrl: "app/img/undb-slider-aichi.png",
 											    targetUrl: "https://www.cbd.int/sp"
 											},
-											{
-											    title: "Aichi Biodiversity Targets Task Force",
-											    description: "The ABTTF was established to provide a platform for agencies and organizations to coordinate their activities at global and national levels during the United Nations Decade on Biodiversity.",
-											    imageUrl: "app/img/undb-slider-abttf.png",
-											    targetUrl: "https://www.cbd.int/undb-new/actors/abttf"
-											},
+
 ]
 				};
     }];
