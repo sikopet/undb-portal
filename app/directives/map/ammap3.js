@@ -49,8 +49,8 @@ define(['text!./ammap3.html',
                 //=======================================================================
                 //
                 //=======================================================================
-                $scope.$watch('items', function() {
-                    if (!_.isEmpty($scope.items)) {
+                $scope.$watch('items', function(newV,old) {
+                    if (!_.isEmpty($scope.items) || (_.isEmpty(newV) && !_.isEmpty(old)) ) {
                         $scope.map.dataProvider.images = _.clone($scope.images);
                         ammap3.generateMap($scope.schema);
                     }
