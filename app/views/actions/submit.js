@@ -286,7 +286,7 @@ define(['lodash', 'text!./del-dial.html','app', 'ngDialog','authentication', 'ut
         //======================================================
         function edit(record)
         {
-            var url = '/actions/register/';
+            var url = '/actions/register';
 
             if(record && record.identifier_s)
                 url += record.identifier_s;
@@ -327,7 +327,7 @@ define(['lodash', 'text!./del-dial.html','app', 'ngDialog','authentication', 'ut
                     }
                 });
 
-  
+
 
             }).catch(function(e){
 
