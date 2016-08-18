@@ -418,7 +418,7 @@ define(['text!./ammap3.html',
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{twitter_s}}', image.twitter_s ? image.twitter_s : ' ');
                             if (image.youtube_s) image.youtube_s = '<a href="' + image.youtube_s + '" target="_blank"><i class="fa fa-youtube-square fa-2x"></i></a>';
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{youtube_s}}', image.youtube_s ? image.youtube_s : ' ');
-                            image.website_s = '<a href="' + '/actions/'+extractId(image.id)+ '" ><i class="fa fa-external-link-square fa-2x"></i></a>';
+                            image.website_s = '<a href="' + 'actions/'+extractId(image.id)+ '" ><i class="fa fa-external-link-square fa-2x"></i></a>';
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{website_s}}', image.website_s ? image.website_s : ' ');
                             if (image.email_s) image.email_s = '<b>Email:</b> <a mailto="' + image.email_s + '">' + image.email_s + '</a><br>';
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{email_s}}', image.email_s ? image.email_s : ' ');
@@ -464,7 +464,7 @@ define(['text!./ammap3.html',
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{twitter_s}}', image.twitter_s ? image.twitter_s : ' ');
                             if (image.youtube_s) image.youtube_s = '<a href="' + image.youtube_s + '" target="_blank"><i class="fa fa-youtube-square fa-2x"></i></a>';
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{youtube_s}}', image.youtube_s ? image.youtube_s : ' ');
-                            image.website_s = '<a href="' + '/actors/partners/'+extractId(image.id)+ '" ><i class="fa fa-external-link-square fa-2x"></i></a>';
+                            image.website_s = '<a href="' + 'actors/partners/'+extractId(image.id)+ '" ><i class="fa fa-external-link-square fa-2x"></i></a>';
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{website_s}}', image.website_s ? image.website_s : ' ');
                             if (image.email_s) image.email_s = '<b>Email:</b> <a mailto="' + image.email_s + '">' + image.email_s + '</a><br>';
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{email_s}}', image.email_s ? image.email_s : ' ');
