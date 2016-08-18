@@ -608,9 +608,10 @@ define(['text!./ammap3.html',
                 function colorMap(mapTypeFunction) {
 
                     _.each($scope.map.dataProvider.areas, function(country) {
-                        mapTypeFunction({
-                            'code': country.id
-                        });
+                        if(country.id!=='US')
+                          mapTypeFunction({
+                              'code': country.id
+                          });
                     });
                     $scope.map.validateData(); // updates map with color changes
                 } //colorMap
