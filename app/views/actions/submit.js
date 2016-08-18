@@ -65,8 +65,8 @@ define(['lodash', 'text!./del-dial.html','app', 'ngDialog','authentication', 'ut
                 "q"  : buildQuery(),
                 "fl" : "identifier_s, schema_*, title_*, summary_*, description_*, created*, updated*, reportType_*_t, url_ss, _revision_i, _state_s, _latest_s, _workflow_s",
                 "sort"  : "updatedDate_dt desc",
-                "start" : pageIndex*pageSize,
-                "row"   : pageSize,
+                "start" : pageIndex*Number($scope.pageSize),
+                "rows"   : Number($scope.pageSize),
             };
 
             var qRecords = $http.get('https://api.cbd.int/api/v2013/index', { params : qsParams }).then(function(res) {
@@ -221,19 +221,39 @@ define(['lodash', 'text!./del-dial.html','app', 'ngDialog','authentication', 'ut
             // freetext
 
             if(options.freetext)
-            {
-                var escapedWords = _(_.words(options.freetext)).map(function(w){
-                    return solr.escape(w)+"*";
-                }).value();
+              {
+                  var escapedWords = null;
+                  options.freetext = options.freetext.trim();
 
-                query.push([
-                    'title_t:('       +escapedWords.join(' AND ')+ ')',
-                    'description_t:(' +escapedWords.join(' AND ')+ ')',
-                    'text_EN_txt:('   +escapedWords.join(' AND ')+ ')',
-                    'title_EN_t:('    +escapedWords.join(' AND ')+ ')',
-                    'summary_EN_t:('  +escapedWords.join(' AND ')+ ')',
-                ]);
-            }
+                  //process quoted search
+                  if( (options.freetext[0]==='"' && options.freetext[options.freetext.length-1]==='"') || (options.freetext[0]==="'" && options.freetext[options.freetext.length-1]==="'") )
+                  {
+                         options.freetext = options.freetext.substr(1); //remove first quote
+                         options.freetext = options.freetext.slice(0, -1);//remove lastquote
+
+                        escapedWords = _(_.words(options.freetext)).map(function(w){
+                            return solr.escape(w);
+                        }).value();
+                        query.push([
+                            'title_t:("'       +escapedWords.join(' ')+ '")',
+                            'description_t:("' +escapedWords.join(' ')+ '")',
+                            'text_EN_txt:("'   +escapedWords.join(' ')+ '")',
+                            'title_EN_t:("'    +escapedWords.join(' ')+ '")',
+                            'summary_EN_t:("'  +escapedWords.join(' ')+ '")',
+                        ]);
+                  } else{
+                      escapedWords = _(_.words(options.freetext)).map(function(w){
+                          return solr.escape(w)+'*';
+                      }).value();
+                      query.push([
+                          'title_t:('       +escapedWords.join(' AND ')+ ')',
+                          'description_t:(' +escapedWords.join(' AND ')+ ')',
+                          'text_EN_txt:('   +escapedWords.join(' AND ')+ ')',
+                          'title_EN_t:('    +escapedWords.join(' AND ')+ ')',
+                          'summary_EN_t:('  +escapedWords.join(' AND ')+ ')',
+                      ]);
+                  }
+              }
 
             // AND / OR everything
 
@@ -248,7 +268,7 @@ define(['lodash', 'text!./del-dial.html','app', 'ngDialog','authentication', 'ut
         {
             currentPage = currentPage || 0;
 
-            var pageCount = Math.ceil(Math.max($scope.recordCount||0, 0) / pageSize);
+            var pageCount = Math.ceil(Math.max($scope.recordCount||0, 0) / Number($scope.pageSize));
             var pages     = [];
 
             for (var i = 0; i < pageCount; i++) {
