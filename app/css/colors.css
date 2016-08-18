@@ -51,3 +51,22 @@
 .darkGreen {
     color: #004844;
 }
+
+.bg-published{
+    background-color:#1FA65D!important;
+    color:white!important;
+}
+.bg-draft{
+    background-color:#bbb!important;
+    color:white!important;
+}
+.bg-request{
+    background-color:#C7532C!important;
+    color:white!important;
+}
+
+.debug-border{
+  border-style: solid;
+  border-color: red;
+  border-width: 1px;
+}
