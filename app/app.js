@@ -1,6 +1,6 @@
 define(['angular'], function(angular) { 'use strict';
 
-    var deps = ['ngRoute','smoothScroll','toastr','ngCkeditor','ngSanitize'];
+    var deps = ['ngRoute','smoothScroll','toastr','ngCkeditor','ngSanitize','ngDialog'];
 
     angular.defineModules(deps);
 
@@ -32,7 +32,6 @@ define(['angular'], function(angular) { 'use strict';
       timeOut: 5000,
       progressBar: true,
     });
-
   }]);
 
     app.factory('realmHttpIntercepter', ["realm", function(realm) {
