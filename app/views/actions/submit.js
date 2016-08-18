@@ -1,9 +1,9 @@
-define(['lodash', 'app', 'authentication', 'utilities/km-utilities', 'utilities/km-storage', 'filters/moment', 'utilities/solr', 'filters/navigation'], function(_) { 'use strict';
+define(['lodash', 'text!./del-dial.html','app', 'ngDialog','authentication', 'utilities/km-utilities', 'utilities/km-storage', 'filters/moment', 'utilities/solr', 'filters/navigation'], function(_,delDial) { 'use strict';
 
-    return ['$scope', '$route', '$http', '$location', '$q', 'solr', 'user', 'IStorage', 'realm',
-     function($scope, $route, $http, $location, $q, solr, user, storage, realm) {
+    return ['$scope', '$route', '$http', '$location', '$q', 'solr', 'user', 'IStorage', 'realm','ngDialog',
+     function($scope, $route, $http, $location, $q, solr, user, storage, realm,ngDialog) {
 
-        var pageSize = 15;
+        $scope.pageSize = 15;
 
         $scope.schema      = _.camelCase('undbAction'/*$route.current.params.schema*/);
         $scope.facets      = undefined;
@@ -165,6 +165,22 @@ define(['lodash', 'app', 'authentication', 'utilities/km-utilities', 'utilities/
             return urls;
         }
 
+        //============================================================
+        //
+        //============================================================
+        function delDialog() {
+
+            var dialog = ngDialog.open({
+                template: delDial,
+                className: 'ngdialog-theme-default',
+                closeByDocument: false,
+                plain: true,
+                scope: $scope
+            });
+            $scope.ignoreDirtyCheck = true;
+            return dialog.closePromise;
+        };
+
         //======================================================
         //
         //
@@ -281,25 +297,17 @@ define(['lodash', 'app', 'authentication', 'utilities/km-utilities', 'utilities/
                 if(!exist)
                     throw new Alert("Record not found.");
 
-                // var confirm = $mdDialog.confirm()
-                //   .title('Are you sure you want to delete?')
-                //   .ariaLabel('delete records')
-                //   .ok('DELETE RECORD')
-                //   .cancel('CANCEL')
-                //   .targetEvent(ev);
-                //
-                // $mdDialog.show(confirm)
-                // .then(function() {
-                //     return repo.delete(identifier);
-                // }).then(function() {
-                //    $scope.recordCount--;
-                //    refreshFacetCounts();
-                //     _.remove($scope.records, function(r){
-                //        return r==record;
-                //     });
-                // });
+                delDialog().then(function(ret) {
+                    if (ret.value === 'delete') {
+                        //do toast
+                        return repo.delete(identifier).then(function(){
+                          reloadList();
+                          $scope.$emit('showInfo', 'Action successfully deleted.');
+                        });
+                    }
+                });
 
-                alert('todo');
+  
 
             }).catch(function(e){
 
