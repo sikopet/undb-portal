@@ -62,7 +62,6 @@
 				<div role="tabpanel" class="tab-pane fade in  active" id="UNDB">
 					<div class="article">
 						<div ng-bind-html="trustHtml(country.description)">
-
 						</div>
 					</div>
 
@@ -78,7 +77,9 @@
 
 					<div style="margin-top:60px;" ng-if="partners.length">
 						<h4 class="darkGreen">UNDB Network</h4>
-						<div class="listImg">
+
+						<actors-list  items-per-page="10"  hide-search="true" country="country.code"></actors-list>
+						<!-- <div class="listImg">
 							<ul>
 								<li ng-repeat="partner in partners" ng-click="goTo('/actors/partners/',extractId(partner.id))">
 									<div class="col-sm-3">
@@ -98,7 +99,7 @@
 								</li>
 							</ul>
 							<button type="button" class="btn pull-right" style="background-color:#069554;color:white;margin-top:15px;" ng-click="goTo('/actors/partners');">More ></button>
-						</div>
+						</div> -->
 					</div>
 					<!-- <div class="space">
 							<a href="" class="button green">More</a>
