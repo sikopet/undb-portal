@@ -1,18 +1,21 @@
-define(['app', 'lodash', 'directives/map/zoom-map', 'directives/link-list', 'directives/activities-list','angular-sanitize','filters/trunc','directives/links-display','filters/hack'], function(app, _) {
+define(['app', 'lodash', 'directives/map/zoom-map', 'directives/link-list', 'directives/activities-list','angular-sanitize','filters/trunc','directives/links-display','filters/hack', 'directives/actors-list'], function(app, _) {
     'use strict';
     return ['$scope', 'locale', '$http', '$location', '$route', 'authentication','$sce','$sanitize',
         function($scope, locale, $http, $location, $route, authentication,$sce,$sanitize) {
 
 
-            init();
+
+
 
             //=======================================================================
             //
             //=======================================================================
             authentication.getUser().then(function(user) {
                 $scope.user = user;
+
             });
 
+            init();
             //=======================================================================
             //
             //=======================================================================
@@ -74,7 +77,7 @@ define(['app', 'lodash', 'directives/map/zoom-map', 'directives/link-list', 'dir
             //=======================================================================
             function loadProfile() {
 
-                return $http.get('/api/v2016/undb-party-profiles/', {
+                return $http.get('https://api.cbd.int/api/v2016/undb-party-profiles/', {
                     'params': {
                         q: {
                             'code': $scope.country.code
@@ -144,7 +147,13 @@ define(['app', 'lodash', 'directives/map/zoom-map', 'directives/link-list', 'dir
             //
             //=======================================================================
             $scope.isAdmin = function() {
-                return _.intersection($scope.user.roles, ['Administrator', 'undb-administrator', 'UNDBPublishingAuthority']).length > 0;
+
+                if($scope.user)
+                  return _.intersection($scope.user.roles, ['Administrator', 'undb-administrator', 'UNDBPublishingAuthority']).length > 0;
+
+                  else
+                    return false;
+
             };
 
 
