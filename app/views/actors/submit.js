@@ -5,7 +5,7 @@ define(['lodash', 'text!./del-dial.html','app', 'ngDialog','authentication', 'ut
 
         $scope.pageSize = 15;
 
-        $scope.schema      = _.camelCase('undbAction'/*$route.current.params.schema*/);
+        $scope.schema      = _.camelCase('undbPartner'/*$route.current.params.schema*/);
         $scope.facets      = undefined;
         $scope.records     = null;
         $scope.status      = "";
@@ -117,23 +117,7 @@ define(['lodash', 'text!./del-dial.html','app', 'ngDialog','authentication', 'ut
             });
         }
 
-        //=======================================================================
-        //
-        //=======================================================================
-        $scope.extractId = function(id){
-            return parseInt(id.replace('52000000cbd08', ''), 16);
-        };
 
-          //=======================================================================
-          //
-          //=======================================================================
-          $scope.goTo= function (url,code){
-
-            if(code)
-               $location.url(url+$scope.extractId(code));
-            else
-              $location.url(url);
-          };
         //======================================================
         //
         //
@@ -295,14 +279,30 @@ define(['lodash', 'text!./del-dial.html','app', 'ngDialog','authentication', 'ut
             $scope.pages       = pages;
 
         }
+        //=======================================================================
+        //
+        //=======================================================================
+        $scope.extractId = function(id){
+            return parseInt(id.replace('52000000cbd08', ''), 16);
+        };
 
+          //=======================================================================
+          //
+          //=======================================================================
+          $scope.goTo= function (url,code){
+
+            if(code)
+               $location.url(url+$scope.extractId(code));
+            else
+              $location.url(url);
+          };
         //======================================================
         //
         //
         //======================================================
         function edit(record)
         {
-            var url = '/actions/register/';
+            var url = '/actors/register/';
 
             if(record && record.identifier_s)
                 url += record.identifier_s;

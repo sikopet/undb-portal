@@ -49,8 +49,8 @@ define(['text!./ammap3.html',
                 //=======================================================================
                 //
                 //=======================================================================
-                $scope.$watch('items', function() {
-                    if (!_.isEmpty($scope.items)) {
+                $scope.$watch('items', function(newV,old) {
+                    if ($scope.map && (!_.isEmpty($scope.items) || (_.isEmpty(newV) && !_.isEmpty(old))) ) {
                         $scope.map.dataProvider.images = _.clone($scope.images);
                         ammap3.generateMap($scope.schema);
                     }
@@ -418,7 +418,7 @@ define(['text!./ammap3.html',
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{twitter_s}}', image.twitter_s ? image.twitter_s : ' ');
                             if (image.youtube_s) image.youtube_s = '<a href="' + image.youtube_s + '" target="_blank"><i class="fa fa-youtube-square fa-2x"></i></a>';
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{youtube_s}}', image.youtube_s ? image.youtube_s : ' ');
-                            image.website_s = '<a href="' + '/actions/'+extractId(image.id)+ '" ><i class="fa fa-external-link-square fa-2x"></i></a>';
+                            image.website_s = '<a href="' + 'actions/'+extractId(image.id)+ '" ><i class="fa fa-external-link-square fa-2x"></i></a>';
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{website_s}}', image.website_s ? image.website_s : ' ');
                             if (image.email_s) image.email_s = '<b>Email:</b> <a mailto="' + image.email_s + '">' + image.email_s + '</a><br>';
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{email_s}}', image.email_s ? image.email_s : ' ');
@@ -464,7 +464,7 @@ define(['text!./ammap3.html',
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{twitter_s}}', image.twitter_s ? image.twitter_s : ' ');
                             if (image.youtube_s) image.youtube_s = '<a href="' + image.youtube_s + '" target="_blank"><i class="fa fa-youtube-square fa-2x"></i></a>';
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{youtube_s}}', image.youtube_s ? image.youtube_s : ' ');
-                            image.website_s = '<a href="' + '/actors/partners/'+extractId(image.id)+ '" ><i class="fa fa-external-link-square fa-2x"></i></a>';
+                            image.website_s = '<a href="' + 'actors/partners/'+extractId(image.id)+ '" ><i class="fa fa-external-link-square fa-2x"></i></a>';
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{website_s}}', image.website_s ? image.website_s : ' ');
                             if (image.email_s) image.email_s = '<b>Email:</b> <a mailto="' + image.email_s + '">' + image.email_s + '</a><br>';
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{email_s}}', image.email_s ? image.email_s : ' ');
@@ -494,9 +494,10 @@ define(['text!./ammap3.html',
                 function generateMap(schema) {
 
                     if (!schema) return;
-                    if (schema === 'parties')
+                    if (schema === 'parties'){
                         progressColorMap(partiesMap);
-                    else {
+                        colorMap(resetMap);
+                    }else {
                         colorMap(resetMap);
                         pinMap(defaultPinMap);
                     }
@@ -608,9 +609,10 @@ define(['text!./ammap3.html',
                 function colorMap(mapTypeFunction) {
 
                     _.each($scope.map.dataProvider.areas, function(country) {
-                        mapTypeFunction({
-                            'code': country.id
-                        });
+                        if(country.id!=='US')
+                          mapTypeFunction({
+                              'code': country.id
+                          });
                     });
                     $scope.map.validateData(); // updates map with color changes
                 } //colorMap

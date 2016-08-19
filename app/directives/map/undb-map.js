@@ -111,11 +111,13 @@ define(['text!./undb-map.html',
                 function activateFilter() {
                     if ($attr.schema) {
                         $timeout(function() {
-                            reportingDisplay.filterActive($attr.schema);
-                            $scope.selectedSchema = $attr.schema;
-                            //reportingDisplay.addSubQuery(_.cloneDeep($scope.urlStrings[$attr.schema]), $attr.schema);
-                            reportingDisplay.search();
+                          $scope.selectedSchema = 'parties';
+                          reportingDisplay.search();
                         }, 500);
+                        $timeout(function() {
+                            $scope.selectedSchema = $attr.schema;
+                            reportingDisplay.search();
+                        }, 1000);
                     }
                 }
 
@@ -197,7 +199,8 @@ define(['text!./undb-map.html',
                     function query($scope) {
 
                         if ($scope.selectedSchema === 'parties') {
-                            filterActive('parties');
+                            if($scope.documents)
+                              filterActive('parties');
                             $scope.documents = groupByCountry($scope.countries, 1);
                             return;
                         }
