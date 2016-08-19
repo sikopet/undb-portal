@@ -44,11 +44,15 @@ define(['app', 'lodash', 'text!views/index.html', 'views/index', 'providers/exte
             when('/actors/partners/:uid',        { templateUrl: 'views/actors/actor.html',            label:'Actor',                   resolveController: true }).
             when('/actors/submit-form-done',     { templateUrl: 'views/actors/submit-form-done.html', label:'Thanks',                  resolve : { user : securize(['User']) } }).
 
-            when('/resources',                   { templateUrl: 'views/resources/index.html',      label:'Resources'         }).
-            when('/resources/logo',              { templateUrl: 'views/resources/logo.html',       label:'Logo',                  resolveController: true}).
-            when('/resources/materials',         { templateUrl: 'views/resources/materials.html',  label:'Printed Materials' }).
-            when('/resources/multimedia',        { templateUrl: 'views/resources/multimedia.html', label:'Multimedia',            resolveController: true}).
+            when('/resources',                   { templateUrl: 'views/resources/index.html',           label:'Resources'         }).
+            when('/resources/logo',              { templateUrl: 'views/resources/logo.html',            label:'Logo',                  resolveController: true}).
+            when('/resources/materials',         { templateUrl: 'views/resources/materials.html',       label:'Printed Materials' }).
+            when('/resources/multimedia',        { templateUrl: 'views/resources/multimedia.html',      label:'Multimedia',            resolveController: true}).
             when('/resources/multimedia/edit',   { templateUrl: 'views/resources/multimedia-form.html', label:'Multimedia',            resolveController: true}).
+            when('/resources/waiver',            { templateUrl: 'views/resources/waiver.html',          label:'Waiver',                resolveController: true}).
+            when('/resources/waiver/submit',     { templateUrl: 'views/resources/submit-waiver.html',   label:'Submit Waiver',         resolveController: true, resolve : { user : securize(['User']) } }).
+            when('/resources/un-logo',           { templateUrl: 'views/resources/un-logo.html',         label:'UN Logo Use' }).
+            when('/resources/contact',           { templateUrl: 'views/resources/contact.html',         label:'Contact Us' }).
 
             when('/help/404',                    { templateUrl: 'views/404.html',  label : 'Not found' }).
             when('/help/403',                    { templateUrl: 'views/403.html',  label : 'Forbidden' }).
