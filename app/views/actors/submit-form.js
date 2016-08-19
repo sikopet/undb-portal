@@ -176,7 +176,7 @@ define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows', 'util
                 if($scope.editWorkflow)
                     $location.url('/submit/undbPartner');
                 else
-                    $location.url('/actions/submit-form-done');
+                    $location.url('/actors/submit-form-done');
 
             }).catch(function(err) {
 
