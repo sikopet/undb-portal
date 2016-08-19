@@ -494,9 +494,10 @@ define(['text!./ammap3.html',
                 function generateMap(schema) {
 
                     if (!schema) return;
-                    if (schema === 'parties')
+                    if (schema === 'parties'){
                         progressColorMap(partiesMap);
-                    else {
+                        colorMap(resetMap);
+                    }else {
                         colorMap(resetMap);
                         pinMap(defaultPinMap);
                     }
