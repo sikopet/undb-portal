@@ -1,0 +1,231 @@
+<div class="hidden-xs">
+    <div class="container sub-nav">
+        <ul class="nav navbar-nav">
+            <li ng-mouseover="highlightLink='logo'" ng-mouseleave="highlightLink=''"><a href="resources/logo">Logo</a> <i ng-if="highlightLink=='logo' || path=='/resources/logo'" style="position:relative;top:-4px;left:10px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+            <li ng-mouseover="highlightLink='materials'" ng-mouseleave="highlightLink=''"><a href="resources/materials">Printed Materials</a> <i ng-if="highlightLink=='materials' ||  path=='/resources/materials'" style="position:relative;top:-4px;left:45px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+            <li ng-mouseover="highlightLink='multimedia'" ng-mouseleave="highlightLink=''"><a href="resources/multimedia">Multimedia</a> <i ng-if="highlightLink=='multimedia' ||  path=='/resources/multimedia'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+            <li ng-mouseover="highlightLink='submit'" ng-mouseleave="highlightLink=''"><a href="/resources/waiver/submit">Submit Waiver</a> <i ng-if="highlightLink=='submit' ||  path=='/resources/waiver/submit'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+        </ul>
+    </div>
+</div>
+<div id="submit">
+
+    <style>
+    .help-block.error {
+        text-transform: uppercase;
+        font-size: 10px;
+        font-weight: bold;
+        margin-top: -5px;
+        margin-bottom: 10px;
+    }
+    </style>
+
+    <a name="view"></a>
+    <div class="container article partners">
+
+        <div class="row">
+
+            <div class="col-xs-12">
+
+                <h1>Submit Logo Waiver of Liability</h1>
+
+                <p>
+                    Please fill this form if you wish to have a waiver of liability.
+                </p>
+
+            </div>
+        </div>
+
+        <a name="form"></a>
+        <div class="row">
+
+          <div class="col-xs-12">
+
+
+
+            <div class="col-xs-12">
+
+
+            <div ng-repeat="e in errors">
+                <div ng-switch="e.code">
+                    <div ng-switch-when="invalidForm" class="alert alert-warning" role="alert">
+                        Oh, it looks like there ares errors in your form.  Sorry for the inconveniences, but we really need some more information about your liability waiver request.
+                    </div>
+                    <div ng-switch-when="fileSize" class="alert alert-warning" role="alert">
+                        The file you submited is too large. The maximum file size is limited to <u>500 kB</u>.
+                    </div>
+                    <div ng-switch-when="invalidImageType" class="alert alert-warning" role="alert">
+                        The file type you submited is not supported. Please upload a file that is commonly supported ont the web (eg: JPEG, PNG GIF).
+                    </div>
+                    <div ng-switch-when="conditions" class="alert alert-warning" role="alert">
+                        You must agree with the requirements explained at <a href="https://www.cbd.int/undb/logo/undb-logo-guidelines-en.pdf">www.cbd.int/undb/logo/undb-logo-guidelines-en.pdf</a>
+                    </div>
+                    <div ng-switch-default class="alert alert-danger" role="alert">
+                        An unknown error has occured:
+                        <div>{{e.message||e}}</div>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+            <div class="col-xs-12">
+<!-- ng-submit="save();" -->
+            <form name="form" novalidate class="form-horizontal single" ng-hide="loading"  ng-submit="save();" >
+              <div class="form-group" ng-class="{ 'has-warning': !loading && form.personalTitle.$invalid, 'has-error' : form.$submitted && form.personalTitle.$invalid }">
+                  <label for="name" class="col-sm-3 control-label required">Title</label>
+                  <div class="col-sm-6">
+                      <input type="text" class="form-control" name="personalTitle" id="personalTitle" ng-model="document.personalTitle" placeholder="title" >
+                  </div>
+              </div>
+
+              <div class="form-group" ng-class="{ 'has-warning': !loading && form.firstName.$invalid, 'has-error' : form.$submitted && form.firstName.$invalid }">
+                  <label for="name" class="col-sm-3 control-label required">First Name</label>
+                  <div class="col-sm-6">
+                      <input type="text" class="form-control" name="firstName" id="fistName" ng-model="document.firstName" placeholder="first name" >
+                  </div>
+              </div>
+
+              <div class="form-group" ng-class="{ 'has-warning': !loading && form.lastName.$invalid, 'has-error' : form.$submitted && form.lastName.$invalid }">
+                  <label for="name" class="col-sm-3 control-label required">Last Name</label>
+                  <div class="col-sm-6">
+                      <input type="text" class="form-control" name="lastName" id="lastName" ng-model="document.lastName" placeholder="last name" required >
+                      <p class="help-block error" ng-show="!loading && form.lastName.$invalid">This field is mandatory</p>
+                  </div>
+              </div>
+
+              <div class="form-group" ng-class="{ 'has-warning': !loading && form.title.$invalid, 'has-error' : form.$submitted && form.title.$invalid }">
+                  <label for="name" class="col-sm-3 control-label required">Job Title</label>
+                  <div class="col-sm-6">
+                      <input type="text" class="form-control" name="title" id="title" ng-model="document.title" placeholder="job title" required >
+                      <p class="help-block error" ng-show="!loading && form.title.$invalid">This field is mandatory</p>
+                  </div>
+              </div>
+
+              <div class="form-group" ng-class="{ 'has-warning': !loading && form.dept.$invalid, 'has-error' : form.$submitted && form.dept.$invalid }">
+                  <label for="name" class="col-sm-3 control-label required">Department</label>
+                  <div class="col-sm-6">
+                      <input type="text" class="form-control" name="dept" id="dept" ng-model="document.dept" placeholder=" department " >
+                  </div>
+              </div>
+
+
+
+
+
+
+
+
+              <div class="form-group" ng-class="{ 'has-warning': !loading && form.email.$invalid, 'has-error' : form.$submitted && form.email.$invalid }">
+                  <label for="email" class="col-sm-3 control-label required">Email</label>
+                  <div class="col-sm-6">
+                      <input   type="email" class="form-control" name="email" id="email" ng-model="document.email" placeholder="Contact email" required>
+                      <p class="help-block error" ng-show="!loading && form.email.$error.required">This field is mandatory</p>
+                      <p class="help-block error" ng-show="!loading && form.email.$error.email">This is not a valid email</p>
+                  </div>
+              </div>
+
+              <div class="form-group" ng-class="{ 'has-warning': !loading && form.phone.$invalid, 'has-error' : form.$submitted && form.phone.$invalid }">
+                  <label for="phone" class="col-sm-3 control-label required">Telephone</label>
+                  <div class="col-sm-6">
+                      <input   type="text" class="form-control" name="phone" id="phone" ng-model="document.phone" ng-pattern="patterns.phone" placeholder="Contact telephone number" required>
+                      <p class="help-block error" ng-show="!loading && form.phone.$error.required">This field is mandatory</p>
+                      <p class="help-block error" ng-show="!loading && form.phone.$error.pattern">Please use the following format: + (country code) (city code) (telephone number) (extension, if necessary);<br>Example: <b>+1 514 288-2220 ext 221</b> (where 1 = North America, 514 = Montreal, 288-2220 = CBD Secretariat number, ext 221 = direct extension to the switchboard).</p>
+                  </div>
+              </div>
+
+
+              <div class="form-group" ng-class="{ 'has-warning': !loading && form.orgName.$invalid, 'has-error' : form.$submitted && form.orgName.$invalid }">
+                  <label for="name" class="col-sm-3 control-label required">Organisation</label>
+                  <div class="col-sm-6">
+                      <input type="text" class="form-control" name="orgName" id="orgName" ng-model="document.orgName" placeholder="Org. name" required  >
+                      <p class="help-block error" ng-show="!loading && form.orgName.$invalid">This field is mandatory</p>
+                  </div>
+              </div>
+
+              <div class="form-group" ng-class="{ 'has-warning': !loading && form.mandate.$invalid, 'has-error' : form.$submitted && form.mandate.$invalid }">
+                  <label for="description" class="col-sm-3 control-label" style="line-height:20px;" required>Mandate and Objectives (max. 1000 characters)</label>
+                  <div class="col-sm-6">
+                      <textarea class="form-control" name="mandate" id="mandate" ng-model="document.mandate" cols="30" rows="10" required placeholder="Briefly describe your organisation mandate and objectives (max. 1000 characters)" ></textarea>
+                      <p class="help-block error" ng-show="!loading && form.mandate.$invalid" style="margin-top:2px">This field is mandatory</p>
+                  </div>
+              </div>
+              <div google-address name="address" id="address"   form="form" ng-model="document.address" document="document"  ng-required="!document.onlineEvent"></div>
+
+
+
+                <div class="form-group" ng-class="{ 'has-warning': !loading && form.country.$invalid, 'has-error' : form.$submitted && form.country.$invalid }">
+                    <label for="country" class="col-sm-3 control-label required">Country</label>
+                    <div class="col-sm-6">
+                        <select class="form-control" id="country" name="country" ng-model="document.country" placeholder="country"
+                        required ng-options="c.code as c.name for c in countries|orderBy:'name.toLowerCase()'"  >
+                            <option value="">Select your country</option>
+                        </select>
+                        <p class="help-block error" ng-show="!loading && form.country.$invalid">This field is mandatory</p>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-class="{ 'has-warning': !loading && form.website.$invalid, 'has-error' : form.$submitted && form.website.$invalid }">
+                    <label for="webite" class="col-sm-3 control-label">Website</label>
+                    <div class="col-sm-6">
+                        <input type="url" class="form-control" name="website" id="website" ng-model="document.website" placeholder="Org. website"   on-focus-helper start="http://">
+                        <p class="help-block error" ng-show="!loading && form.website.$error.url">This is not a valid web address</p>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-class="{ 'has-warning': !loading && form.usage.$invalid, 'has-error' : form.$submitted && form.usage.$invalid }">
+                    <label for="description" class="col-sm-3 control-label" style="line-height:20px;" required>Usage Description (max. 1000 characters)</label>
+                    <div class="col-sm-6">
+                        <textarea class="form-control" name="usage" id="usage" ng-model="document.usage" cols="30" rows="10" required placeholder="Briefly describe how your intend on using the logos (max. 1000 characters)" ></textarea>
+                        <p class="help-block error" ng-show="!loading && form.usage.$invalid" style="margin-top:2px">This field is mandatory</p>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-class="{ 'has-warning': !loading && form.countries.$invalid, 'has-error' : form.$submitted && form.countries.$invalid }">
+                    <label for="country" class="col-sm-3 control-label required">Countries <br> </label>
+                    <div class="col-sm-6">
+                        <select class="form-control" id="countries" name="countries" ng-model="document.countries"
+                        ng-options="c.name as c.name for c in countries|orderBy:'name.toLowerCase()'" multiple>
+                        </select>
+                        <p class="help-block error" >(CTRL + Click) for Windows, (CMD + Click) for Mac</p>
+                    </div>
+
+                </div>
+
+
+                <div class="form-group" ng-class="{ 'has-warning': !loading && form.notes.$invalid, 'has-error' : form.$submitted && form.notes.$invalid }">
+
+                    <div class="col-xs-6 col-xs-offset-3">
+                        <input  type="checkbox" style="width:auto;height:auto" ng-model="document.infoUse"> <span>Used for information purposes</span><br>
+                        <input  type="checkbox" style="width:auto;height:auto" ng-model="document.fundraisingUse"> <span>Used for fundraising purposes</span><br>
+                    </div>
+                </div>
+
+
+                <div class="form-group" >
+                    <div class="col-xs-8 col-xs-offset-2"><p>
+                <strong>Note:</strong> All entities interested in using the United Nations Decade on Biodiversity logo for fundraising purposes must submit additional information as part of their application for approval to the Secretariat of the Convention on Biological Diversity. Please click <a target="_blank" href="https://www.cbd.int/undb/logo/undb-logo-guidelines-en.pdf">here</a> for more information on what is required.
+              The supporting documentation must be sent by email to <a src="mailto:UNBiodiversity@cbd.int">UNBiodiversity@cbd.int</a> with the title: UNDB Logo permission application by [name of entity]. Permission for use is not considered granted until this additional material has been reviewed by the UNDB Coordinating Unit and an email granting permission is received by the entity.</p>
+            </div>
+        </div>
+
+              <div class="form-group">
+                  <div class="col-xs-8 col-xs-offset-2">
+<p>
+                          <input type="checkbox" style="width:auto;height:auto" ng-model="document.agreed"> <span>I agree to the logo waiver provisions outlined in the
+              <a target="_blank" href="https://www.cbd.int/undb/logo/undb-logo-guidelines-en.pdf">Communications Guidelines for the United Nations Decade on Biodiversity 2011-2020</a> of the Secretariat of the Convention on Biological Diversiy</span> .
+</p>
+                  </div>
+              </div>
+
+                <div class="form-group">
+                    <label for="" class="col-sm-3 control-label"><span ng-if="saving"><i  class="fa fa-spinner fa-spin fa-3x fa-fw"></i> Saving...</label></span></label>
+                    <div class="col-sm-6">
+                        <input type="submit" class="btn btn-primary btn-lg" value="Submit" >
+                    </div>
+                </div>
+
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
