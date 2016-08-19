@@ -89,10 +89,10 @@
 						</span>
 					</div>
 
-					<div>
+					<div ng-if="action.action.description_s">
 						<p  ng-bind-html="trusted((action.description_s| uriToLink | nl2br | hack | lstring))"></p>
 					</div>
-					<div>
+					<div ng-if="action.descriptionNative_s">
 						<p ng-bind-html="trusted((action.descriptionNative_s| uriToLink | nl2br | hack ))"></p>
 					</div>
 				</div>
