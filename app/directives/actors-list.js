@@ -26,6 +26,9 @@ define(['text!./actors-list.html', 'app','moment','filters/trunc','filters/hack'
 
                   if ($attr.hideSearch)
                     $scope.hideSearch = true;
+                  else {
+                    $scope.hideSearch = false;
+                  }
 
                   $scope.currentPage = 0;
 
@@ -44,13 +47,19 @@ define(['text!./actors-list.html', 'app','moment','filters/trunc','filters/hack'
                   if ($attr.hidePagenation)
                       $scope.hidePagenation = true;
 
+                  if($attr.country)
+                    $scope.country=$attr.country;
                   if ($attr.itemsPerPage)
                       $scope.itemsPerPage = $attr.itemsPerPage;
 
-                  if (!$attr.startEmpty)
+                  if (!$attr.startEmpty || typeof possiblyUndefinedVariable === "undefined"){
+                    $scope.startEmpty=false;
                     ctrl.search();
-                  else
+
+                  }else
                       $scope.startEmpty=true;
+
+      console.log($scope.startEmpty);
             }, //link
 
 
@@ -79,7 +88,7 @@ define(['text!./actors-list.html', 'app','moment','filters/trunc','filters/hack'
               $scope.getNumberPages = function() {
 
                   if($scope.count && $scope.itemsPerPage && ($scope.count > $scope.itemsPerPage))
-                    return new Array(Math.floor($scope.count/$scope.itemsPerPage)+1);
+                      return new Array(Math.floor($scope.count/$scope.itemsPerPage)+1);
                   else
                       return new Array(1);
 
@@ -155,7 +164,7 @@ define(['text!./actors-list.html', 'app','moment','filters/trunc','filters/hack'
               //=======================================================================
               function search() {
 
-                var q = 'schema_s:undbPartner';
+                var q = 'schema_s:undbPartner AND _state_s:public';
                 $scope.loading=true;
 
                 if($scope.blgOnly)
@@ -172,7 +181,7 @@ define(['text!./actors-list.html', 'app','moment','filters/trunc','filters/hack'
                 if($scope.search)
                     q= q+' AND (title_t:"' + $scope.search + '*" OR description_t:"' + $scope.search + '*")';
                 if($scope.country)
-                  q= q+' AND country_s:'+$scope.country;
+                  q= q+' AND country_s:us';//+$scope.country;
 
 
                 var queryParameters = {
@@ -183,7 +192,7 @@ define(['text!./actors-list.html', 'app','moment','filters/trunc','filters/hack'
   								'rows': $scope.itemsPerPage,
                 };
 
-                  $http.get('https://www.cbd.int/api/v2013/index/select', {
+                  $http.get('https://api.cbd.int/api/v2013/index/select', {
                     params: queryParameters,
                     cache: true
                   }).success(function(data) {
