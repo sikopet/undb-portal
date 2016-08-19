@@ -1,0 +1,23 @@
+Title: {{personalTitle}}
+First Name: {{firstName}}
+First Last: {{firstName}}
+Job Title: {{title}}
+Department: {{dept}}
+Email: {{email}}
+Telephone: {{phone}}
+
+Organization: {{orgName}}
+Address: {{address}}
+Country:  {{countryObj.name}}
+Website: {{website}}
+
+Mandate and Objectives: {{mandate}}
+
+Usage: {{usage}}
+
+Countries:
+<% _.forEach(countries, function(c) { print('            '+c+'\r\n'); }); %>
+
+Used for information purposes: {{infoUse}}
+Used for fundraising purposes: {{fundraisingUse}}
+Agreed to Usage Guidelines: {{agreed}}
