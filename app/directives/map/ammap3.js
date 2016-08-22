@@ -35,7 +35,7 @@ define(['text!./ammap3.html',
                 $scope.leggends = {
                     parties: [{
                         id: 5,
-                        title: 'CBD',
+                        title: 'CBD Party',
                         visible: true,
                         color: '#009B48'
                     }, {
@@ -327,10 +327,8 @@ define(['text!./ammap3.html',
                 //
                 //=======================================================================
                 function filterDescription(text,url) {
-                      return $filter('hack')
-                                        ($filter('trunc')
-                                          ($filter('nl2br')
-                                            ($filter('lstring')(text)), 500, '... <a href="'+url+'">More</a>'));
+                      return $filter('hack')($filter('trunc')(text, 410, '... <a href="'+url+'">More</a>'));
+
                 }
                 //=======================================================================
                 //
@@ -354,31 +352,32 @@ define(['text!./ammap3.html',
 
                             popoverTitleParsed = popoverTitleParsed.replace('{{rank}}', image.rank ? image.rank : ' ');
                             popoverTitleParsed = popoverTitleParsed.replace('{{date}}', image.date ? image.date : ' ');
+                            popoverTitleParsed = popoverTitleParsed.replace('{{image}}', image.imgURL ? image.imgURL : '#');
 
-                            popoverTitleParsed = popoverTitleParsed.replace('{{a1}}',image.a1);
-                            popoverTitleParsed = popoverTitleParsed.replace('{{a2}}',image.a2);
-                            popoverTitleParsed = popoverTitleParsed.replace('{{a3}}',image.a3);
-                            popoverTitleParsed = popoverTitleParsed.replace('{{a4}}',image.a4);
-                            popoverTitleParsed = popoverTitleParsed.replace('{{a5}}',image.a5);
-                            popoverTitleParsed = popoverTitleParsed.replace('{{a6}}',image.a6);
-                            popoverTitleParsed = popoverTitleParsed.replace('{{a7}}',image.a7);
-                            popoverTitleParsed = popoverTitleParsed.replace('{{a8}}',image.a8);
-                            popoverTitleParsed = popoverTitleParsed.replace('{{a9}}',image.a9);
-                            popoverTitleParsed = popoverTitleParsed.replace('{{a10}}',image.a10);
-                            popoverTitleParsed = popoverTitleParsed.replace('{{a11}}',image.a11);
-                            popoverTitleParsed = popoverTitleParsed.replace('{{a12}}',image.a12);
-                            popoverTitleParsed = popoverTitleParsed.replace('{{a13}}',image.a13);
-                            popoverTitleParsed = popoverTitleParsed.replace('{{a14}}',image.a14);
-                            popoverTitleParsed = popoverTitleParsed.replace('{{a15}}',image.a15);
-                            popoverTitleParsed = popoverTitleParsed.replace('{{a16}}',image.a16);
-                            popoverTitleParsed = popoverTitleParsed.replace('{{a17}}',image.a17);
-                            popoverTitleParsed = popoverTitleParsed.replace('{{a18}}',image.a18);
-                            popoverTitleParsed = popoverTitleParsed.replace('{{a19}}',image.a19);
-                            popoverTitleParsed = popoverTitleParsed.replace('{{a20}}',image.a20);
+                            popoverTitleParsed = popoverTitleParsed.replace('{{title}}', image.title ? image.title : ' ');
 
-                            popoverTemplateParsed = popoverTemplateParsed.replace('{{image}}', image.imgURL ? image.imgURL : '#');
-                            popoverTemplateParsed = popoverTemplateParsed.replace('{{link}}', image.link ? image.link : '#');
-                            popoverTemplateParsed = popoverTemplateParsed.replace('{{title}}', image.title ? image.title : ' ');
+                            popoverTemplateParsed =  popoverTemplateParsed.replace('{{a1}}',image.a1);
+                            popoverTemplateParsed =  popoverTemplateParsed.replace('{{a2}}',image.a2);
+                            popoverTemplateParsed =  popoverTemplateParsed.replace('{{a3}}',image.a3);
+                            popoverTemplateParsed =  popoverTemplateParsed.replace('{{a4}}',image.a4);
+                            popoverTemplateParsed =  popoverTemplateParsed.replace('{{a5}}',image.a5);
+                            popoverTemplateParsed =  popoverTemplateParsed.replace('{{a6}}',image.a6);
+                            popoverTemplateParsed =  popoverTemplateParsed.replace('{{a7}}',image.a7);
+                            popoverTemplateParsed =  popoverTemplateParsed.replace('{{a8}}',image.a8);
+                            popoverTemplateParsed =  popoverTemplateParsed.replace('{{a9}}',image.a9);
+                            popoverTemplateParsed =  popoverTemplateParsed.replace('{{a10}}',image.a10);
+                            popoverTemplateParsed =  popoverTemplateParsed.replace('{{a11}}',image.a11);
+                            popoverTemplateParsed =  popoverTemplateParsed.replace('{{a12}}',image.a12);
+                            popoverTemplateParsed =  popoverTemplateParsed.replace('{{a13}}',image.a13);
+                            popoverTemplateParsed =  popoverTemplateParsed.replace('{{a14}}',image.a14);
+                            popoverTemplateParsed =  popoverTemplateParsed.replace('{{a15}}',image.a15);
+                            popoverTemplateParsed =  popoverTemplateParsed.replace('{{a16}}',image.a16);
+                            popoverTemplateParsed =  popoverTemplateParsed.replace('{{a17}}',image.a17);
+                            popoverTemplateParsed =  popoverTemplateParsed.replace('{{a18}}',image.a18);
+                            popoverTemplateParsed =  popoverTemplateParsed.replace('{{a19}}',image.a19);
+                            popoverTemplateParsed =  popoverTemplateParsed.replace('{{a20}}',image.a20);
+
+
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{directions}}', image.directions ? image.directions : ' ');
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{pledge}}', image.pledge ? image.pledge : ' ');
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{aichiTargets}}', image.aichiTargets ? image.aichiTargets : ' ');
@@ -398,9 +397,9 @@ define(['text!./ammap3.html',
 
                             popoverTitleParsed = popoverTitleParsed.replace('{{title}}', image.title ? image.title : ' ');
 
-                            popoverTitleParsed = popoverTitleParsed.replace('{{startDate_s}}', image.startDate_s ? moment(image.startDate_s).format('YYYY-MM-DD HH:mm')  : ' ');
-                            popoverTitleParsed = popoverTitleParsed.replace('{{endDate_s}}', image.endDate_s ? moment(image.endDate_s).format('YYYY-MM-DD HH:mm') : ' ');
-
+                            popoverTitleParsed = popoverTitleParsed.replace('{{startDate_s}}', image.startDate_s ? moment(image.startDate_s).format('DD MMM YYYY')  : ' ');
+                            popoverTitleParsed = popoverTitleParsed.replace('{{endDate_s}}', image.endDate_s ? moment(image.endDate_s).format('DD MMM YYYY') : ' ');
+                            popoverTitleParsed = popoverTitleParsed.replace('{{logo_s}}', image.logo_s ? image.logo_s : '/app/img/ic_recent_actors_black_48px.svg');
 
                             if (image.countryCode) image.countryName = _.findWhere($scope.countries, {
                                 code: image.countryCode.toUpperCase()
@@ -444,7 +443,7 @@ define(['text!./ammap3.html',
                         case 'actors':
                             popoverTitleParsed = _.clone(popoverTitleActors);
                             popoverTemplateParsed = _.clone(popoverTemplateActions);
-
+                            popoverTitleParsed = popoverTitleParsed.replace('{{logo_s}}', image.logo_s ? image.logo_s : '/app/img/ic_recent_actors_black_48px.svg');
                             popoverTitleParsed = popoverTitleParsed.replace('{{title}}', image.title ? image.title : ' ');
 
 
@@ -496,7 +495,7 @@ define(['text!./ammap3.html',
                     if (!schema) return;
                     if (schema === 'parties'){
                         progressColorMap(partiesMap);
-                        colorMap(resetMap);
+                      //  colorMap(resetMap);
                     }else {
                         colorMap(resetMap);
                         pinMap(defaultPinMap);
@@ -609,7 +608,7 @@ define(['text!./ammap3.html',
                 function colorMap(mapTypeFunction) {
 
                     _.each($scope.map.dataProvider.areas, function(country) {
-                        if(country.id!=='US')
+                        //if(country.id!=='US')
                           mapTypeFunction({
                               'code': country.id
                           });
