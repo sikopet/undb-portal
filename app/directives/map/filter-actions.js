@@ -19,6 +19,7 @@ define(['text!./filter-actions.html', 'app', 'lodash', 'moment'], function(templ
                             '_state_s': ['public']
                         }
                     };
+                    $scope.searchYear= new Date().getFullYear().toString();
 
                     //=======================================================================
                     //
