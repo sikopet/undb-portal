@@ -157,7 +157,7 @@
                     <label for="country" class="col-sm-3 control-label required">Country</label>
                     <div class="col-sm-6">
                         <select class="form-control" id="country" name="country" ng-model="document.country" placeholder="country"
-                        required ng-options="c.code as c.name for c in countries|orderBy:'name.toLowerCase()'"  >
+                        required ng-options="c.name as c.name for c in countries|orderBy:'name.toLowerCase()'"  >
                             <option value="">Select your country</option>
                         </select>
                         <p class="help-block error" ng-show="!loading && form.country.$invalid">This field is mandatory</p>

@@ -1,9 +1,9 @@
-define(['lodash', 'guid','text!./email.txt', 'app', 'directives/file', 'utilities/workflows', 'utilities/km-storage','directives/google-address','directives/on-focus-helper'], function(_, guid,email) { 'use strict';
+define(['lodash', 'guid','text!./email.txt', 'app','factories/mongo-storage', 'directives/file', 'utilities/workflows', 'utilities/km-storage','directives/google-address','directives/on-focus-helper'], function(_, guid,email) { 'use strict';
 
-    return ['$scope', '$http', '$q', 'locale', 'realm', 'workflows', 'user', '$route', '$anchorScroll', '$location', 'IStorage','$window',
-    function($scope,   $http,   $q,   locale,   realm,   workflows,   user,   $route,   $anchorScroll,   $location, storage,$window) {
-console.log(user);
-$scope.highlightLink='submit';
+    return ['$scope', '$http', '$q', 'locale', 'realm', 'workflows', 'user', '$route', '$anchorScroll', '$location', 'IStorage','$window','mongoStorage',
+    function($scope,   $http,   $q,   locale,   realm,   workflows,   user,   $route,   $anchorScroll,   $location, storage,$window,mongoStorage) {
+
+        $scope.highlightLink='submit';
         $scope.loading = true;
         $scope.save = save;
         //$scope.upload = upload;
@@ -55,14 +55,13 @@ $scope.highlightLink='submit';
         //
         //
         //==============================
-        $http.get('https://api.cbd.int/api/v2015/countries', { cache:true, params: { f : { code : 1, name : 1 } } }).then(function(res) {
+        mongoStorage.getCountries().then(function(res) {
 
-            res.data.forEach(function(c) {
+            res.forEach(function(c) {
                 c.code = c.code.toLowerCase();
                 c.name = c.name[locale];
             });
-
-            $scope.countries = res.data;
+            $scope.countries = res;
             load();
         });
 
@@ -88,6 +87,8 @@ $scope.highlightLink='submit';
           var compiled = _.template(email);
           return encodeURI(compiled($scope.document));
         }
+
+
         //==============================
         //
         //
@@ -95,6 +96,7 @@ $scope.highlightLink='submit';
         function save() {
 
             delete $scope.errors;
+            delete $scope.document.countryObj;
 
             if(!$scope.document.agreed) {
                 $scope.errors = $scope.errors || [];
@@ -109,8 +111,9 @@ $scope.highlightLink='submit';
             if($scope.errors)
                 return;
 
-            $window.open("mailto:UNBiodiversity@cbd.int"+ document.email + "?subject=Liability%20Waiver%20Request&body="+parseMail()+"","_self");
-                return;
+            mongoStorage.save('logo-waivers', $scope.document)
+                .then(postSave)
+                  .catch(res_Error);
 
 
         }
@@ -119,45 +122,10 @@ $scope.highlightLink='submit';
         //
         //
         //==============================
-        // function upload(files) {
-        //
-        //     if(!files[0])
-        //         return;
-        //
-        //     delete $scope.errors;
-        //     $scope.saving = true;
-        //
-        //     $q.when(files[0]).then(function(file) {
-        //
-        //         if(!/^image\//.test(file.type)) throw { code : "invalidImageType" };
-        //         if(file.size>1024*500)          throw { code : "fileSize" };
-        //
-        //         var uid  = $scope.document.header.identifier;
-        //         var url  = 'https://api.cbd.int/api/v2013/documents/'+uid+'/attachments/'+encodeURIComponent(file.name);
-        //
-        //         return $http.put(url, file, { headers : { "Content-Type": file.type } }).then(res_Data);
-        //
-        //     }).then(function(attachInfo) {
-        //
-        //         $scope.document.logo  = 'https://chm.cbd.int/api/v2013/documents/'+attachInfo.documentUID+'/attachments/'+encodeURIComponent(attachInfo.filename);
-        //
-        //     }).catch(res_Error).finally(function() {
-        //
-        //         delete $scope.saving;
-        //
-        //     });
-        // }
+        function postSave() {
+            $scope.$emit('showInfo', 'Liability waiver request was sent.');
+            $location.url('/resources/waiver/submit-done');
 
-
-        //==============================
-        //
-        //
-        //==============================
-        function nullOn404(res) {
-
-            if(res.status==404)
-                return null;
-            throw res;
         }
 
         //==============================
@@ -167,19 +135,12 @@ $scope.highlightLink='submit';
         function res_Error(err) {
 
             err = err.data || err;
-            $scope.$emit('showError', 'ERROR: Actor was not saved.');
+            $scope.$emit('showError', 'ERROR: liability waiver was not saved.');
             $scope.errors = err.errors || [err];
 
             console.error($scope.errors);
         }
 
-        //==============================
-        //
-        //
-        //==============================
-        function res_Data(res) {
-            return res.data;
-        }
 
     }];
 });
