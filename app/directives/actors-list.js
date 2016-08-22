@@ -59,7 +59,6 @@ define(['text!./actors-list.html', 'app','moment','filters/trunc','filters/hack'
                   }else
                       $scope.startEmpty=true;
 
-      console.log($scope.startEmpty);
             }, //link
 
 
