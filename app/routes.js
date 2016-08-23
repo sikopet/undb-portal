@@ -51,6 +51,7 @@ define(['app', 'lodash', 'text!views/index.html', 'views/index', 'providers/exte
             when('/resources/multimedia/edit',   { templateUrl: 'views/resources/multimedia-form.html', label:'Multimedia',            resolveController: true}).
             when('/resources/waiver',            { templateUrl: 'views/resources/waiver.html',          label:'Waiver',                resolveController: true}).
             when('/resources/waiver/submit',     { templateUrl: 'views/resources/submit-waiver.html',   label:'Submit Waiver',         resolveController: true, resolve : { user : securize(['User']) } }).
+            when('/resources/waiver/submit-done',{ templateUrl: 'views/resources/submit-form-done.html',label:'Submit Waiver done' }).
             when('/resources/un-logo',           { templateUrl: 'views/resources/un-logo.html',         label:'UN Logo Use' }).
             when('/resources/contact',           { templateUrl: 'views/resources/contact.html',         label:'Contact Us' }).
 
