@@ -15,6 +15,18 @@
         margin-top: -5px;
         margin-bottom: 10px;
     }
+     .img-container{
+      width: 200px; /* whatever set width */
+      height: 200px; /* whatever set width */
+      display: inline-block; /* or you could float them */
+      overflow: hidden;
+      }
+
+      .img-container img {
+          max-width: 100%;
+          max-height: 100%;
+          margin-left: auto; margin-right: auto ;
+      }
     </style>
 
     <div class="container article">
@@ -41,7 +53,7 @@
         <div ng-repeat="e in errors">
             <div ng-switch="e.code">
                 <div ng-switch-when="invalidForm" class="alert alert-warning" role="alert">
-                    Oh, it looks like there ares errors in your form.  Sorry for the inconveniences, but we really need some more information about your action.
+                  {{e}}  Oh, it looks like there ares errors in your form.  Sorry for the inconveniences, but we really need some more information about your action.
                 </div>
                 <div ng-switch-when="fileSize" class="alert alert-warning" role="alert">
                     The file you submited is too large. The maximum file size is limited to <u>500 kB</u>.
@@ -122,10 +134,10 @@
                 <div class="form-group" ng-class="{ 'has-warning': form.country.$invalid, 'has-error' : form.$submitted && form.country.$invalid }">
                     <label for="country" class="col-sm-3 control-label required">Country of action</label>
                     <div class="col-sm-6">
-                        <select class="form-control" ng-show="!document.onlineEvent" id="country" name="country" ng-model="document.country"  placeholder="country" ng-required="document.onlineEvent" ng-options="c.code as c.name for c in countries|orderBy:'name.toLowerCase()' ">
+                        <select class="form-control" ng-show="!document.onlineEvent" id="country" name="country" ng-model="document.country"  placeholder="country"  ng-options="c.code as c.name for c in countries|orderBy:'name.toLowerCase()' ">
                             <option value="" >Select your country</option>
                         </select>
-                        <select class="form-control" ng-show="document.onlineEvent" id="country" name="country" ng-model="document.country"  placeholder="country" ng-required="!document.onlineEvent" ng-options="c.code as c.name for c in countries|orderBy:'name.toLowerCase()' ">
+                        <select class="form-control" ng-show="document.onlineEvent" id="country" name="country" ng-model="document.country"  placeholder="country"  ng-options="c.code as c.name for c in countries|orderBy:'name.toLowerCase()' ">
                             <option value=""  >All Countries</option>
                         </select>
                         <p class="help-block error" ng-show="form.country.$invalid">This field is mandatory</p>
@@ -237,7 +249,9 @@
                     </label>
                     <div class="col-sm-6">
                         <span ng-if="saving" ><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i> Saving...</span>
-                        <img ng-show="document.logo" ng-src="{{document.logo}}?thumbnail=true" style="padding-bottom:10px">
+                        <div class="img-container">
+                           <img ng-show="document.logo" ng-src="{{document.logo}}?thumbnail=true" style="padding-bottom:10px">
+                        </div>
                         <input type="file" class="form-control" id="logo" accept="image/*" placeholder="Logo" ng-model="logo" on-file="upload(files)">
                     </div>
                 </div>
