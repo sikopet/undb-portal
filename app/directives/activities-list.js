@@ -156,11 +156,15 @@ define(['text!./activities-list.html', 'app','moment','filters/trunc','filters/h
               //=======================================================================
               function search() {
                 var q = 'schema_s:undbAction';
+
                 $scope.loading=true;
                 if($scope.search)
                     q= q+' AND (title_t:"' + $scope.search + '*" OR description_t:"' + $scope.search + '*")';
-                if($scope.country)
-                  q= q+' AND country_s:'+$scope.country;
+                if($scope.country && $scope.country!=='ALL')
+                  q= q+' AND (country_s:'+$scope.country+' OR (*:* NOT country_s:*))';           //' AND (country_s:'+$scope.country;
+                else if($scope.country==='ALL')
+                  q= q+' AND NOT country_s:* ';
+
 
                 if($scope.year || $scope.month){
                   q = q+generateDateQuery();
@@ -179,9 +183,10 @@ define(['text!./activities-list.html', 'app','moment','filters/trunc','filters/h
                     cache: true
                   }).success(function(data) {
 
-                    $scope.count = data.response.docs.length;
+                    $scope.count = data.response.numFound;
                     $scope.actions = data.response.docs;
                     $scope.loading = false;
+
                   });
               }
               this.search = search;
