@@ -1,21 +1,16 @@
 define(['app', 'lodash', 'directives/map/zoom-map', 'directives/link-list', 'directives/activities-list','angular-sanitize','filters/trunc','directives/links-display','filters/hack', 'directives/actors-list'], function(app, _) {
     'use strict';
-    return ['$scope', 'locale', '$http', '$location', '$route', 'authentication','$sce','$sanitize',
-        function($scope, locale, $http, $location, $route, authentication,$sce,$sanitize) {
-
-
-
-
-
+    return ['$scope', 'locale', '$http', '$location', '$route', 'authentication','$sce',
+        function($scope, locale, $http, $location, $route, authentication,$sce) {
+            $scope.code = $route.current.params.code;
             //=======================================================================
             //
             //=======================================================================
             authentication.getUser().then(function(user) {
                 $scope.user = user;
 
-            });
+            }).then(init);
 
-            init();
             //=======================================================================
             //
             //=======================================================================
@@ -29,8 +24,8 @@ define(['app', 'lodash', 'directives/map/zoom-map', 'directives/link-list', 'dir
             //
             //=======================================================================
             function init() {
-                $scope.code = $route.current.params.code;
-                loadCountry();
+
+                loadCountry().then(loadProfile).then(loadPartners);
             } // init
 
 
@@ -43,12 +38,9 @@ define(['app', 'lodash', 'directives/map/zoom-map', 'directives/link-list', 'dir
                 }).then(function(res) {
 
                     $scope.country = res.data;
-                    $scope.country.code = $scope.country.code.toLowerCase();
-                    $scope.country.name = $scope.country.name[locale];
+                    $scope.country.code = res.data.code.toLowerCase();
+                    $scope.country.name = res.data.name[locale];
                     $scope.country.cssClass = 'flag-icon-' + $scope.country.code;
-
-                    loadProfile();
-                    loadPartners();
                 });
             } // init
 
@@ -147,13 +139,10 @@ define(['app', 'lodash', 'directives/map/zoom-map', 'directives/link-list', 'dir
             //
             //=======================================================================
             $scope.isAdmin = function() {
-
                 if($scope.user)
                   return _.intersection($scope.user.roles, ['Administrator', 'undb-administrator', 'UNDBPublishingAuthority']).length > 0;
-
-                  else
-                    return false;
-
+                else
+                  return false;
             };
 
 
