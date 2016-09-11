@@ -1,4 +1,4 @@
-<div class="col-xs-6" style="color:#333;font-size:14px;padding:25px 0 15px 0;">
+<div class="col-xs-6" style="color:#333;font-size:14px;padding:25px 0 15px 0;" ng-show="!hidePagenation">
 
   <span>Showing
     <span class="badge">{{filteredActions.length}}</span> of
@@ -28,8 +28,8 @@
 <table class="calendar-result">
   <!-- Header -->
   <tr>
-    <th>Dates and Venue</th>
-    <th>Activity</th>
+    <th width="20%">Date</th>
+    <th width="85%">Action</th>
   </tr>
 
   <tr  ng-if="loading">
@@ -43,7 +43,7 @@
 
   <!-- Lines -->
   <tr ng-repeat="action in filteredActions =(actions) track by $index"  ng-show="!loading">
-    <td width="35%">
+    <td width="20%">
       <span class="color-darkgreen">
         <!-- <strong>Start Date:</strong>  -->
         {{action.startDate_s |date:'dd MMM yyyy'}}</span>
@@ -51,10 +51,11 @@
         <strong>End Date:</strong> {{action.endDate_s |date:'dd MMM yyyy'}}</span> -->
       <span class="color-grey" ng-if="!hideCountryReference" >
         <!-- <strong>Country:</strong>  -->
-        <a href="" ng-click="goTo('/actions/countries/',action.country_s)">{{action.country_EN_t}}</a> <i>
-          <img src="{{getCountryFlag(action.country_s)}}" style="max-height:15px;" ng-if="country.code!=='eu'"/>
-          <img src="{{getCountryFlag('eur')}}" style="max-height:15px;" ng-if="country.code==='eu'"/>
-        </i></span>
+        <a href="" ng-click="goTo('/actions/countries/',action.country_s)" >{{action.country_EN_t}}</a> <i ng-if="action.country_s">
+          <img src="{{getCountryFlag(action.country_s)}}" style="max-height:15px;" ng-if="action.country_s!=='eu'"/>
+          <img src="{{getCountryFlag('eur')}}" style="max-height:15px;" ng-if="action.country_s==='eu'"/>
+        </i>
+      <span ng-if="!action.country_s"> <i  class="fa fa-globe" aria-hidden="true"></i>Global </span> </span>
     </td>
     <td>
       <p><a href="" ng-click="goTo('/actions/',extractId(action.id))">{{action.title_s}}</a></p>
@@ -62,7 +63,7 @@
     </td>
   </tr>
 </table>
-<div style="color:#333;font-size:14px;margin:15px 0 15px 0;">
+<div style="color:#333;font-size:14px;margin:15px 0 15px 0;" ng-show="!hidePagenation">
 
   <span>Showing
     <span class="badge">{{filteredActions.length}}</span> of
