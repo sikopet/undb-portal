@@ -6,24 +6,24 @@
 .calendar-result tr {
   border-bottom: 1px solid #e6e6e6;
 }
-.calendar-result tr:first-child {
+/*.calendar-result tr:first-child {
   border-bottom: 1px solid #004844;
   height: 36px;
   font-size: 1.1em;
-}
-.calendar-result tr:last-child {
+}*/
+/*.calendar-result tr:last-child {
   border-bottom: 1px solid #004844;
   height: 36px;
   font-size: 1.1em;
-}
-.calendar-result tr.section {
+}*/
+/*.calendar-result tr.section {
   border-bottom: 1px solid #069554;
 
   height: 42px;
   color: #069554;
   font-size: 1.1em;
   text-indent: 24px;
-}
+}*/
 .calendar-result tr.section td {
   padding-top: 15px;
 }
