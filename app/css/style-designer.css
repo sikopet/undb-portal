@@ -1368,19 +1368,19 @@ ol.basic-list {
 .search-result .listImg li:first-child {
   border: none;
 }
-.calendar-result {
+/*.calendar-result {
   width: 100%;
   margin: 12px 0;
 }
 .calendar-result tr {
   border-bottom: 1px solid #e6e6e6;
-}
-.calendar-result tr:first-child {
+}*/
+/*.calendar-result tr:first-child {
   border-bottom: 1px solid #004844;
   height: 36px;
   font-size: 1.1em;
-}
-.calendar-result tr.section {
+}*/
+/*.calendar-result tr.section {
   border-bottom: 1px solid #069554;
   height: 42px;
   color: #069554;
@@ -1411,7 +1411,7 @@ ol.basic-list {
 }
 .calendar-result th {
   color: #004844;
-}
+}*/
 .profile .flag {
   margin: 32px 0;
   height: 64px;
