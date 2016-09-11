@@ -61,7 +61,7 @@
 
   <div class="center narrow">
     <ul class="listCountries">
-      <li class="col-md-4 col-sm-4 col-xs-6" ng-repeat="country in countries | filter:{name:search} |orderBy:'name':desc">
+      <li class="col-md-4 col-sm-4 col-xs-6" ng-repeat="country in countries | filter:{name:search} |orderBy:'name':desc track by $index">
         <div style="position:relative;">
           <a ng-click="actionCountryProfile(country.code)">
             <!-- <div class="flag-icon-background listCountriesFlag" ng-class="country.cssClass" ng-attr-title="{{country.name}}" ng-if="country.code!='eu'"></div> -->
@@ -73,9 +73,7 @@
               <span>{{country.name}}</span>
 
             </div>
-            <div style="position:absolute;top:0;bottom:0;margin:auto;right:0px;">
-              <span class="badge">{{country.facet}}</span>
-            </div>
+
           </a>
         </div>
 
