@@ -25,14 +25,16 @@
 	}
 	.img-container {
     width: 200px; /* whatever set width */
-
+		height: 200px; /* whatever set width */
     display: inline-block; /* or you could float them */
     overflow: hidden;
-}
+	}
 
-.img-container img {
-    width: 100%;
-}
+	.img-container img {
+	    max-width: 100%;
+			max-height: 100%;
+			margin-left: auto; margin-right: auto ;
+	}
 
 </style>
 <div class="hidden-xs">
@@ -50,7 +52,7 @@
 
 
 	<div class="profile-border">
-
+			<a class="pull-right" style="padding-right:10px;cursor:pointer;" ng-click="goTo('/actors/register/',partner.identifier_s);" ng-if="isAdmin()">Edit Partner <i class="fa fa-edit"></i></a>
 		<div class="col-md-3 col-lg-3" style="overflow:hidden;">
 			<div class="profile-column">
 <div class="img-container" ng-if="partner.logo_s">
@@ -72,6 +74,7 @@
 					<div>
 						<p ng-if="partner.description_s" ng-bind-html="trusted((partner.description_s | uriToLink | nl2br | hack | lstring))"></p>
 					</div>
+					<div ng-if="partner.descriptionNative_s" ><hr></div>
 					<div>
 						<p ng-if="partner.descriptionNative_s" ng-bind-html="trusted((partner.descriptionNative_s | uriToLink | nl2br | hack ))"></p>
 					</div>
