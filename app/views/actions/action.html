@@ -24,15 +24,17 @@
 		color: #069554;
 	}
 	.img-container {
-		width: 200px; /* whatever set width */
-		max-height: 200px;
-		display: inline-block; /* or you could float them */
-		overflow: hidden;
-}
+    width: 200px; /* whatever set width */
+		height: 200px; /* whatever set width */
+    display: inline-block; /* or you could float them */
+    overflow: hidden;
+	}
 
-.img-container img {
-		width: 100%;
-}
+	.img-container img {
+	    max-width: 100%;
+			max-height: 100%;
+			margin-left: auto; margin-right: auto ;
+	}
 </style>
 <div class="hidden-xs">
 	<div class="container sub-nav">
@@ -48,6 +50,7 @@
 
 
 	<div class="profile-border">
+		<a class="pull-right" style="padding-right:10px;cursor:pointer;" ng-click="goTo('/actions/submit-form/',action.identifier_s);" ng-if="isAdmin()">Edit Action <i class="fa fa-edit"></i></a>
 
 		<div class="col-md-3 col-lg-3 profile-column">
 
@@ -92,6 +95,7 @@
 					<div ng-if="action.action.description_s">
 						<p  ng-bind-html="trusted((action.description_s| uriToLink | nl2br | hack | lstring))"></p>
 					</div>
+					<div ng-if="action.descriptionNative_s"><hr></div>
 					<div ng-if="action.descriptionNative_s">
 						<p ng-bind-html="trusted((action.descriptionNative_s| uriToLink | nl2br | hack ))"></p>
 					</div>
