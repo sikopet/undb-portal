@@ -1,6 +1,7 @@
 
-define(['app', '../../directives/map/undb-map'], function() { 'use strict';
+define(['app',  'directives/activities-list','../../directives/map/undb-map'], function() { 'use strict';
 
-	return [function () {
+	return ['$scope',function ($scope) {
+		 $scope.countryCode='ALL';
     }];
 });
