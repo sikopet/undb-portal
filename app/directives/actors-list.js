@@ -7,13 +7,23 @@ define(['text!./actors-list.html', 'app','moment','filters/trunc','filters/hack'
             template: template,
             replace: false,
             require:'actorsList',
-            scope: {},
+            scope: {
+              country:'=?'
+            },
 
             //=======================================================================
             //
             //=======================================================================
             link: function($scope, $element, $attr,ctrl) {
                   $scope.loadingC=true;
+
+
+                  $scope.$watch('country', function(newValue, oldValue) {
+
+                    if(newValue!==oldValue || (newValue && newValue.length === 2))
+                      ctrl.search();
+                  });
+
                   $http.get('https://api.cbd.int/api/v2015/countries', { cache:true, params: { f : { code : 1, name : 1 } } }).then(function(res) {
 
                       res.data.forEach(function(c) {
@@ -41,14 +51,14 @@ define(['text!./actors-list.html', 'app','moment','filters/trunc','filters/hack'
                   if ($attr.jlgOnly)
                       $scope.jlgOnly = true;
 
-                  if ($attr.ABTTFOnly)
-                      $scope.ABTTFOnly = true;
+                  if ($attr.abttfOnly)
+                      $scope.abttfOnly = true;
 
                   if ($attr.hidePagenation)
                       $scope.hidePagenation = true;
 
-                  if($attr.country)
-                    $scope.country=$attr.country;
+                  // if($attr.country)
+                  //   $scope.country=$attr.country;
                   if ($attr.itemsPerPage)
                       $scope.itemsPerPage = $attr.itemsPerPage;
 
@@ -66,7 +76,7 @@ define(['text!./actors-list.html', 'app','moment','filters/trunc','filters/hack'
             //
             //=======================================================================
             controller: ['$scope','$timeout', function($scope,$timeout) {
-              $scope.country ='';
+
               $scope.search='';
               $timeout(function(){
 
@@ -172,7 +182,7 @@ define(['text!./actors-list.html', 'app','moment','filters/trunc','filters/hack'
                 if($scope.jlgOnly)
                     q= q+' AND description_t:(jlgjlg*)';
 
-                if($scope.ABTTFOnly)
+                if($scope.abttfOnly)
                     q= q+' AND description_t:(ABTTF*)';
 
                 if($scope.partnersOnly)
@@ -180,7 +190,7 @@ define(['text!./actors-list.html', 'app','moment','filters/trunc','filters/hack'
                 if($scope.search)
                     q= q+' AND (title_t:"' + $scope.search + '*" OR description_t:"' + $scope.search + '*")';
                 if($scope.country)
-                  q= q+' AND country_s:us';//+$scope.country;
+                  q= q+' AND country_s:'+$scope.country;//+$scope.country;
 
 
                 var queryParameters = {
@@ -195,7 +205,6 @@ define(['text!./actors-list.html', 'app','moment','filters/trunc','filters/hack'
                     params: queryParameters,
                     cache: true
                   }).success(function(data) {
-
                     $scope.count = data.response.numFound;
                     $scope.partners = data.response.docs;
                     $scope.loading = false;
