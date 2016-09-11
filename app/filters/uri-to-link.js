@@ -9,16 +9,26 @@ define(['app','lodash'], function(app,_) {
      replacePattern3 = /(\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,6})/gim;
 
      return function(text) {
-         _.each(text.match(replacePattern1), function() {
-           text = text.replace(replacePattern1, "<a href=\"$1\" target=\"_blank\">$1</a>");
+         _.each(_.uniq(text.match(replacePattern1)), function(item) {
+           text = replaceAll(text,item,"<a href=\"http://"+item+"\" target=\"_blank\">"+item+"</a>");
          });
-         _.each(text.match(replacePattern2), function() {
-           text = text.replace(replacePattern2, "$1<a href=\"http://$2\" target=\"_blank\">$2</a>");
+
+         _.each(_.uniq(text.match(replacePattern2)), function(item) {
+            text = replaceAll(text,item,"<a href=\"http://"+item+"\" target=\"_blank\">"+item+"</a>");
          });
-         _.each(text.match(replacePattern3), function() {
-           text = text.replace(replacePattern3, '<a href=\"mailto:$1\">$1</a>');
+
+         _.each(_.uniq(text.match(replacePattern3)), function(item) {
+            text = text.replace(item, '<a href="mailto:'+item+'">'+item+'</a>');
          });
          return text;
      };
     });
+    function replaceAll(string,item,replacement) {
+
+        return string.split(item).reduce(function(prev, curr, index) {
+            if (index === 0) return curr;
+            else return prev + replacement + curr;
+        }, '');
+
+    }
 });
