@@ -274,34 +274,7 @@ define(['text!./ammap3.html',
                         },500);
                       }
                     });
-                    //pin.addEventListener('click', function(event) {
-                    //    //event.stopPropagation();
-                    //    if(ammap3.isPopoverOpen())
-                    //        ammap3.closePopovers();
-                    //     $(document).find(".mapPopup").hide();
-                    //     if ($(pin).data('bs.popover').tip().hasClass('in')) {
-                    //       console.log(event);
-                    //         // $scope.map.moveUp();
-                    //         // $scope.map.moveUp();
-                    //         // $scope.map.moveUp();
-                    //         // $scope.map.moveUp();
-                    //         // $scope.map.moveUp();
-                    //         // $scope.map.moveUp();
-                    //         $timeout(function(){
-                    //           $scope.map.moveUp();
-                    //         },500);
-                    //
-                    //         // if ($scope.map.dataProvider.images[imageIndex].latitude > 25)
-                    //         //     $scope.map.dataProvider.images[imageIndex].zoomLatitude = $scope.map.dataProvider.images[imageIndex].latitude + 100;
-                    //         //
-                    //         // if ($scope.map.dataProvider.images[imageIndex].latitude <= 25)
-                    //         //     $scope.map.dataProvider.images[imageIndex].zoomLatitude = $scope.map.dataProvider.images[imageIndex].latitude + 200;
-                    //         //
-                    //         // $scope.map.dataProvider.images[imageIndex].zoomLongitude = $scope.map.dataProvider.images[imageIndex].longitude;
-                    //       $scope.map.clickMapObject($scope.map.dataProvider.images[imageIndex]);
-                    //    }
-                    //
-                    //}, false);
+
                     holder.appendChild(pin);
 
                     // // create pulse
@@ -578,6 +551,7 @@ define(['text!./ammap3.html',
                     });
 
                     changeAreaColor('divider1', "#009B48");
+                    changeAreaColor('US', "#dddddd");
                     var area = getMapObject('EU');
                     area.outlineAlpha = '.5';
                     area = getMapObject('divider1');
@@ -622,7 +596,6 @@ define(['text!./ammap3.html',
                 //=======================================================================
                 function partiesMap(country) {
 
-                    genTreatyCombinations();
                     changeAreaColor(country.code, getPartyColor(country));
                     buildProgressBaloonParties(country);
                     legendTitle($scope.schema);
@@ -787,7 +760,8 @@ define(['text!./ammap3.html',
                 //
                 //=======================================================================
                 function getPartyColor(country) {
-
+                    if(country.id==='US'){
+                      return '#dddddd'};
                     switch (country.treatyComb) {
                         case 'CBD,':
                             return '#009B48';
@@ -798,7 +772,7 @@ define(['text!./ammap3.html',
                         case 'CBD,ABS,':
                             return '#009B48';
                         default:
-                            return '#dddddd';
+                            return '#009B48';
                     }
                 } //getPartyColor
 
@@ -854,27 +828,6 @@ define(['text!./ammap3.html',
                 } //buildProgressBaloon
 
 
-                // =======================================================================
-                //
-                // =======================================================================
-                function genTreatyCombinations() {
-
-                    $scope.treatyCombinations = {};
-                    $scope.treaties = ['XXVII8', 'XXVII8a', 'XXVII8b', 'XXVII8c'];
-                    _.each($scope.items, function(country) {
-                        if (country.treaties.XXVII8.party) country.treatyComb = 'CBD,';
-                        if (country.treaties.XXVII8a.party) country.treatyComb += 'CPB,';
-                        if (country.treaties.XXVII8b.party) country.treatyComb += 'ABS,';
-                        if (country.treaties.XXVII8c.party) country.treatyComb += 'NKLP';
-                        if (!country.treatyComb) country.treatyComb = 'NP';
-                        if (!$scope.treatyCombinations[country.treatyComb])
-                            $scope.treatyCombinations[country.treatyComb] = 1;
-                        else
-                            $scope.treatyCombinations[country.treatyComb]++;
-                    });
-                } //readQueryString
-
-
                 //=======================================================================
                 //
                 //=======================================================================
@@ -882,18 +835,21 @@ define(['text!./ammap3.html',
                     return $scope.mapData;
                 }
 
-
                 // =======================================================================
                 // changes color of all un colored areas
                 // =======================================================================
                 function hideAreas(color) {
                     // Walkthrough areas
-                    if (!color) color = '#dddddd';
+                    if (!color) color = '#009B48';
                     _.each($scope.map.dataProvider.areas, function(area) {
-                        if (area.id !== 'divider1') {
+                        if (area.id !== 'divider1' || area.id !== 'us' ) {
                             area.colorReal = area.originalColor = color;
                             area.mouseEnabled = true;
                             area.balloonText = '[[title]]';
+                        }if(area.id === 'us' ){
+                          area.colorReal = area.originalColor = '#dddddd';
+                          area.mouseEnabled = true;
+                          area.balloonText = '[[title]]';
                         }
                     });
                 } //hideAreas(color)
