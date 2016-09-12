@@ -37,8 +37,8 @@ define(['app','lodash'], function(app,_) { 'use strict';
 					_.each(resData.data.response.docs,function(action){
 
 								country = _.find(res.data,{code:action.country_s});
-								if(!country) throw "No country found for code: " + action.country_s;
-								else {
+								if(country) 
+							 {
 									if(!_.find($scope.countries,{code:action.country_s})){
 										index=resData.data.facet_counts.facet_fields.country_s.indexOf(action.country_s)+1;
 										country.facet=resData.data.facet_counts.facet_fields.country_s[index];

@@ -1,34 +1,55 @@
-define([ 'filters/trunc','directives/map/zoom-map','directives/links-display','filters/trunc','filters/hack','factories/km-utilities','filters/uri-to-link' ], function() {
+define(['lodash', 'filters/trunc','directives/map/zoom-map','directives/links-display','filters/trunc','filters/hack','factories/km-utilities','filters/uri-to-link' ], function(_) {
     'use strict';
-    return ['$scope', 'locale', '$http', '$location', '$route', '$sce',
-        function($scope, locale, $http, $location, $route, $sce) {
+    return ['$scope', 'locale', '$http', '$location', '$route', '$sce','authentication',
+        function($scope, locale, $http, $location, $route, $sce,authentication) {
             $scope.partner = {};
             $scope.partner.identifier = $route.current.params.uid;
 
             //=======================================================================
             //
             //=======================================================================
-            var hex = Number($scope.partner.identifier).toString(16);
-            var id = "52000000cbd0800000000000".substr(0, 24 - hex.length) + hex;
-            var queryParameters = {
-                'q': 'schema_s:undbPartner  AND id:' + id, //AND _state_s:public removed for test
-                'wt': 'json',
-                'start': 0,
-                'rows': 1000000,
-            };
-            $http.get('https://api.cbd.int/api/v2013/index/select', {
-                params: queryParameters,
-                cache: true
-            }).success(function(data) {
-                $scope.partner = data.response.docs[0];
+            authentication.getUser().then(function(user) {
+                $scope.user = user;
 
-                $http.get('https://api.cbd.int/api/v2013/documents/'+$scope.partner.identifier_s, {
+            }).then(init);
+
+            //=======================================================================
+            //
+            //=======================================================================
+            function init(){
+                var hex = Number($scope.partner.identifier).toString(16);
+                var id = "52000000cbd0800000000000".substr(0, 24 - hex.length) + hex;
+                var queryParameters = {
+                    'q': 'schema_s:undbPartner  AND id:' + id, //AND _state_s:public removed for test
+                    'wt': 'json',
+                    'start': 0,
+                    'rows': 1000000,
+                };
+
+                $http.get('https://api.cbd.int/api/v2013/index/select', {
+                    params: queryParameters,
                     cache: true
-                }).success(function(d) {
+                }).success(function(data) {
+                    $scope.partner = data.response.docs[0];
 
-                  Object.assign($scope.partner,d);
-                });;
-            });
+                    $http.get('https://api.cbd.int/api/v2013/documents/'+$scope.partner.identifier_s, {
+                        cache: true
+                    }).success(function(d) {
+                      Object.assign($scope.partner,d);
+                    });
+                });
+            }
+
+            //=======================================================================
+            //
+            //=======================================================================
+            $scope.isAdmin = function() {
+                if($scope.user)
+                  return _.intersection($scope.user.roles, ['Administrator', 'undb-administrator']).length > 0;
+                else
+                  return false;
+            };
+
             //=======================================================================
             // ('nl2br')
             //=======================================================================

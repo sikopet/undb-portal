@@ -45,5 +45,12 @@ define(['app','authentication', '../directives/map/undb-map'], function() { 'use
 
 ]
 				};
+
+				$(document).ready(function(){
+					 $('.carousel').carousel({
+						 interval: 5000
+					 });
+				 });
+
     }];
 });

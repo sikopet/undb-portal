@@ -64,6 +64,7 @@ define(['app', 'lodash', 'directives/edit-link', 'directives/link-list','ng-cked
             function save() {
                 var url = '/api/v2016/undb-party-profiles/';
                 var params = {};
+                if (!$scope.document.description) $scope.document.description=' ';
 
                 if ($scope.document._id) {
                     params.id = $scope.document._id;

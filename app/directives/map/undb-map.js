@@ -110,10 +110,10 @@ define(['text!./undb-map.html',
                 //=======================================================================
                 function activateFilter() {
                     if ($attr.schema) {
-                        $timeout(function() {
-                          $scope.selectedSchema = 'parties';
-                          reportingDisplay.search();
-                        }, 500);
+                        // $timeout(function() {
+                        //   $scope.selectedSchema = 'parties';
+                        //   reportingDisplay.search();
+                        // }, 500);
                         $timeout(function() {
                             $scope.selectedSchema = $attr.schema;
                             reportingDisplay.search();
