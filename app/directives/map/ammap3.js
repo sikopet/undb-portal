@@ -72,14 +72,21 @@ define(['text!./ammap3.html',
                 //
                 //=======================================================================
                 function onMapClick(event) {
+                  var info = event.chart.getDevInfo();
                   if(ammap3.isPopoverOpen())
                       ammap3.closePopovers();
                   else{
                     var info = event.chart.getDevInfo();
-                    var zoomLevel = $scope.map.zoomLevel()*8;
+                    var zoomLevel;
+                    if($scope.map.zoomLevel()<4097)
+                      zoomLevel = $scope.map.zoomLevel()*8;
+                    else
+                      zoomLevel = $scope.map.zoomLevel();
+
                     var longitude= info.longitude;
                     var latitude= info.latitude;
                     $timeout(function(){
+
                         $scope.map.zoomToLongLat(zoomLevel, longitude, latitude);
                     },400);
                   }
@@ -209,7 +216,7 @@ define(['text!./ammap3.html',
                           else
                             image.externalElement.style.top = map.latitudeToY(image.latitude+adjustTopLevel) + 'px';
 
-                            image.externalElement.style.left = map.longitudeToX(image.longitude) + 'px';
+                            image.externalElement.style.left = map.longitudeToX(image.longitude+adjustTopLevel) + 'px';
                         }
                     } //for
 
@@ -300,7 +307,7 @@ define(['text!./ammap3.html',
                 //
                 //=======================================================================
                 function filterDescription(text,url) {
-                      return $filter('hack')($filter('trunc')(text, 410, '... <a href="'+url+'">More</a>'));
+                      return $filter('hack')($filter('trunc')(text, 410, ' '))+'... <a href="'+url+'">More</a>';
 
                 }
                 //=======================================================================
@@ -380,7 +387,7 @@ define(['text!./ammap3.html',
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{countryCode}}', image.countryCode ? image.countryCode : ' ');
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{countryCode}}', image.countryCode ? image.countryCode : ' ');
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{countryName}}', image.countryName ? image.countryName : ' ');
-                            popoverTemplateParsed = popoverTemplateParsed.replace('{{description_s}}', image.description_s ? filterDescription(image.description_s,'/actions/'+extractId(image.id)) : ' ');
+                            popoverTemplateParsed = popoverTemplateParsed.replace('{{description_s}}', image.description_s ? filterDescription(image.description_s,'actions/'+extractId(image.id)) : ' ');
 
 
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{logo_s}}', image.logo_s ? image.logo_s : '/app/img/ic_recent_actors_black_48px.svg');
@@ -426,7 +433,7 @@ define(['text!./ammap3.html',
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{countryCode}}', image.countryCode ? image.countryCode : ' ');
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{countryCode}}', image.countryCode ? image.countryCode : ' ');
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{countryName}}', image.countryName ? image.countryName : ' ');
-                            popoverTemplateParsed = popoverTemplateParsed.replace('{{description_s}}', image.description_s ? filterDescription(image.description_s,'/actors/partners/'+extractId(image.id)): ' ');
+                            popoverTemplateParsed = popoverTemplateParsed.replace('{{description_s}}', image.description_s ? filterDescription(image.description_s,'actors/partners/'+extractId(image.id)): ' ');
                             if (image.descriptionNative_s) image.descriptionNative_s = image.descriptionNative_s + '<br>';
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{descriptionNative_s}}', image.descriptionNative_s ? image.descriptionNative_s : ' ');
                             popoverTemplateParsed = popoverTemplateParsed.replace('{{logo_s}}', image.logo_s ? image.logo_s : '/app/img/ic_recent_actors_black_48px.svg');
