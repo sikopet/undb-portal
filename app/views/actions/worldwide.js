@@ -3,5 +3,6 @@ define(['app',  'directives/activities-list','../../directives/map/undb-map'], f
 
 	return ['$scope',function ($scope) {
 		 $scope.countryCode='ALL';
+		 $scope.count=0;
     }];
 });
