@@ -51,14 +51,14 @@
         <strong>End Date:</strong> {{action.endDate_s |date:'dd MMM yyyy'}}</span> -->
       <span class="color-grey" ng-if="!hideCountryReference" >
         <!-- <strong>Country:</strong>  -->
-        <a href=""  ng-href="/actions/countries/{{action.country_s}}" >{{action.country_EN_t}}</a> <i ng-if="action.country_s">
+        <a href=""  ng-href="actions/countries/{{action.country_s}}" >{{action.country_EN_t}}</a> <i ng-if="action.country_s">
           <img src="{{getCountryFlag(action.country_s)}}" style="max-height:15px;" ng-if="action.country_s!=='eu'"/>
           <img src="{{getCountryFlag('eur')}}" style="max-height:15px;" ng-if="action.country_s==='eu'"/>
         </i>
       <span ng-if="!action.country_s"> <i  class="fa fa-globe" aria-hidden="true"></i>Global </span> </span>
     </td>
     <td>
-      <p><a ng-href="/actions/{{extractId(action.id)}}" ng-click="goTo('/actions/',extractId(action.id))">{{action.title_s}}</a></p>
+      <p><a ng-href="actions/{{extractId(action.id)}}" ng-click="goTo('actions/',extractId(action.id))">{{action.title_s}}</a></p>
       <p>{{action.description_s | lstring | truncate:(action.truncate||350):'...'}} <a ng-hide="action.truncate || (action.description_s | lstring).length<=350" href="#" ng-click="action.truncate=100000">more <i class="fa fa-caret-down"></i></a><a ng-show="action.truncate" href="#" ng-click="action.truncate=undefined">less <i class="fa fa-caret-up"></i></a></p>
     </td>
   </tr>
