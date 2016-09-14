@@ -926,14 +926,19 @@ padding-left: 2px;
 }
 .profile .nav {
   border: none;
+
+}
+.profile .nav span{
+  border: none;
+  padding: 0 20px 0 20px;
 }
 .profile .nav li {
-  width: 216px;
+
   height: 38px;
   margin: 0 3px;
 }
 .profile .nav li a {
-  width: 216px;
+
   height: 38px;
   line-height: 38px;
   background-color: #e5e5e5;
