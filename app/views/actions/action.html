@@ -73,7 +73,7 @@
 					</div>
 					<div class="action-detail" ng-if="action.startDate_s">
 						<span class="action-labels">Date </span>
-						<span class="detail" style="margin-left:35px;">{{action.startDate_s | date:'yyyy.MM.dd'}} <span ng-if="action.endDate_s"> - {{action.endDate_s | date:'yyyy.MM.dd'}}</span></span>
+						<span class="detail" style="margin-left:35px;">{{action.startDate_s | date:'yyyy.MM.dd'}} <span ng-if="action.endDate_s && action.startDate_s !== action.endDate_s"> - {{action.endDate_s | date:'yyyy.MM.dd'}}</span></span>
 					</div>
 
 					<div class="action-detail" ng-if="action.startTime">
@@ -92,8 +92,8 @@
 						</span>
 					</div>
 
-					<div ng-if="action.action.description_s">
-						<p  ng-bind-html="trusted((action.description_s | uriToLink | nl2br | hack | lstring))"></p>
+					<div ng-if="action.description_s">
+						<p  ng-bind-html="trusted((action.description_s | nl2br | hack | lstring))"></p>
 					</div>
 					<div ng-if="action.descriptionNative_s"><hr></div>
 					<div ng-if="action.descriptionNative_s">
