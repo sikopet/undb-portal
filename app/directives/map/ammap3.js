@@ -377,8 +377,8 @@ define(['text!./ammap3.html',
 
                             popoverTitleParsed = popoverTitleParsed.replace('{{title}}', image.title ? image.title : ' ');
 
-                            popoverTitleParsed = popoverTitleParsed.replace('{{startDate_s}}', image.startDate_s ? moment(image.startDate_s).format('DD MMM YYYY')  : ' ');
-                            popoverTitleParsed = popoverTitleParsed.replace('{{endDate_s}}', image.endDate_s ? moment(image.endDate_s).format('DD MMM YYYY') : ' ');
+                            popoverTitleParsed = popoverTitleParsed.replace('{{startDate_s}}', image.startDate_s ? moment.utc(image.startDate_s).format('DD MMM YYYY')  : ' ');
+                            popoverTitleParsed = popoverTitleParsed.replace('{{endDate_s}}', image.endDate_s ? moment.utc(image.endDate_s).format('DD MMM YYYY') : ' ');
                             popoverTitleParsed = popoverTitleParsed.replace('{{logo_s}}', image.logo_s ? image.logo_s : '/app/img/ic_recent_actors_black_48px.svg');
 
                             if (image.countryCode) image.countryName = _.findWhere($scope.countries, {
