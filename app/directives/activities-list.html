@@ -45,12 +45,10 @@
   <tr ng-repeat="action in filteredActions =(actions) track by $index"  ng-show="!loading">
     <td width="20%">
       <span class="color-darkgreen">
-        <!-- <strong>Start Date:</strong>  -->
-        {{action.startDate_s |date:'dd MMM yyyy'}}</span>
-      <!-- <span class="color-darkgreen" ng-if="action.endDate_s">
-        <strong>End Date:</strong> {{action.endDate_s |date:'dd MMM yyyy'}}</span> -->
+
+        {{action.startDate_s |date:'dd MMM yyyy':'UTC'}}</span>
+
       <span class="color-grey" ng-if="!hideCountryReference" >
-        <!-- <strong>Country:</strong>  -->
         <a href=""  ng-href="actions/countries/{{action.country_s}}" >{{action.country_EN_t}}</a> <i ng-if="action.country_s">
           <img src="{{getCountryFlag(action.country_s)}}" style="max-height:15px;" ng-if="action.country_s!=='eu'"/>
           <img src="{{getCountryFlag('eur')}}" style="max-height:15px;" ng-if="action.country_s==='eu'"/>
