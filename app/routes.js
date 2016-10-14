@@ -31,6 +31,7 @@ define(['app', 'lodash', 'text!views/index.html', 'views/index', 'providers/exte
             when('/actions/:uid',                 { templateUrl: 'views/actions/action.html',           label:'Action',               resolveController: true }).
 
             when('/actors',                      { templateUrl: 'views/actors/index.html',            label:'Actors',                  resolveController: true}).
+            when('/actors/coalitions',           { templateUrl: 'views/actors/coalitions.html',       label:'Coalitions',              resolveController: true}).
             when('/actors/abttf',                { templateUrl: 'views/actors/abttf.html',            label:'ABTTF',                   resolveController: true}).
             when('/actors/champions',            { templateUrl: 'views/actors/champions.html',        label:'Biodiversity Champions',  resolveController: true}).
             when('/actors/blg',                  { templateUrl: 'views/actors/blg.html',              label:'BLG',                     resolveController: true}).
