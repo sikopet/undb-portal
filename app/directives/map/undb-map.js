@@ -9,6 +9,7 @@ define(['text!./undb-map.html',
     "./filter-actors",
     "./filter-actions",
     "./filter-bio-champs",
+    "./filter-coalitions",
 ], function(template, app, $, _, champs) {
     'use strict';
 
@@ -142,6 +143,9 @@ define(['text!./undb-map.html',
                         'bioChamps': {
                             active: false
                         },
+                        'coalitions': {
+                            active: false
+                        },
                         'projects': {
                             active: false
                         },
@@ -207,6 +211,11 @@ define(['text!./undb-map.html',
                         if ($scope.selectedSchema === 'bioChamps') {
                             filterActive('bioChamps');
                             $scope.documents = _.clone($scope.champs);
+                            return;
+                        }
+                        if ($scope.selectedSchema === 'coalitions') {
+                            filterActive('coalitions');
+                            $scope.documents = [];
                             return;
                         }
                         if ($scope.selectedSchema === 'actors') {

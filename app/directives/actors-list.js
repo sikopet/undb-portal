@@ -54,6 +54,9 @@ define(['text!./actors-list.html', 'app','moment','filters/trunc','filters/hack'
                   if ($attr.abttfOnly)
                       $scope.abttfOnly = true;
 
+                  if ($attr.coalitionsOnly)
+                      $scope.coalitionsOnly = true;
+
                   if ($attr.hidePagenation)
                       $scope.hidePagenation = true;
 
@@ -175,6 +178,9 @@ define(['text!./actors-list.html', 'app','moment','filters/trunc','filters/hack'
 
                 var q = 'schema_s:undbPartner AND _state_s:public';
                 $scope.loading=true;
+
+                if($scope.coalitionsOnly)
+                    q= q+' AND description_t:(coalitionscoalitions*)';
 
                 if($scope.blgOnly)
                     q= q+' AND description_t:(blgblg*)';
