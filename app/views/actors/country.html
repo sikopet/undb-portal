@@ -1,0 +1,72 @@
+<div>
+
+  <div class="hidden-xs">
+		<div class="container sub-nav">
+      <ul class="nav navbar-nav">
+          <li ng-mouseover="highlightLink='abttf'" ng-mouseleave="highlightLink=''"><a href="actors/abttf">ABTTF</a> <i ng-if="highlightLink=='abttf' || path=='/actors/abttf'" style="position:relative;top:-4px;left:18px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+          <li ng-mouseover="highlightLink='blg'" ng-mouseleave="highlightLink=''"><a href="actors/blg" >BLG</a> <i ng-if="highlightLink=='blg' ||  path=='/actors/blg'" style="position:relative;top:-4px;left:8px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+          <li ng-mouseover="highlightLink='jlg'" ng-mouseleave="highlightLink=''"><a href="actors/jlg" >JLG</a> <i ng-if="highlightLink=='jlg' ||  path=='/actors/jlg'" style="position:relative;top:-4px;left:5px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+          <li ng-mouseover="highlightLink='champions'" ng-mouseleave="highlightLink=''"><a href="actors/champions" >Champions</a> <i ng-if="highlightLink=='champions' ||  path=='/actors/champions'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+          <li ng-mouseover="highlightLink='partners'" ng-mouseleave="highlightLink=''"><a href="actors/partners" >UNDB Partners</a> <i ng-if="highlightLink=='partners' ||  path=='/actors/partners'" style="position:relative;top:-4px;left:35px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+          <li ng-mouseover="highlightLink='partners'" ng-mouseleave="highlightLink=''"><a href="actors/country" >Parties & Govs.</a> <i ng-if="highlightLink=='partners' ||  path=='/actors/country'" style="position:relative;top:-4px;left:35px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+          <li ng-mouseover="highlightLink='participate'" ng-mouseleave="highlightLink=''"><a href="actions/participate">Participate</a> <i ng-if="highlightLink=='participate' ||  path=='/actions/participate'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+      </ul>
+		</div>
+	</div>
+
+  <div class="container">
+    <div class="row article">
+      <div class="col-xs-12">
+        <h1>Actors by Countries</h1>
+
+
+<p>See what&rsquo;s happening in your country. Start typing a country&rsquo;s name in the box or select a flag below.</p>
+
+
+      </div>
+    </div>
+
+    <div class="row article">
+      <div class="col-sm-2 col-sm-offset-10">
+        <a href="actors/register" class="btn bg-cbdgreen" aria-haspopup="true" aria-expanded="false" style="color:white;">
+          Become an Actor <i class="fa fa-chevron-right"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="push20"></div>
+  <div class="center narrow">
+    <div class="text-left">
+      <span class="darkGreen small">See what’s happening in your country. Start typing a country’s name in the box or select a flag below.</span>
+      <div>
+        <form>
+          <input type="text" placeholder="Country Name" ng-model="search">
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="center narrow">
+    <ul class="listCountries">
+      <li class="col-md-4 col-sm-4 col-xs-6" ng-repeat="country in countries | filter:{name:search} |orderBy:'name':desc track by $index">
+        <div style="position:relative;">
+          <a ng-href="actions/countries/{{country.code}}" >
+            <!-- <div class="flag-icon-background listCountriesFlag" ng-class="country.cssClass" ng-attr-title="{{country.name}}" ng-if="country.code!='eu'"></div> -->
+            <!-- <img src="app/img/Flag_of_Europe.svg" class="listCountriesFlag" ng-attr-title="{{country.name}}" ng-if="country.code==='eu'"> -->
+            <img ng-src="{{getCountryFlag(country.code)}}" class="pull-left" ng-attr-title="{{country.name}}" style="position:absolute;top:0;bottom:0;margin:auto;left:0px;" ng-if="country.code!=='eu'">
+            <img ng-src="{{getCountryFlag('eur')}}" class="pull-left" ng-attr-title="{{country.name}}" style="position:absolute;top:0;bottom:0;margin:auto;left:0px;" ng-if="country.code==='eu'">
+            <div class="listCountriesName pull-left" style="margin-left:25px;">
+              &nbsp;&nbsp;
+              <span>{{country.name}}</span>
+
+            </div>
+
+          </a>
+        </div>
+
+
+      </li>
+    </ul>
+  </div>
+
+</div>
