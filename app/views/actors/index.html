@@ -1,15 +1,15 @@
 <div>
   <div class="hidden-xs">
       <div class="container sub-nav">
-          <ul class="nav navbar-nav">
-              <li ng-mouseover="highlightLink='abttf'" ng-mouseleave="highlightLink=''"><a href="actors/abttf">ABTTF</a> <i ng-if="highlightLink=='abttf' || path=='/actors/abttf'" style="position:relative;top:-4px;left:18px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
-              <li ng-mouseover="highlightLink='blg'" ng-mouseleave="highlightLink=''"><a href="actors/blg" >BLG</a> <i ng-if="highlightLink=='blg' ||  path=='/actors/blg'" style="position:relative;top:-4px;left:8px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
-              <li ng-mouseover="highlightLink='jlg'" ng-mouseleave="highlightLink=''"><a href="actors/jlg" >JLG</a> <i ng-if="highlightLink=='jlg' ||  path=='/actors/jlg'" style="position:relative;top:-4px;left:5px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
-              <li ng-mouseover="highlightLink='champions'" ng-mouseleave="highlightLink=''"><a href="actors/champions" >Champions</a> <i ng-if="highlightLink=='champions' ||  path=='/actors/champions'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
-              <li ng-mouseover="highlightLink='partners'" ng-mouseleave="highlightLink=''"><a href="actors/partners" >UNDB Partners</a> <i ng-if="highlightLink=='partners' ||  path=='/actors/partners'" style="position:relative;top:-4px;left:35px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+        <ul class="nav navbar-nav">
+            <li ng-mouseover="highlightLink='abttf'" ng-mouseleave="highlightLink=''"><a href="actors/abttf">ABTTF</a> <i ng-if="highlightLink=='abttf' || path=='/actors/abttf'" style="position:relative;top:-4px;left:18px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+            <li ng-mouseover="highlightLink='blg'" ng-mouseleave="highlightLink=''"><a href="actors/blg" >BLG</a> <i ng-if="highlightLink=='blg' ||  path=='/actors/blg'" style="position:relative;top:-4px;left:8px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+            <li ng-mouseover="highlightLink='jlg'" ng-mouseleave="highlightLink=''"><a href="actors/jlg" >JLG</a> <i ng-if="highlightLink=='jlg' ||  path=='/actors/jlg'" style="position:relative;top:-4px;left:5px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+            <li ng-mouseover="highlightLink='champions'" ng-mouseleave="highlightLink=''"><a href="actors/champions" >Champions</a> <i ng-if="highlightLink=='champions' ||  path=='/actors/champions'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+            <li ng-mouseover="highlightLink='partners'" ng-mouseleave="highlightLink=''"><a href="actors/partners" >UNDB Partners</a> <i ng-if="highlightLink=='partners' ||  path=='/actors/partners'" style="position:relative;top:-4px;left:35px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
             <li ng-mouseover="highlightLink='partners'" ng-mouseleave="highlightLink=''"><a href="actors/country" >Parties & Govs.</a> <i ng-if="highlightLink=='partners' ||  path=='/actors/country'" style="position:relative;top:-4px;left:35px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
             <li ng-mouseover="highlightLink='participate'" ng-mouseleave="highlightLink=''"><a href="actions/participate">Participate</a> <i ng-if="highlightLink=='participate' ||  path=='/actions/participate'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
-          </ul>
+        </ul>
       </div>
   </div>
 
@@ -27,11 +27,27 @@
             </div>
         </div>
         <div class="row article">
+          <div class="col-xs-8 col-sm-6 col-md-5 col-lg-4">
+              <a ng-click="goTo('/actors/country')" style="cursor:pointer;">
+                  <div class="box-rounded-sm-green border-bottom-cbd-green box-bg-fish-water-green col-middle">
+                    <h5>Parties to the CBD and other Governments</h5>
+                    <p>Implimenting the Stategic Plan for Biodiversity 2011-2020</p>
+                  </div>
+              </a>
+          </div>
             <div class="col-xs-8 col-sm-6 col-md-5 col-md-offset-1 col-lg-offset-0 col-lg-4">
                 <a ng-click="goTo('/actors/abttf')" style="cursor:pointer;">
                     <div class="box-rounded-sm-green border-bottom-cbd-green box-bg-people-green col-middle">
                     <h5>Aichi Biodiversity Targets Task Force</h5>
                     <p>Suppoting the implementation of the Strategic Plan or Biodiversity</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-xs-8 col-sm-6 col-md-5 col-md-offset-1 col-lg-offset-0 col-lg-4">
+                <a ng-click="goTo('/actors/jlg')" style="cursor:pointer;">
+                    <div class="box-rounded-sm-green border-bottom-cbd-green box-bg-flamingo-green col-middle">
+                    <h5>Rio Conventions</h5>
+                    <p>Enhancing coordination between the CBD, UNCCD and UNFCCC</p>
                     </div>
                 </a>
             </div>
@@ -51,36 +67,23 @@
                     </div>
                 </a>
             </div>
+
             <div class="col-xs-8 col-sm-6 col-md-5 col-lg-4">
-                <a ng-click="goTo('/actors/coalitions')" style="cursor:pointer;">
-                    <div class="box-rounded-sm-green border-bottom-cbd-green box-bg-fish-water-green col-middle">
-                    <h5>Coalitions for Enhanced Implementation</h5>
-                    <p>Discover the pledges of action by countries and partners</p>
-                    </div>
-                </a>
-            </div>
-            <div class="col-xs-8 col-sm-6 col-md-5 col-md-offset-1 col-lg-offset-0 col-lg-4">
-                <a ng-click="goTo('/actors/jlg')" style="cursor:pointer;">
-                    <div class="box-rounded-sm-green border-bottom-cbd-green box-bg-flamingo-green col-middle">
-                    <h5>Rio Conventions</h5>
-                    <p>Enhancing coordination between the CBD, UNCCD and UNFCCC</p>
-                    </div>
-                </a>
-            </div>
-            <div class="col-xs-8 col-sm-6 col-md-5 col-lg-4">
+              <a ng-click="goTo('/actors/partners/207399')">
                     <div class="box-rounded-sm-green border-bottom-cbd-green  col-middle">
                         <div class="row">
                             <div class="col-xs-8">
-                                <h5>Strategic Plan for Biodiversity 2011-2020</h5>
-                                <p><a href="https://www.cbd.int/doc/strategic-plan/2011-2020/Aichi-Targets-EN.pdf">En</a> <a href="https://www.cbd.int/doc/strategic-plan/2011-2020/Aichi-Targets-FR.pdf">Es</a> <a href="https://www.cbd.int/doc/strategic-plan/2011-2020/Aichi-Targets-ES.pdf">Fr</a>
-                                </p>
+                                <h5>Global Environment Facility</h5>
+                                  <p>Investing in our planet</p>
                             </div>
                             <div class="col-xs-4">
-                                <img class="image-icon" src="app/images/strategic-plan.png" width="100%" alt="">
+                                <img class="image-icon" src="https://chm.cbd.int/api/v2013/documents/52413a4a-854e-3b20-a753-1910c9e3ed13/attachments/gef.png" width="100%" alt="">
                             </div>
                         </div>
                     </div>
+                  </a>
             </div>
+
         </div>
 
       <actors-list  items-per-page="25" ></actors-list>
