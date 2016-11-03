@@ -42,7 +42,7 @@ define(['text!./ammap3.html',
                         id: 0,
                         title: 'Not a Party',
                         visible: true,
-                        color: '#dddddd'
+                        color: '#8cc65d'
                     }, ]
                 };
 
@@ -117,9 +117,9 @@ define(['text!./ammap3.html',
 
                         "areasSettings": {
                             "autoZoom": false,
-                            "selectedColor": "#00483A",
-                            "rollOverColor": "#8cc65d",
-                            "selectable": false,
+                            "selectedColor": "#004844",
+                            "rollOverColor": "#004844",
+                            "selectable": true,
                             "color": "#009B48"
                         },
 
@@ -558,7 +558,7 @@ define(['text!./ammap3.html',
                     });
 
                     changeAreaColor('divider1', "#009B48");
-                    changeAreaColor('US', "#dddddd");
+                    changeAreaColor('US', "#8cc65d");
                     var area = getMapObject('EU');
                     area.outlineAlpha = '.5';
                     area = getMapObject('divider1');
@@ -768,7 +768,7 @@ define(['text!./ammap3.html',
                 //=======================================================================
                 function getPartyColor(country) {
                     if(country.id==='US'){
-                      return '#dddddd'};
+                      return '#8cc65d'};
                     switch (country.treatyComb) {
                         case 'CBD,':
                             return '#009B48';
@@ -854,7 +854,7 @@ define(['text!./ammap3.html',
                             area.mouseEnabled = true;
                             area.balloonText = '[[title]]';
                         }if(area.id === 'us' ){
-                          area.colorReal = area.originalColor = '#dddddd';
+                          area.colorReal = area.originalColor = '#8cc65d';
                           area.mouseEnabled = true;
                           area.balloonText = '[[title]]';
                         }

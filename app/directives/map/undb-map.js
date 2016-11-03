@@ -25,6 +25,7 @@ define(['text!./undb-map.html',
                 $scope.loaded = false;
                 $scope.subQueries = {};
                 $scope.message = '';
+                $scope.link = '';
                 $scope.toggleCaption = 1;
 
                 $http.get("https://api.cbd.int/api/v2015/countries", {
@@ -50,7 +51,7 @@ define(['text!./undb-map.html',
                     $scope.actions = o.data.response.docs;
                     if ($attr.schema === 'actions') {
                         activateFilter();
-                        $scope.message = "All around the world people are taking action to safeguard biodiversity. See how you can participate!";
+                        $scope.message = "actions";
                     }
                 });
 
@@ -67,7 +68,8 @@ define(['text!./undb-map.html',
                     $scope.actors = o.data.response.docs;
                     if ($attr.schema === 'actors') {
                         activateFilter();
-                        $scope.message = "The UNDB Network comprises all Actors contributing to the implementation of the 2011-2020 Strategic Plan for Biodiversity.";
+                        $scope.message = "actors";
+                        $scope.link="/actors";        
                     }
 
                 });
@@ -122,6 +124,14 @@ define(['text!./undb-map.html',
                     }
                 }
 
+                //=======================================================================
+                //
+                //=======================================================================
+                function goTo(link) {
+                  console.log(link);
+                    $location.url(link);
+                }
+                $scope.goTo=goTo;
             }, //link
 
 

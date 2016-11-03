@@ -36,12 +36,12 @@
 			color: #fff;
 			cursor: pointer;
 			font-size: 1em;
-			height: 37px;
+			height: 74px;
 			line-height: 37px;
 			margin: 14px 0;
 			min-width: 100%;
 			padding: 0 10px;
-			white-space: nowrap;
+			/*white-space: nowrap;*/
 		}
 
 		.sideSelectionRowActive {
@@ -61,13 +61,13 @@
 			webkit-border-top-right-radius: 0;
 			cursor: pointer;
 			font-size: 1em;
-			height: 37px;
+			height: 74px;
 			line-height: 37px;
 			margin: 14px 0;
 			min-width: 100%;
 			padding: 0 10px;
 			z-index: 10;
-			white-space: nowrap;
+			/*white-space: nowrap;*/
 		}
 
 		.sideSelectionRowActiveIMG {
@@ -77,9 +77,19 @@
 			width: 37px;
 			z-index: 10;
 		}
-
+		.sideSelectionRowActiveIMG2 {
+			height: 100px;
+			position: absolute;
+			right: -72px;
+			bottom:-13px;
+			width: 74px;
+			z-index: 10;
+		}
 		body.modal-open div.modal-backdrop {
 			z-index: 150;
+		}
+		.mapPopup{
+			cursor:pointer;
 		}
 	</style>
 
@@ -87,18 +97,21 @@
 		<div class="col-md-2 col-xs-12" style="margin-right:0px;padding:0 0 0 0;">
 			<div class="row sideSelection">
 				<h5>UNDB Network</h5>
-				<filter-actors title='Actors' active='filters.actors.active' message='message'></filter-actors>
-				<filter-parties title='Parties to the CBD' active='filters.parties.active' message='message'></filter-parties>
+				<filter-actors title='Actors' active='filters.actors.active' message='message' link="link"></filter-actors>
+				<filter-parties title='Parties to the CBD and other Governments' active='filters.parties.active' message='message' link="link"></filter-parties>
 				<!-- <filter-bio-champs title='Biodiversity Champions' active='filters.bioChamps.active' message='message'></filter-bio-champs> -->
-<filter-coalitions title='Coalitions' active='filters.coalitions.active' message='message'></filter-coalitions> 
-				<filter-actions title='Actions' active='filters.actions.active' message='message'></filter-actions>
+<!-- <filter-coalitions title='Coalitions' active='filters.coalitions.active' message='message'></filter-coalitions>  -->
+				<filter-actions title='Actions' active='filters.actions.active' message='message' link="link"></filter-actions>
 			</div>
 		</div>
 		<div class="col-md-10 col-xs-12" style="padding:0 0 0 0;margin-left:0px;">
 			<ammap3 ng-model='documents' schema='selectedSchema'></ammap3>
-			<div class="mapPopup" ng-class="{'mapPopupParties':selectedSchema==='parties'}"  ng-click="toggleCaption=!toggleCaption;" ng-show="toggleCaption">
-				<p>{{message}}</p>
-				<button type="button" class="closeButton"></button>
+			<div class="mapPopup" ng-class="{'mapPopupParties':selectedSchema==='parties'}"   ng-show="toggleCaption" ng-click="goTo(link)">
+
+				<p ng-if="message==='actions'">Actions and Commitments: All around the world people are taking action to safeguard biodiversity. See how you can participate!</p>
+				<p ng-if="message==='parties'">Parties to the CBD and other Governments: With 196 Parties, the Convention on Biological Diversity has near universal participation among countries.</p>
+				<p ng-if="message==='actors'"> Actors: The UNDB Network includes a wide variety of Actors contributing to the implementation of the Strategic Plan for Biodiversity 2011-2020 </p>
+				<button type="button" class="closeButton" ng-click="toggleCaption=!toggleCaption;"></button>
 			</div>
 		</div>
 	</div>

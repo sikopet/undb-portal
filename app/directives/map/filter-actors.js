@@ -10,7 +10,8 @@ define(['text!./filter-actors.html', 'app', 'lodash'], function(template, app, _
       scope: {
         title: '@title',
         active: '=active',
-        message: '=message'
+        message: '=message',
+                link: '=link'
       },
       link: function($scope, $element, $attr,undbMap) {
           $scope.queries = {
@@ -24,7 +25,8 @@ define(['text!./filter-actors.html', 'app', 'lodash'], function(template, app, _
           //
           //=======================================================================
           $scope.loadRecords = function() {
-            $scope.message="The UNDB Network comprises all Actors contributing to the implementation of the 2011-2020 Strategic Plan for Biodiversity.";
+            $scope.message = "actions";
+            $scope.link="/actors";
             undbMap.filterActive('actors');
 
             undbMap.addSubQuery(_.cloneDeep($scope.queries), 'actors');
