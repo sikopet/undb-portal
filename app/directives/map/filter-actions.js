@@ -10,7 +10,8 @@ define(['text!./filter-actions.html', 'app', 'lodash', 'moment'], function(templ
             scope: {
                 title: '@title',
                 active: '=active',
-                message: '=message'
+                message: '=message',
+                        link: '=link',
             },
             link: function($scope, $element, $attr, undbMap) {
                     $scope.queries = {
@@ -35,7 +36,8 @@ define(['text!./filter-actions.html', 'app', 'lodash', 'moment'], function(templ
                             if ($scope.queries.actions.startDate_dt)
                                 delete($scope.queries.actions.startDate_dt);
                         }
-                        $scope.message = "All around the world people are taking action to safeguard biodiversity. See how you can participate!";
+                        $scope.link="/actions/participate";
+                        $scope.message = "actions";
                         undbMap.filterActive('actions');
                         undbMap.addSubQuery(_.cloneDeep($scope.queries), 'actions');
                         undbMap.search();

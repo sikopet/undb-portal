@@ -17,6 +17,8 @@ define(['app', 'lodash', 'text!views/index.html', 'views/index', 'providers/exte
             when('/about/sdgs',                   { templateUrl: 'views/about/sdgs.html',          label:'SDGs',          }).
 
             when('/actions',                      { redirectTo:  '/actions/worldwide' }).
+            when('/actions/ccc',                  { templateUrl: 'views/actors/coalitions.html',       label:'Coalitions',              resolveController: true}).
+
             when('/actions/worldwide',            { templateUrl: 'views/actions/worldwide.html',        label:'Worldwide',            resolveController: true , reloadOnSearch : false}).
             when('/actions/country',              { templateUrl: 'views/actions/country.html',          label:'By Country',           resolveController: true }).
             when('/actions/countries/:code',      { templateUrl: 'views/actions/country-profile.html',  label :'Profile',             resolveController: true }).
@@ -31,10 +33,11 @@ define(['app', 'lodash', 'text!views/index.html', 'views/index', 'providers/exte
             when('/actions/:uid',                 { templateUrl: 'views/actions/action.html',           label:'Action',               resolveController: true }).
 
             when('/actors',                      { templateUrl: 'views/actors/index.html',            label:'Actors',                  resolveController: true}).
-            when('/actors/coalitions',           { templateUrl: 'views/actors/coalitions.html',       label:'Coalitions',              resolveController: true}).
             when('/actors/abttf',                { templateUrl: 'views/actors/abttf.html',            label:'ABTTF',                   resolveController: true}).
             when('/actors/champions',            { templateUrl: 'views/actors/champions.html',        label:'Biodiversity Champions',  resolveController: true}).
             when('/actors/blg',                  { templateUrl: 'views/actors/blg.html',              label:'BLG',                     resolveController: true}).
+            when('/actors/country',              { templateUrl: 'views/actors/country.html',          label:'By Country',           resolveController: true }).
+
             when('/actors/jlg',                  { templateUrl: 'views/actors/jlg.html',              label:'JLG' ,                    resolveController: true}).
             when('/actors/submit',               { templateUrl: 'views/actors/submit.html',           label:'Participate',             resolveController: true, resolve : { user : securize(['User']) }, reloadOnSearch : false }).
             when('/actors/partners',             { templateUrl: 'views/actors/partners.html',         label:'UNDB Partners',           resolveController: true, resolve : { user : currentUser() } }).

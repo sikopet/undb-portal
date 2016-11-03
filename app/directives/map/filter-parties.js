@@ -10,7 +10,8 @@ define(['text!./filter-parties.html', 'app', 'lodash'], function(template, app, 
       scope: {
         title: '@title',
         active: '=active',
-        message: '=message'
+        message: '=message',
+        link: '=link',        
       },
       link: function($scope, $element, $attr,undbMap) {
           $scope.queries = {
@@ -23,7 +24,9 @@ define(['text!./filter-parties.html', 'app', 'lodash'], function(template, app, 
           //
           //=======================================================================
           $scope.loadRecords = function() {
-            $scope.message="With 196 Parties, the Convention on Biological Diversity has near universal participation among countries.";
+            $scope.message="parties";
+            $scope.link="/actions/country";
+
             undbMap.filterActive('parties');
 
             undbMap.addSubQuery(_.cloneDeep($scope.queries), 'parties');
