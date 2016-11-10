@@ -77,8 +77,8 @@ define(['app', 'text!./toast.html', 'authentication', 'providers/locale', 'toast
         //
         //============================================================
         $scope.actionSignIn = function() {
-            var redirect_uri = $window.encodeURIComponent($location.protocol() + '://' + $location.host() + ':' + $location.port() + '/');
-            $window.location.href = 'https://accounts.cbd.int/signin?returnUrl=' + redirect_uri;
+            var returnUrl   = $window.encodeURIComponent($window.location.href);
+            $window.location.href = 'https://accounts.cbd.int/signin?returnUrl=' + returnUrl;
             //            $location.url('/signin');
         };
 
