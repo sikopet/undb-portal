@@ -7,7 +7,7 @@
             <li ng-mouseover="highlightLink='jlg'" ng-mouseleave="highlightLink=''"><a href="actors/jlg" >JLG</a> <i ng-if="highlightLink=='jlg' ||  path=='/actors/jlg'" style="position:relative;top:-4px;left:5px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
             <li ng-mouseover="highlightLink='champions'" ng-mouseleave="highlightLink=''"><a href="actors/champions" >Champions</a> <i ng-if="highlightLink=='champions' ||  path=='/actors/champions'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
             <li ng-mouseover="highlightLink='partners'" ng-mouseleave="highlightLink=''"><a href="actors/partners" >UNDB Partners</a> <i ng-if="highlightLink=='partners' ||  path=='/actors/partners'" style="position:relative;top:-4px;left:35px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
-            <li ng-mouseover="highlightLink='partners'" ng-mouseleave="highlightLink=''"><a href="actors/country" >Parties & Govs.</a> <i ng-if="highlightLink=='partners' ||  path=='/actors/country'" style="position:relative;top:-4px;left:35px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+            <li ng-mouseover="highlightLink='country'" ng-mouseleave="highlightLink=''"><a href="actors/country" >Parties & Govs.</a> <i ng-if="highlightLink=='country' ||  path=='/actors/country'" style="position:relative;top:-4px;left:35px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
             <li ng-mouseover="highlightLink='participate'" ng-mouseleave="highlightLink=''"><a href="actions/participate">Participate</a> <i ng-if="highlightLink=='participate' ||  path=='/actions/participate'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
         </ul>
       </div>
@@ -31,7 +31,7 @@
               <a ng-click="goTo('/actors/country')" style="cursor:pointer;">
                   <div class="box-rounded-sm-green border-bottom-cbd-green box-bg-fish-water-green col-middle">
                     <h5>Parties to the CBD and other Governments</h5>
-                    <p>Implimenting the Stategic Plan for Biodiversity 2011-2020</p>
+                    <p>Implementing the Stategic Plan for Biodiversity 2011-2020</p>
                   </div>
               </a>
           </div>
@@ -39,7 +39,7 @@
                 <a ng-click="goTo('/actors/abttf')" style="cursor:pointer;">
                     <div class="box-rounded-sm-green border-bottom-cbd-green box-bg-people-green col-middle">
                     <h5>Aichi Biodiversity Targets Task Force</h5>
-                    <p>Suppoting the implementation of the Strategic Plan or Biodiversity</p>
+                    <p>Supporting the implementation of the Strategic Plan for Biodiversity</p>
                     </div>
                 </a>
             </div>
@@ -68,13 +68,13 @@
                 </a>
             </div>
 
-            <div class="col-xs-8 col-sm-6 col-md-5 col-lg-4">
+            <div class="col-xs-8 col-sm-6 col-md-5 col-lg-4" ng-click="goTo('/actors/partners/207399')">
               <a ng-click="goTo('/actors/partners/207399')">
-                    <div class="box-rounded-sm-green border-bottom-cbd-green  col-middle">
+                    <div class="box-rounded-sm-green border-bottom-cbd-green  col-middle pointer">
                         <div class="row">
-                            <div class="col-xs-8">
-                                <h5>Global Environment Facility</h5>
-                                  <p>Investing in our planet</p>
+                            <div class="col-xs-8 text-nowrap">
+                                <a ng-click="goTo('/actors/partners/207399')">  <h5>Global Environment Facility</h5>
+                                  <p>Investing in our planet</p></a>
                             </div>
                             <div class="col-xs-4">
                                 <img class="image-icon" src="https://chm.cbd.int/api/v2013/documents/52413a4a-854e-3b20-a753-1910c9e3ed13/attachments/gef.png" width="100%" alt="">

@@ -2,10 +2,10 @@
     <div class="hidden-xs">
         <div class="container sub-nav">
           <ul class="nav navbar-nav">
-      			<li ng-mouseover="highlightLink='worldwide'" ng-mouseleave="highlightLink=''"><a href="actions/worldwide">Worldwide</a> <i ng-if="highlightLink=='worldwide' || path=='/actions/worldwide'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+            <li ng-mouseover="highlightLink='worldwide'" ng-mouseleave="highlightLink=''"><a href="actions/worldwide">Worldwide</a> <i ng-if="highlightLink=='worldwide' || path=='/actions/worldwide'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
       			<li ng-mouseover="highlightLink='country'" ng-mouseleave="highlightLink=''"><a href="actions/country">By Country</a> <i ng-if="highlightLink=='country' ||  path=='/actions/country'" style="position:relative;top:-4px;left:30px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
       			<li ng-mouseover="highlightLink='calendar'" ng-mouseleave="highlightLink=''"><a href="actions/calendar">Calendar</a> <i ng-if="highlightLink=='calendar' ||  path=='/actions/calendar'" style="position:relative;top:-4px;left:22px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
-      			<li ng-mouseover="highlightLink='coalitions'" ng-mouseleave="highlightLink=''"><a href="actions/ccc" >Coalitions</a> <i ng-if="highlightLink=='coalitions' ||  path=='/actions/ccc'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+      			<li ng-mouseover="highlightLink='coalitions'" ng-mouseleave="highlightLink=''"><a href="actions/ccc" >Commitments</a> <i ng-if="highlightLink=='coalitions' ||  path=='/actions/ccc'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
       			<li ng-mouseover="highlightLink='participate'" ng-mouseleave="highlightLink=''"><a href="actions/participate">Participate</a> <i ng-if="highlightLink=='participate' ||  path=='/actions/participate'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
       		</ul>
         </div>
@@ -31,7 +31,7 @@
         </div>
         <div >
           <h2 class="color-darkgreen" style="padding-top:25px;">Global Actions</h2>
-          <p>The following Actions are relevant for all countries. For Actions at the national level click on the map or go to the country profiles <span><a href="https://www.cbd.int/undb-new/actions/country">Country Profiles ></a></span></p>
+          <p>The following Actions are relevant for all countries. For Actions at the national level click on the map or go to the  <span><a href="https://www.cbd.int/undb-new/actions/country">Country Profiles ></a></span></p>
           <activities-list count="count" country="countryCode" items-per-page="10" hide-country-reference="true" hide-pagenation="false" ></activities-list>
           <button type="button" class="btn pull-right" style="background-color:#069554;color:white;margin-top:0px;" ng-click="goTo('/actions/calendar?code='+country.code);">More ></button>
 
