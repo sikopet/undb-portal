@@ -17,7 +17,7 @@ define(['app', 'lodash', 'text!views/index.html', 'views/index', 'providers/exte
             when('/about/sdgs',                   { templateUrl: 'views/about/sdgs.html',          label:'SDGs',          }).
 
             when('/actions',                      { redirectTo:  '/actions/worldwide' }).
-            when('/actions/ccc',                  { templateUrl: 'views/actors/coalitions.html',       label:'Coalitions',              resolveController: true}).
+            when('/actions/ccc',                  { templateUrl: 'views/actions/ccc.html',       label:'Commitments',              resolveController: true}).
 
             when('/actions/worldwide',            { templateUrl: 'views/actions/worldwide.html',        label:'Worldwide',            resolveController: true , reloadOnSearch : false}).
             when('/actions/country',              { templateUrl: 'views/actions/country.html',          label:'By Country',           resolveController: true }).

@@ -1,8 +1,9 @@
 <div class="col-md-12 col-xs-4">
-	<div class="sideSelectionRow" ng-class="{'sideSelectionRowActive':active}" ng-click="loadRecords();">
-		<span>Actions</span><br>
+	<div class="sideSelectionRow" style="line-height:25px;" ng-class="{'sideSelectionRowActive':active}" ng-click="loadRecords();">
+<div style="padding-top:13px;">
+		<span >Actions</span><br>
 		<span>and Commitments</span>
-		<select ng-show="active" style="width:110px;position:absolute;top:5px;right:5px;" class="form-control pull-right" id="year" name="year" ng-model="searchYear" ng-change="loadRecords();">
+		<select ng-show="active" style="width:110px;position:absolute;top:13px;right:15px;height:20px;" class="form-control pull-right small" id="year" name="year" ng-model="searchYear" ng-change="loadRecords();">
 			<option value="" style="font-size:12px;">All Years</option>
 			<option value="2010" >2010</option>
 			<option value="2011">2011</option>
@@ -18,4 +19,5 @@
 		</select>
 		<img src="app/img/tip_right.svg" class="sideSelectionRowActiveIMG2" ng-if="active"></img>
 	</div>
+</div>
 </div>
