@@ -9,7 +9,8 @@ define(['app', 'lodash', 'text!views/index.html', 'views/index', 'providers/exte
             when('/',                             { template:    rootTemplate,  label:'Home',  resolveController: 'views/index', reloadOnSearch : false }).
             when('/home', { redirectTo: '/' }).
 
-            when('/about',                        { redirectTo: '/about/undb' }).
+
+            when('/about',                       { templateUrl: 'views/about/index.html',         label:'Biodiversity',  resolveController: true }).
             when('/about/undb',                   { templateUrl: 'views/about/index.html',         label:'UNDB',          }).
             when('/about/goals',                  { templateUrl: 'views/about/goals.html',         label:'Goals',         }).
             when('/about/biodiversity',           { templateUrl: 'views/about/biodiversity.html',  label:'Biodiversity',  resolveController: true }).
