@@ -21,7 +21,7 @@ define(['app','authentication', '../directives/map/undb-map'], function() { 'use
 											    targetUrl: "https://www.cbd.int/undb-new/actors/abttf"
 											}, {
 											    title: "UN Biodiversity Conference, Cancun, Mexico, 2016",
-											    description: "The highest governing body of the CBD brings together government representatives to review and promote the implementation of the Convention.",
+											    description: "The highest governing bodies of the CBD and its Protocols bring together government representatives to review and promote the implementation of the Convention.",
 											    imageUrl: "app/images/carousel/undb-slider-cop13-amy.png",
 											    targetUrl: "https://www.cbd.int/cop2016/"
 											}, {
