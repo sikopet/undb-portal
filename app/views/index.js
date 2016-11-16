@@ -22,7 +22,7 @@ define(['app','authentication', '../directives/map/undb-map'], function() { 'use
 											}, {
 											    title: "UN Biodiversity Conference, Cancun, Mexico, 2016",
 											    description: "The highest governing bodies of the CBD and its Protocols bring together government representatives to review and promote the implementation of the Convention.",
-											    imageUrl: "app/images/carousel/undb-slider-cop13-amy.png",
+											    imageUrl: "app/images/carousel/undb-slider-cop13.png",
 											    targetUrl: "https://www.cbd.int/cop2016/"
 											}, {
 											    title: "Cancun Commitments and Coalitions for Enhanced Implementation",
@@ -31,7 +31,7 @@ define(['app','authentication', '../directives/map/undb-map'], function() { 'use
 											    targetUrl: "https://www.cbd.int/undb-new/actions/ccc"
 											}, {
 											    title: "Business and Biodiversity Pledge",
-											    description: "Inviting businesses and financial institutions to become a signatory to the Business and Biodiversity Pledge.",
+											    description: "Businesses committing to take positive action for biodiversity",
 											    imageUrl: "app/images/carousel/undb-slider-business.png",
 											    targetUrl: "https://www.cbd.int/business/pledges.shtml"
 											}, {
