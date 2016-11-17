@@ -31,7 +31,7 @@ define(['app','authentication', '../directives/map/undb-map'], function() { 'use
 											    targetUrl: "https://www.cbd.int/undb-new/actions/ccc"
 											}, {
 											    title: "Business and Biodiversity Pledge",
-											    description: "Businesses committing to take positive action for biodiversity",
+											    description: "Businesses committing to take positive action for biodiversity.",
 											    imageUrl: "app/images/carousel/undb-slider-business.png",
 											    targetUrl: "https://www.cbd.int/business/pledges.shtml"
 											}, {
