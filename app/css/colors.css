@@ -13,7 +13,7 @@
 }
 .bg-cbdgreen{
     background-color: #069554;
-    color:#FFF;
+    color:#FFF;!important;
 }
 .color-litegrey{
     color:#eee!important;
@@ -23,6 +23,9 @@
 }
 .color-white{
     color:#fff!important;
+}
+a.color-white:hover{
+    color:#333!important;
 }
 .bg-white{
     background-color: #FFF!important;
