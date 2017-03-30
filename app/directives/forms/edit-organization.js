@@ -142,8 +142,11 @@ app.directive('editOrganization', ['$http',"$rootScope", "Enumerable", "$filter"
 				if($scope.tab=='general') 	{ next = 'detail';}
 				if($scope.tab=='detail')	  { next = 'social';   }
 				if($scope.tab=='social')    { next = 'chm';   }
-				if($scope.tab=='chm' 	) 		{ next = 'absch'; }
-				if($scope.tab=='absch') 		{ next = 'bch';   }
+				if($scope.tab=='chm' && $scope.isAbs($scope.document)	) { next = 'absch'; }
+				if($scope.tab=='chm' && $scope.isBCH($scope.document)	&& !$scope.isAbs($scope.document)) { next = 'bch'; }
+				if($scope.tab=='chm' && !$scope.isBCH($scope.document)	&& !$scope.isAbs($scope.document)) { next = 'members'; }
+				if($scope.tab=='absch'	) { next = 'members'; }
+				if($scope.tab=='absch' && $scope.isBCH($scope.document)	) { next = 'bch'; }
 				if($scope.tab=='bch') 			{ next = 'members';   }
 				if($scope.tab=='members'	) { next = 'review';$scope.validate();}
 
@@ -157,8 +160,11 @@ app.directive('editOrganization', ['$http',"$rootScope", "Enumerable", "$filter"
 				var prev;
 
 				if($scope.tab=='review' ) { prev = 'members';}
-				if($scope.tab=='members'	) { prev = 'bch';  }
-				if($scope.tab=='bch'	) { prev = 'absch';  }
+				if($scope.tab=='members'&& $scope.isBCH($scope.document)) { prev = 'bch';  }
+				if($scope.tab=='members'&& !$scope.isBCH($scope.document) && $scope.isAbs($scope.document)	) { prev = 'absch';  }
+				if($scope.tab=='members'&& !$scope.isBCH($scope.document) && !$scope.isAbs($scope.document)	) { prev = 'chm';  }
+				if($scope.tab=='bch'	&& $scope.isAbs($scope.document)) { prev = 'absch';  }
+				if($scope.tab=='bch'	&& !$scope.isAbs($scope.document)) { prev = 'chm';  }			
 				if($scope.tab=='absch'	) { prev = 'chm'; 	 }
 				if($scope.tab=='chm'	) { prev = 'social';}
 				if($scope.tab=='social'	) { prev = 'detail';}
