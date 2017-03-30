@@ -1,6 +1,6 @@
-define(['app', 'lodash', 'text!views/index.html', 'views/index', 'providers/extended-route', 'authentication'], function(app, _, rootTemplate) { 'use strict';
-
-    app.config(['extendedRouteProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+define(['app', 'lodash', 'text!views/index.html','text!./redirect-dialog.html', 'views/index', 'providers/extended-route', 'authentication','ngDialog','ngCookies'], function(app, _, rootTemplate, redirectDialog) { 'use strict';
+    var locationPath = window.location.pathname.toLowerCase().split('?')[0];
+    app.config(['extendedRouteProvider', '$locationProvider',function($routeProvider, $locationProvider) {
 
         $locationProvider.html5Mode(true);
         $locationProvider.hashPrefix('!');
@@ -60,8 +60,13 @@ define(['app', 'lodash', 'text!views/index.html', 'views/index', 'providers/exte
             when('/resources/un-logo',           { templateUrl: 'views/resources/un-logo.html',         label:'UN Logo Use' }).
             when('/resources/contact',           { templateUrl: 'views/resources/contact.html',         label:'Contact Us' }).
 
-            when('/help/404',                    { templateUrl: 'views/404.html',  label : 'Not found' }).
-            when('/help/403',                    { templateUrl: 'views/403.html',  label : 'Forbidden' }).
+            when('/dashboard',                   { templateUrl: 'views/dashboard/index-dash.html',    controllerAs: 'dashCtrl',    resolveController: true ,resolve : { user : securize(['User']) }}).
+            when('/dashboard/submit/:schema',         { templateUrl: 'views/dashboard/record-list.html',  controllerAs: 'submitCtrl',  resolveController: true,resolve : { user : securize(['User']) } }).
+            when('/dashboard/submit/:schema/:id',     { templateUrl: 'views/dashboard/edit.html',         controllerAs: 'editCtrl',    resolveController: true ,resolve : { user : securize(['User']) }}).
+            when('/dashboard/submit/:schema/:id/view',{ templateUrl: 'views/dashboard/view.html',    controllerAs: 'viewCtrl',    resolveController: true,resolve : { user : securize(['Everyone']) } }).
+
+            when('/help/404',                    { templateUrl: 'views/404.html',  controllerAs: 'notFoundCtrl',resolveController: true ,label : 'Not found',resolve : {path:currentPath}  }).
+            when('/help/403',                    { templateUrl: 'views/403.html',   label : 'Forbidden' }).
             otherwise({ redirectTo: '/help/404' });
     }]);
 
@@ -76,31 +81,73 @@ define(['app', 'lodash', 'text!views/index.html', 'views/index', 'providers/exte
             return authentication.getUser();
         }];
     }
-
     //============================================================
     //
     //
     //============================================================
-    function securize(roles) {
+    function currentPath() {
 
-        return ['$location', '$window', '$q', 'authentication', function ($location, $window, $q, authentication) {
+        return locationPath;
+    }
+    //============================================================
+    //
+    //
+    //============================================================
+    function securize(requiredRoles) {
 
-            return authentication.getUser().then(function (user) {
+        return ['$q', '$rootScope', 'authentication', '$location', '$window','ngDialog','$cookies', function($q, $rootScope, authentication, $location, $window,ngDialog,$cookies) {
+
+            return $q.when(authentication.getUser()).then(function (user) {
+
+                var hasRole = !!_.intersection(user.roles, requiredRoles).length;
 
                 if (!user.isAuthenticated) {
+                    $rootScope.authRediectChange=authRediectChange;
+                    if(!!_.intersection(requiredRoles, ['Everyone']).length)
+                      return user;
 
-                    var returnUrl = $window.encodeURIComponent($window.location.href);
-                    $window.location.href = 'https://accounts.cbd.int/signin?returnUrl=' + returnUrl; // force sign in
-                    return $q(function () {});
-                }
-                else if (roles && !_.isEmpty(roles) && _.isEmpty(_.intersection(roles, user.roles))) {
+                    if(!$cookies.get('redirectOnAuthMsg') || $cookies.get('redirectOnAuthMsg')==='false')
+                        openDialog();
+                    else
+                        $window.location.href = authentication.accountsBaseUrl()+'/signin?returnurl='+encodeURIComponent($location.absUrl());
 
-                    $location.url('/help/403'); // not authorized
+                    throw user; // stop route change!
                 }
+                else if (!hasRole)
+                    $location.url('/403?returnurl='+encodeURIComponent($location.url()));
 
                 return user;
             });
-        }];
-    }
+
+            //============================================================
+            //
+            //
+            //============================================================
+            function openDialog() {
+                $rootScope.redirectOnAuthMsg=true;
+                $cookies.put('redirectOnAuthMsg',true);
+                ngDialog.open({
+                      template: redirectDialog,
+                      className: 'ngdialog-theme-default',
+                      closeByDocument: false,
+                      plain: true,
+                      scope:$rootScope
+                  }).closePromise.then(function(retVal){
+                        if(retVal.value)
+                          $window.location.href = authentication.accountsBaseUrl()+'/signin?returnurl='+encodeURIComponent($location.absUrl());
+                        else
+                          $window.history.back();
+                  });
+            }
+            //============================================================
+            //
+            //
+            //============================================================
+            function authRediectChange(value) {
+                $cookies.put('redirectOnAuthMsg',value);
+            }//authRediectChange
+
+        }];//return array
+    }//securize
 
 });

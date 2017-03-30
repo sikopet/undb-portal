@@ -5,15 +5,15 @@ app.factory('IStorage', ["$http", "$q", "authentication", "realm", function($htt
 	function IStorage()
 	{
 		var serviceUrls = { // Add Https if not .local
-			documentQueryUrl   : function() 	{ return "https://api.cbd.int/api/v2013/documents/"; },
-			documentUrl        : function() 	{ return "https://api.cbd.int/api/v2013/documents/:identifier"; },
-			validateUrl        : function() 	{ return "https://api.cbd.int/api/v2013/documents/x/validate"; },
-			draftUrl           : function() 	{ return "https://api.cbd.int/api/v2013/documents/:identifier/versions/draft"; },
-			attachmentUrl      : function() 	{ return "https://api.cbd.int/api/v2013/documents/:identifier/attachments/:filename"; },
-			securityUrl        : function() 	{ return "https://api.cbd.int/api/v2013/documents/:identifier/securities/:operation"; },
-			draftSecurityUrl   : function() 	{ return "https://api.cbd.int/api/v2013/documents/:identifier/versions/draft/securities/:operation"; },
-			draftLockUrl       : function() 	{ return "https://api.cbd.int/api/v2013/documents/:identifier/versions/draft/locks/:lockID"; },
-			documentFacetsQueryUrl : function() { return "https://api.cbd.int/api/v2013/documents/query/facets"; },
+			documentQueryUrl   : function() 	{ return "/api/v2013/documents/"; },
+			documentUrl        : function() 	{ return "/api/v2013/documents/:identifier"; },
+			validateUrl        : function() 	{ return "/api/v2013/documents/x/validate"; },
+			draftUrl           : function() 	{ return "/api/v2013/documents/:identifier/versions/draft"; },
+			attachmentUrl      : function() 	{ return "/api/v2013/documents/:identifier/attachments/:filename"; },
+			securityUrl        : function() 	{ return "/api/v2013/documents/:identifier/securities/:operation"; },
+			draftSecurityUrl   : function() 	{ return "/api/v2013/documents/:identifier/versions/draft/securities/:operation"; },
+			draftLockUrl       : function() 	{ return "/api/v2013/documents/:identifier/versions/draft/locks/:lockID"; },
+			documentFacetsQueryUrl : function() { return "/api/v2013/documents/query/facets"; },
 		};
 
 		//==================================================
@@ -522,8 +522,8 @@ app.factory('IStorage', ["$http", "$q", "authentication", "realm", function($htt
 
 			metadata = angular.extend({}, { 'schema': schema }, metadata || {});
 
-			if (!metadata.government && authentication.user().government)
-				metadata = angular.extend(metadata, { 'government': authentication.user().government });
+			// if (!metadata.government && authentication.user().government)
+			// 	metadata = angular.extend(metadata, { 'government': authentication.user().government });
 
 			if (!metadata.realm && defaultRealm)
 				metadata = angular.extend(metadata, { 'realm': defaultRealm });

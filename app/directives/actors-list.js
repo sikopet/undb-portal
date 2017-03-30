@@ -1,4 +1,4 @@
-define(['text!./actors-list.html', 'app','moment','filters/trunc','filters/hack','factories/km-utilities','directives/actor' ], function(template, app,moment) {
+define(['text!./actors-list.html', 'app','moment-timezone','filters/trunc','filters/hack','factories/km-utilities','directives/actor' ], function(template, app,moment) {
     'use strict';
 
     app.directive('actorsList', ['$http','$location','locale',  function($http,$location,locale) {

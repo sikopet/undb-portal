@@ -1,17 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" git-version="<%=gitVersion%>">
 <head>
     <base href="<%=baseUrl%>">
+    <script> //Analytics
+        window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+        ga('create', 'UA-1996573-1', 'auto');
+        ga('set',    'hostname', window.location.hostname);
+        ga('set',    'location', undefined);
+    </script>
+    <script src="https://cdn.slaask.com/chat.js"></script>
+    <script>
+        //patch slaask to works with requireJS
+        window._slaask.createScriptTag = function (url) {
+            var t = {};
+            require([url], function() { t.onload(); });
+            return t;
+        };
+    </script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>United Nations Decade on Biodiversity</title>
+    <title ng-bind="$root.page.title">United Nations Decade on Biodiversity</title>
 
     <meta name="description" content="United Nations Decade on Biodiversity">
     <meta name="author" content="Secretariat of the Convention on Biological Diversity">
 
-    <script src="app/libs/requirejs/require.js" data-main="app/boot.js"></script>
+    <script src="/app/libs/requirejs/require.js?v=<%=gitVersion%>"></script>
+    <script src="/app/boot.js?v=<%=gitVersion%>"></script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
 
     <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
@@ -302,6 +318,7 @@
                         <li ng-mouseover="highlightLink='actions'" ng-mouseleave="highlightLink=''"><a href="actions">Actions</a><i ng-cloak ng-if="highlightLink=='actions' || path.indexOf('actions') >= 0" style="position:absolute;top:16px;left:18px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
                         <li ng-mouseover="highlightLink='actors'" ng-mouseleave="highlightLink=''"><a href="actors">Actors</a><i ng-cloak ng-if="highlightLink=='actors' || path.indexOf('actors') >= 0" style="position:absolute;top:16px;left:15px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
                         <li ng-mouseover="highlightLink='resources'" ng-mouseleave="highlightLink=''"><a href="resources">Resources</a><i ng-cloak ng-if="highlightLink=='resources' || path.indexOf('resources') >= 0" style="position:absolute;top:16px;left:27px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
+                        <li ng-mouseover="highlightLink='dashboard'" ng-mouseleave="highlightLink=''"><a href="dashboard">Dashboard</a><i ng-cloak ng-if="highlightLink=='dashboard' || path.indexOf('dashboard') >= 0" style="position:absolute;top:16px;left:27px;" class="color-darkgreen fa-lg fa fa-caret-up"></i></li>
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">

@@ -1,7 +1,7 @@
 define(['text!./ammap3.html',
     'app',
     'lodash',
-    'moment',
+    'moment-timezone',
     'text!./pin-popup-bio-champs.html',
     'text!./pin-popup-title-bio-champs.html',
     'text!./pin-popup-actions.html',

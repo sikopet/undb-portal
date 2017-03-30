@@ -1,3 +1,36 @@
+label.view {
+    color: #666;
+    margin-top: 0px;
+    margin-bottom: 5px;
+    padding-left: 5px;
+}
+
+legend.view {
+    background: none;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 15px -5px 20px -5px;
+    border-radius: 3px;
+        padding: 5px;
+}
+
+.km-value{
+  background-color: #f5f5f5;
+    border: 1px solid #c0c0c0;
+    border-radius: 3px;
+    padding: 10px 8px 10px 8px;
+    margin-top: 1px;
+    margin-bottom: 10px;
+    display: block;
+    -webkit-border-radius: 5px;
+
+}
+.form-header{
+  background-color:#004844 !important;
+}
+.form-header h2{
+  color:#fff !important;
+}
 /*actions on country profile page*/
 .calendar-result {
   width: 100%;
@@ -1000,7 +1033,7 @@ padding-left: 2px;
   max-width: 700px;
   margin: 30px 22px;
 }
-form input, form select, form .bootstrap-select button {
+/*form input, form select, form .bootstrap-select button {
     border: 1px solid #e6e6e6;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
@@ -1011,7 +1044,7 @@ form input, form select, form .bootstrap-select button {
     display: inline-block;
     margin: 8px 0;
     padding: 6px 12px;
-}
+}*/
 
 #logos .img-responsive {
     margin: 0 auto;
