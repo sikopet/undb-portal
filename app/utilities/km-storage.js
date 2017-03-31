@@ -499,6 +499,8 @@ app.factory('IStorage', ["$http", "$q", "authentication", "realm", function($htt
 						continue;
 
 					bExist = true;
+
+					if(params[key])
 					qMatches[k].value = params[key].toString();
 				}
 
