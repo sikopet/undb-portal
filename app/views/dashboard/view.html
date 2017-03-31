@@ -1,7 +1,9 @@
 <div class="container">
     <div class="row article">
-  <div class="col-xs-12">
-    <view-organization loading="loading" header="viewCtrl.header" user="viewCtrl.user" ng-model="viewCtrl.document" locale="viewCtrl.locale" ng-if="viewCtrl.schema==='organization'"></view-organization>
-  </div>
-</div>
+        <div class="col-xs-12">
+            <view-organization loading="loading" header="viewCtrl.header" user="viewCtrl.user" ng-model="viewCtrl.document" locale="viewCtrl.locale" ng-if="viewCtrl.schema==='organization'"></view-organization>
+            <view-undb-actor loading="loading" header="viewCtrl.header" user="viewCtrl.user" ng-model="viewCtrl.document" locale="viewCtrl.locale" ng-if="viewCtrl.schema==='undbActor'"></view-undb-actor>
+  
+        </div>
+    </div>
 </div>
