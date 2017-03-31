@@ -48,7 +48,7 @@ app.directive('editOrganization', ['$http',"$rootScope", "Enumerable", "$filter"
 
 			   cbdSubjects     : function() { return $http.get("/api/v2013/thesaurus/domains/CBD-SUBJECTS/terms",                         { cache: true }).then(function(o){
 
-			   	var subjects = ['CBD-SUBJECT-BIOMES', 'CBD-SUBJECT-CROSS-CUTTING','CBD-SUBJECT-CPB'];
+			   	var subjects = ['CBD-SUBJECT-BIOMES', 'CBD-SUBJECT-CROSS-CUTTING','CBD-SUBJECT-CPB','CBD-SUBJECT-PART-INIT-COOP'];
 			   	var items = [];
 
 			   		_.forEach(subjects, function(subject) {
@@ -164,7 +164,7 @@ app.directive('editOrganization', ['$http',"$rootScope", "Enumerable", "$filter"
 				if($scope.tab=='members'&& !$scope.isBCH($scope.document) && $scope.isAbs($scope.document)	) { prev = 'absch';  }
 				if($scope.tab=='members'&& !$scope.isBCH($scope.document) && !$scope.isAbs($scope.document)	) { prev = 'chm';  }
 				if($scope.tab=='bch'	&& $scope.isAbs($scope.document)) { prev = 'absch';  }
-				if($scope.tab=='bch'	&& !$scope.isAbs($scope.document)) { prev = 'chm';  }			
+				if($scope.tab=='bch'	&& !$scope.isAbs($scope.document)) { prev = 'chm';  }
 				if($scope.tab=='absch'	) { prev = 'chm'; 	 }
 				if($scope.tab=='chm'	) { prev = 'social';}
 				if($scope.tab=='social'	) { prev = 'detail';}

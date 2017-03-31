@@ -41,19 +41,17 @@ app.directive('editEvent', ['$http',"$rootScope", "Enumerable", "$filter", "$q",
 
 			   cbdSubjects     : function() { return $http.get("/api/v2013/thesaurus/domains/CBD-SUBJECTS/terms",                         { cache: true }).then(function(o){
 
-			   	var subjects = ['CBD-SUBJECT-BIOMES', 'CBD-SUBJECT-CROSS-CUTTING','CBD-SUBJECT-CPB'];
+			   	var subjects = ['CBD-SUBJECT-BIOMES', 'CBD-SUBJECT-CROSS-CUTTING','CBD-SUBJECT-CPB','CBD-SUBJECT-PART-INIT-COOP'];
 			   	var items = [];
 
 			   		_.forEach(subjects, function(subject) {
-			   			var term = _.findWhere(o.data, {'identifier': subject } );
+				   			var term = _.findWhere(o.data, {'identifier': subject } );
 
-			   			items.push(term);
+				   			items.push(term);
 
-			   			_(term.narrowerTerms).forEach(function (term) {
-			   				items.push(_.findWhere(o.data, {'identifier':term}));
-
-			   			}).value();
-
+				   			_(term.narrowerTerms).forEach(function (term) {
+				   				items.push(_.findWhere(o.data, {'identifier':term}));
+				   			}).value();
 			   		});
 			   		return items;
 			   	});
