@@ -32,7 +32,7 @@
 				<div class="row">
 					<div class="col-xs-12">
 						<ul class="pagination hidden-xs">
-							<li ng-class="{ disabled: tab=='general' }"><a href="" ng-click="prevTab()">&laquo;</a></li>
+							<li ng-class="{ disabled: tab=='hosts' }"><a href="" ng-click="prevTab()">&laquo;</a></li>
 							<li ng-class="{ active  : tab=='hosts' }"><a href="" ng-click="tab='hosts'">Hosts</a></li>
 							<li ng-class="{ active  : tab=='detail' }"><a href="" ng-click="tab='details'">Details</a></li>
 							<li ng-class="{ active  : tab=='duration' }"><a href="" ng-click="tab='social'">Duration(s)</a></li>
@@ -43,7 +43,7 @@
 							<li ng-class="{ disabled: tab=='review'  }"><a href="" ng-click="nextTab()">&raquo;</a></li>
 						</ul>
 						<ul class="pagination small visible-xs">
-							<li ng-class="{ disabled: tab=='general' }"><a href="" ng-click="prevTab()">&laquo;</a></li>
+							<li ng-class="{ disabled: tab=='hosts' }"><a href="" ng-click="prevTab()">&laquo;</a></li>
 							<li ng-class="{ active  : tab=='hosts' }"><a href="" ng-click="tab='hosts'">Hosts</a></li>
 							<li ng-class="{ active  : tab=='detail' }"><a href="" ng-click="tab='details'">Details</a></li>
 							<li ng-class="{ active  : tab=='duration' }"><a href="" ng-click="tab='social'">Duration(s)</a></li>
@@ -61,84 +61,103 @@
 					<form name="editForm" style="margin-top:10px" novalidate>
 
 					  <div km-tab="hosts">
-					    <div class="col-md-8 col-xs-12">
-					        <div class="km-control-group" name="contactOrganization" required caption="Contact Organization">
-					            <select-contact multiple="true" name="linkedOrganizations" schema="organization" ng-model="document.linkedOrganizations" caption="Select >>"></select-contact>
-					        </div>
-					    </div>
+
 							<div class="col-md-8 col-xs-12">
-					        <div class="km-control-group" name="organizations" required caption="Member Organizations">
-					            <select-contact multiple="true" name="linkedOrganizations" schema="organization" ng-model="document.linkedOrganizations" caption="Select >>"></select-contact>
+					        <div class="km-control-group" name="contactOrganization" required caption="Contact Host Organization">
+					            <select-contact  name="contactOrganization" schema="organization" ng-model="document.contactOrganization" caption="Select >>"></select-contact>
 					        </div>
 					    </div>
+
+							<div class="col-md-8 col-xs-12">
+									<div class="km-control-group" name="organizations"  caption="Contributing Host Organizations">
+											<select-contact multiple="true" name="organizations" schema="organization" ng-model="document.organizations" caption="Select >>"></select-contact>
+									</div>
+							</div>
+
 							<div class="col-md-8 col-xs-12">
 									<div class="km-control-group" name="governemnts" required caption="Related Parties & Governemnts ">
-											<select-contact multiple="true" name="governemnts" schema="organization" ng-model="document.linkedOrganizations" caption="Select >>"></select-contact>
-									</div>
+									<div km-select required name="governemnts" ng-model="document.governemnts" items="options.countries()"></div>									</div>
 							</div>
 					  </div>
 
 					  <div km-tab="detail">
-
 					      <div class="row">
 
-					        <div class="col-md-8 col-xs-12">
-					          <div class="km-control-group" name="name" required caption="Name of the organization">
-					            <div km-textbox-ml name="name" required ng-model="document.name" placeholder="text entry" locales="document.header.languages"></div>
+					        <div class="col-md-12 col-xs-12">
+					          <div class="km-control-group" name="title" required caption="Title">
+					            <div km-textbox-ml name="title" required ng-model="document.title" placeholder="text entry" locales="document.header.languages"></div>
 					          </div>
 					        </div>
-
-					        <div class="col-md-4 col-xs-12">
-					          <div class="km-control-group" name="acronym" required caption="Acronym">
-					            <div km-textbox-ml name="acronym" required ng-model="document.acronym" placeholder="text entry" locales="document.header.languages"></div>
-					          </div>
-					        </div>
-					      </div>
-
-					      <div class="row">
-					          <km-address ng-model="document" locales="document.header.languages" validate="validate"></km-address>
-					      </div>
-
-					      <div class="row">
+									<br>
+									<div class="col-xs-12">
+											<div class="km-control-group" name="description" caption="Description">
+													<div class="help-info small">Briefly describe your event action in one or more of the 6 United Nations languages<span class="pull-right small red" style="color:red;" ng-if="document.description[locale].length">Word Count: {{wordCount(document.description[locale])}}</span></div>
+													<div km-textbox-ml rows="4" name="description" ng-model="document.description" placeholder="text entry" locales="document.header.languages"></div>
+											</div>
+									</div>
+									<br>
+									<div class="col-xs-12">
+											<div class="km-control-group" name="descriptionNative" caption="Description Native Language">
+													<div class="help-info small">Briefly describe your event action in your native language<span class="pull-right small red" style="color:red;" ng-if="document.description[locale].length">Word Count: {{wordCount(document.descriptionNative[locale])}}</span></div>
+													<textarea class="form-control" rows="4" name="descriptionNative" ng-model="document.descriptionNative"  ></textarea>
+											</div>
+									</div>
+									<br>
 					        <div class="col-md-6 col-xs-12">
-					          <div class="km-control-group" name="emails" required caption="Email(s)">
-					            <div km-inputtext-list required name="emails" ng-model="document.emails" placeholder="example: secretariat@cbd.int"></div>
+					          <div class="km-control-group" name="symbol" required caption="Symbol">
+					            <input  name="symbol" ng-model="document.symbol" placeholder="example: CBD/CP/MOP/DEC/VIII/1"/>
 					          </div>
 					        </div>
-					      </div>
+									<br>
+									<div class="col-md-6 col-xs-12">
+										<div class="km-control-group" name="eventType" caption="Type of event action">
+											<div required km-select name="eventType" ng-model="document.type" items="options.eventTypes()"></div>
+										</div>
+									</div>
 
+					      </div>
 					  </div>
 
 					  <div km-tab="duration">
-
-
 					    <div class="row">
-
 
 					      <div class="col-md-6">
 					        <div class="km-control-group" name="contact_organizationType" caption="Type of organization">
 					          <div required km-select name="contact_organizationType" ng-model="document.organizationType" items="options.organizationTypes()"></div>
 					        </div>
 					      </div>
-					    </div>
 
-					    <div class="col-md-6">
-					      <div class="km-control-group" name="contact_organizationType" caption="Type of organization">
-					        <div required km-select name="contact_organizationType" ng-model="document.organizationType" items="options.organizationTypes()"></div>
-					      </div>
-					    </div>
+						    <div class="col-md-6">
+						      <div class="km-control-group" name="contact_organizationType" caption="Type of organization">
+						        <div required km-select name="contact_organizationType" ng-model="document.organizationType" items="options.organizationTypes()"></div>
+						      </div>
+						    </div>
 
-					    <div class="row">
 					      <div class="col-md-12">
 					        <div class="km-control-group" name="address" caption="Any other relevant information">
 					          <div class="help-block">Please use this field to provide any other relevant information that may not have been addressed elsewhere in the record.</div>
 					          <div km-textbox-ml ng-model="document.relevantInformation" rows="4" placeholder="" locales="document.header.languages"></div>
 					        </div>
 					      </div>
+
 					    </div>
 					  </div>
 
+						<div km-tab="location">
 
+					     <div class="row">
+
+					        <div class="col-md-12 col-xs-12">
+					          <div class="km-control-group" name="name" required caption="On-line event?">
+					            <div km-textbox-ml name="name" required ng-model="document.name" placeholder="text entry" locales="document.header.languages"></div>
+					          </div>
+					        </div>
+
+					      <div class="row">
+					          <km-address ng-model="document" locales="document.header.languages" validate="validate"></km-address>
+					      </div>
+					  	</div>
+						</div>
 					  <div km-tab="social">
 
 					    <div class="row">

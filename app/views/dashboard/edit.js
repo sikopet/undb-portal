@@ -1,6 +1,7 @@
 define(['app', 'lodash',
 'directives/forms/edit-organization',
-'directives/forms/edit-undb-actor'
+'directives/forms/edit-undb-actor',
+'directives/forms/edit-event',
 ], function(app, _) { 'use strict';
 
 	return ['$scope','$routeParams','user', function ($scope,$routeParams,user) {
@@ -13,7 +14,6 @@ define(['app', 'lodash',
 
 				$scope.$root.page={};
 				$scope.$root.page.title = "Edit:";
-				// console.log('schema',schema);
-				// console.log('id',id);
+
     }];
 });
