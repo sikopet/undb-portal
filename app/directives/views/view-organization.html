@@ -288,7 +288,7 @@
                 <label class="view">Organization’s profile</label>
                 <div class="km-value">
                     <div ng-repeat="item in document.profileLink">
-                        <a target="{{target}}" ng-href="{{item.url}}">{{item.name||item.url}}</a>
+                        <a target="_blank" ng-href="{{item.url}}">{{item.name||item.url}}</a>
                         <i ng-show="item.name">({{item.url}})</i>
                     </div>
                 </div>
@@ -303,6 +303,7 @@
                 <div ng-repeat="term in document.thematicAreas">{{term | term:locale}}</div>
             </div>
         </div>
+
         <div class="col-xs-12 col-md-6" ng-if="document.aichiTargets">
             <label class="view">Related Aichi Biodiversity Target(s)</label>
             <div class="km-value">
@@ -312,6 +313,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 
     <div class="row" ng-if="document.thematicAreas || document.aichiTargets || document.absThematicAreas ||document.bchSubjects">
@@ -343,7 +345,7 @@
     <div ng-show="document.relevantDocuments">
         <label class="view">Other relevant website address or attached documents</label>
         <div class="km-value">
-            <div ng-repeat="item in document.relevantDocuments"><a target="{{target}}" ng-href="{{item.url}}">{{item.name||item.url}}</a></div>
+            <div ng-repeat="item in document.relevantDocuments"><a target="_blank" ng-href="{{item.url}}">{{item.name||item.url}}</a></div>
         </div>
     </div>
 

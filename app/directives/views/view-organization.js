@@ -36,12 +36,14 @@ app.directive('viewOrganization', ["IStorage","$location","locale","$sce", funct
 			$scope.getAichiNumber= function(term) {
 					 return term.identifier.slice(-2);
 			};
+			
 			//====================
 			//
 			//====================
 			$scope.isReview = function() {
 					 return !!($location.url().indexOf('/view')>-1);
 			};
+
 			//====================
 			//
 			//====================
@@ -59,7 +61,6 @@ app.directive('viewOrganization', ["IStorage","$location","locale","$sce", funct
 			//
 			//====================
 			$scope.getLogo = function(org) {
-console.log(org);
 					if(!org.relevantDocuments) return false;
 					return _.find(org.relevantDocuments,{name:'logo'});
 			};
@@ -74,6 +75,7 @@ console.log(org);
 					$scope.isAdmin = !!_.intersection($scope.user.roles, ["Administrator","UNDBPublishingAuthority","undb-administrator"]).length;
 					return  $scope.isAdmin ;
 			};
+
 			//====================
 			//
 			//====================
