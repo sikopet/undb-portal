@@ -122,8 +122,8 @@
 					  <div km-tab="duration">
 					    <div class="row">
 								<div class="col-xs-12" >
-									<div class="km-control-group" name="name" required caption="Is this an IDB celabration?">
-										<div km-yes-no name="name" required ng-model="document.isIdb" placeholder="text entry" locales="document.header.languages"></div>
+									<div class="km-control-group" name="isIdb" caption="Is this an IDB celabration?">
+										<div km-yes-no name="isIdb"  ng-model="document.isIdb" placeholder="text entry" locales="document.header.languages"></div>
 									</div>
 								</div>
 	                <div class="col-md-2 col-xs-12">
@@ -229,12 +229,10 @@
 					  </div>
 
 						<div km-tab="location">
-
 					    <div class="row">
-
 					        <div class="col-xs-12" ng-class="{'col-md-4':(document.onlineEvent===true),'col-md-12':(document.onlineEvent===false)}">
-					          <div class="km-control-group" name="name" required caption="On-line event?">
-					            <div km-yes-no name="name" required ng-model="document.onlineEvent" placeholder="text entry" locales="document.header.languages"></div>
+					          <div class="km-control-group" name="onlineEvent" required caption="On-line event?">
+					            <div km-yes-no name="onlineEvent" required ng-model="document.onlineEvent" placeholder="text entry" locales="document.header.languages"></div>
 					          </div>
 					        </div>
 									<div class="col-md-8 col-xs-12" ng-if="document.onlineEvent===true">
@@ -244,8 +242,8 @@
 						        </div>
 					        </div>
 									<div class="col-md-4 col-xs-12" ng-if="document.onlineEvent===true">
-					          <div class="km-control-group" name="everyCountry" required caption="Is your on-line event global?">
-					            <div km-yes-no name="everyCountry" required ng-model="document.everyCountry"  ></div>
+					          <div class="km-control-group" name="everyCountry"  caption="Is your on-line event global?">
+					            <div km-yes-no name="everyCountry"  ng-model="document.everyCountry"  ></div>
 					          </div>
 					        </div>
 									<div class="col-md-8 col-xs-12" ng-if="document.onlineEvent===true">
@@ -310,7 +308,7 @@
 					        <div class="form-group" ng-class="{ 'has-warning': !loading && form.logo.$invalid, 'has-error' : form.$submitted && form.logo.$invalid }">
 					          <label for="logo" class="control-label" style="line-height:20px;">Logo</label>
 					          <div ng-if="logo" class="img-container">
-					            <img ng-src="{{document.logo.url}}?v=<%=gitVersion%>&thumbnail=true" style="padding-bottom:10px">
+					            <img ng-src="{{document.logo}}?v=<%=gitVersion%>&thumbnail=true" style="padding-bottom:10px">
 					          </div>
 					          <input type="file" class="form-control" name="logo" id="logo" accept="image/*" placeholder="Logo" ng-model="document.logo" on-file="upload(files)" ng-disabled="disabled()">
 					          <p class="help-block small">Please attach a logo or image of your Actor (max. 500KB). The image on the profile will be fitted into 200 x 200 px.</p>

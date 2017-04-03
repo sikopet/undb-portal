@@ -110,7 +110,8 @@ app.directive('editEvent', ['$http',"$rootScope", "Enumerable", "$filter", "$q",
 			$scope.$watch("document.contactOrganization", function() {
 					if($scope.document && $scope.document.contactOrganization){
 							if(!$scope.document.organizations)$scope.document.organizations=[];
-							$scope.document.organizations.push($scope.document.contactOrganization);
+							if(!_.find($scope.document.organizations,$scope.document.contactOrganization))
+								$scope.document.organizations.push($scope.document.contactOrganization);
 					}
 			},true);
 
@@ -377,6 +378,7 @@ app.directive('editEvent', ['$http',"$rootScope", "Enumerable", "$filter", "$q",
 			//
 			//==================================
 			$scope.onPreSaveDraft = function() {
+	console.log($scope.document);
 				return $scope.cleanUp();
 			};
 
@@ -442,12 +444,15 @@ app.directive('editEvent', ['$http',"$rootScope", "Enumerable", "$filter", "$q",
 				if (!document)
 				return $q.when(true);
 
-				_.each(document,function(property,name){
-						if(_.isEmpty(document[name])) delete(document[name]);
-				});
+				// _.each(document,function(property,name){
+				// 		if(_.isEmpty(document[name])) delete(document[name]);
+				// });
 
 				if(document.everyCountry)
 					delete(document.everyCountry);
+
+				if(document.isIdb)
+						delete(document.isIdb);
 
 				if (/^\s*$/g.test(document.notes))
 					document.notes = undefined;
