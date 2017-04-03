@@ -34,8 +34,8 @@
 						<ul class="pagination hidden-xs">
 							<li ng-class="{ disabled: tab=='hosts' }"><a href="" ng-click="prevTab()">&laquo;</a></li>
 							<li ng-class="{ active  : tab=='hosts' }"><a href="" ng-click="tab='hosts'">Hosts</a></li>
-							<li ng-class="{ active  : tab=='detail' }"><a href="" ng-click="tab='details'">Details</a></li>
-							<li ng-class="{ active  : tab=='duration' }"><a href="" ng-click="tab='social'">Duration(s)</a></li>
+							<li ng-class="{ active  : tab=='detail' }"><a href="" ng-click="tab='detail'">Details</a></li>
+							<li ng-class="{ active  : tab=='duration' }"><a href="" ng-click="tab='duration'">Duration(s)</a></li>
 						  <li ng-class="{ active  : tab=='location' }"><a href="" ng-click="tab='location'">Location</a></li>
 							<li ng-class="{ active  : tab=='social' }"><a href="" ng-click="tab='social'">Social</a></li>
 							<li ng-class="{ active  : tab=='chm'     }"><a href="" ng-click="tab='chm'">Thematic Areas</a></li>
@@ -45,8 +45,8 @@
 						<ul class="pagination small visible-xs">
 							<li ng-class="{ disabled: tab=='hosts' }"><a href="" ng-click="prevTab()">&laquo;</a></li>
 							<li ng-class="{ active  : tab=='hosts' }"><a href="" ng-click="tab='hosts'">Hosts</a></li>
-							<li ng-class="{ active  : tab=='detail' }"><a href="" ng-click="tab='details'">Details</a></li>
-							<li ng-class="{ active  : tab=='duration' }"><a href="" ng-click="tab='social'">Duration(s)</a></li>
+							<li ng-class="{ active  : tab=='detail' }"><a href="" ng-click="tab='detail'">Details</a></li>
+							<li ng-class="{ active  : tab=='duration' }"><a href="" ng-click="tab='duration'">Duration(s)</a></li>
 						  <li ng-class="{ active  : tab=='location' }"><a href="" ng-click="tab='location'">Location</a></li>
 							<li ng-class="{ active  : tab=='social' }"><a href="" ng-click="tab='social'">Social</a></li>
 							<li ng-class="{ active  : tab=='chm'     }"><a href="" ng-click="tab='chm'">Thematic Areas</a></li>
@@ -75,8 +75,9 @@
 							</div>
 
 							<div class="col-md-8 col-xs-12">
-									<div class="km-control-group" name="governemnts" required caption="Related Parties & Governemnts ">
-									<div km-select required name="governemnts" ng-model="document.governemnts" items="options.countries()"></div>									</div>
+									<div class="km-control-group" name="governments" required caption="Related Parties & Governemnts ">
+									<div km-select multiple required name="governments" ng-model="document.governments" items="options.countries()"></div>
+								</div>
 							</div>
 					  </div>
 
@@ -105,13 +106,13 @@
 									<br>
 					        <div class="col-md-6 col-xs-12">
 					          <div class="km-control-group" name="symbol" required caption="Symbol">
-					            <input  name="symbol" ng-model="document.symbol" placeholder="example: CBD/CP/MOP/DEC/VIII/1"/>
+					            <input  class="form-control" name="symbol" ng-model="document.symbol" placeholder="example: CBD/CP/MOP/DEC/VIII/1"/>
 					          </div>
 					        </div>
 									<br>
 									<div class="col-md-6 col-xs-12">
 										<div class="km-control-group" name="eventType" caption="Type of event action">
-											<div required km-select name="eventType" ng-model="document.type" items="options.eventTypes()"></div>
+											<div required km-select multiple name="eventType" ng-model="document.type" items="options.eventTypes()"></div>
 										</div>
 									</div>
 
@@ -120,42 +121,142 @@
 
 					  <div km-tab="duration">
 					    <div class="row">
+								<div class="col-xs-12" >
+									<div class="km-control-group" name="name" required caption="Is this an IDB celabration?">
+										<div km-yes-no name="name" required ng-model="document.isIdb" placeholder="text entry" locales="document.header.languages"></div>
+									</div>
+								</div>
+	                <div class="col-md-2 col-xs-12">
+												<div class="form-group" caption="Start Date" ng-class="{ 'has-warning': (form.startDate.$invalid || form.endDate.$invalid), 'has-error' : form.$submitted && (form.startDate.$invalid || form.endDate.$invalid) }">
+													<div class="km-control-group" name="startDate" caption="Start Date">
+	                        <input date-time-picker  type="text" class="form-control date" name="startDate" id="startDate" ng-model="document.startDate" ng-pattern="patterns.date" required   ng-trim="true"  >
+	                        <p class="help-block error" ng-show="form.startDate.$error.required">This field is mandatory</p>
+	                        <p class="help-block error" ng-show="form.startDate.$error.pattern">The date format must be YYYY-MM-DD</p>
+													</div>
+											</div>
+ 									</div>
+	                <div class="col-md-1 col-xs-12 text-center">
+											<h2 style="line-height:50px;"> to </h2>
+									</div>
+	                <div class="col-md-2 col-xs-12">
+												<div class="form-group"  ng-class="{ 'has-warning': (form.startDate.$invalid || form.endDate.$invalid), 'has-error' : form.$submitted && (form.startDate.$invalid || form.endDate.$invalid) }">
+													<div class="km-control-group" name="endDate" caption="End Date">
+	                        <input date-time-picker  min-date="document.startDate" type="text" class="form-control date" name="endDate" id="endDate" ng-model="document.endDate" ng-model-options="{allowInvalid: true}" date-helper="document.endDate" required ng-pattern="patterns.date" ng-trim="true"  >
+	                        <p class="help-block error" ng-show="form.endDate.$error.required">This field is mandatory</p>
+	                        <p class="help-block error" ng-show="form.endDate.$error.pattern">The date format must be YYYY-MM-DD</p>
+													 </div>
+	                    </div>
+	                </div>
 
-					      <div class="col-md-6">
-					        <div class="km-control-group" name="contact_organizationType" caption="Type of organization">
-					          <div required km-select name="contact_organizationType" ng-model="document.organizationType" items="options.organizationTypes()"></div>
-					        </div>
-					      </div>
 
-						    <div class="col-md-6">
-						      <div class="km-control-group" name="contact_organizationType" caption="Type of organization">
-						        <div required km-select name="contact_organizationType" ng-model="document.organizationType" items="options.organizationTypes()"></div>
-						      </div>
-						    </div>
+									<div class="col-xs-12">
+										<div class=" panel panel-default" ng-if="document.startDate && document.endDate">
+	  									 <div class="panel-heading">Durations</div>
+										  <div class="panel-body">
+												<div class="col-md-7 col-xs-12">
+															<div class="form-group"  ng-class="{ 'has-warning': (form.startDateDuration.$invalid ), 'has-error' : form.$submitted && (form.startDateDuration.$invalid) }">
+																<div class="km-control-group" name="duration"  caption="Title">
+											            <div km-textbox-ml name="duration"  ng-model="duration.title" placeholder="text entry" locales="document.header.languages"></div>
+											          </div>
+														</div>
+												</div>
+												<div class="col-md-2 col-xs-5">
+															<div class="form-group"  >
+																<div class="km-control-group" name="duration.startDate" caption="Start Time">
+				                        <input date-time-picker  min-date="document.startDate" max-date="document.endDate"  type="text" class="form-control" name="duration.startDate"   ng-model="duration.startDate"  >
+																</div>
+														</div>
+			 									</div>
+												<div class="col-md-2 col-xs-5">
+															<div class="form-group"  >
+																<div class="km-control-group" name="duration.endDate" caption="End Time">
+																	<input date-time-picker  min-date="duration.startDate" max-date="document.endDate"  type="text"  class="form-control" name="duration.endDate"  ng-model="duration.endDate"  >
+																</div>
+															</div>
+												</div>
+												<div class="col-md-1 col-xs-2">
 
-					      <div class="col-md-12">
-					        <div class="km-control-group" name="address" caption="Any other relevant information">
-					          <div class="help-block">Please use this field to provide any other relevant information that may not have been addressed elsewhere in the record.</div>
-					          <div km-textbox-ml ng-model="document.relevantInformation" rows="4" placeholder="" locales="document.header.languages"></div>
-					        </div>
-					      </div>
+															<div class="km-control-group" >
+																   <button title="Add" type="button" class="btn btn-default" ng-click="addDuration(duration)" style="margin-top:20px;"><i class="fa fa-plus"></i></button>
+															</div>
+
+												</div>
+												<div class="col-xs-12">
+													<hr style="margin-top:0;">
+
+												</div>
+												<div class="col-xs-12" ng-repeat="duration in document.durations track by $index">
+													 <div class="col-md-6 col-xs-12">
+														 {{duration.title | lstring}}
+													 </div>
+													 <div class="col-md-4 col-xs-12 text-center">
+														 {{duration.startDate | moment:'format':'YYYY-MM-DD HH:mm'}} <br><br><strong>to</strong><br><br>  {{duration.endDate | moment:'format':'YYYY-MM-DD HH:mm'}}
+													 </div>
+													 <div class="col-md-2 col-xs-12">
+														 <div class="btn-group  text-right" >
+																	<!-- <button title="Edit" type="button" class="btn btn-default" ng-click="editDuration($index)" ><i class="fa fa-edit"></i></button> -->
+																	<button title="Delete" type="button" class="btn btn-default" ng-click="deleteDuration($index)" ><i class="fa fa-trash"></i></button>
+														 </div>
+													 </div>
+													 <div class="col-xs-12">
+													 	<hr >
+													</div>
+												</div>
+
+											</div>
+										</div>
+
+											<!-- <div class="col-xs-3">
+													<div class="form-group"  ng-class="{ 'has-warning': (form.endDateDuration.$invalid ), 'has-error' : form.$submitted && (form.endDateDuration.$invalid ) }">
+															<div class="km-control-group" name="endDateDuration" caption="End date for duration">
+																<input type="text" class="form-control date" name="endDateDuration" id="endDateDuration" ng-model="document.endDateDuration" ng-model-options="{allowInvalid: true}" date-helper="document.endDateDuration" required ng-pattern="patterns.date" ng-trim="true"  >
+																<p class="help-block error" ng-show="form.endDateDuration.$error.required">This field is mandatory</p>
+																<p class="help-block error" ng-show="form.endDateDuration.$error.pattern">The date format must be YYYY-MM-DD</p>
+															</div>
+													</div>
+											</div>
+
+											<div class="col-xs-3">
+													<div class="form-group"  ng-class="{ 'has-warning': (form.startDate.$invalid || form.endDate.$invalid), 'has-error' : form.$submitted && (form.startDate.$invalid || form.endDate.$invalid) }">
+															<div class="km-control-group" name="endDateDuration" caption="Start date for duration">
+																<input type="text" class="form-control date" name="endDateDuration" id="endDateDuration" ng-model="document.endDateDuration" ng-model-options="{allowInvalid: true}" date-helper="document.endDateDuration" required ng-pattern="patterns.date" ng-trim="true"  >
+															</div>
+													</div>
+											</div> -->
+									</div>
 
 					    </div>
 					  </div>
 
 						<div km-tab="location">
 
-					     <div class="row">
+					    <div class="row">
 
-					        <div class="col-md-12 col-xs-12">
+					        <div class="col-xs-12" ng-class="{'col-md-4':(document.onlineEvent===true),'col-md-12':(document.onlineEvent===false)}">
 					          <div class="km-control-group" name="name" required caption="On-line event?">
-					            <div km-textbox-ml name="name" required ng-model="document.name" placeholder="text entry" locales="document.header.languages"></div>
+					            <div km-yes-no name="name" required ng-model="document.onlineEvent" placeholder="text entry" locales="document.header.languages"></div>
 					          </div>
 					        </div>
-
-					      <div class="row">
-					          <km-address ng-model="document" locales="document.header.languages" validate="validate"></km-address>
-					      </div>
+									<div class="col-md-8 col-xs-12" ng-if="document.onlineEvent===true">
+										<div class="km-control-group" name="website" caption="Website" required >
+						          <input required ng-change="updateWebsites('website',website);" type="url" class="form-control" name="website" id="website" ng-model="website" placeholder="Org. website" ng-disabled="disabled()" on-focus-helper start="http://">
+						          <p class="help-block error" ng-show="!loading && form.website.$error.url">This is not a valid web address</p>
+						        </div>
+					        </div>
+									<div class="col-md-4 col-xs-12" ng-if="document.onlineEvent===true">
+					          <div class="km-control-group" name="everyCountry" required caption="Is your on-line event global?">
+					            <div km-yes-no name="everyCountry" required ng-model="document.everyCountry"  ></div>
+					          </div>
+					        </div>
+									<div class="col-md-8 col-xs-12" ng-if="document.onlineEvent===true">
+										<div class="col-md-8 col-xs-12">
+												<div class="km-control-group" name="governments" required caption="Related Parties & Governemnts ">
+												<p class="help-block" >Your on-line event will appear in the following government or partie profile(s). </p>
+												<div km-select multiple required name="governments" ng-model="document.governments" items="options.countries()"></div>
+											</div>
+										</div>
+					        </div>
+					        <km-address ng-if="document.onlineEvent===false" ng-model="document.address" locales="document.header.languages" validate="validate" embed="event"></km-address>
 					  	</div>
 						</div>
 					  <div km-tab="social">
@@ -165,7 +266,7 @@
 					      <div class="col-md-6 col-xs-12">
 					        <div class="form-group" ng-class="{ 'has-warning': !loading && form.website.$invalid, 'has-error' : form.$submitted && form.website.$invalid }">
 					          <label for="webite" class="control-label">Website</label>
-					          <input ng-change="updateWebsites('website',website);updateProfileLink('website',website);" type="url" class="form-control" name="website" id="website" ng-model="website" placeholder="Org. website" ng-disabled="disabled()" on-focus-helper start="http://">
+					          <input ng-change="updateWebsites('website',website);" type="url" class="form-control" name="website" id="website" ng-model="website" placeholder="Org. website" ng-disabled="disabled()" on-focus-helper start="http://">
 					          <p class="help-block error" ng-show="!loading && form.website.$error.url">This is not a valid web address</p>
 					        </div>
 					      </div>
@@ -200,24 +301,37 @@
 					      </div>
 
 					      <div class="col-md-6 col-xs-12">
-					        <div class="control-group" name="websites" caption="Web Sites">
-					          <label for="twitter" class="control-label">Additional Links</label>
+					        <div class="km-control-group" name="websites" caption="Additional Links">
 					          <div km-link name="websites" ng-model="document.websites" allow-link="true" allow-file="false"></div>
 					        </div>
 					      </div>
 
 					      <div class="col-md-6 col-xs-12">
 					        <div class="form-group" ng-class="{ 'has-warning': !loading && form.logo.$invalid, 'has-error' : form.$submitted && form.logo.$invalid }">
-					          <label for="logo" class="control-label" style="line-height:20px;">Logo
-					                  </label>
+					          <label for="logo" class="control-label" style="line-height:20px;">Logo</label>
 					          <div ng-if="logo" class="img-container">
-					            <img ng-src="{{logo}}?thumbnail=true" style="padding-bottom:10px">
+					            <img ng-src="{{document.logo.url}}?thumbnail=true" style="padding-bottom:10px">
 					          </div>
-					          <input type="file" class="form-control" name="logo" id="logo" accept="image/*" placeholder="Logo" ng-model="logo" on-file="upload(files)" ng-disabled="disabled()">
+					          <input type="file" class="form-control" name="logo" id="logo" accept="image/*" placeholder="Logo" ng-model="document.logo" on-file="upload(files)" ng-disabled="disabled()">
 					          <p class="help-block small">Please attach a logo or image of your Actor (max. 500KB). The image on the profile will be fitted into 200 x 200 px.</p>
 					        </div>
 					      </div>
+								<div class="col-md-6 col-xs-12">
+					        <div class="km-control-group" name="images" caption="Images">
+					          <div km-link name="images" ng-model="document.images" allow-link="true" allow-file="true" identifier="document.header.identifier"></div>
+					        </div>
+					      </div>
 
+								<div class="col-md-6 col-xs-12">
+									<div class="km-control-group" name="documents" caption="Douments">
+										<div km-link name="documents" ng-model="document.documents" allow-link="true" allow-file="true" identifier="document.header.identifier"></div>
+									</div>
+								</div>
+								<div class="col-md-6 col-xs-12">
+									<div class="km-control-group" name="videos" caption="Videos">
+										<div km-link name="videos" ng-model="document.videos" allow-link="true" allow-file="false" identifier="document.header.identifier"></div>
+									</div>
+								</div>
 					    </div>
 					  </div>
 
@@ -237,6 +351,7 @@
 					      </div>
 					    </div>
 					  </div>
+
 					</form>
 
 
@@ -252,8 +367,8 @@
 							<ul class="pagination hidden-xs">
 								<li ng-class="{ disabled: tab=='general' }"><a href="" ng-click="prevTab()">&laquo;</a></li>
 								<li ng-class="{ active  : tab=='hosts' }"><a href="" ng-click="tab='hosts'">Hosts</a></li>
-								<li ng-class="{ active  : tab=='detail' }"><a href="" ng-click="tab='details'">Details</a></li>
-								<li ng-class="{ active  : tab=='duration' }"><a href="" ng-click="tab='social'">Duration(s)</a></li>
+								<li ng-class="{ active  : tab=='detail' }"><a href="" ng-click="tab='detail'">Details</a></li>
+								<li ng-class="{ active  : tab=='duration' }"><a href="" ng-click="tab='duration'">Duration(s)</a></li>
 							  <li ng-class="{ active  : tab=='location' }"><a href="" ng-click="tab='location'">Location</a></li>
 								<li ng-class="{ active  : tab=='social' }"><a href="" ng-click="tab='social'">Social</a></li>
 								<li ng-class="{ active  : tab=='chm'     }"><a href="" ng-click="tab='chm'">Thematic Areas</a></li>
@@ -263,8 +378,8 @@
 							<ul class="pagination small visible-xs">
 								<li ng-class="{ disabled: tab=='general' }"><a href="" ng-click="prevTab()">&laquo;</a></li>
 								<li ng-class="{ active  : tab=='hosts' }"><a href="" ng-click="tab='hosts'">Hosts</a></li>
-								<li ng-class="{ active  : tab=='detail' }"><a href="" ng-click="tab='details'">Details</a></li>
-								<li ng-class="{ active  : tab=='duration' }"><a href="" ng-click="tab='social'">Duration(s)</a></li>
+								<li ng-class="{ active  : tab=='detail' }"><a href="" ng-click="tab='detail'">Details</a></li>
+								<li ng-class="{ active  : tab=='duration' }"><a href="" ng-click="tab='duration'">Duration(s)</a></li>
 							  <li ng-class="{ active  : tab=='location' }"><a href="" ng-click="tab='location'">Location</a></li>
 								<li ng-class="{ active  : tab=='social' }"><a href="" ng-click="tab='social'">Social</a></li>
 								<li ng-class="{ active  : tab=='chm'     }"><a href="" ng-click="tab='chm'">Thematic Areas</a></li>
@@ -295,5 +410,7 @@
 						</div>
 				</div>
 		</div>
-
+		<div class="col-md-12">
+ <pre>{{document |json}}</pre>
+ </div>
 </div>

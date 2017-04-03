@@ -14,13 +14,16 @@ define(['text!./edit-event.html', 'text!./undb-records-dialog.html','app', 'angu
 'directives/controls/km-link',
 'directives/controls/km-inputtext-ml',
 'directives/controls/km-inputtext-list',
+'directives/controls/km-yes-no',
 'directives/controls/scbd-tab',
 'directives/controls/km-terms-check',
 'providers/locale',
-'directives/views/view-organization'
+'directives/views/view-organization',
+'directives/bootstrap-date-time-picker',
+'filters/moment'
 ], function(template,bbiRecordsDialog, app, angular, _) { 'use strict';
 
-app.directive('editEvent', ['$http',"$rootScope", "Enumerable", "$filter", "$q", "guid", "$location", "Thesaurus", 'authentication', 'editFormUtility',  'IStorage', '$route','$timeout','locale','userSettings','ngDialog',  function ($http, $rootScope, Enumerable, $filter, $q, guid, $location, thesaurus, authentication, editFormUtility, storage, $route,$timeout,locale,userSettings,ngDialog) {
+app.directive('editEvent', ['$http',"$rootScope", "Enumerable", "$filter", "$q", "guid", "$location", "Thesaurus", 'authentication', 'editFormUtility',  'IStorage', '$route','$timeout','locale','userSettings','ngDialog', function ($http, $rootScope, Enumerable, $filter, $q, guid, $location, thesaurus, authentication, editFormUtility, storage, $route,$timeout,locale,userSettings,ngDialog) {
 	return {
 		restrict   : 'E',
 		template   : template,
@@ -29,19 +32,29 @@ app.directive('editEvent', ['$http',"$rootScope", "Enumerable", "$filter", "$q",
 		scope: {user:'='},
 		link : function($scope)
 		{
+
 			$scope.schema = 'event';
 			$scope.status   = "";
 			$scope.error    = null;
 			$scope.document = null;
 			$scope.tab      = 'hosts';
 			$scope.review   = { locale: "en" };
+			$scope.patterns = {
+					facebook : /^http[s]?:\/\/(www.)?facebook.com\/.+/i,
+					twitter  : /^http[s]?:\/\/twitter.com\/.+/i,
+					youtube  : /^http[s]?:\/\/(www.)?youtube.com\/\w+\/.+/i,
+					phone    : /^\+\d+(\d|\s|ext|[\.,\-#*()]|)+$/i,
+					date     : /^\d{4}-\d{1,2}-\d{1,2}$/,
+					time     : /^([0-1][0-9]|2[0-3]|[0-9]):[0-5][0-9]$/
+			};
+			$scope.duration={};
 			$scope.options  = {
 				countries					: function() { return $http.get("/api/v2013/thesaurus/domains/countries/terms",            { cache: true }).then(function(o){ return $filter('orderBy')(o.data, 'name'); }); },
 				aichiTargets  : function() { return $http.get("/api/v2013/thesaurus/domains/AICHI-TARGETS/terms",                        { cache: true }).then(function(o){ return o.data; }); },
-
+        eventTypes: function(){ return $http.get("/api/v2013/thesaurus/domains/CBD-EVENT-TYPES/terms",{ cache: true }).then(function(o){ return o.data; }); },
 			   cbdSubjects     : function() { return $http.get("/api/v2013/thesaurus/domains/CBD-SUBJECTS/terms",                         { cache: true }).then(function(o){
 
-			   	var subjects = ['CBD-SUBJECT-BIOMES', 'CBD-SUBJECT-CROSS-CUTTING','CBD-SUBJECT-CPB','CBD-SUBJECT-PART-INIT-COOP'];
+			   	var subjects = ['CBD-SUBJECT-BIOMES', 'CBD-SUBJECT-CROSS-CUTTING','CBD-SUBJECT-CPB','CBD-SUBJECT-OUT+CEPA'];
 			   	var items = [];
 
 			   		_.forEach(subjects, function(subject) {
@@ -57,6 +70,54 @@ app.directive('editEvent', ['$http',"$rootScope", "Enumerable", "$filter", "$q",
 			   	});
 			   }
 			};
+
+			$scope.$watch("document.isIdb", function() {
+
+				if($scope.document && $scope.document.isIdb)
+				{
+					if(!$scope.document || !$scope.document.thematicAreas)$scope.document.thematicAreas=[];
+					$scope.document.thematicAreas.push({"identifier": "CBD-SUBJECT-OUT+CEPA"});
+					$scope.document.thematicAreas.push({"identifier": "CBD-SUBJECT-IBD"});
+					$scope.document.thematicAreas.push({ "identifier": "CBD-SUBJECT-UNDB"});
+					if(!$scope.document || !$scope.document.aichiTargets)$scope.document.aichiTargets=[];
+					$scope.document.aichiTargets.push({"identifier": "AICHI-TARGET-01"});
+
+				}else{
+					if(!$scope.document || !$scope.document.thematicAreas) return;
+					 var i =_.findIndex($scope.document.thematicAreas,{"identifier": "CBD-SUBJECT-OUT+CEPA"});
+					 if(i>=0)
+					 		$scope.document.thematicAreas.splice(i,1);
+					 i=-1;
+					 i = _.findIndex($scope.document.thematicAreas,{"identifier": "CBD-SUBJECT-IBD"});
+					 if(i>=0)
+							$scope.document.thematicAreas.splice(i,1);
+					 i=-1;
+					 i = _.findIndex($scope.document.thematicAreas,{"identifier": "CBD-SUBJECT-UNDB"});
+					 if(i>=0)
+							$scope.document.thematicAreas.splice(i,1);
+					 i=-1;
+					 if(!$scope.document || !$scope.document.aichiTargets) return;
+					 i = _.findIndex($scope.document.aichiTargets,{"identifier": "AICHI-TARGET-01"});
+					 if(i>=0)
+							$scope.document.aichiTargets.splice(i,1);
+				}
+
+			});
+			$scope.$watch("document.organizations", function() {
+				if($scope.document && $scope.document.organizations)
+					defaultGovernments();
+			},true);
+			$scope.$watch("document.contactOrganization", function() {
+					if($scope.document && $scope.document.contactOrganization){
+							if(!$scope.document.organizations)$scope.document.organizations=[];
+							$scope.document.organizations.push($scope.document.contactOrganization);
+					}
+			},true);
+
+			$scope.$watch("document.everyCountry", function() {
+				if($scope.document && $scope.document.onlineEvent)
+					$timeout(updateGlobalEvent);
+			});
 
 			$scope.$watch("document.websites", function() {
 						if($scope.document && $scope.document.websites && _.find($scope.document.websites,{name:'website'}))
@@ -160,46 +221,26 @@ app.directive('editEvent', ['$http',"$rootScope", "Enumerable", "$filter", "$q",
 
 				else
 					 $scope.document.websites.push({name:name,url:value,type:'link'});
-				if(name==='website'){
-					$scope.website=value;
-					if(!$scope.document.profileLink || !Array.isArray($scope.document.profileLink ))
-					$scope.document.profileLink =[];
-					$scope.document.profileLink.push({name:name,url:value,type:'link'});
-				}
+
 				$scope.document.websites=_.compact($scope.document.websites);
 			};
-			//============================================================
-			//
-			//============================================================
-			$scope.updateProfileLink = function(name,value) {
-				if(!$scope.document.profileLink) $scope.document.profileLink =[];
-				var site = _.find($scope.document.profileLink,{'name':name});
-				if(site)
-						if(value)
-							site.url=value;
-						else
-							delete($scope.document.profileLink[_.findIndex($scope.document.profileLink,{'name':name})]);
 
-				else
-					 $scope.document.profileLink.push({name:name,url:value,type:'link'});
-				$scope.document.profileLink=_.compact($scope.document.profileLink);
-			};
 			//============================================================
 			//
 			//============================================================
 			$scope.logoUpload = function(name,value) {
 
-				if(!$scope.document.relevantDocuments) $scope.document.relevantDocuments =[];
-				var site = _.find($scope.document.relevantDocuments,{'name':name});
+				if(!$scope.document.images) $scope.document.images =[];
+				var site = _.find($scope.document.images,{'name':name});
 				if(site)
 						if(value)
 							site.url=value;
 						else
-							delete($scope.document.relevantDocuments[_.findIndex($scope.document.relevantDocuments,{'name':name})]);
+							delete($scope.document.images[_.findIndex($scope.document.images,{'name':name})]);
 
 				else
-					 $scope.document.relevantDocuments.push({name:name,url:value,type:'link'});
-				$scope.document.relevantDocuments=_.compact($scope.document.relevantDocuments);
+					 $scope.document.images.push({name:name,url:value,type:'link'});
+				$scope.document.images=_.compact($scope.document.images);
 			};
 
 			$scope.placesSearch =function(){
@@ -210,7 +251,7 @@ app.directive('editEvent', ['$http',"$rootScope", "Enumerable", "$filter", "$q",
 					 var service = new google.maps.places.AutocompleteService();
 					 service.getQueryPredictions({input:$scope.placeSearch},function(predictions, status) {
 				         if (status != google.maps.places.PlacesServiceStatus.OK)
-				            $timeout(function(){$scope.noPredictions = true})
+				            $timeout(function(){$scope.noPredictions = true;});
 				          else
 										$timeout(function(){$scope.noPredictions = false;});
 								}
@@ -242,13 +283,14 @@ app.directive('editEvent', ['$http',"$rootScope", "Enumerable", "$filter", "$q",
 					}).then(function(attachInfo) {
 
 							$scope.logo  = '/api/v2013/documents/'+attachInfo.documentUID+'/attachments/'+encodeURIComponent(attachInfo.filename);
-							$scope.logoUpload('logo',$scope.logo  );
+							//$scope.logoUpload('logo',$scope.logo  );
+							$scope.document.logo={name:'logo',url:$scope.logo,type:'link'};
 					}).catch(res_Error).finally(function() {
 
 							delete $scope.saving;
 
 					});
-			}
+			};
 
 			//==============================
 			//
@@ -271,195 +313,6 @@ app.directive('editEvent', ['$http',"$rootScope", "Enumerable", "$filter", "$q",
 					console.error($scope.errors);
 			}
 
-			//==============================
-			//
-			//
-			//==============================
-			$scope.clearSlacesSearch =function(){
-					 $scope.selectedPlace='';
-					 $scope.placeSearch='';
-					 $scope.noPredictions=false;
-					 delete($scope.document.name);
-					 delete($scope.document.address);
-					 delete($scope.document.city);
-					 delete($scope.document.state);
-				   delete($scope.document.country);
-				   delete($scope.document.phones);
-				   delete($scope.document.websites);
-				   delete($scope.document.phones);
-				   delete($scope.document.postalCode);
-			};
-			$scope.newOrg =function(){
-				   $scope.clearSlacesSearch();
-					 $scope.isNewOrg=true;
-			};
-
-			//============================================================
-			//
-			//============================================================
-			$scope.initMap = function() {
-
-
-				$timeout(function(){
-	         var input = document.getElementById('pac-input');
-	         var searchBox = new google.maps.places.Autocomplete(input);
-
-					 searchBox.setTypes(['establishment']);
-//searchBox.setTypes(['address']);
-
-					 searchBox.addListener('place_changed', function() {
-						 $timeout(function(){
-
-							 $scope.selectedPlace = searchBox.getPlace();
-
-								loadGoogleData ();
-								$timeout(function(){
-									$scope.validate();
-								});
-
-
-						 });
-
-	         });
-				},100);
-
-			};
-
-			//==================================
-			//
-			//==================================
-			function loadGoogleData (){
-
-				$scope.document.name=	{};
-				$scope.document.name[locale]=	$scope.selectedPlace.name;
-				$scope.document.establishmentGooglePlaceId=$scope.selectedPlace.place_id;
-				$scope.document.address				=	formatGoogleAddress($scope.selectedPlace.address_components);
-				$scope.document.city					={};
-		    $scope.document.city[locale]	=	getAddressCompnent($scope.selectedPlace.address_components,'locality'); // city
-				$scope.document.state					={};
-				$scope.document.state[locale]	=	getAddressCompnent($scope.selectedPlace.address_components,'administrative_area_level_1'); //state
-
-				var country = getAddressCompnent($scope.selectedPlace.address_components,'country','short_name').toLowerCase();
-
-			  $scope.document.country 			=	{identifier:country};
-				$scope.document.postalCode		={};
-				$scope.document.postalCode[locale] =	getAddressCompnent($scope.selectedPlace.address_components,'postal_code');
-        $scope.document.phones				=[];
-				$scope.document.phones.push($scope.selectedPlace.international_phone_number);
-				$scope.mapsUrl=$scope.selectedPlace.url;
-				$scope.updateWebsites('Google Maps',$scope.selectedPlace.url);
-
-				if($scope.selectedPlace.website)
-				$scope.updateWebsites('website',$scope.selectedPlace.website);
-				$scope.document.coordinates={};
-				$scope.document.coordinates.lat=$scope.selectedPlace.geometry.location.lat();
-				$scope.document.coordinates.lng=$scope.selectedPlace.geometry.location.lng();
-			}
-
-			//==================================
-			//
-			//==================================
-			function formatGoogleAddress(addressComponents){
-
-				var formatedAddress = {};
-				formatedAddress[locale]='';
-
-				if(getAddressCompnent(addressComponents,'street_number'))
-						formatedAddress[locale]+=	getAddressCompnent(addressComponents,'street_number')+', ';
-
-				if(getAddressCompnent(addressComponents,'route'))
-						formatedAddress[locale]+=	getAddressCompnent(addressComponents,'route')+', ';
-
-				if(getAddressCompnent(addressComponents,'neighborhood'))
-						formatedAddress[locale]+=	getAddressCompnent(addressComponents,'neighborhood')+', ';
-
-				if(getAddressCompnent(addressComponents,'administrative_area_level_2'))
-						formatedAddress[locale]+=	getAddressCompnent(addressComponents,'administrative_area_level_2')+', ';
-
-				if(getAddressCompnent(addressComponents,'subpremise'))
-						formatedAddress[locale]+=	getAddressCompnent(addressComponents,'subpremise')+', ';
-
-				formatedAddress[locale]=formatedAddress[locale].slice(0,formatedAddress[locale].length-2);
-
-				return formatedAddress;
-
-			}
-
-			//==================================
-			//
-			//==================================
-			function getAddressCompnent(addressComponents,type,length){
-				var returnVal = '';
-				if(!length) length='long_name';
-				else length='short_name';
-				_.each(addressComponents,function(comp){
-							if(comp.types.indexOf(type)>-1)
-								returnVal = comp[length];
-				});
-				return returnVal;
-			}
-			//==================================
-			//
-			//==================================
-			$scope.IsCapacityBuilding = function(document) {
-				document = document || $scope.document;
-
-				if (!document || !document.purpose)
-					return false;
-
-				var purposes = _.map(document.purpose, 'identifier');
-
-				return _.includes(purposes, 'A5C5ADE8-2061-4AB8-8E2D-1E6CFF5DD793') || // Assessing capacity-building needs
-					   _.includes(purposes, '3813BA1A-2DE7-4DD5-8415-3B2C6737E567') || // Designing capacity building initiatives
-					   _.includes(purposes, '5054AC52-E738-4694-A403-6490FE7D4CF4') || // Monitoring and evaluation of capacity-building initiatives and products
-					   _.includes(purposes, '05FA6F66-F942-4713-BB4C-DA032C111188') || // Providing technical guidance
-					   _.includes(purposes, '9F48AEA0-EE28-4B6F-AB91-E0E088A8C6B7') || // Raising awareness
-					   _.includes(purposes, '5831C357-95CA-4F09-963B-DF9E8AFD8C88');   // Training/learning
-			};
-
-			//==================================
-			//
-			//==================================
-			$scope.isAbs = function(document) {
-
-				document = document || $scope.document;
-
-				if (!document || !document.aichiTargets && !document.thematicAreas)
-					return false;
-
-				var targets = _.map(document.aichiTargets, 'identifier');
-				var subjects = _.map(document.thematicAreas, 'identifier');
-				return _.includes(targets, 'AICHI-TARGET-16') || _.includes(subjects, 'CBD-SUBJECT-ABS') ;
-			};
-			//==================================
-			//
-			//==================================
-			$scope.isBCH = function(document) {
-
-				document = document || $scope.document;
-
-				if (!document || !document.thematicAreas)
-					return false;
-
-				var subjects = _.map(document.thematicAreas, 'identifier');
-				return _.includes(subjects, 'CBD-SUBJECT-CPB') ;
-			};
-			//==================================
-			//
-			//==================================
-			$scope.IsBchRa = function(document) {
-				document = document || $scope.document;
-
-				if (!document || !document.bchSubjects)
-					return false;
-
-				var qLibraries = Enumerable.from(document.bchSubjects);
-
-				return qLibraries.any(function(o) {
-					return o.identifier == "FBAF958B-14BF-45DD-BC6D-D34A9953BCEF"  || //Risk assessment
-					       o.identifier == "6F28D3FB-7CCE-4FD0-8C29-FB0306C52BD0";    //Risk assessment and risk management
-				});
-			};
 
 			//==================================
 			//
@@ -475,18 +328,12 @@ app.directive('editEvent', ['$http',"$rootScope", "Enumerable", "$filter", "$q",
 				return !!$scope.error;
 			};
 
-			//==================================
-			//
-			//==================================
-			$scope.userGovernment = function() {
-				return $scope.user.government;
-			};
 
 			//==================================
 			//
 			//==================================
 			$scope.init = function() {
-				$scope.initMap();
+
 				if ($scope.document)
 					return;
 
@@ -509,16 +356,17 @@ app.directive('editEvent', ['$http',"$rootScope", "Enumerable", "$filter", "$q",
 
 					});
 
-
 				promise.then(
 					function(doc) {
 
 						$scope.status = "ready";
 						$scope.document = doc;
-						if($scope.document && $scope.document.websites && _.find($scope.document.websites,{name:'Google Maps'}))
-							$scope.mapsUrl=_.find($scope.document.websites,{name:'Google Maps'}).url;
-						if($scope.document && $scope.document.relevantDocuments && _.find($scope.document.relevantDocuments,{name:'logo'}))
-							$scope.logo=_.find($scope.document.relevantDocuments,{name:'logo'}).url;
+						if(doc.governments && doc.governments.length===198)
+							$scope.document.everyCountry=true;
+						// if($scope.document && $scope.document.websites && _.find($scope.document.websites,{name:'Google Maps'}))
+						// 	$scope.mapsUrl=_.find($scope.document.websites,{name:'Google Maps'}).url;
+						// if($scope.document && $scope.document.relevantDocuments && _.find($scope.document.relevantDocuments,{name:'logo'}))
+						// 	$scope.logo=_.find($scope.document.relevantDocuments,{name:'logo'}).url;
 					}).then(null,
 					function(err) {
 						$scope.onError(err.data, err.status);
@@ -564,7 +412,7 @@ app.directive('editEvent', ['$http',"$rootScope", "Enumerable", "$filter", "$q",
 			//==================================
 			//
 			//==================================
-			$scope.onPostSaveDraft = function(pass) {
+			$scope.onPostSaveDraft = function() {
 
 				$rootScope.$broadcast("onSaveDraft", "Draft record saved.");
 			};
@@ -598,13 +446,9 @@ app.directive('editEvent', ['$http',"$rootScope", "Enumerable", "$filter", "$q",
 				_.each(document,function(property,name){
 						if(_.isEmpty(document[name])) delete(document[name]);
 				});
-				if(!$scope.IsCapacityBuilding()){
-					document.targetGroups    = undefined;
-					document.expertiseLevels = undefined;
-				}
 
-				if(!$scope.IsCapacityBuilding() && !$scope.isAbs())
-					document.absKeyAreas     = undefined;
+				if(document.everyCountry)
+					delete(document.everyCountry);
 
 				if (/^\s*$/g.test(document.notes))
 					document.notes = undefined;
@@ -667,7 +511,7 @@ app.directive('editEvent', ['$http',"$rootScope", "Enumerable", "$filter", "$q",
 					}
 				return report;
 
-			};
+			}
 			//==================================
 			//
 			//==================================
@@ -677,7 +521,80 @@ app.directive('editEvent', ['$http',"$rootScope", "Enumerable", "$filter", "$q",
 
 				return true;
 			};
+			//==================================
+			//
+			//==================================
+			function updateGlobalEvent () {
+					if($scope.document && !$scope.document.everyCountry)
+						defaultGovernments();
+					else
+						loadGovernments();
+			}
+			//==================================
+			//
+			//==================================
+			function loadGovernments () {
+					$scope.options.countries().then(function(data){
+							$scope.document.governments=[];
+							_.each(data,function(country){
+								 $scope.document.governments.push({identifier:country.identifier});
+							});
+					});
+			}
 
+			//==================================
+			//
+			//==================================
+			function defaultGovernments () {
+					if(!$scope.document)return;
+
+					if(!$scope.document.governments)$scope.document.governments=[];
+
+					var tempGovs=[];
+					var promiseArray=[];
+					$scope.document.governments=[];
+
+					if($scope.document.contactOrganization && $scope.document.contactOrganization.identifier){
+							promiseArray.push($scope.loadRecords($scope.document.contactOrganization.identifier).then(function(data) {
+								if(!_.find(tempGovs,data.body.country))
+									tempGovs.push({identifier:data.body.country.identifier});
+							}));
+
+					}
+
+
+					if($scope.document.organizations && $scope.document.organizations.length>0)
+						_.each($scope.document.organizations, function(org){
+							promiseArray.push($scope.loadRecords(org.identifier).then(function(data) {
+								if(!_.find(tempGovs,data.body.country))
+									tempGovs.push({identifier:data.body.country.identifier});
+							}));
+						});
+					  $q.all(promiseArray).then(function(){
+								$scope.document.governments=tempGovs;
+						});
+
+			}
+			//==================================
+			//
+			//==================================
+			$scope.deleteDuration= function(index) {
+
+					$scope.document.durations.splice(index,1);
+
+			};
+
+			//==================================
+			//
+			//==================================
+			$scope.addDuration= function(duration) {
+					if(!$scope.document.durations)$scope.document.durations=[];
+					$scope.document.durations.push(_.clone(duration));
+					$scope.duration.startDate='';
+					$scope.duration.endDate='';
+					$scope.duration.title='';
+
+			};
 			//==================================
 			//
 			//==================================
