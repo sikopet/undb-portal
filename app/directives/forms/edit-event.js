@@ -18,7 +18,7 @@ define(['text!./edit-event.html', 'text!./undb-records-dialog.html','app', 'angu
 'directives/controls/scbd-tab',
 'directives/controls/km-terms-check',
 'providers/locale',
-'directives/views/view-organization',
+'directives/views/view-event',
 'directives/bootstrap-date-time-picker',
 'filters/moment'
 ], function(template,bbiRecordsDialog, app, angular, _) { 'use strict';
@@ -89,7 +89,7 @@ app.directive('editEvent', ['$http',"$rootScope", "Enumerable", "$filter", "$q",
 									tempArr.push({"identifier": "AICHI-TARGET-01"});
 									$scope.document.aichiTargets=tempArr;
 						});
-				}else{
+				}else if($scope.document && $scope.document.isIdb===false){
 					if(!$scope.document || !$scope.document.thematicAreas && !$scope.document.aichiTargets) return;
 					 var tempArr = _.clone($scope.document.thematicAreas);
 					 var i =_.findIndex(tempArr,{"identifier": "CBD-SUBJECT-OUT+CEPA"});
@@ -153,23 +153,23 @@ app.directive('editEvent', ['$http',"$rootScope", "Enumerable", "$filter", "$q",
 					youtube  : /^http[s]?:\/\/(www.)?youtube.com\/\w+\/.+/i,
 			};
 
-			userSettings.ready.then(bbiRecords);
-			//============================================================
-			//
-			//
-			//============================================================
-			function bbiRecords() {
-					if(typeof userSettings.setting('bbi.recordsNotice') ==='undefined' || !userSettings.setting('bbi.recordsNotice')){
-							$scope.bbiRecordsNotice=false;
-							ngDialog.open({
-										template: bbiRecordsDialog,
-										className: 'ngdialog-theme-default',
-										closeByDocument: false,
-										plain: true,
-										scope:$scope
-							});
-					}
-			}
+			// userSettings.ready.then(bbiRecords);
+			// //============================================================
+			// //
+			// //
+			// //============================================================
+			// function bbiRecords() {
+			// 		if(typeof userSettings.setting('bbi.recordsNotice') ==='undefined' || !userSettings.setting('bbi.recordsNotice')){
+			// 				$scope.bbiRecordsNotice=false;
+			// 				ngDialog.open({
+			// 							template: bbiRecordsDialog,
+			// 							className: 'ngdialog-theme-default',
+			// 							closeByDocument: false,
+			// 							plain: true,
+			// 							scope:$scope
+			// 				});
+			// 		}
+			// }
 
 			//============================================================
 			//
