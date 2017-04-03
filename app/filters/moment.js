@@ -1,26 +1,21 @@
-define(['app', 'moment'], function(app, moment) { 'use strict';
+define(['app', 'moment-timezone'], function(app, moment) { 'use strict';
 
+    app.filter('moment', [function() {
 
-    //============================================================
-    //
-    //============================================================
-    app.filter('datetime', function () {
-        return function (date, format) {
+        return function(datetime, method, arg1, arg2, arg3) {
 
-            format = format || "YYYY-MM-DD HH:MM";
-
-            if(!date)
-                return "";
-
-            var day = moment(date);
-
-            if(format)
-                return day.format(format);
-
-            return day.format();
+            return method ? moment(datetime)[method](arg1, arg2, arg3)
+                          : moment(datetime);
         };
-    });
+    }]);
+    app.filter('momentUtc', [function() {
 
+        return function(datetime, method, arg1, arg2, arg3) {
+
+            return method ? moment.utc(datetime)[method](arg1, arg2, arg3)
+                          : moment.utc(datetime);
+        };
+    }]);
     //============================================================
     //
     //============================================================

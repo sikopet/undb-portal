@@ -1,4 +1,4 @@
-define(['app', 'lodash', 'linqjs', 'URIjs/URI', "jquery"], function(app, _, Enumerable, URI, $) { 'use strict';
+define(['app', 'lodash', 'linqjs', 'URIjs/URI', "jquery",'filters/lstring'], function(app, _, Enumerable, URI, $) { 'use strict';
 
 app.filter("lstring", function() {
 	return function(ltext, locale) {

@@ -1,4 +1,4 @@
-define(['app', 'lodash', 'moment', 'providers/locale', 'factories/dev-router'], function(app, _) {
+define(['app', 'lodash', 'moment-timezone', 'providers/locale', 'factories/dev-router'], function(app, _) {
 
     app.factory("mongoStorage", ['$http', 'authentication', '$q', 'locale', '$filter', 'devRouter', function($http, authentication, $q, locale, $filter, devRouter) {
 
