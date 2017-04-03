@@ -31,7 +31,7 @@
                           {{organization.city | lstring:locale}}<span ng-show="organization.city">, </span>
                           {{organization.state | lstring:locale}}<br ng-show="organization.city || document.state" />
                           {{organization.postalCode | lstring:locale}}<span ng-show="organization.postalCode">, </span>
-                          <b>{{organization.country | term:locale}}</b> <image style="height:15px;;" ng-src="https://www.cbd.int/images/flags/96/flag-{{organization.country.identifier}}-96.png"></image>
+                          <b>{{organization.country | term:locale}}</b> <image style="height:15px;;" ng-src="https://www.cbd.int/images/flags/96/flag-{{organization.country.identifier}}-96.png?v=<%=gitVersion%>"></image>
                           <br>
                           <span ng-if="organization.emails"><br> </span>
                           <span ng-repeat="item in organization.emails">
@@ -88,7 +88,7 @@
                         </div>
                         <div class="col-xs-2" ng-show="organization.logo">
                             <div>
-                                <img width="100%" ng-src="{{organization.logo.url}}"></img>
+                                <img width="100%" ng-src="{{organization.logo.url}}?v=<%=gitVersion%>"></img>
                             </div>
                         </div>
         </div>
