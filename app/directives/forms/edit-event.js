@@ -72,34 +72,47 @@ app.directive('editEvent', ['$http',"$rootScope", "Enumerable", "$filter", "$q",
 			};
 
 			$scope.$watch("document.isIdb", function() {
-
 				if($scope.document && $scope.document.isIdb)
 				{
-					if(!$scope.document || !$scope.document.thematicAreas)$scope.document.thematicAreas=[];
-					$scope.document.thematicAreas.push({"identifier": "CBD-SUBJECT-OUT+CEPA"});
-					$scope.document.thematicAreas.push({"identifier": "CBD-SUBJECT-IBD"});
-					$scope.document.thematicAreas.push({ "identifier": "CBD-SUBJECT-UNDB"});
-					if(!$scope.document || !$scope.document.aichiTargets)$scope.document.aichiTargets=[];
-					$scope.document.aichiTargets.push({"identifier": "AICHI-TARGET-01"});
 
+						$timeout(function(){
+
+									if(!$scope.document || !$scope.document.thematicAreas)$scope.document.thematicAreas=[];
+									var tempArr = _.clone($scope.document.thematicAreas);
+									tempArr.push({"identifier": "CBD-SUBJECT-OUT+CEPA"});
+									tempArr.push({"identifier": "CBD-SUBJECT-IBD"});
+									tempArr.push({ "identifier": "CBD-SUBJECT-UNDB"});
+									$scope.document.thematicAreas=tempArr;
+
+									if(!$scope.document || !$scope.document.aichiTargets)$scope.document.aichiTargets=[];
+									tempArr=_.clone($scope.document.aichiTargets);
+									tempArr.push({"identifier": "AICHI-TARGET-01"});
+									$scope.document.aichiTargets=tempArr;
+						});
 				}else{
-					if(!$scope.document || !$scope.document.thematicAreas) return;
-					 var i =_.findIndex($scope.document.thematicAreas,{"identifier": "CBD-SUBJECT-OUT+CEPA"});
+					if(!$scope.document || !$scope.document.thematicAreas && !$scope.document.aichiTargets) return;
+					 var tempArr = _.clone($scope.document.thematicAreas);
+					 var i =_.findIndex(tempArr,{"identifier": "CBD-SUBJECT-OUT+CEPA"});
 					 if(i>=0)
-					 		$scope.document.thematicAreas.splice(i,1);
+					 		tempArr.splice(i,1);
 					 i=-1;
-					 i = _.findIndex($scope.document.thematicAreas,{"identifier": "CBD-SUBJECT-IBD"});
+					 i = _.findIndex(tempArr,{"identifier": "CBD-SUBJECT-IBD"});
 					 if(i>=0)
-							$scope.document.thematicAreas.splice(i,1);
+							tempArr.splice(i,1);
 					 i=-1;
-					 i = _.findIndex($scope.document.thematicAreas,{"identifier": "CBD-SUBJECT-UNDB"});
+					 i = _.findIndex(tempArr,{"identifier": "CBD-SUBJECT-UNDB"});
 					 if(i>=0)
-							$scope.document.thematicAreas.splice(i,1);
+							tempArr.splice(i,1);
 					 i=-1;
+					 $scope.document.thematicAreas = tempArr;
 					 if(!$scope.document || !$scope.document.aichiTargets) return;
-					 i = _.findIndex($scope.document.aichiTargets,{"identifier": "AICHI-TARGET-01"});
+					 tempArr = _.clone($scope.document.aichiTargets);
+					 i = _.findIndex(tempArr,{"identifier": "AICHI-TARGET-01"});
 					 if(i>=0)
-							$scope.document.aichiTargets.splice(i,1);
+							tempArr.splice(i,1);
+
+						$scope.document.aichiTargets=tempArr;
+
 				}
 
 			});

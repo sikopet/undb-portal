@@ -31,6 +31,8 @@ define(['app', 'moment', 'eonasdan-bootstrap-datetimepicker'], function(app, mom
 
                     $element.data('DateTimePicker').minDate($scope.minDate);
 
+                    if(ngModelCtrl.$viewValue)
+                      setPickerValue();
                     // $element.data('DateTimePicker').date(null);
                     // ngModelCtrl.$viewValue = '';
 
