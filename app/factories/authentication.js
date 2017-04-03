@@ -61,7 +61,7 @@ define(['app', 'angular', 'jquery'], function (app, ng, $) { 'use strict';
 
 				var defer = $q.defer();
 				var unauthorizedTimeout = $timeout(function(){
-					console.error('accounts is not available / call is made from an unauthorized domain');
+					console.error('accounts is not available / call is made from an unauthorized domain',accountsBaseUrl,authenticationFrameQ);
 					defer.resolve(null);
 				}, 1000);
 
