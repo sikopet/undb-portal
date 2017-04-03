@@ -30,8 +30,9 @@ define(['app', 'moment', 'eonasdan-bootstrap-datetimepicker'], function(app, mom
                     if (!$scope.minDate) return;
 
                     $element.data('DateTimePicker').minDate($scope.minDate);
-                    $element.data('DateTimePicker').date(null);
-                    ngModelCtrl.$viewValue = '';
+
+                    // $element.data('DateTimePicker').date(null);
+                    // ngModelCtrl.$viewValue = '';
 
                 });
                 $scope.$watch('maxDate', function() {
@@ -53,7 +54,8 @@ define(['app', 'moment', 'eonasdan-bootstrap-datetimepicker'], function(app, mom
                                 moment.tz.setDefault('UTC');
                                 if (e.target.value)
                                     ngModelCtrl.$setViewValue(moment(e.target.value, 'YYYY-MM-DD HH:mm').utc());
-
+                                else
+                                   $element.data('DateTimePicker').date(null);
                             });
                         }
                     })
@@ -71,8 +73,8 @@ define(['app', 'moment', 'eonasdan-bootstrap-datetimepicker'], function(app, mom
                         else
                             date = '';
                     }
-
-                    $element.data('DateTimePicker').date(date);
+                    moment.tz.setDefault('UTC');
+                    $element.data('DateTimePicker').date( moment(date, 'YYYY-MM-DD HH:mm').utc());
                 }
 
                 if (ngModelCtrl) {
