@@ -16,10 +16,13 @@ define(['app', 'text!./km-address.html','lodash', 'directives/controls/km-inputt
         ngChange: "&",
 	      validate: "&"
 			},
-			link: function ($scope, $element)//, $element, $attr
+			link: function ($scope, $element,$attr)//, $element, $attr
 			{
 
 						initGoogleAutoComplete();
+
+						if($attr.embed) $scope.embed=$attr.embed;
+
 						$scope.options={
 								countries	: function() { return $http.get("/api/v2013/thesaurus/domains/countries/terms",            { cache: true }).then(function(o){ return $filter('orderBy')(o.data, 'name'); }); },
 						};
@@ -30,8 +33,7 @@ define(['app', 'text!./km-address.html','lodash', 'directives/controls/km-inputt
 								if($scope.binding && $scope.binding.websites && _.find($scope.binding.websites,{name:'Google Maps'}))
 									$scope.mapsUrl=_.find($scope.binding.websites,{name:'Google Maps'}).url;
 								killWatch();
-								if($scope.binding.address && $scope.binding.city && $scope.binding.city && $scope.binding.country && $scope.binding.postalCode && $scope.binding.city && $scope.binding.coordinates)
-									$scope.useGoogle=false;
+								if(!isEmpty)$scope.useGoogle=false;
 						});
 
 						$scope.$watch("binding.websites", function() {
@@ -68,8 +70,7 @@ define(['app', 'text!./km-address.html','lodash', 'directives/controls/km-inputt
 						//==================================
 						function loadGoogleData (selectedPlace ){
 
-
-	//						$scope.binding.googlePlaceId	=selectedPlace.place_id;
+							if(!$scope.binding)$scope.binding={};
 							$scope.binding.address				=	formatGoogleAddress(selectedPlace.address_components);
 							$scope.binding.city						={};
 							$scope.binding.city[locale]		=	getAddressCompnent(selectedPlace.address_components,'locality'); // city
@@ -79,18 +80,33 @@ define(['app', 'text!./km-address.html','lodash', 'directives/controls/km-inputt
 							var country = getAddressCompnent(selectedPlace.address_components,'country','short_name').toLowerCase();
 
 							$scope.binding.country 			=	{identifier:country};
-							$scope.binding.postalCode		={};
+							$scope.binding.postalCode		= {};
 							$scope.binding.postalCode[locale] =	getAddressCompnent(selectedPlace.address_components,'postal_code');
-							$scope.binding.phones				=[];
-							$scope.binding.phones.push(selectedPlace.international_phone_number);
-							$scope.mapsUrl=selectedPlace.url;
-							updateWebsites('Google Maps',selectedPlace.url);
 
-							if(selectedPlace.website)
-							updateWebsites('website',selectedPlace.website);
-							$scope.binding.coordinates={};
-							$scope.binding.coordinates.lat=selectedPlace.geometry.location.lat();
-							$scope.binding.coordinates.lng=selectedPlace.geometry.location.lng();
+							if($attr.embed ==='event'){
+									$scope.binding.googleMapsUrl = selectedPlace.url;
+									$scope.binding.googlePlaceId = selectedPlace.place_id;
+									$scope.binding.geoLocation={};
+									$scope.binding.geoLocation.lat=selectedPlace.geometry.location.lat();
+									$scope.binding.geoLocation.lng=selectedPlace.geometry.location.lng();
+						  }
+
+							if($attr.embed ==='organization'){
+								  $scope.binding.establishmentGooglePlaceId= selectedPlace.place_id;
+									$scope.binding.phones				=[];
+									$scope.binding.phones.push(selectedPlace.international_phone_number);
+
+									$scope.mapsUrl=selectedPlace.url;
+									if(selectedPlace.url)
+									updateWebsites('Google Maps',selectedPlace.url);
+
+									if(selectedPlace.website)
+									updateWebsites('website',selectedPlace.website);
+
+									$scope.binding.coordinates={};
+									$scope.binding.coordinates.lat=selectedPlace.geometry.location.lat();
+									$scope.binding.coordinates.lng=selectedPlace.geometry.location.lng();
+							}
 						}
 
 						//==================================
@@ -121,6 +137,21 @@ define(['app', 'text!./km-address.html','lodash', 'directives/controls/km-inputt
 							return formatedAddress;
 
 						}
+
+						//==================================
+						//
+						//==================================
+						function isEmpty(){
+
+							if($scope.binding && (($scope.embed==='event' && $scope.binding.googlePlaceId) || ($scope.embed==='organization' && $scope.binding.establishmentGooglePlaceId))){
+
+								return false;
+							}else {
+
+								return true;
+							}
+						}
+						$scope.isEmpty = isEmpty;
 
 						//==================================
 						//
