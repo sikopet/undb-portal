@@ -282,9 +282,8 @@ app.directive('editEvent', ['$http',"$rootScope", "Enumerable", "$filter", "$q",
 
 					}).then(function(attachInfo) {
 
-							$scope.logo  = '/api/v2013/documents/'+attachInfo.documentUID+'/attachments/'+encodeURIComponent(attachInfo.filename);
-							//$scope.logoUpload('logo',$scope.logo  );
-							$scope.document.logo={name:'logo',url:$scope.logo,type:'link'};
+							$scope.document.logo  = '/api/v2013/documents/'+attachInfo.documentUID+'/attachments/'+encodeURIComponent(attachInfo.filename);
+
 					}).catch(res_Error).finally(function() {
 
 							delete $scope.saving;
