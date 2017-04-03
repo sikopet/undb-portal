@@ -307,7 +307,7 @@
 					      <div class="col-md-6 col-xs-12">
 					        <div class="form-group" ng-class="{ 'has-warning': !loading && form.logo.$invalid, 'has-error' : form.$submitted && form.logo.$invalid }">
 					          <label for="logo" class="control-label" style="line-height:20px;">Logo</label>
-					          <div ng-if="logo" class="img-container">
+					          <div ng-if="document.logo" class="img-container">
 					            <img ng-src="{{document.logo}}?v=<%=gitVersion%>&thumbnail=true" style="padding-bottom:10px">
 					          </div>
 					          <input type="file" class="form-control" name="logo" id="logo" accept="image/*" placeholder="Logo" ng-model="document.logo" on-file="upload(files)" ng-disabled="disabled()">
@@ -325,11 +325,7 @@
 										<div km-link name="documents" ng-model="document.documents" allow-link="true" allow-file="true" identifier="document.header.identifier"></div>
 									</div>
 								</div>
-								<div class="col-md-6 col-xs-12">
-									<div class="km-control-group" name="videos" caption="Videos">
-										<div km-link name="videos" ng-model="document.videos" allow-link="true" allow-file="false" identifier="document.header.identifier"></div>
-									</div>
-								</div>
+
 					    </div>
 					  </div>
 
@@ -357,7 +353,7 @@
 						<div class="btn-group" ng-show="document.header.languages.length>1">
 							<input type="button" class="btn" ng-class="{'active' : review.locale==locale, 'btn-info' : review.locale==locale}" ng-repeat="locale in document.header.languages" ng-click="$parent.review.locale = locale" value="{{locale | uppercase}}" />
 						</div>
-						<!-- <view-organization header="false" user="user" ng-model="document" locale="review.locale" link-target="_blank"></view-organization> -->
+						<view-event header="false" user="user" ng-model="document" locale="review.locale" link-target="_blank"></view-event>
 					</div>
 
 					<div class="row">
