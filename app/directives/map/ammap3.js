@@ -827,7 +827,7 @@ define(['text!./ammap3.html',
 
                     var area = getMapObject(country.code);
                     area.balloonText = "<i class='flag-icon flag-icon-" + String(country.code).toLowerCase() + " ng-if='country.isEUR'></i>&nbsp;";
-                    var euImg = "<img src='app/img/Flag_of_Europe.svg' style='width:25px;hight:21px;padding-left:0px;margin-left:0px;' ng-if='country.isEUR'></img>&nbsp;";
+                    var euImg = "<img src='app/img/Flag_of_Europe.svg?v=<%=gitVersion%>' style='width:25px;hight:21px;padding-left:0px;margin-left:0px;' ng-if='country.isEUR'></img>&nbsp;";
                     var balloonText2 = area.title + "";
                     if (country.isEUR)
                         area.balloonText += euImg;

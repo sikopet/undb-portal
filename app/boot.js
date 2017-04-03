@@ -1,3 +1,6 @@
+(function(document) { 'use strict';
+
+var gitVersion = document.documentElement.attributes['git-version'].value;
 
 require.config({
     waitSeconds: 120,
@@ -44,7 +47,8 @@ require.config({
     },
     packages: [
         { name: 'ammap', main: 'ammap', location : 'libs/ammap3/ammap' }
-    ]
+    ],
+    urlArgs: 'v=' + gitVersion
 });
 
 // BOOT
@@ -60,3 +64,4 @@ require(['angular', 'app', 'bootstrap', 'authentication', 'routes', 'template'],
 
 // Fix IE Console
 (function(a){a.console||(a.console={});for(var c="log info warn error debug trace dir group groupCollapsed groupEnd time timeEnd profile profileEnd dirxml assert count markTimeline timeStamp clear".split(" "),d=function(){},b=0;b<c.length;b++)a.console[c[b]]||(a.console[c[b]]=d)})(window); //jshint ignore:line
+})(document);
