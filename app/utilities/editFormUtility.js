@@ -74,7 +74,7 @@ define(['app','linqjs', 'utilities/realm','utilities/workflows'], function(app,E
 
       "organization"              : { name: "publishReferenceRecord", version: undefined },
       "undbActor"                 : { name: "publishReferenceRecord", version: undefined },
-      "biodiversityEvent"         : { name: "publishReferenceRecord", version: undefined },
+      "event"                     : { name: "publishReferenceRecord", version: undefined },
       "biodiversityBusinessPledge": { name: "publishReferenceRecord", version: undefined },
       "undbCountryProfile"        : { name: "publishNationalRecord", version:  undefined },
 
