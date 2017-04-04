@@ -1,5 +1,5 @@
 define(['app',  'lodash', 'text!./view-event.html',
-	'filters/mark-down', 'utilities/km-storage','filters/trust-as-resource-url'], function(app,  _, template){
+	'filters/mark-down', 'utilities/km-storage','filters/trust-as-resource-url','filters/moment'], function(app,  _, template){
 
 app.directive('viewEvent', ["IStorage","$location","locale","$sce", function (storage,$location,locale,$sce) {
 	return {
@@ -18,6 +18,7 @@ app.directive('viewEvent', ["IStorage","$location","locale","$sce", function (st
 		},
 		link : function ($scope)
 		{
+
 			$scope.contacts      = undefined;
 			$scope.organizations = undefined;
   		if(typeof $scope.header==='undefined') $scope.header=true;
@@ -56,7 +57,10 @@ app.directive('viewEvent', ["IStorage","$location","locale","$sce", function (st
 
 				if($scope.organizations){
 					$scope.loadReferences($scope.organizations);
-					$scope.loadReference($scope.contactOrganization);
+					$scope.loadReference($scope.contactOrganization).then(function(ref){
+							$scope.contactOrganization.document=ref.data;
+							$scope.contactOrganization.logo=_.find($scope.contactOrganization.document.relevantDocuments,{name:'logo'});
+					});
 				}
 
 			});

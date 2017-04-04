@@ -17,7 +17,7 @@ define(['text!./edit-undb-actor.html', 'text!./undb-records-dialog.html','app', 
 'directives/controls/scbd-tab',
 'directives/controls/km-terms-check',
 'providers/locale',
-'directives/views/view-organization',
+'directives/views/view-undb-actor',
 'directives/controls/select-contact',
 ], function(template,bbiRecordsDialog, app, angular, _) { 'use strict';
 
@@ -39,32 +39,32 @@ app.directive('editUndbActor', ['$http',"$rootScope", "Enumerable", "$filter", "
 			$scope.review   = { locale: "en" };
 
 
-			userSettings.ready.then(bbiRecords);
-			//============================================================
+			// userSettings.ready.then(bbiRecords);
+			// //============================================================
+			// //
+			// //
+			// //============================================================
+			// function bbiRecords() {
+			// 		if(typeof userSettings.setting('bbi.recordsNotice') ==='undefined' || !userSettings.setting('bbi.recordsNotice')){
+			// 				$scope.bbiRecordsNotice=false;
+			// 				ngDialog.open({
+			// 							template: bbiRecordsDialog,
+			// 							className: 'ngdialog-theme-default',
+			// 							closeByDocument: false,
+			// 							plain: true,
+			// 							scope:$scope
+			// 				});
+			// 		}
+			// }
 			//
-			//
-			//============================================================
-			function bbiRecords() {
-					if(typeof userSettings.setting('bbi.recordsNotice') ==='undefined' || !userSettings.setting('bbi.recordsNotice')){
-							$scope.bbiRecordsNotice=false;
-							ngDialog.open({
-										template: bbiRecordsDialog,
-										className: 'ngdialog-theme-default',
-										closeByDocument: false,
-										plain: true,
-										scope:$scope
-							});
-					}
-			}
-
-			//============================================================
-			//
-			//
-			//============================================================
-			function bbiRecordsNoticeChange(value) {
-					userSettings.setting('bbi.recordsNotice',value);
-			}//bbiRecordsNoticeChange
-			$scope.bbiRecordsNoticeChange=bbiRecordsNoticeChange;
+			// //============================================================
+			// //
+			// //
+			// //============================================================
+			// function bbiRecordsNoticeChange(value) {
+			// 		userSettings.setting('bbi.recordsNotice',value);
+			// }//bbiRecordsNoticeChange
+			// $scope.bbiRecordsNoticeChange=bbiRecordsNoticeChange;
 
 
 			//============================================================

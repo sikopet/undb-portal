@@ -128,7 +128,7 @@
 								</div>
 	                <div class="col-md-2 col-xs-12">
 												<div class="form-group" caption="Start Date" ng-class="{ 'has-warning': (form.startDate.$invalid || form.endDate.$invalid), 'has-error' : form.$submitted && (form.startDate.$invalid || form.endDate.$invalid) }">
-													<div class="km-control-group" name="startDate" caption="Start Date">
+													<div class="km-control-group" name="startDate" caption="Start date and time">
 	                        <input date-time-picker  type="text" class="form-control date" name="startDate" id="startDate" ng-model="document.startDate" ng-pattern="patterns.date" required   ng-trim="true"  >
 	                        <p class="help-block error" ng-show="form.startDate.$error.required">This field is mandatory</p>
 	                        <p class="help-block error" ng-show="form.startDate.$error.pattern">The date format must be YYYY-MM-DD</p>
@@ -140,7 +140,7 @@
 									</div>
 	                <div class="col-md-2 col-xs-12">
 												<div class="form-group"  ng-class="{ 'has-warning': (form.startDate.$invalid || form.endDate.$invalid), 'has-error' : form.$submitted && (form.startDate.$invalid || form.endDate.$invalid) }">
-													<div class="km-control-group" name="endDate" caption="End Date">
+													<div class="km-control-group" name="endDate" caption="End date and time">
 	                        <input date-time-picker  min-date="document.startDate" type="text" class="form-control date" name="endDate" id="endDate" ng-model="document.endDate" ng-model-options="{allowInvalid: true}" date-helper="document.endDate" required ng-pattern="patterns.date" ng-trim="true"  >
 	                        <p class="help-block error" ng-show="form.endDate.$error.required">This field is mandatory</p>
 	                        <p class="help-block error" ng-show="form.endDate.$error.pattern">The date format must be YYYY-MM-DD</p>

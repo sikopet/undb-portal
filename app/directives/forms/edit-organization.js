@@ -89,32 +89,32 @@ app.directive('editOrganization', ['$http',"$rootScope", "Enumerable", "$filter"
 					youtube  : /^http[s]?:\/\/(www.)?youtube.com\/\w+\/.+/i,
 			};
 
-			userSettings.ready.then(bbiRecords);
+			// userSettings.ready.then(bbiRecords);
 			//============================================================
 			//
 			//
 			//============================================================
-			function bbiRecords() {
-					if(typeof userSettings.setting('bbi.recordsNotice') ==='undefined' || !userSettings.setting('bbi.recordsNotice')){
-							$scope.bbiRecordsNotice=false;
-							ngDialog.open({
-										template: bbiRecordsDialog,
-										className: 'ngdialog-theme-default',
-										closeByDocument: false,
-										plain: true,
-										scope:$scope
-							});
-					}
-			}
-
-			//============================================================
+			// function bbiRecords() {
+			// 		if(typeof userSettings.setting('bbi.recordsNotice') ==='undefined' || !userSettings.setting('bbi.recordsNotice')){
+			// 				$scope.bbiRecordsNotice=false;
+			// 				ngDialog.open({
+			// 							template: bbiRecordsDialog,
+			// 							className: 'ngdialog-theme-default',
+			// 							closeByDocument: false,
+			// 							plain: true,
+			// 							scope:$scope
+			// 				});
+			// 		}
+			// }
 			//
-			//
-			//============================================================
-			function bbiRecordsNoticeChange(value) {
-					userSettings.setting('bbi.recordsNotice',value);
-			}//bbiRecordsNoticeChange
-			$scope.bbiRecordsNoticeChange=bbiRecordsNoticeChange;
+			// //============================================================
+			// //
+			// //
+			// //============================================================
+			// function bbiRecordsNoticeChange(value) {
+			// 		userSettings.setting('bbi.recordsNotice',value);
+			// }//bbiRecordsNoticeChange
+			// $scope.bbiRecordsNoticeChange=bbiRecordsNoticeChange;
 
 			//============================================================
 			//

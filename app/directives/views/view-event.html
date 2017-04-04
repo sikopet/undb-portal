@@ -5,7 +5,7 @@
                 <h2><span  >Action</span></h2>
             </div>
             <div class="col-xs-2">
-                <h4 ng-if="isReview()"><span class="pull-right"><a class="btn btn-xs btn-default" href="dashboard/submit/organization/{{document.header.identifier}}" ><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span ng-if="!isAdmin()">Suggest an</span> Edit</a></span></h4>
+                <h4 ng-if="isReview()"><span class="pull-right"><a class="btn btn-xs btn-default" href="dashboard/submit/event/{{document.header.identifier}}" ><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span ng-if="!isAdmin()">Suggest an</span> Edit</a></span></h4>
             </div>
         </div>
     </div>
@@ -51,6 +51,29 @@
                         <div  ng-repeat="term in document.type">{{term | term:locale}}</div>
                     </div>
                 </div>
+            </div>
+
+            <legend ng-if="document.startDate || document.endDate || document.documents" class="view">Durations</legend>
+            <div class="row" ng-if="document.startDate || document.endDate || document.documents">
+              <div class="col-xs-6 col-xs-12" ng-show="document.startDate">
+                  <label class="view">Start date and time</label>
+                  <div class="km-value" >
+                      <div >{{document.startDate | moment:'format':'YYYY-MM-DD HH:mm'}}</div>
+                  </div>
+              </div>
+              <div class="col-xs-6 col-xs-12" ng-show="document.endDate">
+                  <label class="view">End date and time</label>
+                  <div class="km-value" >
+                      <div >{{document.endDate | moment:'format':'YYYY-MM-DD HH:mm'}}</div>
+                  </div>
+              </div>
+              <div  class="col-xs-12" ng-show="document.durations">
+                  <label class="view">Durations</label>
+                  <div class="col-xs-12 km-value" >
+                      <div ng-repeat-start="duration in document.durations" class="col-xs-6">{{duration.title | lstring}}</div>
+                      <div ng-repeat-end class="col-xs-6">	{{duration.startDate | moment:'format':'YYYY-MM-DD HH:mm'}} <br><br><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to</strong><br><br>  {{duration.endDate | moment:'format':'YYYY-MM-DD HH:mm'}}</div>
+                  </div>
+              </div>
             </div>
 
             <legend ng-if="document.address" class="view">Location</legend>
@@ -191,25 +214,79 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-12 col-md-6" ng-if="document.logo">
-                    <div>
-                        <label class="view">Logo</label>
-                        <div class="km-value">
-                            <div >
-                                <img ng-src="{{document.logo}}" width="200px;"></img>
+
+            </div>
+            <legend class="view" ng-if="contactOrganization">Contact Host Organizations</legend>
+            <div ng-if="contactOrganization">
+              <div class="col-xs-12 km-value" >
+                        <div ng-class="{'col-xs-10':contactOrganization.logo,'col-xs-12':!contactOrganization.logo}">
+                            <div>
+                                <strong>{{contactOrganization.document.name | lstring:locale}} </strong><i ng-show="contactOrganization.document.acronym">({{contactOrganization.document.acronym | lstring:locale}})</i> <a ng-href="dashboard/submit/organization/{{contactOrganization.identifier}}/view" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a> <a ng-href="dashboard/submit/organization/{{contactOrganization.identifier}}" target="_blank"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                                <address>
+                          <div class="km-pre">{{contactOrganization.document.address | lstring:locale}}</div>
+                          {{contactOrganization.document.city | lstring:locale}}<span ng-show="contactOrganization.document.city">, </span>
+                          {{contactOrganization.document.state | lstring:locale}}<br ng-show="contactOrganization.document.city || document.state" />
+                          {{contactOrganization.document.postalCode | lstring:locale}}<span ng-show="contactOrganization.document.postalCode">, </span>
+                          <b>{{contactOrganization.document.country | term:locale}}</b> <image style="height:15px;;" ng-src="https://www.cbd.int/images/flags/96/flag-{{contactOrganization.document.country.identifier}}-96.png?v=<%=gitVersion%>"></image>
+                          <br>
+                          <span ng-if="contactOrganization.document.emails"><br> </span>
+                          <span ng-repeat="item in contactOrganization.document.emails">
+                              <i class="fa fa-envelope" aria-hidden="true"></i>:
+                              <a target="_blank" ng-href="mailto:{{item}}" >
+                                  {{item}}
+                              </a>
+                              <span ng-if="!$last">|</span>
+                          </span>
+                          <span ng-if="contactOrganization.document.phones"> <br>
+                              <span ng-repeat="item in contactOrganization.document.phones"><i class="fa fa-phone-square" aria-hidden="true"></i>: {{item}}
+                                  <span ng-show="!$last">|</span>
+                              </span>
+                          </span>
+
+                          <span ng-if="contactOrganization.document.faxes"> <br>
+                              <span ng-repeat="item in contactOrganization.document.faxes"><i class="fa fa-fax" aria-hidden="true"></i>: {{item}}
+                                <span ng-show="!$last">|</span>
+                              </span>
+                          </span>
+
+                          <span ng-if="contactOrganization.document.websites"><br><br></span>
+                          <span class="small" ng-repeat="item in contactOrganization.document.websites">
+                              <a target="_blank" ng-href="{{item.url}}" ng-switch="item.name">
+                                  <i ng-switch-when="youtube" class="fa fa-youtube-square" aria-hidden="true"></i>
+                                  <i ng-switch-when="twitter" class="fa fa-twitter-square" aria-hidden="true"></i>
+                                  <i ng-switch-when="facebook" class="fa fa-facebook-square" aria-hidden="true"></i>
+                                  <i ng-switch-when="Google Maps" class="fa fa-google" aria-hidden="true"></i>
+                                  <i ng-switch-when="website" class="fa fa-home" aria-hidden="true"></i>
+                                  <i ng-switch-default class="fa fa-external-link" aria-hidden="true"></i>
+                                  {{item.name.toUpperCase()||item.url}}
+                              </a>
+                              <span ng-if="!$last">|</span>
+                          </span>
+                          <span ng-if="contactOrganization.document.operationalLanguages"><br></span>
+                          <span class="small" ng-if="contactOrganization.document.operationalLanguages">
+                                  <span class="label label-info" style="margin:0 5px 0 0;" ng-repeat="lang in contactOrganization.document.operationalLanguages">{{ lang | term:locale | uppercase}}</span>
+                          </span>
+
+                          <span ng-if="contactOrganization.document.organizationType"><br></span>
+                          <span class="small" ng-if="contactOrganization.document.organizationType">
+                                  <span class="label label-default" style="margin:0 5px 0 0;" >{{contactOrganization.document.organizationType | term:locale | uppercase}}<span>
+                          </span>
+                        </address>
+                        </div>
+
+                        </div>
+
+                        <div class="col-xs-2" ng-show="contactOrganization.logo">
+                            <div>
+                                <img width="100%" ng-src="{{contactOrganization.logo.url}}?v=<%=gitVersion%>"></img>
                             </div>
                         </div>
-                    </div>
-                </div>
+              </div>
             </div>
-
-            <legend class="view" ng-if="organizations">Contributing Host Organizations</legend>
+            <legend class="view" ng-if="organizations">Contributing Host Organization(s)</legend>
             <div ng-if="organizations">
-                <!-- <label class="view">Referenced member organizations</label> -->
-                <div class="col-xs-12 km-value" ng-repeat="organization in organizations">
 
-
-
+                <div class="col-xs-12 km-value" ng-repeat="organization in organizations" ng-if="contactOrganization.document.header.identifier !== organization.document.header.identifier">
                           <div ng-class="{'col-xs-10':organization.logo,'col-xs-12':!organization.logo}">
                               <div>
                                   <strong>{{organization.document.name | lstring:locale}} </strong><i ng-show="organization.document.acronym">({{organization.document.acronym | lstring:locale}})</i> <a ng-href="dashboard/submit/organization/{{organization.identifier}}/view" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a> <a ng-href="dashboard/submit/organization/{{organization.identifier}}" target="_blank"><i class="fa fa-edit" aria-hidden="true"></i></a>
@@ -272,7 +349,6 @@
                                   <img width="100%" ng-src="{{organization.logo.url}}?v=<%=gitVersion%>"></img>
                               </div>
                           </div>
-                    <!-- <b>{{organization.document.document.name | lstring:locale}} ({{organization.document.document.acronym|lstring:locale}})</b> -->
                 </div>
             </div>
 
@@ -332,7 +408,7 @@
             <h2>Action</h2>
         </div>
         <div class="col-xs-2">
-            <h4 ng-if="isReview()"><span class="pull-right"><a class="btn btn-xs btn-default" href="dashboard/submit/organization/{{document.header.identifier}}" ><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span ng-if="!isAdmin()">Suggest an</span> Edit</a></span></h4>
+            <h4 ng-if="isReview()"><span class="pull-right"><a class="btn btn-xs btn-default" href="dashboard/submit/event/{{document.header.identifier}}" ><i class="fa fa-pencil-square-o" aria-hidden="true"></i> <span ng-if="!isAdmin()">Suggest an</span> Edit</a></span></h4>
         </div>
     </div>
 </div>

@@ -175,10 +175,10 @@ app.directive('editEvent', ['$http',"$rootScope", "Enumerable", "$filter", "$q",
 			//
 			//
 			//============================================================
-			function bbiRecordsNoticeChange(value) {
-					userSettings.setting('bbi.recordsNotice',value);
-			}//bbiRecordsNoticeChange
-			$scope.bbiRecordsNoticeChange=bbiRecordsNoticeChange;
+			// function bbiRecordsNoticeChange(value) {
+			// 		userSettings.setting('bbi.recordsNotice',value);
+			// }//bbiRecordsNoticeChange
+			// $scope.bbiRecordsNoticeChange=bbiRecordsNoticeChange;
 
 
 			//============================================================
