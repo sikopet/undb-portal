@@ -2,7 +2,7 @@ define(['app', 'lodash',
     'utilities/editFormUtility',
     'directives/views/view-organization',
     'directives/views/view-undb-actor',
-    // 'directives/views/view-biodiversity-event',
+    'directives/views/view-event',
     // 'directives/views/view-biodiversity-business-pledge',
     // 'directives/views/view-undb-country-profile',
     'utilities/km-storage'
