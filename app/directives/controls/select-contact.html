@@ -109,7 +109,7 @@
                   </div>
                     <div class="col-xs-12">
                         <div ng-if="!loading && existingContacts && existingContacts.length==0" style="padding:0 10px;">
-                            <h3 class="color-litegrey">No {{schemaMap()}}(s) found matching that search. Please add your {{schemaMap()}} <a ng-href="platform/submit/{{schema}}/new" target="_blank">here <i class="fa fa-external-link" aria-hidden="true"></i></a> if you are sure it does not exist in our database.</h3>
+                            <h3 class="color-litegrey">No {{schemaMap()}}(s) found matching that search. Please add your {{schemaMap()}} <a ng-href="/dashboard/submit/{{schema}}/new" target="_blank">here <i class="fa fa-external-link" aria-hidden="true"></i></a> if you are sure it does not exist in our database.</h3>
                         </div>
                         <input type="textbox" ng-model="search.keyword" placeholder="keyword search"
                             class="form-control" style="margin-bottom:20px;" >
@@ -136,8 +136,8 @@
                                 <div class="col-xs-1">
                                     <a ng-if="contact.schema_s==='organization'  "  ng-disabled="!contact.aichiTarget_ss || !contact.thematicArea_ss" ng-class="{'btn-danger':(!contact.aichiTarget_ss || !contact.thematicArea_ss)}" translation-url  class="btn btn-xs btn-default" href="#" ng-click="(!contact.aichiTarget_ss || !contact.thematicArea_ss) || selectContact(contact)"><i class="fa fa-thumbs-o-up"></i></a>
                                     <a ng-if="contact.schema_s==='bbiContact'  " translation-url  class="btn btn-xs btn-default" href="#" ng-click="selectContact(contact)"><i class="fa fa-thumbs-o-up"></i></a>
-                                    <a  translation-url  class="btn btn-xs btn-default pull-right" ng-href="platform/submit/{{contact.schema_s}}/{{contact.identifier_s}}/view" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a>
-                                    <a  translation-url  class="btn btn-xs btn-default pull-right" ng-href="platform/submit/{{contact.schema_s}}/{{contact.identifier_s}}/" target="_blank"><i class="fa fa-edit"></i></a>
+                                    <a  translation-url  class="btn btn-xs btn-default pull-right" ng-href="/dashboard/submit/{{contact.schema_s}}/{{contact.identifier_s}}/view" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a>
+                                    <a  translation-url  class="btn btn-xs btn-default pull-right" ng-href="/dashboard/submit/{{contact.schema_s}}/{{contact.identifier_s}}/" target="_blank"><i class="fa fa-edit"></i></a>
                                 </div>
                                 <div class="col-xs-10">
 
@@ -206,7 +206,7 @@
                 <div class="modal-footer bg-litegrey">
                     <div class="clearfix"></div>
                     <div class="pull-right">
-                                          <a translation-url  type="button" class=" btn btn-xs btn-primary" ng-href="platform/submit/{{schema}}/new" target="_blank" ng-click="closeContact()"> <i class="fa fa-plus" aria-hidden="true"></i> New</a>
+                                          <a translation-url  type="button" class=" btn btn-xs btn-primary" ng-href="/dashboard/submit/{{schema}}/new" target="_blank" ng-click="closeContact()"> <i class="fa fa-plus" aria-hidden="true"></i> New</a>
                                         <a translation-url  type="button" class=" btn btn-xs btn-warning" ng-click="closeContact()" >Close</a>
                     </div>
                     <!-- <div>
