@@ -2,6 +2,7 @@ define(['app', 'lodash',
 'directives/forms/edit-organization',
 'directives/forms/edit-undb-actor',
 'directives/forms/edit-event',
+'directives/forms/edit-undb-party',
 ], function(app, _) { 'use strict';
 
 	return ['$scope','$routeParams','user', function ($scope,$routeParams,user) {

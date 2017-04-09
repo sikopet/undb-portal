@@ -37,8 +37,9 @@ define(['lodash',
             $scope.schemaMap = function(schema) {
                 var map = {
                     'undbActor'   : 'Actors' ,
-                    'organization'  : 'Organization(s)',
-                    'event'    : 'Actions'
+                    'organization'  : 'Organizations',
+                    'event'    : 'Actions',
+                    'undbParty'   : 'Parties' ,
                 };
                 return map[schema];
             };
