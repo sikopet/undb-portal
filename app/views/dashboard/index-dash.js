@@ -66,7 +66,8 @@ define(['app', 'lodash','text!directives/forms/records-dialog.html','text!./firs
 						_ctrl.schemasList=[
 							{ identifier: 'undbActor'   ,public:0, draft:0, workflow:0 },
 							{ identifier: 'organization',public:0, draft:0, workflow:0 },
-							{ identifier: 'event'       ,public:0, draft:0, workflow:0 }];
+							{ identifier: 'event'       ,public:0, draft:0, workflow:0 },
+							{ identifier: 'undbParty'   ,public:0, draft:0, workflow:0 }];
 							getFacets();
 					}
 				//============================================================
@@ -99,6 +100,7 @@ define(['app', 'lodash','text!directives/forms/records-dialog.html','text!./firs
 						schemas.push("schema_s:" + escape('organization'));
 						schemas.push("schema_s:" + escape('undbActor'));
 						schemas.push("schema_s:" + escape('event'));
+						schemas.push("schema_s:" + escape('undbParty'));
 						 query.push(schemas);
 
 						// Apply ownership/contributor

@@ -10,6 +10,18 @@ app.factory('workflows', ['$http', 'realm', function($http, realm) {
               "undbPartner": {
                 name: "publishReferenceRecord",
                 version: undefined
+              },
+              "undbParty": {
+                name: "publishReferenceRecord",
+                version: undefined
+              },
+              "organization": {
+                name: "publishReferenceRecord",
+                version: undefined
+              } ,
+              "event": {
+                name: "publishReferenceRecord",
+                version: undefined
               }
         };
 

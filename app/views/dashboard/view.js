@@ -3,8 +3,7 @@ define(['app', 'lodash',
     'directives/views/view-organization',
     'directives/views/view-undb-actor',
     'directives/views/view-event',
-    // 'directives/views/view-biodiversity-business-pledge',
-    // 'directives/views/view-undb-country-profile',
+    'directives/views/view-undb-Party',
     'utilities/km-storage'
 ], function(app, _) {
     'use strict';
