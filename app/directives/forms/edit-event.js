@@ -391,7 +391,7 @@ app.directive('editEvent', ['$http',"$rootScope", "Enumerable", "$filter", "$q",
 			//
 			//==================================
 			$scope.onPreSaveDraft = function() {
-	console.log($scope.document);
+
 				return $scope.cleanUp();
 			};
 
@@ -461,10 +461,10 @@ app.directive('editEvent', ['$http',"$rootScope", "Enumerable", "$filter", "$q",
 				// 		if(_.isEmpty(document[name])) delete(document[name]);
 				// });
 
-				if(document.everyCountry)
+				if(document.everyCountry !=='undefined')
 					delete(document.everyCountry);
 
-				if(document.isIdb)
+				if(document.isIdb !=='undefined')
 						delete(document.isIdb);
 
 				if (/^\s*$/g.test(document.notes))
