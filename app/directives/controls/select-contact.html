@@ -179,8 +179,8 @@
                                               <span ng-repeat="term in contact.aichiTarget_ss" ng-if="contact.aichiTarget_ss">
                                                 <img  style="height: 20px;  width: 20px; margin-bottom:5px; " ng-src="https://www.cbd.int/images/aichi/48/abt-{{getAichiNumber(term)}}-48.png?v=<%=gitVersion%>" >
                                               </span>
-                                              <span class="text-danger" ng-if="!contact.aichiTarget_ss && contact.schema_s==='organization'"> NO AICHI BIODIVERSITY TARGETS SELECTED<br></span>
-                                              <span class="text-danger" ng-if="!contact.thematicArea_ss && contact.schema_s==='organization'"> NO CBD SUBJECT AREAS SELCETED</span>
+                                              <span class="text-danger" ng-if="!contact.aichiTarget_ss && contact.schema_s==='organization'"> <br>NO AICHI BIODIVERSITY TARGETS SELECTED PLEASE UPDATE</span>
+                                              <span class="text-danger" ng-if="!contact.thematicArea_ss && contact.schema_s==='organization'"> <br>NO CBD SUBJECT AREAS SELECTED PLEASE UPDATE</span>
                                             </div>
                                           	<!-- <div ng-show="contact.websites">
                                           		Websites: <span ng-repeat="item in contact.websites"><a translation-url  ng-href="{{item.url}}">{{item.name||item.url}}</a><span ng-show="!$last">, </span></span>
