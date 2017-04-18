@@ -5,57 +5,57 @@ define(['app', 'lodash','text!directives/forms/records-dialog.html','text!./firs
         var _ctrl = this;
 				_ctrl.goTo = goTo;
 				_ctrl.getFacet=getFacet;
-				_ctrl.settingsChange=settingsChange;
+				//_ctrl.settingsChange=settingsChange;
 
 				$scope.$root.page={};
 				$scope.$root.page.title = "Dashboard: UNDB";
 				init ();
-				userSettings.ready.then(bbiRecords).then(function(){$timeout(firstDash,1000);});
+				// userSettings.ready.then(bbiRecords).then(function(){$timeout(firstDash,1000);});
 				//============================================================
 				//
 				//
 				//============================================================
-				function settingsChange(key,value) {
-						userSettings.setting(key,value);
-				}//bbiRecordsNoticeChange
-				$scope.settingsChange=settingsChange;
+				// function settingsChange(key,value) {
+				// 		userSettings.setting(key,value);
+				// }//bbiRecordsNoticeChange
+				// $scope.settingsChange=settingsChange;
 
 				//============================================================
 				//
 				//
 				//============================================================
-				function bbiRecords() {
-
-						if(typeof userSettings.setting('undb.recordsNotice') ==='undefined' || !userSettings.setting('undb.recordsNotice')){
-								$scope.bbiRecordsNotice=false;
-								userSettings.setting('undb.recordsNotice',false);
-								return ngDialog.open({
-											template: recordsDialog,
-											className: 'ngdialog-theme-default',
-											closeByDocument: false,
-											plain: true,
-											scope:$scope
-								}).closePromise;
-						}
-				}
+				// function bbiRecords() {
+				//
+				// 		if(typeof userSettings.setting('undb.recordsNotice') ==='undefined' || !userSettings.setting('undb.recordsNotice')){
+				// 				$scope.bbiRecordsNotice=false;
+				// 				userSettings.setting('undb.recordsNotice',false);
+				// 				return ngDialog.open({
+				// 							template: recordsDialog,
+				// 							className: 'ngdialog-theme-default',
+				// 							closeByDocument: false,
+				// 							plain: true,
+				// 							scope:$scope
+				// 				}).closePromise;
+				// 		}
+				// }
 
 				//============================================================
 				//
 				//
 				//============================================================
-				function firstDash() {
-						if(typeof userSettings.setting('undb.firstDashNotice') ==='undefined' || !userSettings.setting('undb.firstDashNotice')){
-								$scope.dashNotice=false;
-								userSettings.setting('undb.firstDashNotice',false);
-								return ngDialog.open({
-											template: dashDialog,
-											className: 'ngdialog-theme-default',
-											closeByDocument: false,
-											plain: true,
-											scope:$scope
-								}).closePromise;
-						}
-				}
+				// function firstDash() {
+				// 		if(typeof userSettings.setting('undb.firstDashNotice') ==='undefined' || !userSettings.setting('undb.firstDashNotice')){
+				// 				$scope.dashNotice=false;
+				// 				userSettings.setting('undb.firstDashNotice',false);
+				// 				return ngDialog.open({
+				// 							template: dashDialog,
+				// 							className: 'ngdialog-theme-default',
+				// 							closeByDocument: false,
+				// 							plain: true,
+				// 							scope:$scope
+				// 				}).closePromise;
+				// 		}
+				// }
 
 
 
