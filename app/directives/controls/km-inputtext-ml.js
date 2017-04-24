@@ -1,4 +1,4 @@
-define(['app','text!./km-inputtext-ml.html','angular'], function(app,template,angular) {
+define(['app','text!./km-inputtext-ml.html','angular','directives/steph-editor'], function(app,template,angular) {
   //============================================================
   //
   //
@@ -84,7 +84,7 @@ define(['app','text!./km-inputtext-ml.html','angular'], function(app,template,an
         //
         //==============================
         $scope.isShowLocale = function() {
-          return $scope.locales && $scope.locales.length > 1;
+          return $scope.locales && $scope.locales.length > 1 ;
         };
       }]
     };

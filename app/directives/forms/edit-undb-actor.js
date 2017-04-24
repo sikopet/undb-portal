@@ -21,14 +21,14 @@ define(['text!./edit-undb-actor.html', 'text!./undb-records-dialog.html','app', 
 'directives/controls/select-contact',
 ], function(template,bbiRecordsDialog, app, angular, _) { 'use strict';
 
-app.directive('editUndbActor', ['$http',"$rootScope", "Enumerable", "$filter", "$q", "guid", "$location", "Thesaurus", 'authentication', 'editFormUtility',  'IStorage', '$route','$timeout','locale','userSettings','ngDialog',  function ($http, $rootScope, Enumerable, $filter, $q, guid, $location, thesaurus, authentication, editFormUtility, storage, $route,$timeout,locale,userSettings,ngDialog) {
+app.directive('editUndbActor', ['$http',"$rootScope", "Enumerable", "$filter", "$q", "guid", "$location", "Thesaurus", 'authentication', 'editFormUtility',  'IStorage', '$route', function ($http, $rootScope, Enumerable, $filter, $q, guid, $location, thesaurus, authentication, editFormUtility, storage, $route) {
 	return {
 		restrict   : 'E',
 		template   : template,
 		replace    : true,
 		transclude : false,
 		scope: {user:'='},
-		link : function($scope,$element)
+		link : function($scope)
 		{
 
 			$scope.schema = 'undbActor';
@@ -38,33 +38,9 @@ app.directive('editUndbActor', ['$http',"$rootScope", "Enumerable", "$filter", "
 			$scope.tab      = 'general';
 			$scope.review   = { locale: "en" };
 
-
-			// userSettings.ready.then(bbiRecords);
-			// //============================================================
-			// //
-			// //
-			// //============================================================
-			// function bbiRecords() {
-			// 		if(typeof userSettings.setting('bbi.recordsNotice') ==='undefined' || !userSettings.setting('bbi.recordsNotice')){
-			// 				$scope.bbiRecordsNotice=false;
-			// 				ngDialog.open({
-			// 							template: bbiRecordsDialog,
-			// 							className: 'ngdialog-theme-default',
-			// 							closeByDocument: false,
-			// 							plain: true,
-			// 							scope:$scope
-			// 				});
-			// 		}
-			// }
-			//
-			// //============================================================
-			// //
-			// //
-			// //============================================================
-			// function bbiRecordsNoticeChange(value) {
-			// 		userSettings.setting('bbi.recordsNotice',value);
-			// }//bbiRecordsNoticeChange
-			// $scope.bbiRecordsNoticeChange=bbiRecordsNoticeChange;
+			$scope.options  = {
+				countries					 : function() { return $http.get("/api/v2013/thesaurus/domains/countries/terms",            { cache: true }).then(function(o){ return $filter('orderBy')(o.data, 'name'); }); }
+			};
 
 
 			//============================================================
@@ -88,29 +64,6 @@ app.directive('editUndbActor', ['$http',"$rootScope", "Enumerable", "$filter", "
 				if($scope.tab=='detail'	) { prev = 'general';}
 				$scope.tab = prev;
 			};
-
-			//==============================
-			//
-			//
-			//==============================
-			function res_Data(res) {
-					return res.data;
-			}
-
-			//==============================
-			//
-			//
-			//==============================
-			function res_Error(err) {
-
-					err = err.data || err;
-					$scope.$emit('showError', 'ERROR: Actor was not saved.');
-					$scope.errors = err.errors || [err];
-
-					console.error($scope.errors);
-			}
-
-
 
 			//==================================
 			//
@@ -204,7 +157,7 @@ app.directive('editUndbActor', ['$http',"$rootScope", "Enumerable", "$filter", "
 			//==================================
 			//
 			//==================================
-			$scope.onPostSaveDraft = function(pass) {
+			$scope.onPostSaveDraft = function() {
 
 				$rootScope.$broadcast("onSaveDraft", "Draft record saved.");
 			};
@@ -249,7 +202,7 @@ app.directive('editUndbActor', ['$http',"$rootScope", "Enumerable", "$filter", "
 			//
 			//==================================
 			$scope.validate = function(clone) {
-        //var frontEndValidationReport = generateValidationReport();
+        var frontEndValidationReport = generateValidationReport();
 				$scope.validationReport = null;
 
 				var oDocument = $scope.document;
@@ -261,18 +214,18 @@ app.directive('editUndbActor', ['$http',"$rootScope", "Enumerable", "$filter", "
 						function(success) {
 							$scope.validationReport = success.data;
 
-							// if($scope.validationReport.errors && Array.isArray($scope.validationReport.errors) && $scope.validationReport.errors.length){
-							//
-							// 	_.each(frontEndValidationReport.errors,function(err){
-							// 				if(!_.find($scope.validationReport.errors,{property:err.property,code:err.code}))
-							// 					$scope.validationReport.errors.push(err);
-							// 	});
-							// }else{
-							// 	$scope.validationReport.errors=[];
-							// 	_.each(frontEndValidationReport.errors,function(err){
-							// 					$scope.validationReport.errors.push(err);
-							// 	});
-							// }
+							if($scope.validationReport.errors && Array.isArray($scope.validationReport.errors) && $scope.validationReport.errors.length){
+
+								_.each(frontEndValidationReport.errors,function(err){
+											if(!_.find($scope.validationReport.errors,{property:err.property,code:err.code}))
+												$scope.validationReport.errors.push(err);
+								});
+							}else{
+								$scope.validationReport.errors=[];
+								_.each(frontEndValidationReport.errors,function(err){
+												$scope.validationReport.errors.push(err);
+								});
+							}
 
 							return cleanUpError || !!(success.data && success.data.errors && success.data.errors.length);
 						},
@@ -300,7 +253,7 @@ app.directive('editUndbActor', ['$http',"$rootScope", "Enumerable", "$filter", "
 					}
 				return report;
 
-			};
+			}
 			//==================================
 			//
 			//==================================

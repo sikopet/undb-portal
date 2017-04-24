@@ -37,10 +37,27 @@ app.directive('editUndbParty', ['$http',"$rootScope", "Enumerable", "$filter", "
 			$scope.document = null;
 			$scope.tab      = 'general';
 			$scope.review   = { locale: "en" };
+			var qsParams = {
+					"q": 'schema_s:undbParty AND _state_s:public',
+					"fl": "identifier_s, country_s",
+					"rows": 1000,
+			};
 			$scope.options  = {
-				countries					: function() { return $http.get("/api/v2013/thesaurus/domains/countries/terms",            { cache: true }).then(function(o){ return $filter('orderBy')(o.data, 'name'); }); }
+				countries					 : function() { return $http.get("/api/v2013/thesaurus/domains/countries/terms",            { cache: true }).then(function(o){ return filterCountries($filter('orderBy')(o.data, 'name')); }); },
+			  existingCountries	 : function() { return $http.get("/api/v2013/index",   {params: qsParams}).then(function(o){ return $filter('orderBy')(o.data.response.docs, 'country_s'); }); }
 			};
 
+
+			function filterCountries(countries){
+
+				  return $scope.options.existingCountries().then(function(d){
+						for(var i=0; i<d.length; i++)
+							for(var j=0; j<countries.length; j++)
+									if(d[i].country_s===countries[j].identifier && (($scope.document && !$scope.document.government) ||($scope.document && $scope.document.government && $scope.document.government.identifier!==countries[j].identifier)))
+										countries.splice(j,1);
+						return countries;
+					});
+			}
 			// userSettings.ready.then(bbiRecords);
 			// //============================================================
 			// //
@@ -156,7 +173,7 @@ app.directive('editUndbParty', ['$http',"$rootScope", "Enumerable", "$filter", "
 
 					});
 
-				promise.then(
+				return promise.then(
 					function(doc) {
 						$scope.status = "ready";
 						$scope.document = doc;

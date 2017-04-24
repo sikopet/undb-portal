@@ -93,7 +93,12 @@
                         </div>
         </div>
       </div>
-
+      <div class="col-xs-12" ng-show="document.governments">
+          <legend class="view">Related Parties & Governments</legend>
+          <div class="km-value" ng-repeat="gov in document.governments">
+              <image style="height:15px;;" ng-src="https://www.cbd.int/images/flags/96/flag-{{gov.identifier}}-96.png?v=<%=gitVersion%>"></image> <span ng-bind="gov | term:locale"><br/></span>
+          </div>
+  </div>
       <div class="col-xs-12" ng-show="document.description">
           <label class="view">Description</label>
           <div class="km-value">
