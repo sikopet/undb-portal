@@ -129,7 +129,7 @@
                                         <div ng-show="record.schema_s==='organization'" ><span ng-show="record.city_t">{{record.city_t}}, </span>{{record.country_EN_s}}
 
                                         </div>
-                                        <div class="hidden-xs" style="white-space: pre-wrap;">{{record.summary || record.summary_s  | lstring | truncate:(record.truncate||350):'...'}} <a ng-hide="record.truncate || (record.summary | lstring).length<=350" href="#" ng-click="record.truncate=100000">more <i class="fa fa-caret-down"></i></a>
+                                        <div class="hidden-xs" style="white-space: pre-wrap;">{{record.summary || record.summary_s  | lstring | htmlToPlaintext |truncate:(record.truncate||350):'...'}} <a ng-hide="record.truncate || (record.summary | lstring).length<=350" href="#" ng-click="record.truncate=100000">more <i class="fa fa-caret-down"></i></a>
                                             <a
                                                 ng-show="record.truncate" href="#" ng-click="record.truncate=undefined">less <i class="fa fa-caret-up"></i></a>
                                         </div>

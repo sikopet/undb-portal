@@ -8,7 +8,7 @@ define(['lodash',
     'filters/lstring',
     'filters/trunc',
     'utilities/realm',
-
+    'filters/htmlToPlaintext',
 ], function(_, delDial, links) {
     'use strict';
     return ['$scope', '$route', '$http', '$location', '$q', 'user', 'IStorage', 'ngDialog', 'realm','$timeout','$interval',
