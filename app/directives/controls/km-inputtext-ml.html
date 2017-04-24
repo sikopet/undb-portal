@@ -1,11 +1,14 @@
-﻿<div>
+﻿<div style="width:100%;">
 	<style type="text/css">
 		.multiple-languages { margin-bottom: 3px; }
+		.input-group-w {max-width:100% !important;min-width:100% !important;}
 	</style>
-	<div ng-repeat="locale in locales" class="input-group" ng-class="{ 'multiple-languages' : isShowLocale() && !last }" style="white-space:nowrap" ng-switch="rows">
+	<div ng-repeat="locale in locales" class="input-group input-group-w " ng-class="{ 'multiple-languages' : isShowLocale() && !last }" style="white-space:nowrap" ng-switch="rows" >
 			<input    ng-switch-when="1"         class="form-control" ng-required="isRequired()" ng-model="text[locale]" ng-change="onchange()" ng-disabled="ngDisabledFn()" placeholder="{{placeholder}}" type="text"/>
 			<input    ng-switch-when="undefined" class="form-control" ng-required="isRequired()" ng-model="text[locale]" ng-change="onchange()" ng-disabled="ngDisabledFn()" placeholder="{{placeholder}}" type="text"/>
+			<steph-editor ng-switch-when="1000" ng-model="text[locale]" ng-change="onchange()"  locale="locale"></steph-editor>
 			<textarea ng-switch-default          class="form-control" ng-required="isRequired()" ng-model="text[locale]" ng-change="onchange()" ng-disabled="ngDisabledFn()" placeholder="{{placeholder}}" rows="{{rows}}" style="display:inline-block"></textarea>
-		<span class="input-group-addon" disabled-ng-show="isShowLocale()" style="cursor:default">{{locale | uppercase }}</span>
+
+		<span class="input-group-addon" ng-show="rows!=1000" style="cursor:default">{{locale | uppercase }}</span>
 	</div>
 </div>

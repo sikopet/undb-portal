@@ -24,7 +24,7 @@ define(['text!./actors-list.html', 'app','moment-timezone','filters/trunc','filt
                       ctrl.search();
                   });
 
-                  $http.get('https://api.cbd.int/api/v2015/countries', { cache:true, params: { f : { code : 1, name : 1 } } }).then(function(res) {
+                  $http.get('/api/v2015/countries', { cache:true, params: { f : { code : 1, name : 1 } } }).then(function(res) {
 
                       res.data.forEach(function(c) {
                           c.code = c.code.toLowerCase();
@@ -176,23 +176,23 @@ define(['text!./actors-list.html', 'app','moment-timezone','filters/trunc','filt
               //=======================================================================
               function search() {
 
-                var q = 'schema_s:undbPartner AND _state_s:public';
+                var q = 'schema_s:undbActor AND _state_s:public';
                 $scope.loading=true;
-
-                if($scope.coalitionsOnly)
-                    q= q+' AND description_t:(coalitionscoalitions*)';
-
-                if($scope.blgOnly)
-                    q= q+' AND description_t:(blgblg*)';
-
-                if($scope.jlgOnly)
-                    q= q+' AND description_t:(jlgjlg*)';
-
-                if($scope.abttfOnly)
-                    q= q+' AND description_t:(ABTTF*)';
-
-                if($scope.partnersOnly)
-                  q= q+' AND NOT description_t:(blgblg*) AND NOT description_t:(ABTTF*) AND NOT description_t:(jlgjlg*)';
+                //
+                // if($scope.coalitionsOnly)
+                //     q= q+' AND description_t:(coalitionscoalitions*)';
+                //
+                // if($scope.blgOnly)
+                //     q= q+' AND description_t:(blgblg*)';
+                //
+                // if($scope.jlgOnly)
+                //     q= q+' AND description_t:(jlgjlg*)';
+                //
+                // if($scope.abttfOnly)
+                //     q= q+' AND description_t:(ABTTF*)';
+                //
+                // if($scope.partnersOnly)
+                //   q= q+' AND NOT description_t:(blgblg*) AND NOT description_t:(ABTTF*) AND NOT description_t:(jlgjlg*)';
                 if($scope.search)
                     q= q+' AND (title_t:"' + $scope.search + '*" OR description_t:"' + $scope.search + '*")';
                 if($scope.country)
@@ -202,17 +202,20 @@ define(['text!./actors-list.html', 'app','moment-timezone','filters/trunc','filt
                 var queryParameters = {
                   'q': q,
                   'wt': 'json',
+                  'fl': 'id,identifier_s,logo*,description*, nativeDescription*,title*',
                   'sort': 'title_s asc',
                   'start': $scope.currentPage * $scope.itemsPerPage,
   								'rows': $scope.itemsPerPage,
                 };
 
-                  $http.get('https://api.cbd.int/api/v2013/index/select', {
+                  $http.get('/api/v2013/index/select', {
                     params: queryParameters,
                     cache: true
-                  }).success(function(data) {
-                    $scope.count = data.response.numFound;
-                    $scope.partners = data.response.docs;
+                  }).then(function(res) {
+                    if (!res.data) throw 'Error: no data';
+                    $scope.count = res.data.response.numFound;
+                    $scope.partners = res.data.response.docs;
+
                     $scope.loading = false;
                   });
               }
