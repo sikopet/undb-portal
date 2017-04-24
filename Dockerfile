@@ -1,7 +1,7 @@
 FROM node:7.9-alpine
 
 RUN apk update && apk upgrade && \
-    apk add --no-cache bash git openssh
+    apk add --no-cache bash git
 
 WORKDIR /usr/src/app
 
