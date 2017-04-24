@@ -1,4 +1,4 @@
-define(['lodash', 'filters/trunc','directives/map/zoom-map','directives/links-display','filters/trunc','filters/hack','factories/km-utilities','filters/uri-to-link' ], function(_) {
+define(['lodash','angular-sanitize', 'filters/trunc','directives/links-display' ], function(_) {
     'use strict';
     return ['$scope', 'locale', '$http', '$location', '$route', '$sce','authentication',
         function($scope, locale, $http, $location, $route, $sce,authentication) {
@@ -20,19 +20,19 @@ define(['lodash', 'filters/trunc','directives/map/zoom-map','directives/links-di
                 var hex = Number($scope.partner.identifier).toString(16);
                 var id = "52000000cbd0800000000000".substr(0, 24 - hex.length) + hex;
                 var queryParameters = {
-                    'q': 'schema_s:undbPartner  AND id:' + id, //AND _state_s:public removed for test
+                    'q': 'schema_s:undbActor  AND id:' + id, //AND _state_s:public removed for test
                     'wt': 'json',
                     'start': 0,
                     'rows': 1000000,
                 };
 
-                $http.get('https://api.cbd.int/api/v2013/index/select', {
+                $http.get('/api/v2013/index/select', {
                     params: queryParameters,
                     cache: true
                 }).success(function(data) {
                     $scope.partner = data.response.docs[0];
 
-                    $http.get('https://api.cbd.int/api/v2013/documents/'+$scope.partner.identifier_s, {
+                    $http.get('/api/v2013/documents/'+$scope.partner.identifier_s, {
                         cache: true
                     }).success(function(d) {
                       Object.assign($scope.partner,d);
@@ -72,9 +72,9 @@ define(['lodash', 'filters/trunc','directives/map/zoom-map','directives/links-di
             //=======================================================================
             function isGooleMap() {
 								if(!$scope.action.logo_s && ($scope.action.address_s || ($scope.action.lat_d && $scope.action.lng_d)))
-									return true;
-									else
-										return false;
+									        return true;
+								else
+										      return false;
 
             }
             $scope.isGooleMap = isGooleMap;

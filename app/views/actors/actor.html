@@ -75,11 +75,11 @@
 					</div>
 
 					<div>
-						<p ng-if="partner.description_s" ng-bind-html="trusted((partner.description_s | uriToLink | nl2br | hack | lstring))"></p>
+						<p ng-if="partner.description_s" ng-bind-html="trusted((partner.description_s | linky | lstring))"></p>
 					</div>
 					<div ng-if="partner.descriptionNative_s" ><hr></div>
 					<div>
-						<p ng-if="partner.descriptionNative_s" ng-bind-html="trusted((partner.descriptionNative_s | uriToLink | nl2br | hack ))"></p>
+						<p ng-if="partner.descriptionNative_s" ng-bind-html="trusted((partner.descriptionNative_s | linky ))"></p>
 					</div>
 				</div>
 			</div>
