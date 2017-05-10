@@ -16,7 +16,7 @@ define(['text!./filter-actions.html', 'app', 'lodash', 'moment'], function(templ
             link: function($scope, $element, $attr, undbMap) {
                     $scope.queries = {
                         'actions': {
-                            'schema_s': ['undbAction'],
+                            'schema_s': ['event'],
                             '_state_s': ['public']
                         }
                     };

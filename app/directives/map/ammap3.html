@@ -1,6 +1,5 @@
 <div>
-
-  <div id="dialogDisclaimer" class="modal fade">
+<div id="dialogDisclaimer" class="modal fade">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -24,21 +23,26 @@
   <div class="disclaimer tooltip" data-toggle="modal" href="#dialogDisclaimer">Disclaimer</div>
   <div id="mapdiv" style="width: 100%; height:530px; Background:#99CDE8;padding-bottom:0px;margin-bottom:0px;"></div>
 
-  <div class="panel panel-default" style="margin-bottom:0;" ng-if="schema==='parties'">
+  <div class="panel panel-default" style="margin-bottom:0;" ng-if="schema==='parties' || schema==='aichi'">
     <style>
       .disclaimer {
         bottom: 12%;
+        left:47%
       }
     </style>
 
-    <div class="row" style="padding-top:3px;padding-left:120px;">
+    <div class="panel-body" >
 
-
-      <div class="col-xs-2 leggendItem" ng-repeat="item in leggends.parties" ng-click="legendHide(item);" ng-class="{'col-xs-offset-3':!$last}">
+      <div ng-if="schema==='parties'" class="col-xs-3 leggendItem" ng-repeat="item in leggends.parties" ng-click="legendHide(item);" ng-class="{'col-xs-offset-3':!$last}">
+        <i class="fa fa-times fa-2x square" ng-if="!item.visible" style="display: block;"></i>
+        <div class="square" ng-style="{'background-color':item.color}" ng-if="item.visible"></div> {{item.title}}
+      </div>
+      <div ng-if="schema==='aichi'" class="col-xs-2 leggendItem" ng-repeat="item in leggends.aichi" ng-click="legendHide(item);" >
         <i class="fa fa-times fa-2x square" ng-if="!item.visible" style="display: block;"></i>
         <div class="square" ng-style="{'background-color':item.color}" ng-if="item.visible"></div> {{item.title}}
       </div>
     </div>
+
   </div>
 
 </div>

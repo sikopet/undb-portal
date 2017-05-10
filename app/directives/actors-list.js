@@ -182,14 +182,14 @@ define(['text!./actors-list.html', 'app','moment-timezone','filters/trunc','filt
                 // if($scope.coalitionsOnly)
                 //     q= q+' AND description_t:(coalitionscoalitions*)';
                 //
-                // if($scope.blgOnly)
-                //     q= q+' AND description_t:(blgblg*)';
+                if($scope.blgOnly)
+                    q= q+' AND thematicArea_ss:CBD-SUBJECT-LIAISON-GROUP';
                 //
-                // if($scope.jlgOnly)
-                //     q= q+' AND description_t:(jlgjlg*)';
+                if($scope.jlgOnly)
+                    q= q+' AND thematicArea_ss:CBD-SUBJECT-JLG';
                 //
-                // if($scope.abttfOnly)
-                //     q= q+' AND description_t:(ABTTF*)';
+                if($scope.abttfOnly)
+                    q= q+' AND thematicArea_ss:CBD-SUBJECT-AICHI-TF';
                 //
                 // if($scope.partnersOnly)
                 //   q= q+' AND NOT description_t:(blgblg*) AND NOT description_t:(ABTTF*) AND NOT description_t:(jlgjlg*)';
@@ -202,7 +202,7 @@ define(['text!./actors-list.html', 'app','moment-timezone','filters/trunc','filt
                 var queryParameters = {
                   'q': q,
                   'wt': 'json',
-                  'fl': 'id,identifier_s,logo*,description*, nativeDescription*,title*',
+                  'fl': 'id,identifier_s,logo*,description*, nativeDescription*,title*,thematicArea_ss,references_ss,references_C_ss',
                   'sort': 'title_s asc',
                   'start': $scope.currentPage * $scope.itemsPerPage,
   								'rows': $scope.itemsPerPage,

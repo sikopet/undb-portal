@@ -36,7 +36,29 @@ define(['lodash','angular-sanitize', 'filters/trunc','directives/links-display' 
                         cache: true
                     }).success(function(d) {
                       Object.assign($scope.partner,d);
+                        $http.get('/api/v2013/documents/'+$scope.partner.organization.identifier, {
+                            cache: true
+                        }).success(function(d) {
+                          Object.assign($scope.partner,d);
+                          console.log($scope.partner);
+                          if($scope.partner.websites){
+                              for(var i =0; i<$scope.partner.websites.length; i++)
+                              {
+                                    var site = $scope.partner.websites[i];
+
+                                    if(site.name==='website')
+                                      $scope.partner.website=site.url;
+                                    if(site.name==='facebook')
+                                      $scope.partner.facebook=site.url;
+                                    if(site.name==='twitter')
+                                      $scope.partner.twitter=site.url;
+                                    if(site.name==='youtube')
+                                      $scope.partner.youtube=site.url;
+                              }
+                          }
+                        });
                     });
+
                 });
             }
 
