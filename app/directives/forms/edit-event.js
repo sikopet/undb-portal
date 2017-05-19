@@ -376,6 +376,8 @@ app.directive('editEvent', ['$http',"$rootScope", "Enumerable", "$filter", "$q",
 						$scope.document = doc;
 						if(doc.governments && doc.governments.length===198)
 							$scope.document.everyCountry=true;
+
+						if(!doc.type)doc.type=[{"identifier": "60C32FAE-649C-4D33-B0E6-DDE1F8B06C55"}];
 						// if($scope.document && $scope.document.websites && _.find($scope.document.websites,{name:'Google Maps'}))
 						// 	$scope.mapsUrl=_.find($scope.document.websites,{name:'Google Maps'}).url;
 						// if($scope.document && $scope.document.relevantDocuments && _.find($scope.document.relevantDocuments,{name:'logo'}))
@@ -457,9 +459,9 @@ app.directive('editEvent', ['$http',"$rootScope", "Enumerable", "$filter", "$q",
 				if (!document)
 				return $q.when(true);
 
-				// _.each(document,function(property,name){
-				// 		if(_.isEmpty(document[name])) delete(document[name]);
-				// });
+				_.each(document,function(property,name){
+						if(_.isEmpty(document[name]) && name!=='onlineEvent') delete(document[name]);
+				});
 
 				if(document.everyCountry !=='undefined')
 					delete(document.everyCountry);
@@ -573,7 +575,7 @@ app.directive('editEvent', ['$http',"$rootScope", "Enumerable", "$filter", "$q",
 
 					if($scope.document.contactOrganization && $scope.document.contactOrganization.identifier){
 							promiseArray.push($scope.loadRecords($scope.document.contactOrganization.identifier).then(function(data) {
-								if(!_.find(tempGovs,data.body.country))
+								if(data.body && !_.find(tempGovs,data.body.country))
 									tempGovs.push({identifier:data.body.country.identifier});
 							}));
 
@@ -583,7 +585,7 @@ app.directive('editEvent', ['$http',"$rootScope", "Enumerable", "$filter", "$q",
 					if($scope.document.organizations && $scope.document.organizations.length>0)
 						_.each($scope.document.organizations, function(org){
 							promiseArray.push($scope.loadRecords(org.identifier).then(function(data) {
-								if(!_.find(tempGovs,data.body.country))
+								if(data.body && !_.find(tempGovs,data.body.country))
 									tempGovs.push({identifier:data.body.country.identifier});
 							}));
 						});
