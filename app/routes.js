@@ -32,9 +32,9 @@ define(['app', 'lodash', 'text!views/index.html','text!./redirect-dialog.html', 
             // when('/actions/register/:uid?',       { templateUrl: 'views/actions/submit-form.html',      label:'Form',                 resolveController: true, resolve : { user : securize(['User']) } }).
             // when('/actions/submit-form/:uid?',    { templateUrl: 'views/actions/submit-form.html',      label:'Form',                 resolveController: true, resolve : { user : securize(['User']) } }).
             // when('/actions/submit-form-done',     { templateUrl: 'views/actions/submit-form-done.html', label:'Thanks',               resolve : { user : securize(['User']) } }).
-when('/actions/submit', { redirectTo: '/dashboard/submit/event/new' }).
-when('/actions/register/:uid?', { redirectTo: '/dashboard/submit/event/:id' }).
-when('/actions/submit-form/:uid?', { redirectTo: '/dashboard/submit/event/:id' }).
+when('/actions/submit', { redirectTo: 'dashboard/submit/event/new' }).
+when('/actions/register/:uid?', { redirectTo: 'dashboard/submit/event/:id' }).
+when('/actions/submit-form/:uid?', { redirectTo: 'dashboard/submit/event/:id' }).
 when('/actions/submit-form-done', { redirectTo: '/dashboard' }).
 
             when('/actions/:uid',                 { templateUrl: 'views/actions/action.html',           label:'Action',               resolveController: true }).
@@ -50,10 +50,10 @@ when('/actions/submit-form-done', { redirectTo: '/dashboard' }).
             when('/actors/partners',             { templateUrl: 'views/actors/partners.html',         label:'UNDB Partners',           resolveController: true, resolve : { user : currentUser() } }).
             when('/actors/partners/:uid',        { templateUrl: 'views/actors/actor.html',            label:'Actor',                   resolveController: true }).
 
-            when('/actors/partners/register', { redirectTo: '/dashboard/submit/undb-actor/new' }).
-            when('/actors/register?', { redirectTo: '/dashboard/submit/undb-actor/:id' }).
-            when('/actors/register/:uid', { redirectTo: '/dashboard/submit/undb-actor/:id' }).
-            when('/actors/partners/edit/:uid', { redirectTo: '/dashboard/submit/undb-actor/:id'}).
+            when('/actors/partners/register', { redirectTo: 'dashboard/submit/undb-actor/new' }).
+            when('/actors/register?', { redirectTo: 'dashboard/submit/undb-actor/:id' }).
+            when('/actors/register/:uid', { redirectTo: 'dashboard/submit/undb-actor/:id' }).
+            when('/actors/partners/edit/:uid', { redirectTo: 'dashboard/submit/undb-actor/:id'}).
             // when('/actors/partners/register',    { templateUrl: 'views/actors/submit-form.html',      label:'Become a UNDB Partner',   resolveController: true, resolve : { user : securize(['User']) } }).
             // when('/actors/register',             { templateUrl: 'views/actors/submit-form.html',      label:'Become a UNDB Partner',   resolveController: true, resolve : { user : securize(['User']) } }).
             // when('/actors/register/:uid',        { templateUrl: 'views/actors/submit-form.html',      label:'Become a UNDB Partner',   resolveController: true, resolve : { user : securize(['User']) } }).
@@ -71,10 +71,10 @@ when('/actions/submit-form-done', { redirectTo: '/dashboard' }).
             when('/resources/un-logo',           { templateUrl: 'views/resources/un-logo.html',         label:'UN Logo Use' }).
             when('/resources/contact',           { templateUrl: 'views/resources/contact.html',         label:'Contact Us' }).
 
-            when('/dashboard',                   { templateUrl: 'views/dashboard/index-dash.html',    controllerAs: 'dashCtrl',    resolveController: true ,resolve : { user : securize(['User']) }}).
-            when('/dashboard/submit/:schema',         { templateUrl: 'views/dashboard/record-list.html',  controllerAs: 'submitCtrl',  resolveController: true,resolve : { user : securize(['User']) } }).
-            when('/dashboard/submit/:schema/:id',     { templateUrl: 'views/dashboard/edit.html',         controllerAs: 'editCtrl',    resolveController: true ,resolve : { user : securize(['User']) }}).
-            when('/dashboard/submit/:schema/:id/view',{ templateUrl: 'views/dashboard/view.html',    controllerAs: 'viewCtrl',    resolveController: true,resolve : { user : securize(['Everyone']) } }).
+            when('/dashboard',                   { templateUrl: 'viewsdashboard/index-dash.html',    controllerAs: 'dashCtrl',    resolveController: true ,resolve : { user : securize(['User']) }}).
+            when('dashboard/submit/:schema',         { templateUrl: 'viewsdashboard/record-list.html',  controllerAs: 'submitCtrl',  resolveController: true,resolve : { user : securize(['User']) } }).
+            when('dashboard/submit/:schema/:id',     { templateUrl: 'viewsdashboard/edit.html',         controllerAs: 'editCtrl',    resolveController: true ,resolve : { user : securize(['User']) }}).
+            when('dashboard/submit/:schema/:id/view',{ templateUrl: 'viewsdashboard/view.html',    controllerAs: 'viewCtrl',    resolveController: true,resolve : { user : securize(['Everyone']) } }).
 
             when('/help/404',                    { templateUrl: 'views/404.html',  controllerAs: 'notFoundCtrl',resolveController: true ,label : 'Not found',resolve : {path:currentPath}  }).
             when('/help/403',                    { templateUrl: 'views/403.html',   label : 'Forbidden' }).

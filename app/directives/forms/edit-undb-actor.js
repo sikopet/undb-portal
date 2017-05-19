@@ -174,7 +174,7 @@ app.directive('editUndbActor', ['$http',"$rootScope", "Enumerable", "$filter", "
 			//==================================
 			function gotoManager() {
 				$scope.$emit('showInfo', 'Record successfully updated.');
-				$location.path("/dashboard/submit/"+$scope.schema);
+				$location.path("dashboard/submit/"+$scope.schema);
 				$location.search('index-update',$scope.document.header.identifier);
 
 			}

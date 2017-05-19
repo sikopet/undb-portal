@@ -573,15 +573,15 @@ define(['lodash',
             //
             //=======================================================================
             $scope.goTo = function(code) {
-console.log('here','/dashboard/submit/' + $route.current.params.schema + '/' + code + '/view');
-                    $location.path('/dashboard/submit/' + $route.current.params.schema + '/' + code + '/view');
+console.log('here','dashboard/submit/' + $route.current.params.schema + '/' + code + '/view');
+                    $location.path('dashboard/submit/' + $route.current.params.schema + '/' + code + '/view');
             };
             //======================================================
             //
             //
             //======================================================
             function edit(record) {
-                var url = '/dashboard/submit/' + record.schema_s + '/';
+                var url = 'dashboard/submit/' + record.schema_s + '/';
 
                 if (record && record.identifier_s)
                     url += record.identifier_s;

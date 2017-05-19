@@ -33,7 +33,7 @@ color: #222;
 			<h1 class="pull-left" style="display:inline;margin: 0 0 0 0;padding-left:5px;line-height:50px;">{{country.name}} </h1>
 
 <div class="pull-right">
-			<a  style="padding-right:10px;cursor:pointer;" ng-click="goTo('/dashboard/submit/undbParty/',country.header.identifier);" ng-if="isAdmin()">Suggest an Edit <i class="fa fa-edit"></i></a><br ng-if="isAdmin()">
+			<a  style="padding-right:10px;cursor:pointer;" ng-click="goTo('dashboard/submit/undbParty/',country.header.identifier);" ng-if="isAdmin()">Suggest an Edit <i class="fa fa-edit"></i></a><br ng-if="isAdmin()">
 			<a ng-href="https://www.cbd.int/nbsap/about/latest/default.shtml#{{country.code}}" class="btn bg-cbdgreen" style="color:white;margin:10px 0 10px 0;"> Latest NBSAP <i class="fa fa-chevron-right"></i></a><br>
 			<a ng-href="https://www.cbd.int/countries/?country={{country.code}}" class="btn bg-cbdgreen" style="color:white;"> National Report <i class="fa fa-chevron-right"></i></a>
 </div>
