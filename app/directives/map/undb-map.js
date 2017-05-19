@@ -37,19 +37,16 @@ define(['text!./undb-map.html',
                         params: {
                             'q': 'schema_s:nationalAssessment',
                             'sort': 'createdDate_dt desc',
-                        //     'fl':'progress_EN_s,identifier_s,country_s,title_s, description_s,lat_d,lng_d',
+                            'fl':'nationalTarget_EN_t,progress_EN_s,government_s,identifier_s,country_s,title_s, description_s,lat_d,lng_d',
                             'wt': 'json',
                             'start': 0,
                             'rows': 1000000,
                         }
                     }).then(function(o) {
-                        //  console.log(o.data.response.docs);
-                        // console.log($scope.countries);
                         if(Array.isArray(o.data.response.docs))
                           for(var i=0; i<o.data.response.docs.length;i++){
                             var natAssDoc =o.data.response.docs[i];
-
-            if(!natAssDoc.nationalTarget_EN_t)continue;
+                            if(!natAssDoc.nationalTarget_EN_t)continue;
                             natAssDoc.progress=progressToNumber(natAssDoc.progress_EN_s);
                             for(var j=0; j<$scope.countries.length;j++){
                                 if($scope.countries[j].code.toLowerCase()===natAssDoc.government_s){
@@ -57,6 +54,7 @@ define(['text!./undb-map.html',
                                   if($scope.countries[j].docs.length===0 )$scope.countries[j].docs.push(natAssDoc);
                                   else if($scope.countries[j].docs[0].progress< natAssDoc.progress){
                                     $scope.countries[j].docs[0]=natAssDoc;
+
                                   }
                                 }
 
@@ -90,7 +88,7 @@ define(['text!./undb-map.html',
                 $http.get("/api/v2013/index", {
                     params: {
                         'q': 'schema_s:undbActor',
-                        'fl':'id,identifier_s,country_s,title_s, description_s,lat_d,lng_d',
+                        'fl':'id,logo*,identifier_s,country_s,title_s, description_s,lat_d,lng_d',
                         'sort': 'createdDate_dt desc',
                         'wt': 'json',
                         'start': 0,
@@ -187,6 +185,7 @@ define(['text!./undb-map.html',
                             subQueries = _.compact([
                                 getFormatedSubQuery(filterName, 'schema_s'),
                                 getFormatedSubQuery(filterName, 'startDate_dt'),
+                                getFormatedSubQuery(filterName, 'endDate_dt'),
                                 getFormatedSubQuery(filterName, 'state_s'),
                             ]);
                         });
@@ -231,6 +230,7 @@ define(['text!./undb-map.html',
                             if($scope.documents)
                               filterActive('aichi');
                             $scope.documents = groupByCountry($scope.countries, 1);
+                            $scope.toggleCaption=false;
                             return;
                         }
                         if ($scope.selectedSchema === 'bioChamps') {
@@ -272,6 +272,7 @@ define(['text!./undb-map.html',
                             'q': $scope.buildQuery(),
                             'sort': 'createdDate_dt desc',
                             'wt': 'json',
+                        'fl':'progress_EN_s,id,startDate_dt,endDate_dt,identifier_s,country_s,title_s, description_s,lat_d,lng_d',
                             'start': 0,
                             'rows': 1000000,
                         };

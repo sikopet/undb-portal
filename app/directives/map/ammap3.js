@@ -7,6 +7,7 @@ define(['text!./ammap3.html',
     'text!./pin-popup-actions.html',
     'text!./pin-popup-title-actions.html',
     'text!./pin-popup-title-actors.html',
+    'data/ccc',
     'ammap',
     'shim!./worldEUHigh[ammap]',
     'shim!ammap/themes/light[ammap]',
@@ -14,9 +15,9 @@ define(['text!./ammap3.html',
     'filters/hack',
     'filters/trunc',
     'utilities/km-utilities'
-], function(template, app, _,moment,  popoverTemplateBioChamps, popoverTitleBioChamps, popoverTemplateActions, popoverTitleActions, popoverTitleActors) {
+], function(template, app, _,moment,  popoverTemplateBioChamps, popoverTitleBioChamps, popoverTemplateActions, popoverTitleActions, popoverTitleActors,ccc) {
     'use strict';
-
+var images=[];
     app.directive('ammap3', ['$timeout', 'locale', '$http','$document','$filter',function($timeout, locale, $http,$document,$filter) {
         return {
             restrict: 'E',
@@ -44,37 +45,37 @@ define(['text!./ammap3.html',
                         visible: true,
                         color: '#8cc65d'
                     }, ],
-                    aichi: [{
-                      id: 0,
-                      title: 'No Data',
+                    aichi: [ {
+                      id: 5,
+                      title: 'Exceeded Target',
                       visible: true,
-                      color: '#dddddd'
-                    }, {
-                      id: 1,
-                      title: 'Moving Away',
-                      visible: true,
-                      color: '#6c1c67'
-                    }, {
-                      id: 2,
-                      title: 'No Progress',
-                      visible: true,
-                      color: '#ee1d23'
-                    }, {
-                      id: 3,
-                      title: 'Insufficient Rate',
-                      visible: true,
-                      color: '#fec210'
+                      color: '#1074bc'
                     }, {
                       id: 4,
                       title: 'Met Target',
                       visible: true,
                       color: '#109e49'
                     }, {
-                      id: 5,
-                      title: 'Exceeded Target',
+                      id: 3,
+                      title: 'Insufficient Rate',
                       visible: true,
-                      color: '#1074bc'
-                    }, ]
+                      color: '#fec210'
+                    }, {
+                      id: 2,
+                      title: 'No Progress',
+                      visible: true,
+                      color: '#ee1d23'
+                    } , {
+                      id: 1,
+                      title: 'Moving Away',
+                      visible: true,
+                      color: '#6c1c67'
+                    },{
+                      id: 0,
+                      title: 'No Data',
+                      visible: true,
+                      color: '#dddddd'
+                    }]
                 };
 
                 //=======================================================================
@@ -408,8 +409,8 @@ define(['text!./ammap3.html',
 
                             popoverTitleParsed = popoverTitleParsed.replace('{{title}}', image.title ? image.title : ' ');
 
-                            popoverTitleParsed = popoverTitleParsed.replace('{{startDate_s}}', image.startDate_s ? moment.utc(image.startDate_s).format('DD MMM YYYY')  : ' ');
-                            popoverTitleParsed = popoverTitleParsed.replace('{{endDate_s}}', image.endDate_s ? moment.utc(image.endDate_s).format('DD MMM YYYY') : ' ');
+                            popoverTitleParsed = popoverTitleParsed.replace('{{startDate_s}}', image.startDate_dt ? moment.utc(image.startDate_dt).format('DD MMM YYYY')  : ' ');
+                            popoverTitleParsed = popoverTitleParsed.replace('{{endDate_s}}', image.endDate_dt ? moment.utc(image.endDate_dt).format('DD MMM YYYY') : ' ');
                             popoverTitleParsed = popoverTitleParsed.replace('{{logo_s}}', image.logo_s ? image.logo_s : '/app/img/ic_recent_actors_black_48px.svg');
 
                             if (image.countryCode) image.countryName = _.findWhere($scope.countries, {
@@ -452,6 +453,14 @@ define(['text!./ammap3.html',
                             };
 
                         case 'actors':
+                            var img = new Image();
+                            if(image.logo_s){
+                              img.src=image.logo_s;
+                              images.push(img);
+                            }else{
+                              img.src='/app/img/ic_recent_actors_black_48px.svg';
+                              images.push(img);
+                            }
                             popoverTitleParsed = _.clone(popoverTitleActors);
                             popoverTemplateParsed = _.clone(popoverTemplateActions);
                             popoverTitleParsed = popoverTitleParsed.replace('{{logo_s}}', image.logo_s ? image.logo_s : '/app/img/ic_recent_actors_black_48px.svg');
@@ -504,10 +513,15 @@ define(['text!./ammap3.html',
                 function generateMap(schema) {
 
                     if (!schema) return;
-                    if (schema === 'parties')
+                    if (schema === 'parties'){
+                        colorMap(resetMap);
                         partiesMap();
-                    else if (schema === 'aichi')
+                    }
+                    else if (schema === 'aichi'){
+                        //colorMap(resetMap);
                         progressColorMap(aichiMap);
+
+                      }
                     else {
                         colorMap(resetMap);
                         pinMap(defaultPinMap);
@@ -630,7 +644,7 @@ define(['text!./ammap3.html',
                 //=======================================================================
                 function progressColorMap(mapTypeFunction) {
 
-                    hideAreas();
+                    //hideAreas();
 
                     _.each($scope.items, function(country) {
 
@@ -781,13 +795,13 @@ define(['text!./ammap3.html',
                                     // zoomLevel: 5,
                                     scale: 0.5,
                                     id:item.id,
-                                    startDate_s: item.startDate_s,
+                                    startDate_dt: item.startDate_dt,
                                     logo_s: item.logo_s,
                                     facebook_s: item.facebook_s,
                                     twitter_s: item.twitter_s,
                                     youtube_s: item.youtube_s,
                                     website_s: item.website_s,
-                                    endDate_s: item.endDate_s,
+                                    endDate_dt: item.endDate_dt,
                                     email_s: item.email_s,
                                     address_s: item.address_s,
                                     phone_s: item.phone_s,
@@ -839,6 +853,7 @@ define(['text!./ammap3.html',
                 //
                 // =======================================================================
                 function changeAreaColor(id, color, area) {
+
                     if (!area)
                         area = getMapObject(id);
 
@@ -943,6 +958,8 @@ define(['text!./ammap3.html',
                 function getMapObject(id) {
 
                     var index = _.findIndex($scope.map.dataProvider.areas, function(area) {
+                        if(id==='eur') return area.id === 'EU';
+
                         return area.id === id;
                     });
                     return $scope.map.dataProvider.areas[index];
