@@ -51,7 +51,7 @@
 
 
 	<div class="profile-border">
-		<a class="pull-right" style="padding-right:10px;cursor:pointer;" ng-click="goTo('/actions/submit-form/',action.identifier_s);" ng-if="isAdmin()">Edit Action <i class="fa fa-edit"></i></a>
+		<a class="pull-right" style="padding-right:10px;cursor:pointer;" tool-tip ng-href="/dashboard/submit/undb-actor/{{action.identifier_s}}" data-toggle="tooltip" title="Suggest an Edit"><i class="fa fa-edit"></i></a>
 
 		<div class="col-md-3 col-lg-3 profile-column">
 
@@ -83,7 +83,7 @@
 					</div>
 					<div class="action-detail" ng-if="action.address && !action.onlineEvent">
 						<span class="action-labels">Address</span>
-						<span class="detail" style="margin-left:14px;">{{action.address}} <a ng-src="action.googleMaps_s">(map)</a></span>
+						<span class="detail" style="margin-left:14px;">{{action.address.address.en}},{{action.address.city.en}},{{action.address.postalCode.en}} <a ng-href="{{action.googleMapsUrl_s}}">(map)</a></span>
 					</div>
 					<div class="action-detail" ng-if="action.country_s && !action.onlineEvent">
 						<span class="action-labels">Country</span>

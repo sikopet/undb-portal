@@ -1,4 +1,4 @@
-define(['lodash','angular-sanitize', 'filters/trunc','directives/links-display' ], function(_) {
+define(['lodash','angular-sanitize', 'filters/trunc','directives/links-display','directives/tooltip' ], function(_) {
     'use strict';
     return ['$scope', 'locale', '$http', '$location', '$route', '$sce','authentication',
         function($scope, locale, $http, $location, $route, $sce,authentication) {
@@ -40,7 +40,7 @@ define(['lodash','angular-sanitize', 'filters/trunc','directives/links-display' 
                             cache: true
                         }).success(function(d) {
                           Object.assign($scope.partner,d);
-                          console.log($scope.partner);
+
                           if($scope.partner.websites){
                               for(var i =0; i<$scope.partner.websites.length; i++)
                               {
@@ -56,6 +56,8 @@ define(['lodash','angular-sanitize', 'filters/trunc','directives/links-display' 
                                       $scope.partner.youtube=site.url;
                               }
                           }
+                          $scope.actor=$scope.partner;
+
                         });
                     });
 
@@ -140,6 +142,8 @@ define(['lodash','angular-sanitize', 'filters/trunc','directives/links-display' 
                 else
                     $location.url(url);
             };
+
+
 
         }
     ];

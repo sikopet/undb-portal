@@ -24,8 +24,8 @@ define(['app','lodash'], function(app,_) { 'use strict';
 			});
 			$http.get("https://api.cbd.int/api/v2013/index", {
 					 params: {
-							 'q': 'schema_s:undbAction OR schema_s:undbPartner ',
-							 'sort': 'createdDate_dt desc, title_t asc',
+							 'q': 'schema_s:undbActor ',
+
 							 'wt': 'json',
 							 'start': 0,
 							 'rows': 1000000,
@@ -46,18 +46,20 @@ define(['app','lodash'], function(app,_) { 'use strict';
 										$scope.countries.push(country);
 									}
 								}
+
 					});
 			}).then(function(){
 
 				$http.get("/api/v2013/index", {
 						 params: {
 								 'q': 'schema_s:undbParty',
-								 'fl':'country_s',
+								 'fl':'government*',
 								 'wt': 'json',
 								 'start': 0,
 								 'rows': 1000000
 						 }
 		 		}).then(function(res2){
+
 					_.each(res2.data.response.docs,function(profile){
 
 									var country = _.find(res.data,{code:profile.country_s});
@@ -68,6 +70,7 @@ define(['app','lodash'], function(app,_) { 'use strict';
 									}
 
 					});
+
 						$scope.isLoading = false;
 				});
 

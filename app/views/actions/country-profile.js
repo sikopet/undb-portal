@@ -55,7 +55,7 @@ define(['app', 'lodash', 'directives/map/zoom-map', 'directives/link-list', 'dir
             //=======================================================================
             function loadPartners() {
                 var queryParameters = {
-                    'q': 'schema_s:undbPartner AND _state_s:public AND country_s:' + $scope.country.code,
+                    'q': 'schema_s:undbActor AND _state_s:public AND country_s:' + $scope.country.code,
                     'wt': 'json',
                     'start': 0,
                     'rows': 1000000,

@@ -41,20 +41,20 @@
         </a>
       </div>
     </div>
-  </div>
+
   <div class="push20"></div>
-  <div class="center narrow">
+  <div class="row article">
     <div class="text-left">
       <span class="darkGreen small">See what’s happening in your country. Start typing a country’s name in the box or select a flag below.</span>
-      <div>
+      <div class="form-group">
         <form>
-          <input type="text" placeholder="Country Name" ng-model="search">
+          <input type="text" class="form-control" placeholder="Country Name" ng-model="search">
         </form>
       </div>
     </div>
   </div>
 
-  <div class="center narrow">
+  <div class="row article">
     <div class="text-center" ng-if="isLoading" >
         <h1><i class="fa fa-spin fa-spinner " /> Loading...</h1>
     </div>
@@ -79,5 +79,5 @@
       </li>
     </ul>
   </div>
-
+  </div>
 </div>

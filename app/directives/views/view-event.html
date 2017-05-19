@@ -283,9 +283,9 @@
                         </div>
               </div>
             </div>
-            <legend class="view" ng-if="organizations">Contributing Host Organization(s)</legend>
-            <div ng-if="organizations">
 
+            <div ng-if="organizations">
+<legend class="view" ng-if="organizations" && ng-if="contactOrganization.document.header.identifier !== organization.document.header.identifier">Contributing Host Organization(s)</legend>
                 <div class="col-xs-12 km-value" ng-repeat="organization in organizations" ng-if="contactOrganization.document.header.identifier !== organization.document.header.identifier">
                           <div ng-class="{'col-xs-10':organization.logo,'col-xs-12':!organization.logo}">
                               <div>
