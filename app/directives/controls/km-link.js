@@ -359,7 +359,19 @@ app.directive('kmLink', function() {
 										$scope.editor.name = link.name;
 
 								if (!$scope.extensions || !$scope.extensions.length)
-										$scope.editor.save();
+										$scope.editor.editLink(link);//$scope.editor.save();
+
+								//$scope.editor.editLink(link);
+						};
+
+						//==============================
+						//
+						//==============================
+						$scope.isLocalFile = function(path) {
+
+							if(!path) return false;
+
+								return (path.indexOf('api/v2013/documents')>-1);
 						};
 
 						//==============================
