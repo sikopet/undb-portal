@@ -10,7 +10,7 @@ require.config({
         'angular-route'             : 'libs/angular-route/angular-route',
         'angular-sanitize'          : 'libs/angular-sanitize/angular-sanitize.min',
         'authentication'            : 'factories/authentication',
-        'bootstrap'                 : 'libs/bootstrap/dist/js/bootstrap',
+        'bootstrap'                 : 'libs/bootstrap/dist/js/bootstrap.min',
         'css'                       : 'libs/require-css/css.min',
         'lodash'                    : 'libs/lodash/lodash',
         'linqjs'                    : 'libs/linqjs/linq.min',
