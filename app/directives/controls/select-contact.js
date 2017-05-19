@@ -195,7 +195,7 @@ function(template,app,_) {
                         var queryListParameters = {
                             'q'     : q + 'schema_s:' + $scope.schema,
                             'sort'  : 'updatedDate_dt desc',
-                            'fl'    : fields,
+                          //  'fl'    : fields,
                             'wt'    : 'json',
                             'start' : currentPage * 25,
                             'rows'  : 25,
