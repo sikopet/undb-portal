@@ -72,9 +72,9 @@ define(['app', 'lodash', 'text!views/index.html','text!./redirect-dialog.html', 
             when('/resources/contact',           { templateUrl: 'views/resources/contact.html',         label:'Contact Us' }).
 
             when('/dashboard',                   { templateUrl: 'views/dashboard/index-dash.html',    controllerAs: 'dashCtrl',    resolveController: true ,resolve : { user : securize(['User']) }}).
-            when('dashboard/submit/:schema',         { templateUrl: 'views/dashboard/record-list.html',  controllerAs: 'submitCtrl',  resolveController: true,resolve : { user : securize(['User']) } }).
-            when('dashboard/submit/:schema/:id',     { templateUrl: 'views/dashboard/edit.html',         controllerAs: 'editCtrl',    resolveController: true ,resolve : { user : securize(['User']) }}).
-            when('dashboard/submit/:schema/:id/view',{ templateUrl: 'views/dashboard/view.html',    controllerAs: 'viewCtrl',    resolveController: true,resolve : { user : securize(['Everyone']) } }).
+            when('/dashboard/submit/:schema',         { templateUrl: 'views/dashboard/record-list.html',  controllerAs: 'submitCtrl',  resolveController: true,resolve : { user : securize(['User']) } }).
+            when('/dashboard/submit/:schema/:id',     { templateUrl: 'views/dashboard/edit.html',         controllerAs: 'editCtrl',    resolveController: true ,resolve : { user : securize(['User']) }}).
+            when('/dashboard/submit/:schema/:id/view',{ templateUrl: 'views/dashboard/view.html',    controllerAs: 'viewCtrl',    resolveController: true,resolve : { user : securize(['Everyone']) } }).
 
             when('/help/404',                    { templateUrl: 'views/404.html',  controllerAs: 'notFoundCtrl',resolveController: true ,label : 'Not found',resolve : {path:currentPath}  }).
             when('/help/403',                    { templateUrl: 'views/403.html',   label : 'Forbidden' }).
