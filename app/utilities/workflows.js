@@ -10,14 +10,95 @@ app.factory('workflows', ['$http', 'realm', function($http, realm) {
               "undbPartner": {
                 name: "publishReferenceRecord",
                 version: undefined
+              },
+              "undbParty": {
+                name: "publishReferenceRecord",
+                version: undefined
+              },
+              "organization": {
+                name: "publishReferenceRecord",
+                version: undefined
+              } ,
+              "event": {
+                name: "publishReferenceRecord",
+                version: undefined
               }
         };
 
         return {
             addWorkflow     : addWorkflow,
             updateActivity  : updateActivity,
-            getWorkflow     : get
+            getWorkflow     : get,
+            create: create,
+            get: get,
+            cancel: cancel,
+            cancelActivity: cancelActivity,
+            query: query
         };
+
+        //===========================
+        //
+        //===========================
+        function create(type, version, data) {
+
+            var body = {
+                type: type,
+                version: version,
+                data: data
+            };
+
+            return $http.post("/api/v2013/workflows", body).then(function(resp) {
+                return resp.data;
+            });
+        }
+
+        //===========================
+        //
+        //===========================
+        function get(id) {
+            return $http.get("/api/v2013/workflows/" + id).then(
+                function(resp) {
+                    return resp.data;
+                });
+        }
+
+        //===========================
+        //
+        //===========================
+        function updateActivity(id, activityName, data) {
+            return $http.put("/api/v2013/workflows/" + id + "/activities/" + activityName, data).then(
+                function(resp) {
+                    return resp.data;
+                });
+        }
+        //===========================
+        //
+        //===========================
+        function cancel(id, data) {
+            return $http.delete("/api/v2013/workflows/" + id, {
+                params: data
+            }).then(
+                function(resp) {
+                    return resp.data;
+                });
+        }
+
+        //===========================
+        //
+        //===========================
+        function query(query, count, length, skip, sort) {
+            return $http.get("/api/v2013/workflows", {
+                params: {
+                    q: JSON.stringify(query),
+                    l: length,
+                    s: sort,
+                    sk: skip,
+                    c: count
+                }
+            }).then(function(resp) {
+                return resp.data;
+            });
+        }
 
         function addWorkflow(draftInfo){
 
@@ -40,29 +121,18 @@ app.factory('workflows', ['$http', 'realm', function($http, realm) {
                 data    : workflowData
             };
 
-            return $http.post("https://api.cbd.int/api/v2013/workflows", body).then(
+            return $http.post("/api/v2013/workflows", body).then(
                 function(resp) {
                     return resp.data;
                 }
             );
-
         }
 
         //===========================
         //
         //===========================
-        function get(id) {
-            return $http.get("https://api.cbd.int/api/v2013/workflows/" + id).then(
-                function(resp) {
-                    return resp.data;
-                });
-        };
-
-        //===========================
-        //
-        //===========================
-        function updateActivity(id, activityName, data) {
-            return $http.put("https://api.cbd.int/api/v2013/workflows/" + id + "/activities/" + activityName, data).then(
+        function cancelActivity(id, activityName, data) {
+            return $http.delete("/api/v2013/workflows/" + id + "/activities/" + activityName, data).then(
                 function(resp) {
                     return resp.data;
                 });

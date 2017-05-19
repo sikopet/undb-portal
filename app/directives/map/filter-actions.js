@@ -16,7 +16,7 @@ define(['text!./filter-actions.html', 'app', 'lodash', 'moment'], function(templ
             link: function($scope, $element, $attr, undbMap) {
                     $scope.queries = {
                         'actions': {
-                            'schema_s': ['undbAction'],
+                            'schema_s': ['event'],
                             '_state_s': ['public']
                         }
                     };
@@ -26,16 +26,16 @@ define(['text!./filter-actions.html', 'app', 'lodash', 'moment'], function(templ
                     //
                     //=======================================================================
                     $scope.loadRecords = function() {
-                        if ($scope.searchYear) {
-                            var startD = moment('01-01-' + $scope.searchYear, "DD-MM-YYYY").toISOString();
-                            var endD = moment('31-12-' + $scope.searchYear, "DD-MM-YYYY").toISOString();
-                            var q = ['[' + startD + ' TO ' + endD + ']'];
-                            $scope.queries.actions.startDate_dt = q;
-                        } else {
-                            undbMap.deleteSubQuery('actions');
-                            if ($scope.queries.actions.startDate_dt)
-                                delete($scope.queries.actions.startDate_dt);
-                        }
+                      if ($scope.searchYear) {
+                          var startD = moment('01-01-' + $scope.searchYear, "DD-MM-YYYY").toISOString();
+                          var endD = moment('31-12-' + $scope.searchYear, "DD-MM-YYYY").toISOString();
+                          var q = ['[' + startD + ' TO * ]'];
+                          $scope.queries.actions.endDate_dt = q;
+                      } else {
+                          undbMap.deleteSubQuery('actions');
+                          if ($scope.queries.actions.endDate_dt)
+                              delete($scope.queries.actions.endDate_dt);
+                      }
                         $scope.link="/actions/participate";
                         $scope.message = "actions";
                         undbMap.filterActive('actions');

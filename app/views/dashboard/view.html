@@ -1,0 +1,14 @@
+<div class="hidden-xs" style="height:20px;">
+  <div class="container sub-nav" style="height:10px;">
+  </div>
+</div>
+<div class="container">
+    <div class="row article">
+        <div class="col-xs-12">
+            <view-organization loading="loading" header="viewCtrl.header" user="viewCtrl.user" ng-model="viewCtrl.document" locale="viewCtrl.locale" ng-if="viewCtrl.schema==='organization'"></view-organization>
+            <view-undb-actor loading="loading" header="viewCtrl.header" user="viewCtrl.user" ng-model="viewCtrl.document" locale="viewCtrl.locale" ng-if="viewCtrl.schema==='undbActor'"></view-undb-actor>
+            <view-event loading="loading" header="viewCtrl.header" user="viewCtrl.user" ng-model="viewCtrl.document" locale="viewCtrl.locale" ng-if="viewCtrl.schema==='event'"></view-event>
+            <view-undb-party loading="loading" header="viewCtrl.header" user="viewCtrl.user" ng-model="viewCtrl.document" locale="viewCtrl.locale" ng-if="viewCtrl.schema==='undbParty'"></view-undb-party>
+        </div>
+    </div>
+</div>

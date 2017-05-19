@@ -1,0 +1,64 @@
+{
+	"links": [{
+		"title": {
+			"en": "Home"
+		},
+		"source": "./",
+		"children": []
+	},
+{
+	 "title": {
+		 "en": "About"
+	 },
+	 "source": "about",
+	 "children": [
+		 {"title":{
+		 		"en": "UNDB"
+	 		},
+			 "source": "undb",
+			 "children": []
+ 	 	 },
+		 {"title":{
+				"en": "Goals"
+			},
+			 "source": "goals",
+			 "children": []
+		 },
+]
+ },
+	 {
+		"title": {
+			"en": "Actions"
+		},
+		"source": "actions",
+		"children": []
+	}, {
+		"title": {
+			"en": "Actors"
+		},
+		"source": "actors",
+		"children": []
+	},
+	{
+		"title": {
+			"en": "Resources"
+		},
+		"source": "",
+		"children": []
+	},
+	{
+		"title": {
+			"en": "Resources"
+		},
+		"source": "resources",
+		"children": []
+	},
+	{
+		"title": {
+			"en": "Dashboard"
+		},
+		"source": "dashboard",
+		"children": []
+	}
+]
+}

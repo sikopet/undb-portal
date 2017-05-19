@@ -1,6 +1,6 @@
-define(['app', 'lodash', 'text!views/index.html', 'views/index', 'providers/extended-route', 'authentication'], function(app, _, rootTemplate) { 'use strict';
-
-    app.config(['extendedRouteProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+define(['app', 'lodash', 'text!views/index.html','text!./redirect-dialog.html', 'views/index', 'providers/extended-route', 'authentication','ngDialog','ngCookies'], function(app, _, rootTemplate, redirectDialog) { 'use strict';
+    var locationPath = window.location.pathname.toLowerCase().split('?')[0];
+    app.config(['extendedRouteProvider', '$locationProvider',function($routeProvider, $locationProvider) {
 
         $locationProvider.html5Mode(true);
         $locationProvider.hashPrefix('!');
@@ -23,14 +23,20 @@ define(['app', 'lodash', 'text!views/index.html', 'views/index', 'providers/exte
             when('/actions/worldwide',            { templateUrl: 'views/actions/worldwide.html',        label:'Worldwide',            resolveController: true , reloadOnSearch : false}).
             when('/actions/country',              { templateUrl: 'views/actions/country.html',          label:'By Country',           resolveController: true }).
             when('/actions/countries/:code',      { templateUrl: 'views/actions/country-profile.html',  label :'Profile',             resolveController: true }).
-            when('/actions/countries/edit/:code', { templateUrl: 'views/actions/country-profile-form.html', label:'Edit Party Profile',   resolveController: true, resolve : { user : securize(["UNDBPublishingAuthority", "undb-administrator"]) } }).
+            // when('/actions/countries/edit/:code', { templateUrl: 'views/actions/country-profile-form.html', label:'Edit Party Profile',   resolveController: true, resolve : { user : securize(["UNDBPublishingAuthority", "undb-administrator"]) } }).
+
            // when('/actions/un',                 { templateUrl: 'views/actions/un.html',               label:'By UN Organization',   resolveController: true }).
             when('/actions/calendar',             { templateUrl: 'views/actions/calendar.html',         label:'Calendar',             resolveController: true }).
             when('/actions/participate',          { templateUrl: 'views/actions/participate.html',      label:'Participate'           }).
-            when('/actions/submit',               { templateUrl: 'views/actions/submit.html',           label:'Participate',          resolveController: true, resolve : { user : securize(['User']) }, reloadOnSearch : false }).
-            when('/actions/register/:uid?',       { templateUrl: 'views/actions/submit-form.html',      label:'Form',                 resolveController: true, resolve : { user : securize(['User']) } }).
-            when('/actions/submit-form/:uid?',    { templateUrl: 'views/actions/submit-form.html',      label:'Form',                 resolveController: true, resolve : { user : securize(['User']) } }).
-            when('/actions/submit-form-done',     { templateUrl: 'views/actions/submit-form-done.html', label:'Thanks',               resolve : { user : securize(['User']) } }).
+            // when('/actions/submit',               { templateUrl: 'views/actions/submit.html',           label:'Participate',          resolveController: true, resolve : { user : securize(['User']) }, reloadOnSearch : false }).
+            // when('/actions/register/:uid?',       { templateUrl: 'views/actions/submit-form.html',      label:'Form',                 resolveController: true, resolve : { user : securize(['User']) } }).
+            // when('/actions/submit-form/:uid?',    { templateUrl: 'views/actions/submit-form.html',      label:'Form',                 resolveController: true, resolve : { user : securize(['User']) } }).
+            // when('/actions/submit-form-done',     { templateUrl: 'views/actions/submit-form-done.html', label:'Thanks',               resolve : { user : securize(['User']) } }).
+when('/actions/submit', { redirectTo: '/dashboard/submit/event/new' }).
+when('/actions/register/:uid?', { redirectTo: '/dashboard/submit/event/:id' }).
+when('/actions/submit-form/:uid?', { redirectTo: '/dashboard/submit/event/:id' }).
+when('/actions/submit-form-done', { redirectTo: '/dashboard' }).
+
             when('/actions/:uid',                 { templateUrl: 'views/actions/action.html',           label:'Action',               resolveController: true }).
 
             when('/actors',                      { templateUrl: 'views/actors/index.html',            label:'Actors',                  resolveController: true}).
@@ -42,12 +48,17 @@ define(['app', 'lodash', 'text!views/index.html', 'views/index', 'providers/exte
             when('/actors/jlg',                  { templateUrl: 'views/actors/jlg.html',              label:'JLG' ,                    resolveController: true}).
             when('/actors/submit',               { templateUrl: 'views/actors/submit.html',           label:'Participate',             resolveController: true, resolve : { user : securize(['User']) }, reloadOnSearch : false }).
             when('/actors/partners',             { templateUrl: 'views/actors/partners.html',         label:'UNDB Partners',           resolveController: true, resolve : { user : currentUser() } }).
-            when('/actors/partners/register',    { templateUrl: 'views/actors/submit-form.html',      label:'Become a UNDB Partner',   resolveController: true, resolve : { user : securize(['User']) } }).
-            when('/actors/register',             { templateUrl: 'views/actors/submit-form.html',      label:'Become a UNDB Partner',   resolveController: true, resolve : { user : securize(['User']) } }).
-            when('/actors/register/:uid',        { templateUrl: 'views/actors/submit-form.html',      label:'Become a UNDB Partner',   resolveController: true, resolve : { user : securize(['User']) } }).
-            when('/actors/partners/edit/:uid',   { templateUrl: 'views/actors/submit-form.html',      label:'Become a UNDB Partner',   resolveController: true, resolve : { user : securize(['User']) } }).
             when('/actors/partners/:uid',        { templateUrl: 'views/actors/actor.html',            label:'Actor',                   resolveController: true }).
-            when('/actors/submit-form-done',     { templateUrl: 'views/actors/submit-form-done.html', label:'Thanks',                  resolve : { user : securize(['User']) } }).
+
+            when('/actors/partners/register', { redirectTo: '/dashboard/submit/undb-actor/new' }).
+            when('/actors/register?', { redirectTo: '/dashboard/submit/undb-actor/:id' }).
+            when('/actors/register/:uid', { redirectTo: '/dashboard/submit/undb-actor/:id' }).
+            when('/actors/partners/edit/:uid', { redirectTo: '/dashboard/submit/undb-actor/:id'}).
+            // when('/actors/partners/register',    { templateUrl: 'views/actors/submit-form.html',      label:'Become a UNDB Partner',   resolveController: true, resolve : { user : securize(['User']) } }).
+            // when('/actors/register',             { templateUrl: 'views/actors/submit-form.html',      label:'Become a UNDB Partner',   resolveController: true, resolve : { user : securize(['User']) } }).
+            // when('/actors/register/:uid',        { templateUrl: 'views/actors/submit-form.html',      label:'Become a UNDB Partner',   resolveController: true, resolve : { user : securize(['User']) } }).
+            // when('/actors/partners/edit/:uid',   { templateUrl: 'views/actors/submit-form.html',      label:'Become a UNDB Partner',   resolveController: true, resolve : { user : securize(['User']) } }).
+            // when('/actors/submit-form-done',     { templateUrl: 'views/actors/submit-form-done.html', label:'Thanks',                  resolve : { user : securize(['User']) } }).
 
             when('/resources',                   { templateUrl: 'views/resources/index.html',           label:'Resources'         }).
             when('/resources/logo',              { templateUrl: 'views/resources/logo.html',            label:'Logo',                  resolveController: true}).
@@ -60,8 +71,13 @@ define(['app', 'lodash', 'text!views/index.html', 'views/index', 'providers/exte
             when('/resources/un-logo',           { templateUrl: 'views/resources/un-logo.html',         label:'UN Logo Use' }).
             when('/resources/contact',           { templateUrl: 'views/resources/contact.html',         label:'Contact Us' }).
 
-            when('/help/404',                    { templateUrl: 'views/404.html',  label : 'Not found' }).
-            when('/help/403',                    { templateUrl: 'views/403.html',  label : 'Forbidden' }).
+            when('/dashboard',                   { templateUrl: 'views/dashboard/index-dash.html',    controllerAs: 'dashCtrl',    resolveController: true ,resolve : { user : securize(['User']) }}).
+            when('/dashboard/submit/:schema',         { templateUrl: 'views/dashboard/record-list.html',  controllerAs: 'submitCtrl',  resolveController: true,resolve : { user : securize(['User']) } }).
+            when('/dashboard/submit/:schema/:id',     { templateUrl: 'views/dashboard/edit.html',         controllerAs: 'editCtrl',    resolveController: true ,resolve : { user : securize(['User']) }}).
+            when('/dashboard/submit/:schema/:id/view',{ templateUrl: 'views/dashboard/view.html',    controllerAs: 'viewCtrl',    resolveController: true,resolve : { user : securize(['Everyone']) } }).
+
+            when('/help/404',                    { templateUrl: 'views/404.html',  controllerAs: 'notFoundCtrl',resolveController: true ,label : 'Not found',resolve : {path:currentPath}  }).
+            when('/help/403',                    { templateUrl: 'views/403.html',   label : 'Forbidden' }).
             otherwise({ redirectTo: '/help/404' });
     }]);
 
@@ -76,31 +92,73 @@ define(['app', 'lodash', 'text!views/index.html', 'views/index', 'providers/exte
             return authentication.getUser();
         }];
     }
-
     //============================================================
     //
     //
     //============================================================
-    function securize(roles) {
+    function currentPath() {
 
-        return ['$location', '$window', '$q', 'authentication', function ($location, $window, $q, authentication) {
+        return locationPath;
+    }
+    //============================================================
+    //
+    //
+    //============================================================
+    function securize(requiredRoles) {
 
-            return authentication.getUser().then(function (user) {
+        return ['$q', '$rootScope', 'authentication', '$location', '$window','ngDialog','$cookies', function($q, $rootScope, authentication, $location, $window,ngDialog,$cookies) {
+
+            return $q.when(authentication.getUser()).then(function (user) {
+
+                var hasRole = !!_.intersection(user.roles, requiredRoles).length;
 
                 if (!user.isAuthenticated) {
+                    $rootScope.authRediectChange=authRediectChange;
+                    if(!!_.intersection(requiredRoles, ['Everyone']).length)
+                      return user;
 
-                    var returnUrl = $window.encodeURIComponent($window.location.href);
-                    $window.location.href = 'https://accounts.cbd.int/signin?returnUrl=' + returnUrl; // force sign in
-                    return $q(function () {});
-                }
-                else if (roles && !_.isEmpty(roles) && _.isEmpty(_.intersection(roles, user.roles))) {
+                    if(!$cookies.get('redirectOnAuthMsg') || $cookies.get('redirectOnAuthMsg')==='false')
+                        openDialog();
+                    else
+                        $window.location.href = authentication.accountsBaseUrl()+'/signin?returnurl='+encodeURIComponent($location.absUrl());
 
-                    $location.url('/help/403'); // not authorized
+                    throw user; // stop route change!
                 }
+                else if (!hasRole)
+                    $location.url('/403?returnurl='+encodeURIComponent($location.url()));
 
                 return user;
             });
-        }];
-    }
+
+            //============================================================
+            //
+            //
+            //============================================================
+            function openDialog() {
+                $rootScope.redirectOnAuthMsg=true;
+                $cookies.put('redirectOnAuthMsg',true);
+                ngDialog.open({
+                      template: redirectDialog,
+                      className: 'ngdialog-theme-default',
+                      closeByDocument: false,
+                      plain: true,
+                      scope:$rootScope
+                  }).closePromise.then(function(retVal){
+                        if(retVal.value)
+                          $window.location.href = authentication.accountsBaseUrl()+'/signin?returnurl='+encodeURIComponent($location.absUrl());
+                        else
+                          $window.history.back();
+                  });
+            }
+            //============================================================
+            //
+            //
+            //============================================================
+            function authRediectChange(value) {
+                $cookies.put('redirectOnAuthMsg',value);
+            }//authRediectChange
+
+        }];//return array
+    }//securize
 
 });

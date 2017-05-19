@@ -1,4 +1,4 @@
-define(['text!./activities-list.html', 'app','moment','filters/trunc','filters/hack','factories/km-utilities' ], function(template, app,moment) {
+define(['text!./activities-list.html', 'app','moment-timezone','filters/trunc','filters/hack','factories/km-utilities' ], function(template, app,moment) {
     'use strict';
 
     app.directive('activitiesList', ['$http','$location',  function($http,$location) {
@@ -155,7 +155,7 @@ define(['text!./activities-list.html', 'app','moment','filters/trunc','filters/h
               //
               //=======================================================================
               function search() {
-                var q = 'schema_s:undbAction';
+                var q = 'schema_s:event';
 
                 $scope.loading=true;
                 if($scope.search)
@@ -173,12 +173,12 @@ define(['text!./activities-list.html', 'app','moment','filters/trunc','filters/h
                 var queryParameters = {
                   'q': q,
                   'wt': 'json',
-                  'sort': 'startDate_dt desc, title_t asc',
+                  'sort': 'startDate_dt desc',
                   'start': $scope.currentPage * $scope.itemsPerPage,
   								'rows': $scope.itemsPerPage,
                 };
 
-                  $http.get('https://www.cbd.int/api/v2013/index/select', {
+                  $http.get('/api/v2013/index/select', {
                     params: queryParameters,
                     cache: true
                   }).success(function(data) {

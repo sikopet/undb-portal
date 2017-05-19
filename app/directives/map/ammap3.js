@@ -1,12 +1,13 @@
 define(['text!./ammap3.html',
     'app',
     'lodash',
-    'moment',
+    'moment-timezone',
     'text!./pin-popup-bio-champs.html',
     'text!./pin-popup-title-bio-champs.html',
     'text!./pin-popup-actions.html',
     'text!./pin-popup-title-actions.html',
     'text!./pin-popup-title-actors.html',
+    'data/ccc',
     'ammap',
     'shim!./worldEUHigh[ammap]',
     'shim!ammap/themes/light[ammap]',
@@ -14,9 +15,9 @@ define(['text!./ammap3.html',
     'filters/hack',
     'filters/trunc',
     'utilities/km-utilities'
-], function(template, app, _,moment,  popoverTemplateBioChamps, popoverTitleBioChamps, popoverTemplateActions, popoverTitleActions, popoverTitleActors) {
+], function(template, app, _,moment,  popoverTemplateBioChamps, popoverTitleBioChamps, popoverTemplateActions, popoverTitleActions, popoverTitleActors,ccc) {
     'use strict';
-
+var images=[];
     app.directive('ammap3', ['$timeout', 'locale', '$http','$document','$filter',function($timeout, locale, $http,$document,$filter) {
         return {
             restrict: 'E',
@@ -43,7 +44,38 @@ define(['text!./ammap3.html',
                         title: 'Not a Party',
                         visible: true,
                         color: '#8cc65d'
-                    }, ]
+                    }, ],
+                    aichi: [ {
+                      id: 5,
+                      title: 'Exceeded Target',
+                      visible: true,
+                      color: '#1074bc'
+                    }, {
+                      id: 4,
+                      title: 'Met Target',
+                      visible: true,
+                      color: '#109e49'
+                    }, {
+                      id: 3,
+                      title: 'Insufficient Rate',
+                      visible: true,
+                      color: '#fec210'
+                    }, {
+                      id: 2,
+                      title: 'No Progress',
+                      visible: true,
+                      color: '#ee1d23'
+                    } , {
+                      id: 1,
+                      title: 'Moving Away',
+                      visible: true,
+                      color: '#6c1c67'
+                    },{
+                      id: 0,
+                      title: 'No Data',
+                      visible: true,
+                      color: '#dddddd'
+                    }]
                 };
 
                 //=======================================================================
@@ -52,6 +84,7 @@ define(['text!./ammap3.html',
                 $scope.$watch('items', function(newV,old) {
                     if ($scope.map && (!_.isEmpty($scope.items) || (_.isEmpty(newV) && !_.isEmpty(old))) ) {
                         $scope.map.dataProvider.images = _.clone($scope.images);
+
                         ammap3.generateMap($scope.schema);
                     }
                 });
@@ -267,15 +300,13 @@ define(['text!./ammap3.html',
                     $(pin).data('i', imageIndex);
                     $(pin).data('toggle', 'popover');
 
-                    $(pin).popover(generatePopover(imageIndex));
-                    $(pin).on('show.bs.popover',function(){
-
-                        $scope.map.zoomToLongLat($scope.map.zoomLevel(), $scope.map.dataProvider.images[imageIndex].longitude, $scope.map.dataProvider.images[imageIndex].latitude);
+                    $(pin).hover(function(){
+                      $(pin).popover(generatePopover(imageIndex));
                     });
 
                     $(pin).on('shown.bs.popover',function(){
                       if ($(pin).data('bs.popover').tip().hasClass('in')){
-
+                        $scope.map.zoomToLongLat($scope.map.zoomLevel(), $scope.map.dataProvider.images[imageIndex].longitude, $scope.map.dataProvider.images[imageIndex].latitude);
                         $timeout(function(){
                           $scope.map.moveUp();
                         },500);
@@ -314,6 +345,7 @@ define(['text!./ammap3.html',
                 //
                 //=======================================================================
                 function extractId (id){
+                    if(!id)return;
                     return parseInt(id.replace('52000000cbd08', ''), 16);
                 }
 
@@ -377,8 +409,8 @@ define(['text!./ammap3.html',
 
                             popoverTitleParsed = popoverTitleParsed.replace('{{title}}', image.title ? image.title : ' ');
 
-                            popoverTitleParsed = popoverTitleParsed.replace('{{startDate_s}}', image.startDate_s ? moment.utc(image.startDate_s).format('DD MMM YYYY')  : ' ');
-                            popoverTitleParsed = popoverTitleParsed.replace('{{endDate_s}}', image.endDate_s ? moment.utc(image.endDate_s).format('DD MMM YYYY') : ' ');
+                            popoverTitleParsed = popoverTitleParsed.replace('{{startDate_s}}', image.startDate_dt ? moment.utc(image.startDate_dt).format('DD MMM YYYY')  : ' ');
+                            popoverTitleParsed = popoverTitleParsed.replace('{{endDate_s}}', image.endDate_dt ? moment.utc(image.endDate_dt).format('DD MMM YYYY') : ' ');
                             popoverTitleParsed = popoverTitleParsed.replace('{{logo_s}}', image.logo_s ? image.logo_s : '/app/img/ic_recent_actors_black_48px.svg');
 
                             if (image.countryCode) image.countryName = _.findWhere($scope.countries, {
@@ -421,6 +453,14 @@ define(['text!./ammap3.html',
                             };
 
                         case 'actors':
+                            var img = new Image();
+                            if(image.logo_s){
+                              img.src=image.logo_s;
+                              images.push(img);
+                            }else{
+                              img.src='/app/img/ic_recent_actors_black_48px.svg';
+                              images.push(img);
+                            }
                             popoverTitleParsed = _.clone(popoverTitleActors);
                             popoverTemplateParsed = _.clone(popoverTemplateActions);
                             popoverTitleParsed = popoverTitleParsed.replace('{{logo_s}}', image.logo_s ? image.logo_s : '/app/img/ic_recent_actors_black_48px.svg');
@@ -474,14 +514,61 @@ define(['text!./ammap3.html',
 
                     if (!schema) return;
                     if (schema === 'parties'){
-                        progressColorMap(partiesMap);
-                      //  colorMap(resetMap);
-                    }else {
+                        colorMap(resetMap);
+                        partiesMap();
+                    }
+                    else if (schema === 'aichi'){
+                        //colorMap(resetMap);
+                        progressColorMap(aichiMap);
+
+                      }
+                    else {
                         colorMap(resetMap);
                         pinMap(defaultPinMap);
                     }
                 } //generateMap
 
+
+                //=======================================================================
+                //
+                //=======================================================================
+                function progressToColor(progress) {
+
+                  switch (progress) {
+                    case 5:
+                      return '#1074bc';
+                    case 4:
+                      return '#109e49';
+                    case 3:
+                      return '#fec210';
+                    case 2:
+                      return '#ee1d23';
+                    case 1:
+                      return '#6c1c67';
+                  }
+                } //readQueryString
+                //=======================================================================
+                //
+                //=======================================================================
+                function aichiMap(country) {
+
+
+                  if(!_.isEmpty(country.docs)){
+                      changeAreaColor(country.code, progressToColor(country.docs[0].progress));
+                      if(country.docs[0].progress && country.docs[0].nationalTarget_EN_t)
+                      buildProgressBaloon(country,country.docs[0].progress, country.docs[0].nationalTarget_EN_t);
+
+                  }else
+                      changeAreaColor(country.code,'#cccccc');
+
+                  // if(!_.isEmpty(country.targets)){
+                  //     buildTargetBaloon(country);
+                  // }
+
+
+                  // legendTitle(country);
+                  // restLegend($scope.leggends.aichiTarget);
+                } // aichiMap
 
                 //=======================================================================
                 //
@@ -537,17 +624,28 @@ define(['text!./ammap3.html',
                     $scope.map.write("mapdiv");
                 } // writeMap
 
+                //=======================================================================
+                //
+                //=======================================================================
+                function partiesMap() {
+                       changeAreaColor('divider1', "#009B48");
+                       changeAreaColor('EU', "#009B48");
+                       changeAreaColor('US', "#8cc65d");
+                       var area = getMapObject('EU');
+                       area.outlineAlpha = '.5';
+                       area = getMapObject('divider1');
+                       area.outlineAlpha = '.5';
+                       $scope.map.dataProvider.images[0].label = 'EU';
+                       $scope.map.validateData();
+                } //progressColorMap
 
                 //=======================================================================
                 //
                 //=======================================================================
                 function progressColorMap(mapTypeFunction) {
 
-                    hideAreas();
-                    $scope.legendTitle = ""; // rest legend title
-                    buildProgressBaloonParties({
-                        'code': 'GL'
-                    });
+                    //hideAreas();
+
                     _.each($scope.items, function(country) {
 
                         if (!_.isEmpty(country.docs))
@@ -558,7 +656,7 @@ define(['text!./ammap3.html',
                     });
 
                     changeAreaColor('divider1', "#009B48");
-                    changeAreaColor('US', "#8cc65d");
+
                     var area = getMapObject('EU');
                     area.outlineAlpha = '.5';
                     area = getMapObject('divider1');
@@ -580,7 +678,7 @@ define(['text!./ammap3.html',
                     });
                     $scope.map.validateData(); // updates map with color changes
                     updateCustomMarkers();
-                } //progressColorMap
+                } //
 
 
                 //=======================================================================
@@ -601,17 +699,6 @@ define(['text!./ammap3.html',
                 //=======================================================================
                 //
                 //=======================================================================
-                function partiesMap(country) {
-
-                    changeAreaColor(country.code, getPartyColor(country));
-                    buildProgressBaloonParties(country);
-                    legendTitle($scope.schema);
-                } // partiesMap
-
-
-                //=======================================================================
-                //
-                //=======================================================================
                 function resetMap(country) {
 
                     if (!country.code) return;
@@ -619,10 +706,8 @@ define(['text!./ammap3.html',
                     if (country.code !== 'EU')
                         changeAreaColor(country.code, "#009B48");
                     else {
-
                         changeAreaColor(country.code, "#99CDE8");
                         changeAreaColor('divider1', "#99CDE8");
-
 
                         var area = getMapObject(country.code);
                         area.outlineAlpha = 0;
@@ -710,13 +795,13 @@ define(['text!./ammap3.html',
                                     // zoomLevel: 5,
                                     scale: 0.5,
                                     id:item.id,
-                                    startDate_s: item.startDate_s,
+                                    startDate_dt: item.startDate_dt,
                                     logo_s: item.logo_s,
                                     facebook_s: item.facebook_s,
                                     twitter_s: item.twitter_s,
                                     youtube_s: item.youtube_s,
                                     website_s: item.website_s,
-                                    endDate_s: item.endDate_s,
+                                    endDate_dt: item.endDate_dt,
                                     email_s: item.email_s,
                                     address_s: item.address_s,
                                     phone_s: item.phone_s,
@@ -763,53 +848,15 @@ define(['text!./ammap3.html',
                     }
                 } // aichiMap
 
-                //=======================================================================
-                //
-                //=======================================================================
-                function getPartyColor(country) {
-                    if(country.id==='US'){
-                      return '#8cc65d'};
-                    switch (country.treatyComb) {
-                        case 'CBD,':
-                            return '#009B48';
-                        case 'CBD,CPB,':
-                            return '#009B48';
-                        case 'CBD,CPB,ABS,':
-                            return '#009B48';
-                        case 'CBD,ABS,':
-                            return '#009B48';
-                        default:
-                            return '#009B48';
-                    }
-                } //getPartyColor
-
-                //=======================================================================
-                //
-                //=======================================================================
-                function legendTitle(schemaName) {
-
-                    if (schemaName == 'parties') {
-                        $scope.legendTitle = 'Parties and their Treaties';
-                    } else if (schemaName == 'nationalIndicator') {
-                        $scope.legendTitle = 'National Indicators';
-
-                    } else if (schemaName == 'nationalTarget') {
-                        $scope.legendTitle = 'National Targets';
-
-                    } else if (schemaName == 'resourceMobilisation') {
-                        $scope.legendTitle = 'Resource Mobilisation';
-                    } else if (schemaName == 'all') {
-                        $scope.legendTitle = 'All Reporting';
-                    }
-                } //legendTitle
-
 
                 // =======================================================================
                 //
                 // =======================================================================
                 function changeAreaColor(id, color, area) {
+
                     if (!area)
                         area = getMapObject(id);
+
                     area.colorReal = area.originalColor = color;
                     if (id === 'DK') {
                         var area2 = getMapObject('GL');
@@ -818,23 +865,66 @@ define(['text!./ammap3.html',
                     }
                 } //changeAreaColor
 
+                // //=======================================================================
+                // // c
+                // //=======================================================================
+                function getProgressIcon(progress) {
 
+                  switch (progress) {
+                    case 1:
+                      return '/app/images/ratings/36A174B8-085A-4363-AE11-E34163A9209C.png';
+                    case 2:
+                      return '/app/images/ratings/2D241E0A-1D17-4A0A-9D52-B570D34B23BF.png';
+                    case 3:
+                      return '/app/images/ratings/486C27A7-6BDF-460D-92F8-312D337EC6E2.png';
+                    case 4:
+                      return '/app/images/ratings/E49EF94E-0590-486C-903B-68C5E54EC089.png';
+                    case 5:
+                      return '/app/images/ratings/884D8D8C-F2AE-4AAC-82E3-5B73CE627D45.png';
+                  }
+                } //getProgressIcon(progress)
 
-                // =======================================================================
-                //
-                // =======================================================================
-                function buildProgressBaloonParties(country) {
+                // // =======================================================================
+                // //
+                // // =======================================================================
+                function buildProgressBaloon(country, progress, target) {
 
-                    var area = getMapObject(country.code);
-                    area.balloonText = "<i class='flag-icon flag-icon-" + String(country.code).toLowerCase() + " ng-if='country.isEUR'></i>&nbsp;";
-                    var euImg = "<img src='app/img/Flag_of_Europe.svg' style='width:25px;hight:21px;padding-left:0px;margin-left:0px;' ng-if='country.isEUR'></img>&nbsp;";
-                    var balloonText2 = area.title + "";
-                    if (country.isEUR)
-                        area.balloonText += euImg;
-                    area.balloonText += balloonText2;
+                  var area = getMapObject(country.code);
+                  if(country.code==='EU')country.code='eur';
+                  area.balloonText = "<div class='panel panel-default' ><div class='panel-heading' style='font-weight:bold; font-size:medium; white-space: nowrap;'><img style=\"max-height:20px;\" src=\"https://www.cbd.int/images/flags/96/flag-"+country.code+"-96.png\">&nbsp;";
+                  var balloonText2 = area.title + "</div> <div class='panel-body' style='text-align:left;'><img style='float:right;width:60px;hight:60px;' src='" + getProgressIcon(progress) + "' >" + getProgressText(progress, target) + "</div> </div>";
+
+                  area.balloonText += balloonText2;
                 } //buildProgressBaloon
 
+                // //=======================================================================
+                // //
+                // //=======================================================================
+                function getProgressText(progress, target) {
+                  if(Array.isArray(target))target= target[0];
+                  switch (progress) {
+                    case 1:
+                      return 'Moving away from ' + aichiTargetReadable(target) + ' (things are getting worse rather than better).';
+                    case 2:
+                      return 'No significant overall progress towards ' + aichiTargetReadable(target) + ' (overall, we are neither moving towards the ' + aichiTargetReadable(target) + ' nor moving away from it).';
+                    case 3:
+                      return 'Progress towards ' + aichiTargetReadable(target) + ' but at an insufficient rate (unless we increase our efforts the ' + aichiTargetReadable(target) + ' will not be met by its deadline).';
+                    case 4:
+                      return 'On track to achieve ' + aichiTargetReadable(target) + ' (if we continue on our current trajectory we expect to achieve the ' + aichiTargetReadable(target) + ' by 2020).';
+                    case 5:
+                      return 'On track to exceed ' + aichiTargetReadable(target) + ' (we expect to achieve the ' + aichiTargetReadable(target) + ' before its deadline).';
+                  }
+                } //getProgressText(progress, target)
+                // //=======================================================================
+                // //
+                // //=======================================================================
+                function aichiTargetReadable(target) {
 
+                  if(typeof target === 'string')
+                  return target.replace("-", " ").replace("-", " ").toLowerCase().replace(/\b./g, function(m) {
+                    return m.toUpperCase();
+                  });
+                } //aichiTargetReadable
                 //=======================================================================
                 //
                 //=======================================================================
@@ -868,6 +958,8 @@ define(['text!./ammap3.html',
                 function getMapObject(id) {
 
                     var index = _.findIndex($scope.map.dataProvider.areas, function(area) {
+                        if(id==='eur') return area.id === 'EU';
+
                         return area.id === id;
                     });
                     return $scope.map.dataProvider.areas[index];

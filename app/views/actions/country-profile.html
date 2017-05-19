@@ -1,4 +1,17 @@
 <div>
+<style>
+	.prof-disp{
+	white-space: pre-wrap;       /* Since CSS 2.1 */
+	white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+	white-space: -pre-wrap;      /* Opera 4-6 */
+	white-space: -o-pre-wrap;    /* Opera 7 */
+	word-wrap: break-word;       /* Internet Explorer 5.5+ */
+	font-size: 16px;
+font-family: Helvetica, Verdana, sans-serif;
+line-height: 14px;
+color: #222;
+}
+</style>
 	<div class="hidden-xs">
 		<div class="container sub-nav">
 			<ul class="nav navbar-nav">
@@ -20,7 +33,7 @@
 			<h1 class="pull-left" style="display:inline;margin: 0 0 0 0;padding-left:5px;line-height:50px;">{{country.name}} </h1>
 
 <div class="pull-right">
-			<a  style="padding-right:10px;cursor:pointer;" ng-click="goTo('/actions/countries/edit/',country.code);" ng-if="isAdmin()">Edit Profile <i class="fa fa-edit"></i></a><br ng-if="isAdmin()">
+			<a  style="padding-right:10px;cursor:pointer;" ng-click="goTo('/dashboard/submit/undbParty/',country.header.identifier);" ng-if="isAdmin()">Suggest an Edit <i class="fa fa-edit"></i></a><br ng-if="isAdmin()">
 			<a ng-href="https://www.cbd.int/nbsap/about/latest/default.shtml#{{country.code}}" class="btn bg-cbdgreen" style="color:white;margin:10px 0 10px 0;"> Latest NBSAP <i class="fa fa-chevron-right"></i></a><br>
 			<a ng-href="https://www.cbd.int/countries/?country={{country.code}}" class="btn bg-cbdgreen" style="color:white;"> National Report <i class="fa fa-chevron-right"></i></a>
 </div>
@@ -30,15 +43,13 @@
 			<li role="presentation" class="active" style="margin-top:5px;"><a href="#UNDB" aria-controls="UNDB" role="tab" data-toggle="tab"><span>UNDB</span></a></li>
 			<li role="presentation" style="margin-top:5px;"><a href="#CBD" aria-controls="CBD" role="tab" data-toggle="tab"><span>CBD</span></a></li>
 			<li role="presentation" style="margin-top:5px;"><a href="#More" aria-controls="More" role="tab" data-toggle="tab"><span>More</span></a></li>
-			<li role="presentation" style="margin-top:5px;" ng-if="(country.publications.length>0)"><a href="#publications" aria-controls="publications" role="tab" data-toggle="tab"><span>Publications</span></a></li>
-			<li role="presentation" style="margin-top:5px;" ng-if="country.images.length>0"><a href="#images" aria-controls="images" role="tab" data-toggle="tab"><span>Images</span></a></li>
-			<li role="presentation" style="margin-top:5px;" ng-if="country.videos.length>0"><a href="#videos" aria-controls="videos" role="tab" data-toggle="tab"><span>Videos</span></a></li>
+			<li role="presentation" style="margin-top:5px;" ng-if="(country.documents.length>0 || country.videos.length>0 || country.images.length>0 || country.websites.length>0 )"><a href="#publications" aria-controls="publications" role="tab" data-toggle="tab"><span>Media</span></a></li>
 		</ul>
 
 		<div class="profile-border">
 			<!-- DIV BORDER ( colum + center )  -->
 
-			<div class="col-md-3 col-lg-3 profile-column">
+			<div class="col-xs-12  col-sm-9 col-md-3 col-lg-3 profile-column">
 				<zoom-map zoom-to="country.code"></zoom-map>
 
 				<ul class="party" style="padding-left:1px;list-style:none;">
@@ -64,11 +75,12 @@
       <links-display document="country"></links-display>
 			</div>
 
-			<div class="col-xs-12  col-sm-12 col-md-9 col-lg-9 tab-content text-left">
+			<div class="col-xs-12  col-sm-8 col-md-8 col-lg-9 tab-content text-left">
 				<div role="tabpanel" class="tab-pane fade in  active" id="UNDB">
 					<div class="article">
-						<div ng-bind-html="trustHtml(country.description)">
+						<div class="prof-disp" ng-bind-html="country.description |lstring  |safeHtml ">
 						</div>
+
 					</div>
 
 					<div ng-show="activitiesCount">
@@ -154,14 +166,40 @@
 					<!-- END THIRD TAB DIV -->
 				</div>
 				<div role="tabpanel" class="tab-pane fade in" id="publications">
-					<link-list fa-class="fa-book" document="country" links="country.publications"></link-list>
+					 		<div class="col-md-6 col-xs-12" ng-if="country.websites">
+								<h3>Websites</h3>
+
+										<div class="well well-default" ng-repeat="link in country.websites track by $index">
+												<a ng-href="{{link.url}}" style="color:#333;text-decoration: underline;">{{link.name}}</a>
+										</div>
+
+								<br>
+							</div>
+							<div class="col-md-6 col-xs-12" ng-if="country.documents">
+								<h3>Documents</h3>
+
+										<div class="well well-default" ng-repeat="link in country.documents track by $index">
+												<a ng-href="{{link.url}}" style="color:#333;text-decoration: underline;">{{link.name}}</a>
+										</div>
+
+								<br>
+							</div>
+							<div class="col-md-6 col-xs-12" ng-if="country.images">
+								<h3>Images</h3>
+								<div class="well well-default" ng-repeat="link in country.images track by $index">
+											<img ng-src="{{link.url}}" style="max-height:50px;"></img>	<a ng-href="{{link.url}}" style="color:#333;text-decoration: underline;">{{link.name}}</a>
+								</div>
+								<br>
+							</div>
+							<div class="col-md-6 col-xs-12" ng-if="country.videos">
+								<h3>Videos</h3>
+								<div class="well well-default" ng-repeat="link in country.videos track by $index">
+												<a ng-href="{{link.url}}" style="color:#333;text-decoration: underline;">{{link.name}}</a>
+								</div>
+								<br>
+							</div>
 				</div>
-				<div role="tabpanel" class="tab-pane fade in" id="images">
-					<link-list fa-class="fa-image" document="country" links="country.images"></link-list>
-				</div>
-				<div role="tabpanel" class="tab-pane fade in" id="videos">
-					<link-list fa-class="fa-video-camera" document="country" links="country.videos"></link-list>
-				</div>
+
 
 			</div>
 			<!-- END DIV BORDER ( colum + center ) -->

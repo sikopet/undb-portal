@@ -21,7 +21,6 @@
     </div>
 </div>
 <div class="col-xs-9">
-
     <h5><a class="pointer" ng-href="actors/partners/{{extractId(doc.id)}}" >{{doc.title_s | lstring}}</a></h5>
     <div>
         <p style="display:inline;" ng-bind-html="trusted((doc.description_s | uriToLink | nl2br  | hack | lstring | truncate:(doc.truncate || 400):'  ')) ">

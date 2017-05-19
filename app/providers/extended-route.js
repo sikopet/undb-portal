@@ -1,6 +1,7 @@
 define(['require', 'app', 'angular', 'angular-route'], function(require, app, angular) { 'use strict';
 
-    var baseUrl = require.toUrl('');
+    var baseUrl = require.toUrl('').replace(/\?.*/,'');
+    var gitVersion = document.documentElement.attributes['git-version'] ? document.documentElement.attributes['git-version'].value : 'UNKNOWN';
 
     app.provider('extendedRoute', ["$routeProvider", function($routeProvider) {
 
@@ -18,7 +19,7 @@ define(['require', 'app', 'angular', 'angular-route'], function(require, app, an
             if(templateUrl) {
 
                 if(templateUrl.indexOf('/')!==0) {
-                    route.templateUrl = baseUrl + templateUrl;
+                    route.templateUrl = baseUrl + templateUrl + '?v=' + gitVersion;
                     templateModule  = changeExtension(templateUrl, '');
                 }
                 else {
@@ -45,8 +46,10 @@ define(['require', 'app', 'angular', 'angular-route'], function(require, app, an
         //********************************************************************************
 
         function changeExtension(path, ext) {
+
             return path.replace(/(\.[a-z0-9]+$)/gi, ext);
         }
+
 
         //============================================================
         //
@@ -75,7 +78,9 @@ define(['require', 'app', 'angular', 'angular-route'], function(require, app, an
 
                 require([controllerModule], function (module) {
                     deferred.resolve(module);
-                }, function(){
+                }, function(error){
+                    console.error  (error);
+                    console.error  ("controller not found: " + controllerModule);
                     deferred.reject("controller not found: " + controllerModule);
                 });
 

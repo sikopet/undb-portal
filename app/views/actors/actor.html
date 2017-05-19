@@ -23,51 +23,60 @@
 	.action-detail .action-labels {
 		color: #069554;
 	}
+
 	.img-container {
-    width: 200px; /* whatever set width */
-		height: 200px; /* whatever set width */
-    display: inline-block; /* or you could float them */
-    overflow: hidden;
+		width: 200px;
+		/* whatever set width */
+		display: inline-block;
+		/* or you could float them */
+		overflow: hidden;
 	}
 
 	.img-container img {
-	    max-width: 100%;
-			max-height: 100%;
-			margin-left: auto; margin-right: auto ;
+		max-width: 100%;
+		max-height: 100%;
+		margin-left: auto;
+		margin-right: auto;
 	}
-
 </style>
 <div class="hidden-xs">
-    <div class="container sub-nav">
-			<ul class="nav navbar-nav">
-				<li ng-mouseover="highlightLink='country'" ng-mouseleave="highlightLink=''"><a href="actors/country" >Parties & Govs.</a> <i ng-if="highlightLink=='country' ||  path=='/actors/country'" style="position:relative;top:-4px;left:35px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
-				<li ng-mouseover="highlightLink='abttf'" ng-mouseleave="highlightLink=''"><a href="actors/abttf">ABTTF</a> <i ng-if="highlightLink=='abttf' || path=='/actors/abttf'" style="position:relative;top:-4px;left:18px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
-				<li ng-mouseover="highlightLink='blg'" ng-mouseleave="highlightLink=''"><a href="actors/blg" >BLG</a> <i ng-if="highlightLink=='blg' ||  path=='/actors/blg'" style="position:relative;top:-4px;left:8px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
-				<li ng-mouseover="highlightLink='jlg'" ng-mouseleave="highlightLink=''"><a href="actors/jlg" >JLG</a> <i ng-if="highlightLink=='jlg' ||  path=='/actors/jlg'" style="position:relative;top:-4px;left:5px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
-				<li ng-mouseover="highlightLink='champions'" ng-mouseleave="highlightLink=''"><a href="actors/champions" >Champions</a> <i ng-if="highlightLink=='champions' ||  path=='/actors/champions'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
-				<li ng-mouseover="highlightLink='partners'" ng-mouseleave="highlightLink=''"><a href="actors/partners" >UNDB Partners</a> <i ng-if="highlightLink=='partners' ||  path=='/actors/partners'" style="position:relative;top:-4px;left:35px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
-				<li ng-mouseover="highlightLink='participate'" ng-mouseleave="highlightLink=''"><a href="actions/participate">Participate</a> <i ng-if="highlightLink=='participate' ||  path=='/actions/participate'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
-      </ul>
-    </div>
+	<div class="container sub-nav">
+		<ul class="nav navbar-nav">
+			<li ng-mouseover="highlightLink='country'" ng-mouseleave="highlightLink=''"><a href="actors/country">Parties & Govs.</a> <i ng-if="highlightLink=='country' ||  path=='/actors/country'" style="position:relative;top:-4px;left:35px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+			<li ng-mouseover="highlightLink='abttf'" ng-mouseleave="highlightLink=''"><a href="actors/abttf">ABTTF</a> <i ng-if="highlightLink=='abttf' || path=='/actors/abttf'" style="position:relative;top:-4px;left:18px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+			<li ng-mouseover="highlightLink='blg'" ng-mouseleave="highlightLink=''"><a href="actors/blg">BLG</a> <i ng-if="highlightLink=='blg' ||  path=='/actors/blg'" style="position:relative;top:-4px;left:8px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+			<li ng-mouseover="highlightLink='jlg'" ng-mouseleave="highlightLink=''"><a href="actors/jlg">JLG</a> <i ng-if="highlightLink=='jlg' ||  path=='/actors/jlg'" style="position:relative;top:-4px;left:5px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+			<li ng-mouseover="highlightLink='champions'" ng-mouseleave="highlightLink=''"><a href="actors/champions">Champions</a> <i ng-if="highlightLink=='champions' ||  path=='/actors/champions'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+			<li ng-mouseover="highlightLink='partners'" ng-mouseleave="highlightLink=''"><a href="actors/partners">UNDB Partners</a> <i ng-if="highlightLink=='partners' ||  path=='/actors/partners'" style="position:relative;top:-4px;left:35px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+			<li ng-mouseover="highlightLink='participate'" ng-mouseleave="highlightLink=''"><a href="actions/participate">Participate</a> <i ng-if="highlightLink=='participate' ||  path=='/actions/participate'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
+		</ul>
+	</div>
 </div>
 
 <div class="container center profile">
 
 
 	<div class="profile-border">
-			<a class="pull-right" style="padding-right:10px;cursor:pointer;" ng-click="goTo('/actors/register/',partner.identifier_s);" ng-if="isAdmin()">Edit Partner <i class="fa fa-edit"></i></a>
-		<div class="col-md-3 col-lg-3" style="overflow:hidden;">
+		<div class="text-center action-title" ng-if="!actor">
+			<h1><i class="fa fa-spin fa-spinner " /> Loading...</h1>
+		</div>
+<div ng-show="actor">
+		<a tool-tip class="pull-right" style="padding-right:10px;cursor:pointer;" ng-href="/dashboard/submit/undb-actor/{{partner.identifier_s}}"  data-toggle="tooltip" title="Suggest an Edit"><i class="fa fa-edit"></i></a>
+		<div class="col-xs-12 col-md-3" style="overflow:hidden;">
 			<div class="profile-column">
-<div class="img-container" ng-if="partner.logo_s">
+				<div class="img-container" ng-if="partner.logo_s">
 
-			<img ng-src="{{partner.logo_s}}"  class="img-responsive" ></img>
+					<img ng-src="{{partner.logo_s}}?v=<%=gitVersion%>" class="img-responsive"></img>
 
-</div>
-<links-display document="partner"> </links-display>
-</div>
+				</div>
+
+				<div >
+				<links-display  document="partner"> </links-display>
+			  </div>
+			</div>
 		</div>
 
-		<div class="col-xs-12  col-sm-12 col-md-9 col-lg-9 tab-content text-left">
+		<div class="col-xs-12 col-md-9  text-left">
 			<div role="tabpanel" class="tab-pane fade in  active" id="UNDB">
 				<div class="article">
 					<div class="action-title">
@@ -75,14 +84,34 @@
 					</div>
 
 					<div>
-						<p ng-if="partner.description_s" ng-bind-html="trusted((partner.description_s | uriToLink | nl2br | hack | lstring))"></p>
+						<p ng-if="partner.description_s" ng-bind-html="trusted((partner.description_s | linky | lstring))"></p>
 					</div>
-					<div ng-if="partner.descriptionNative_s" ><hr></div>
+					<div ng-if="partner.descriptionNative_s">
+						<hr>
+					</div>
 					<div>
-						<p ng-if="partner.descriptionNative_s" ng-bind-html="trusted((partner.descriptionNative_s | uriToLink | nl2br | hack ))"></p>
+						<p ng-if="partner.descriptionNative_s" ng-bind-html="trusted((partner.descriptionNative_s | linky ))"></p>
 					</div>
 				</div>
 			</div>
+			<!-- <div class="col-xs-12 col-md-6" ng-if="partner.websites">
+					<h3>Links</h3>
+									<div ng-repeat="link in partner.websites"><a ng-href="{{link.url}}" target="_blank" style="color:#000;font-size: 12px;">{{link.name}}</a></div>
+			</div>
+			<div class="col-xs-12 col-md-6" ng-if="partner.documents">
+				<h3>Documents</h3>
+									<div ng-repeat="link in partner.documents"><a ng-href="{{link.url}}" target="_blank" style="color:#000;font-size: 12px;">{{link.name}}</a></div>
+			</div>
+			<div class="col-xs-12 col-md-6" ng-if="partner.images">
+				<h3>Images</h3>
+													<div ng-repeat="link in partner.images"><a ng-href="{{link.url}}" target="_blank" style="color:#000;font-size: 12px;">{{link.name}}</a></div>
+			</div>
+			<div class="col-xs-12 col-md-6" ng-if="partner.videos">
+				<h3>Videos</h3>
+													<div ng-repeat="link in partner.videos"><a ng-href="{{link.url}}" target="_blank" style="color:#000;font-size: 12px;">{{link.name}}</a></div>
+			</div> -->
+		</div>
+
 		</div>
 		<!-- END DIV BORDER ( colum + center ) -->
 	</div>

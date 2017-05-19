@@ -6,6 +6,7 @@ define(['app','lodash'], function(app,_) { 'use strict';
 		//=======================================================================
 		//
 		//=======================================================================
+		$scope.isLoading = true;
 		$http.get('https://api.cbd.int/api/v2015/countries', {
 			cache: true,
 			params: {
@@ -23,8 +24,8 @@ define(['app','lodash'], function(app,_) { 'use strict';
 			});
 			$http.get("https://api.cbd.int/api/v2013/index", {
 					 params: {
-							 'q': 'schema_s:undbAction OR schema_s:undbPartner ',
-							 'sort': 'createdDate_dt desc, title_t asc',
+							 'q': 'schema_s:undbActor ',
+
 							 'wt': 'json',
 							 'start': 0,
 							 'rows': 1000000,
@@ -37,7 +38,7 @@ define(['app','lodash'], function(app,_) { 'use strict';
 					_.each(resData.data.response.docs,function(action){
 
 								country = _.find(res.data,{code:action.country_s});
-								if(country) 
+								if(country)
 							 {
 									if(!_.find($scope.countries,{code:action.country_s})){
 										index=resData.data.facet_counts.facet_fields.country_s.indexOf(action.country_s)+1;
@@ -45,24 +46,37 @@ define(['app','lodash'], function(app,_) { 'use strict';
 										$scope.countries.push(country);
 									}
 								}
+
 					});
 			}).then(function(){
 
-				$http.get('/api/v2016/undb-party-profiles/',{'params':{q:{'description':{'$exists':true}},'f':{'code':1}}}).then(function(res2){
-					_.each(res2.data,function(profileCode){
+				$http.get("/api/v2013/index", {
+						 params: {
+								 'q': 'schema_s:undbParty',
+								 'fl':'government*',
+								 'wt': 'json',
+								 'start': 0,
+								 'rows': 1000000
+						 }
+		 		}).then(function(res2){
 
-									var country = _.find(res.data,{code:profileCode.code});
-									if(!_.find($scope.countries,{code:profileCode.code}) && country){
+					_.each(res2.data.response.docs,function(profile){
+
+									var country = _.find(res.data,{code:profile.country_s});
+
+									if(!_.find($scope.countries,{code:profile.country_s}) && country){
 										country.facet=1;
 										$scope.countries.push(country);
 									}
 
 					});
 
+						$scope.isLoading = false;
 				});
 
 			});
 		});
+
 
 
 		//=======================================================================

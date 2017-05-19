@@ -1,11 +1,11 @@
 machine:
   services:
     - docker
-
+ 
 dependencies:
   override:
     - docker info
-    - docker build -t output .
+    - docker build -t output --build-arg COMMIT=$CIRCLE_SHA1 .
 
 test:
   override:

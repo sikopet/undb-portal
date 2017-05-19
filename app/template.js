@@ -1,14 +1,15 @@
-define(['app', 'text!./toast.html', 'authentication', 'providers/locale', 'toastr'], function(app, toastTemplate) {
+define(['app', 'text!./toast.html', 'lodash','angular', 'authentication','providers/locale', 'toastr','utilities/realm'], function(app, toastTemplate,_,ng) {
     'use strict';
 
     app.controller('TemplateController', ['$scope', '$rootScope', '$window', '$location', '$route', 'authentication', 'toastr', '$templateCache', function($scope, $rootScope, $window, $location, $route, authentication, toastr, $templateCache) {
 
         $scope.path = $location.path();
-
+        var basePath = (ng.element('base').attr('href')||'').replace(/\/+$/g, '');
         $scope.$on("$routeChangeSuccess", function() {
             $scope.routeLoaded = true;
-
-            // $scope.$root.pageTitle = { text: "" };
+            $window.ga('set',  'page', basePath+$location.path());
+            $window.ga('send', 'pageview');
+            if($route.current.$$route)
             $scope.$root.breadcrumb = getPage($route.current.$$route.originalPath);
             $scope.path = $location.path();
         });
@@ -18,7 +19,32 @@ define(['app', 'text!./toast.html', 'authentication', 'providers/locale', 'toast
         authentication.getUser().then(function(user) {
             $scope.user = user;
         });
+        var killWatch = $scope.$watch('user', _.debounce(function(user) {
 
+            if (!user)
+                return;
+
+            require(["_slaask"], function(_slaask) {
+
+                if (user.isAuthenticated) {
+                    _slaask.identify(user.name, {
+                        'user-id' : user.userID,
+                        'name' : user.name,
+                        'email' : user.email,
+                    });
+
+                    if(_slaask.initialized) {
+                        _slaask.slaaskSendUserInfos();
+                    }
+                }
+
+                if(!_slaask.initialized) {
+                    _slaask.init('45333ce83b22e400b1528f2bf51993df');
+                    _slaask.initialized = true;
+                    killWatch();
+                }
+            });
+        }, 1000));
 
 
         // handling sub menus

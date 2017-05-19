@@ -54,7 +54,7 @@
 
     <div ng-repeat-start="doc in docs" class="row article">
       <div class="col-xs-1 ">
-        <img ng-src="{{doc.imgURL}}" width="100%" alt="">
+        <img ng-src="{{doc.imgURL}}?v=<%=gitVersion%>" width="100%" alt="">
       </div>
       <div class="col-xs-8">
         <h4>{{doc.name}}</h4>
