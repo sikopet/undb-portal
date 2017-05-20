@@ -38,7 +38,7 @@ define(['app', 'lodash', 'directives/map/zoom-map', 'directives/link-list', 'dir
             //
             //=======================================================================
             function loadCountry() {
-                return $http.get('https://api.cbd.int/api/v2013/countries/' + $scope.code.toUpperCase(), {
+                return $http.get('/api/v2013/countries/' + $scope.code.toUpperCase(), {
                     cache: true,
                 }).then(function(res) {
 
@@ -60,7 +60,7 @@ define(['app', 'lodash', 'directives/map/zoom-map', 'directives/link-list', 'dir
                     'start': 0,
                     'rows': 1000000,
                 };
-                return $http.get('https://api.cbd.int/api/v2013/index/select', {
+                return $http.get('/api/v2013/index/select', {
                     params: queryParameters,
                     cache: true
                 }).success(function(data) {
@@ -93,6 +93,7 @@ define(['app', 'lodash', 'directives/map/zoom-map', 'directives/link-list', 'dir
             //=======================================================================
             function loadProfile() {
               getPartyId().then(function(){
+                if($scope.partyId)
                 return $http.get('/api/v2013/documents/'+$scope.partyId, {
 
                 }).then(function(res2) {

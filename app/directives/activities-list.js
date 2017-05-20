@@ -165,6 +165,7 @@ define(['text!./activities-list.html', 'app','moment-timezone','filters/trunc','
                 else if($scope.country==='ALL')
                   q= q+' AND NOT country_s:* ';
 
+                  q=q+' AND (*:* AND -startDate_dt[* TO *]) AND (*:* AND -aichiTarget_ss[* TO *])';
 
                 if($scope.year || $scope.month){
                   q = q+generateDateQuery();
