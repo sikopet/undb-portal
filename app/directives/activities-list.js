@@ -170,9 +170,9 @@ define(['text!./activities-list.html', 'app','moment-timezone','filters/trunc','
                 else if($scope.country==='ALL')
                   q= q+' AND NOT country_s:* ';
 
-                if($scope.year || $scope.month){
-                  q = q+generateDateQuery();
-                }
+
+                q = q+generateDateQuery();
+
 
                 var queryParameters = {
                   'q': q,
