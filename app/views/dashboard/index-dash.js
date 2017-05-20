@@ -109,7 +109,7 @@ define(['app', 'lodash','text!directives/forms/records-dialog.html','text!./firs
 								_.map(user.userGroups, function(v) {
 										return "_ownership_s:" + escape(v);
 								})));
-
+						query.push('realm_ss:'+realm);
 						// Status
 
 						// if (options.status) {
