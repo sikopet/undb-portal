@@ -167,8 +167,7 @@ define(['text!./activities-list.html', 'app','moment-timezone','filters/trunc','
                     q= q+' AND (title_t:"' + $scope.search + '*" OR description_t:"' + $scope.search + '*")';
                 if($scope.country && $scope.country!=='ALL')
                   q= q+' AND (country_s:'+$scope.country+' OR (*:* NOT country_s:*))';           //' AND (country_s:'+$scope.country;
-                else if($scope.country==='ALL')
-                  q= q+' AND NOT country_s:* ';
+
 
 
                 q = q+generateDateQuery();
