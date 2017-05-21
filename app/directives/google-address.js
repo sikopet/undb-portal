@@ -25,6 +25,7 @@ define(['text!./google-address.html', 'app', ], function(template, app) {
                 //=======================================================================
                 function init() {
                   var autoComplete = new google.maps.places.Autocomplete($element.find('#address')[0]);
+                  autoComplete.setTypes(['establishment']);
                   google.maps.event.addListener(autoComplete, 'place_changed', function() {
                     $scope.binding=$element.find('#address')[0].value;
                    var place = autoComplete.getPlace();
