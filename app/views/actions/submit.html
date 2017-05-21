@@ -1,4 +1,4 @@
-<div class="hidden-xs">  
+<div class="hidden-xs">
   <div class="container sub-nav" style="height:10px;">
     <ul class="nav navbar-nav">
       <li ng-mouseover="highlightLink='worldwide'" ng-mouseleave="highlightLink=''"><a href="actions/worldwide">Worldwide</a> <i ng-if="highlightLink=='worldwide' || path=='/actions/worldwide'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
@@ -117,11 +117,11 @@
                             </td>
             			<td class="createdby hidden-xs">
                             <div title="{{record.createdByEmail_s}}">{{record.createdBy_s}}</div>
-                            <div title="{{record.createdDate_dt | datetime}}" class="date" >{{record.createdDate_dt | fromNow}}</div>
+                            <div title="{{record.createdDate_dt | moment:'format':'YYYY-MM-DD HH:MM'}}" class="date" >{{record.createdDate_dt | fromNow}}</div>
                         </td>
             			<td class="udpatedby">
                             <div title="{{record.updatedByEmail_s}}">{{record.updatedBy_s}}</div>
-                            <div title="{{record.updatedDate_dt | datetime}}" class="date" >{{record.updatedDate_dt | fromNow}}</div>
+                            <div title="{{record.updatedDate_dt | moment:'format':'YYYY-MM-DD HH:MM'}}" class="date" >{{record.updatedDate_dt | fromNow}}</div>
                             </td>
             			<td class="status" style="text-align:center">
                             <span ng-show="record._state_s=='public' || record._revision_i>1" class="label label-default bg-published">PUBLISHED</span>

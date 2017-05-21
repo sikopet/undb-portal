@@ -1,4 +1,4 @@
-define(['lodash', 'text!./del-dial.html','app', 'ngDialog','authentication', 'utilities/km-utilities', 'utilities/km-storage', 'filters/moment', 'utilities/solr', 'filters/navigation'], function(_,delDial) { 'use strict';
+define(['lodash', 'text!./del-dial.html','app', 'ngDialog','authentication',     'filters/moment','utilities/km-utilities', 'utilities/km-storage', 'filters/moment', 'utilities/solr', 'filters/navigation'], function(_,delDial) { 'use strict';
 
     return ['$scope', '$route', '$http', '$location', '$q', 'solr', 'user', 'IStorage', 'realm','ngDialog',
      function($scope, $route, $http, $location, $q, solr, user, storage, realm,ngDialog) {
