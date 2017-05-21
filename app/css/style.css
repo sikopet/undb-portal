@@ -568,17 +568,7 @@ a.button-green-link{
   color: #069554;
   font-weight: bold;
 }
-.listImg > ul > li div:first-child {
-  text-align: center;
-  top: 50%;
-  margin-top: -60px;
-  height: 120px;
-  overflow: hidden;
-  display: block;
-  position: absolute;
-  padding: 0;
-  line-height: 120px;
-}
+
 .listImg > ul > li div:first-child img {
   max-width: 150px;
   max-height: 120px;
@@ -607,8 +597,19 @@ a.button-green-link{
   padding: 0 4px;
   display: inline-block;
 }
+.listCountries div .name li a {
+  display: inline-block;
+  font-size: 16px;
+  width: 100%;
+  height: 25px;
+  vertical-align: middle;
+  position: relative;
+  line-height: 72px;
+  cursor: pointer;
+}
 .listCountries li a {
   display: inline-block;
+  font-size: 16px;
   width: 100%;
   height: 72px;
   vertical-align: middle;
@@ -640,7 +641,7 @@ a.button-green-link{
   line-height: 1.2em;
   font-weight: bold;
 }
-.listCountries li a:hover {
+.cName  a:hover {
   border-bottom: 4px solid #069554;
 }
 
