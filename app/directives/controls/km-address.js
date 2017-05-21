@@ -51,7 +51,7 @@ define(['app', 'text!./km-address.html','lodash', 'directives/controls/km-inputt
 
 				         var searchBox = new google.maps.places.Autocomplete(input);  // jshint ignore:line
 
-								 searchBox.setTypes(['establishment']);
+								 searchBox.setTypes([]);
 								 searchBox.addListener('place_changed', function() {
 									 $timeout(function(){
 										  var selectedPlace = searchBox.getPlace();

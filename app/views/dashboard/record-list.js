@@ -573,8 +573,9 @@ define(['lodash',
             //
             //=======================================================================
             $scope.goTo = function(code) {
-console.log('here','dashboard/submit/' + $route.current.params.schema + '/' + code + '/view');
+
                     $location.path('dashboard/submit/' + $route.current.params.schema + '/' + code + '/view');
+                  //  return 'dashboard/submit/' + $route.current.params.schema + '/' + code + '/view';
             };
             //======================================================
             //

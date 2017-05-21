@@ -330,7 +330,7 @@ app.directive('editOrganization', ['$http',"$rootScope", "Enumerable", "$filter"
 	         var input = document.getElementById('pac-input');
 	         var searchBox = new google.maps.places.Autocomplete(input);
 
-					 searchBox.setTypes(['establishment']);
+					 searchBox.setTypes([]);
 //searchBox.setTypes(['address']);
 
 					 searchBox.addListener('place_changed', function() {
