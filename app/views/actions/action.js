@@ -30,14 +30,14 @@ define(['lodash', 'filters/trunc','directives/map/zoom-map','directives/tooltip'
                 }).success(function(data) {
 
                     $scope.action = data.response.docs[0];
+                    if($scope.action && $scope.action.identifier_s)
+                      $http.get('/api/v2013/documents/'+$scope.action.identifier_s, {
+                          cache: true
+                      }).success(function(d) {
 
-                    $http.get('/api/v2013/documents/'+$scope.action.identifier_s, {
-                        cache: true
-                    }).success(function(d) {
-
-                      Object.assign($scope.action,d);
-                      console.log($scope.action);
-                    });
+                        Object.assign($scope.action,d);
+                        console.log($scope.action);
+                      });
                 });
             }
             //=======================================================================
