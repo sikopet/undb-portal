@@ -30,7 +30,7 @@ define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows', 'util
         //
         //
         //==============================
-        $http.get('https://api.cbd.int/api/v2015/countries', { cache:true, params: { f : { code : 1, name : 1 } } }).then(function(res) {
+        $http.get('/api/v2015/countries', { cache:true, params: { f : { code : 1, name : 1 } } }).then(function(res) {
 
             res.data.forEach(function(c) {
                 c.code = c.code.toLowerCase();
@@ -66,8 +66,8 @@ define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows', 'util
             var resDraft, resDoc;
 
             if(uid) {
-                resDraft = $http.get("https://api.cbd.int/api/v2013/documents/"+uid+"/versions/draft/info").then(res_Data).catch(nullOn404);
-                resDoc   = $http.get("https://api.cbd.int/api/v2013/documents/"+uid+'/info'               ).then(res_Data).catch(nullOn404);
+                resDraft = $http.get("/api/v2013/documents/"+uid+"/versions/draft/info").then(res_Data).catch(nullOn404);
+                resDoc   = $http.get("/api/v2013/documents/"+uid+'/info'               ).then(res_Data).catch(nullOn404);
             }
 
             return $q.all([resDraft, resDoc]).then(function(res) {
@@ -82,7 +82,7 @@ define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows', 'util
             }).then(function(docInfo) {
 
                 if(!docInfo) {//create new document;
-                    return { header : { identifier : guid(), schema : 'undbPartner' } };
+                    $location.path('dashboard/submit/undb-actor/new');
                 }
 
                 if(docInfo.type!='undbPartner') {

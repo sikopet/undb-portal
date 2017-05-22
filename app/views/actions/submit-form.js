@@ -1,5 +1,5 @@
 define(['lodash', 'jquery', 'guid', 'app', 'directives/file','directives/date-helper','directives/time-helper','directives/google-address', 'utilities/workflows', 'utilities/km-storage', 'bootstrap-datepicker'], function(_, $, guid) { 'use strict';
- 
+
     return ['$scope', '$http', '$q', 'locale', '$route', 'realm', 'workflows', '$location', '$anchorScroll','IStorage','$document','$timeout','authentication',
      function($scope, $http, $q, locale, $route, realm, workflows, $location, $anchorScroll, storage,$document,$timeout,auth) {
 
@@ -33,7 +33,7 @@ define(['lodash', 'jquery', 'guid', 'app', 'directives/file','directives/date-he
         });
 
         // Init
-        $http.get('https://api.cbd.int/api/v2015/countries', { cache:true, params: { f : { code : 1, name : 1 } } }).then(function(res) {
+        $http.get('/api/v2015/countries', { cache:true, params: { f : { code : 1, name : 1 } } }).then(function(res) {
 
             res.data.forEach(function(c) {
                 c.code = c.code.toLowerCase();
@@ -86,8 +86,8 @@ define(['lodash', 'jquery', 'guid', 'app', 'directives/file','directives/date-he
             var resDraft, resDoc;
 
             if(uid) {
-                resDraft = $http.get("https://api.cbd.int/api/v2013/documents/"+uid+"/versions/draft").then(res_Data).catch(nullOn404);
-                resDoc   = $http.get("https://api.cbd.int/api/v2013/documents/"+uid                  ).then(res_Data).catch(nullOn404);
+                resDraft = $http.get("/api/v2013/documents/"+uid+"/versions/draft").then(res_Data).catch(nullOn404);
+                resDoc   = $http.get("/api/v2013/documents/"+uid                  ).then(res_Data).catch(nullOn404);
             }
 
             $q.all([resDraft, resDoc]).then(function(res) {
@@ -109,13 +109,7 @@ define(['lodash', 'jquery', 'guid', 'app', 'directives/file','directives/date-he
                     $scope.document = record;
                 }
                 else {
-                    $scope.document = {
-                        header : {
-                            identifier : guid(),
-                            schema : 'undbAction'
-                        },
-                        onlineEvent:false
-                    };
+                    $location.path('dashboard/submit/event/new');
                 }
 
             }).catch(res_Error).finally(function() {

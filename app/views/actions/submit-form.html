@@ -1,4 +1,4 @@
-<div class="hidden-xs"> 
+<div class="hidden-xs">
   <div class="container sub-nav" style="height:10px;">
     <ul class="nav navbar-nav">
       <li ng-mouseover="highlightLink='worldwide'" ng-mouseleave="highlightLink=''"><a href="actions/worldwide">Worldwide</a> <i ng-if="highlightLink=='worldwide' || path=='/actions/worldwide'" style="position:relative;top:-4px;left:25px;" class="color-white fa-lg fa fa-caret-up"></i> </li>
@@ -90,13 +90,13 @@
                     <label for="startDate" class="col-sm-3 control-label required">Date</label>
                     <label for="startDate" class="col-sm-1 control-label">From</label>
                     <div class="col-sm-2">
-                        <input type="text" class="form-control date" name="startDate" id="startDate" ng-model-options="{allowInvalid: true}" ng-model="document.startDate" ng-pattern="patterns.date" required date-helper="document.startDate"  ng-trim="true" placeholder="yyyy-mm-dd">
+                        <input type="text" class="form-control date" name="startDate" id="startDate" ng-model-options="{allowInvalid: true}" ng-model="document.startDate" ng-pattern="patterns.date" required   ng-trim="true" placeholder="yyyy-mm-dd">
                         <p class="help-block error" ng-show="form.startDate.$error.required">This field is mandatory</p>
                         <p class="help-block error" ng-show="form.startDate.$error.pattern">The date format must be YYYY-MM-DD</p>
                     </div>
                     <label for="endDate" class="col-sm-1 control-label">To</label>
                     <div class="col-sm-2">
-                        <input type="text" class="form-control date" name="endDate" id="endDate" ng-model="document.endDate" ng-model-options="{allowInvalid: true}" date-helper="document.endDate" required ng-pattern="patterns.date" ng-trim="true" placeholder="yyyy-mm-dd">
+                        <input type="text" class="form-control date" name="endDate" id="endDate" ng-model="document.endDate" ng-model-options="{allowInvalid: true}"  required ng-pattern="patterns.date" ng-trim="true" placeholder="yyyy-mm-dd">
                         <p class="help-block error" ng-show="form.endDate.$error.required">This field is mandatory</p>
                         <p class="help-block error" ng-show="form.endDate.$error.pattern">The date format must be YYYY-MM-DD</p>
                     </div>
