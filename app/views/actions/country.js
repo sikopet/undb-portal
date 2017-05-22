@@ -24,7 +24,7 @@ define(['app','lodash'], function(app,_) { 'use strict';
 			});
 			$http.get("/api/v2013/index", {
 					 params: {
-							 'q': 'schema_s:undbActor ',
+							 'q': 'schema_s:undbActor OR schema_s:event ',
 							 'fl':'identifier_s,country_s,government*',
 							 'wt': 'json',
 							 'start': 0,
