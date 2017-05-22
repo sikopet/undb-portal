@@ -1,4 +1,4 @@
-define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows', 'utilities/km-storage','directives/google-address','directives/on-focus-helper'], function(_, guid) { 'use strict';
+define(['lodash', 'guid', 'app', 'directives/file', 'utilities/workflows', 'utilities/km-storage','directives/google-address'], function(_, guid) { 'use strict';
 
     return ['$scope', '$http', '$q', 'locale', 'realm', 'workflows', 'user', '$route', '$anchorScroll', '$location', 'IStorage',
     function($scope,   $http,   $q,   locale,   realm,   workflows,   user,   $route,   $anchorScroll,   $location, storage) {
