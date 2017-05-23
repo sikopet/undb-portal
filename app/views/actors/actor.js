@@ -31,7 +31,7 @@ define(['lodash','angular-sanitize', 'filters/trunc','directives/links-display',
                     cache: true
                 }).success(function(data) {
                     $scope.partner = data.response.docs[0];
-
+                    if($scope.partner && $scope.partner.identifier_s)
                     $http.get('/api/v2013/documents/'+$scope.partner.identifier_s, {
                         cache: true
                     }).success(function(d) {
@@ -60,7 +60,8 @@ define(['lodash','angular-sanitize', 'filters/trunc','directives/links-display',
 
                         });
                     });
-
+                    else
+                    $location.path('/404');
                 });
             }
 
