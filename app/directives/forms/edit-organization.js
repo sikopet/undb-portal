@@ -330,7 +330,7 @@ app.directive('editOrganization', ['$http',"$rootScope", "Enumerable", "$filter"
 	         var input = document.getElementById('pac-input');
 	         var searchBox = new google.maps.places.Autocomplete(input);
 
-					 searchBox.setTypes(['establishment']);
+					 searchBox.setTypes([]);
 //searchBox.setTypes(['address']);
 
 					 searchBox.addListener('place_changed', function() {
@@ -607,7 +607,7 @@ app.directive('editOrganization', ['$http',"$rootScope", "Enumerable", "$filter"
 			//==================================
 			function gotoManager() {
 				$scope.$emit('showInfo', 'Organization successfully updated.');
-				$location.path("/dashboard/submit/"+$scope.schema);
+				$location.path("dashboard/submit/"+$scope.schema);
 				$location.search('index-update',$scope.document.header.identifier);
 
 			}

@@ -3,7 +3,7 @@ define(['app', 'lodash',
     'directives/views/view-organization',
     'directives/views/view-undb-actor',
     'directives/views/view-event',
-    'directives/views/view-undb-Party',
+    'directives/views/view-undb-party',
     'utilities/km-storage'
 ], function(app, _) {
     'use strict';

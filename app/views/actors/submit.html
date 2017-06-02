@@ -120,11 +120,11 @@
                             </td>
             			<td class="createdby hidden-xs">
                             <div title="{{record.createdByEmail_s}}">{{record.createdBy_s}}</div>
-                            <div title="{{record.createdDate_dt | datetime}}" class="date" >{{record.createdDate_dt | fromNow}}</div>
+                            <div title="{{record.createdDate_dt | moment:'format':'YYYY-MM-DD HH:MM'}}" class="date" >{{record.createdDate_dt | fromNow}}</div>
                         </td>
             			<td class="udpatedby">
                             <div title="{{record.updatedByEmail_s}}">{{record.updatedBy_s}}</div>
-                            <div title="{{record.updatedDate_dt | datetime}}" class="date" >{{record.updatedDate_dt | fromNow}}</div>
+                            <div title="{{record.updatedDate_dt | moment:'format':'YYYY-MM-DD HH:MM'}}" class="date" >{{record.updatedDate_dt | fromNow}}</div>
                             </td>
             			<td class="status" style="text-align:center">
                             <span ng-show="record._state_s=='public' || record._revision_i>1" class="label label-default bg-published">PUBLISHED</span>

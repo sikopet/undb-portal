@@ -145,6 +145,11 @@ define(['text!./activities-list.html', 'app','moment-timezone','filters/trunc','
                   endD = moment(totalDaysInMonth+'-'+$scope.month+'-'+$scope.year, "DD-MM-YYYY").toISOString();
                    q= ' AND startDate_dt:['+startD+' TO '+endD+']';
                 }
+                else {
+                  startD = moment('01-01-2011',"DD-MM-YYYY").toISOString();
+                  endD = moment('31-12-50', "DD-MM-YYYY").toISOString();
+                   q= ' AND startDate_dt:['+startD+' TO '+endD+']';
+                }
 
                 return q;
               }
@@ -162,13 +167,11 @@ define(['text!./activities-list.html', 'app','moment-timezone','filters/trunc','
                     q= q+' AND (title_t:"' + $scope.search + '*" OR description_t:"' + $scope.search + '*")';
                 if($scope.country && $scope.country!=='ALL')
                   q= q+' AND (country_s:'+$scope.country+' OR (*:* NOT country_s:*))';           //' AND (country_s:'+$scope.country;
-                else if($scope.country==='ALL')
-                  q= q+' AND NOT country_s:* ';
 
 
-                if($scope.year || $scope.month){
-                  q = q+generateDateQuery();
-                }
+
+                q = q+generateDateQuery();
+
 
                 var queryParameters = {
                   'q': q,

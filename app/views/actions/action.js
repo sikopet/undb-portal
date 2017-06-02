@@ -18,6 +18,12 @@ define(['lodash', 'filters/trunc','directives/map/zoom-map','directives/tooltip'
             function init() {
                 var hex = Number($scope.action.identifier).toString(16);
                 var id = "52000000cbd0800000000000".substr(0, 24 - hex.length) + hex;
+
+          //210463 to 218295
+          //210459 to 218272
+          //210462 to 218292
+          //210463 to 218300
+          //210464 to 218293
                 var queryParameters = {
                     'q': 'schema_s:event  AND id:' + id, //AND _state_s:public removed for test
                     'wt': 'json',
@@ -30,14 +36,16 @@ define(['lodash', 'filters/trunc','directives/map/zoom-map','directives/tooltip'
                 }).success(function(data) {
 
                     $scope.action = data.response.docs[0];
+                    if($scope.action && $scope.action.identifier_s)
+                      $http.get('/api/v2013/documents/'+$scope.action.identifier_s, {
+                          cache: true
+                      }).success(function(d) {
 
-                    $http.get('/api/v2013/documents/'+$scope.action.identifier_s, {
-                        cache: true
-                    }).success(function(d) {
-
-                      Object.assign($scope.action,d);
-                      console.log($scope.action);
-                    });
+                        Object.assign($scope.action,d);
+                        console.log($scope.action);
+                      });
+                    else
+                    $location.path('/404');
                 });
             }
             //=======================================================================

@@ -27,7 +27,8 @@ function (app) {
       if (cacheMap[term.identifier])
         return $filter("lstring")(cacheMap[term.identifier].title, locale);
 
-      cacheMap[term.identifier] = $http.get("/api/v2013/thesaurus/terms?termCode=" + encodeURIComponent(term.identifier), {
+      if(encodeURIComponent(term.identifier).trim() && encodeURIComponent(term.identifier).trim().length>=2)
+      cacheMap[term.identifier] = $http.get("/api/v2013/thesaurus/terms/" + encodeURIComponent(term.identifier), {
         cache: true
       }).then(function (result) {
 

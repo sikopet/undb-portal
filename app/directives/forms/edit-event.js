@@ -445,7 +445,7 @@ app.directive('editEvent', ['$http',"$rootScope", "Enumerable", "$filter", "$q",
 			//==================================
 			function gotoManager() {
 				$scope.$emit('showInfo', 'Record successfully updated.');
-				$location.path("/dashboard/submit/"+$scope.schema);
+				$location.path("dashboard/submit/"+$scope.schema);
 				$location.search('index-update',$scope.document.header.identifier);
 
 			}

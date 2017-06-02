@@ -11,6 +11,7 @@ require.config({
         'angular-sanitize'          : 'libs/angular-sanitize/angular-sanitize.min',
         'authentication'            : 'factories/authentication',
         'bootstrap'                 : 'libs/bootstrap/dist/js/bootstrap.min',
+        'bootstrap-datepicker'  : 'libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min',
         'css'                       : 'libs/require-css/css.min',
         'lodash'                    : 'libs/lodash/lodash',
         'linqjs'                    : 'libs/linqjs/linq.min',
@@ -43,6 +44,7 @@ require.config({
         'angular-sanitize'         : { deps: ['angular'] },
         'ng-ckeditor'              : { deps: ['angular','ckeditor']},
         'ngDialog'                 : { deps: ['angular' ]},
+        'bootstrap-datepicker'     : { deps: ['css!libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css'] },        
         'eonasdan-bootstrap-datetimepicker': { deps: ['jquery','moment','bootstrap','css!libs/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css'] },
     },
     packages: [

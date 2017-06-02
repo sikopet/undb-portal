@@ -90,13 +90,13 @@
                     <label for="startDate" class="col-sm-3 control-label required">Date</label>
                     <label for="startDate" class="col-sm-1 control-label">From</label>
                     <div class="col-sm-2">
-                        <input type="text" class="form-control date" name="startDate" id="startDate" ng-model-options="{allowInvalid: true}" ng-model="document.startDate" ng-pattern="patterns.date" required date-helper="document.startDate"  ng-trim="true" placeholder="yyyy-mm-dd">
+                        <input type="text" class="form-control date" name="startDate" id="startDate" ng-model-options="{allowInvalid: true}" ng-model="document.startDate" ng-pattern="patterns.date" required   ng-trim="true" placeholder="yyyy-mm-dd">
                         <p class="help-block error" ng-show="form.startDate.$error.required">This field is mandatory</p>
                         <p class="help-block error" ng-show="form.startDate.$error.pattern">The date format must be YYYY-MM-DD</p>
                     </div>
                     <label for="endDate" class="col-sm-1 control-label">To</label>
                     <div class="col-sm-2">
-                        <input type="text" class="form-control date" name="endDate" id="endDate" ng-model="document.endDate" ng-model-options="{allowInvalid: true}" date-helper="document.endDate" required ng-pattern="patterns.date" ng-trim="true" placeholder="yyyy-mm-dd">
+                        <input type="text" class="form-control date" name="endDate" id="endDate" ng-model="document.endDate" ng-model-options="{allowInvalid: true}"  required ng-pattern="patterns.date" ng-trim="true" placeholder="yyyy-mm-dd">
                         <p class="help-block error" ng-show="form.endDate.$error.required">This field is mandatory</p>
                         <p class="help-block error" ng-show="form.endDate.$error.pattern">The date format must be YYYY-MM-DD</p>
                     </div>
@@ -106,11 +106,11 @@
                     <label for="startTime" class="col-sm-3 control-label">Time</label>
                     <label for="startTime" class="col-sm-1 control-label">From</label>
                     <div class="col-sm-2">
-                        <input type="text" class="form-control" name="startTime" id="startTime" ng-model-options="{allowInvalid: true}" ng-model="document.startTime" ng-pattern="patterns.time"  time-helper="document.startTime"   ng-trim="true" placeholder="00:00">
+                        <input type="text" class="form-control" name="startTime" id="startTime" ng-model-options="{allowInvalid: true}" ng-model="document.startTime" ng-pattern="patterns.time"   ng-trim="true" placeholder="00:00">
                     </div>
                     <label for="endTime" class="col-sm-1 control-label">To</label>
                     <div class="col-sm-2">
-                        <input type="text" class="form-control" name="endTime" id="endTime" ng-model-options="{allowInvalid: true}" ng-model="document.endTime" ng-pattern="patterns.time"  time-helper="document.endTime" ng-trim="true" placeholder="24:00">
+                        <input type="text" class="form-control" name="endTime" id="endTime" ng-model-options="{allowInvalid: true}" ng-model="document.endTime" ng-pattern="patterns.time"  ng-trim="true" placeholder="24:00">
                     </div>
                     <div class="col-md-offset-3 col-sm-6">
                         <p class="help-block error" ng-show="form.startTime.$invalid || form.endTime.$invalid">Time format is invalid. Must be a HH:MM format in 24 hours(00:00 to 23:59)</p>

@@ -4,7 +4,7 @@ define(['app'], function(app) {
   app.directive('dateHelper',['$timeout', function($timeout) {
   return {
    restrict: 'A',
-   scope:{binding:'=dateHelper'},
+
    link: function($scope, $element) {
 
         var lastKey=false;

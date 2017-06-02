@@ -1,5 +1,4 @@
 define(['text!./ccc.json'], function(rawData) {
-
     try
     {
         return JSON.parse(rawData);

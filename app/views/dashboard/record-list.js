@@ -410,7 +410,7 @@ define(['lodash',
                 // Add Schema
 
                 query.push("schema_s:" + escape(options.schema));
-                // query.push(["realm_ss:" + 'chm-dev', "(*:* NOT realm_ss:*)"]);
+                query.push(["realm_ss:" + realm, "(*:* NOT realm_ss:*)"]);
 
                 // Apply ownership/contributor
 
@@ -573,15 +573,16 @@ define(['lodash',
             //
             //=======================================================================
             $scope.goTo = function(code) {
-console.log('here','/dashboard/submit/' + $route.current.params.schema + '/' + code + '/view');
-                    $location.path('/dashboard/submit/' + $route.current.params.schema + '/' + code + '/view');
+
+                    $location.path('dashboard/submit/' + $route.current.params.schema + '/' + code + '/view');
+                  //  return 'dashboard/submit/' + $route.current.params.schema + '/' + code + '/view';
             };
             //======================================================
             //
             //
             //======================================================
             function edit(record) {
-                var url = '/dashboard/submit/' + record.schema_s + '/';
+                var url = 'dashboard/submit/' + record.schema_s + '/';
 
                 if (record && record.identifier_s)
                     url += record.identifier_s;

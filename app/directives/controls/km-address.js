@@ -30,14 +30,14 @@ define(['app', 'text!./km-address.html','lodash', 'directives/controls/km-inputt
 						var killWatch = $scope.$watch("binding", function() {
 
 								if(!$scope.binding) return;
-								if($scope.binding && $scope.binding.websites && _.find($scope.binding.websites,{name:'Google Maps'}))
+								if($scope.binding && $scope.binding.websites && _.find($scope.binding.websites,{name:'Google Maps'} && $attr.embed ==='organization'))
 									$scope.mapsUrl=_.find($scope.binding.websites,{name:'Google Maps'}).url;
 								killWatch();
 								if(!isEmpty)$scope.useGoogle=false;
 						});
 
 						$scope.$watch("binding.websites", function() {
-									if($scope.binding && $scope.binding.websites && _.find($scope.binding.websites,{name:'Google Maps'}))
+									if($scope.binding && $scope.binding.websites && _.find($scope.binding.websites,{name:'Google Maps'} && $attr.embed ==='organization'))
 											$scope.mapsUrl=_.find($scope.binding.websites,{name:'Google Maps'}).url
 						});
 
@@ -51,7 +51,7 @@ define(['app', 'text!./km-address.html','lodash', 'directives/controls/km-inputt
 
 				         var searchBox = new google.maps.places.Autocomplete(input);  // jshint ignore:line
 
-								 searchBox.setTypes(['address']);
+								 searchBox.setTypes([]);
 								 searchBox.addListener('place_changed', function() {
 									 $timeout(function(){
 										  var selectedPlace = searchBox.getPlace();
@@ -93,8 +93,8 @@ define(['app', 'text!./km-address.html','lodash', 'directives/controls/km-inputt
 
 							if($attr.embed ==='organization'){
 								  $scope.binding.establishmentGooglePlaceId= selectedPlace.place_id;
-									$scope.binding.phones				=[];
-									$scope.binding.phones.push(selectedPlace.international_phone_number);
+									//$scope.binding.phones				=[];
+									//$scope.binding.phones.push(selectedPlace.international_phone_number);
 
 									$scope.mapsUrl=selectedPlace.url;
 									if(selectedPlace.url)
@@ -167,7 +167,7 @@ define(['app', 'text!./km-address.html','lodash', 'directives/controls/km-inputt
 							});
 							return returnVal;
 						}
-
+						//
 						//============================================================
 						//
 						//============================================================
@@ -214,8 +214,8 @@ define(['app', 'text!./km-address.html','lodash', 'directives/controls/km-inputt
 								 delete($scope.binding.coordinates);
 								 delete($scope.binding.googlePlaceId);
 								 delete($scope.mapsUrl);
-								 if($scope.binding && $scope.binding.websites && _.find($scope.binding.websites,{name:'Google Maps'}))
-									 $scope.binding.websites.slice(_.find($scope.binding.websites,{name:'Google Maps'}));
+								//  if($scope.binding && $scope.binding.websites && _.find($scope.binding.websites,{name:'Google Maps'}))
+								// 	 $scope.binding.websites.slice(_.find($scope.binding.websites,{name:'Google Maps'}));
 						}
 						$scope.clearSlacesSearch=clearSlacesSearch;
 			},

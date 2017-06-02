@@ -1,4 +1,4 @@
-define(['lodash', 'text!./del-dial.html','app', 'ngDialog','authentication', 'utilities/km-utilities', 'utilities/km-storage', 'filters/moment', 'utilities/solr', 'filters/navigation'], function(_,delDial) { 'use strict';
+define(['lodash', 'text!./del-dial.html','app', 'ngDialog','authentication',     'filters/moment','utilities/km-utilities', 'utilities/km-storage', 'filters/moment', 'utilities/solr', 'filters/navigation'], function(_,delDial) { 'use strict';
 
     return ['$scope', '$route', '$http', '$location', '$q', 'solr', 'user', 'IStorage', 'realm','ngDialog',
      function($scope, $route, $http, $location, $q, solr, user, storage, realm,ngDialog) {
@@ -69,7 +69,7 @@ define(['lodash', 'text!./del-dial.html','app', 'ngDialog','authentication', 'ut
                 "rows"   : Number($scope.pageSize),
             };
 
-            var qRecords = $http.get('https://api.cbd.int/api/v2013/index', { params : qsParams }).then(function(res) {
+            var qRecords = $http.get('/api/v2013/index', { params : qsParams }).then(function(res) {
 
                 if($route.current.params.auto && !res.data.response.numFound) {
                     $location.replace();
@@ -151,7 +151,7 @@ define(['lodash', 'text!./del-dial.html','app', 'ngDialog','authentication', 'ut
                 "facet.field" : "_state_s",
             };
 
-            qFacets = $http.get('https://api.cbd.int/api/v2013/index', { params : qsFacetParams }).then(function(res) {
+            qFacets = $http.get('/api/v2013/index', { params : qsFacetParams }).then(function(res) {
 
                 var documentState = _(res.data.facet_counts.facet_fields._state_s).chunk(2).zipObject().value();
 
@@ -219,11 +219,12 @@ define(['lodash', 'text!./del-dial.html','app', 'ngDialog','authentication', 'ut
 
             // Apply ownership/contributor
 
-            query.push(_.union(["_contributor_is:"+user.userID],
-                       _.map(user.userGroups, function(v){
-                            return "_ownership_s:"+solr.escape(v);
-                        }))
-            );
+            // query.push(_.union(["_contributor_is:"+user.userID],
+            //            _.map(user.userGroups, function(v){
+            //                 return "_ownership_s:"+solr.escape(v);
+            //             }))
+            //
+            // );
 
             // Status
 
