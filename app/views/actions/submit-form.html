@@ -257,7 +257,7 @@
                     <div class="col-sm-6">
                         <span ng-if="saving" ><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i> Saving...</span>
                         <div class="img-container">
-                           <img ng-show="document.logo" ng-src="{{document.logo}}?v=<%=gitVersion%>&thumbnail=true" style="padding-bottom:10px">
+                           <img ng-show="document.logo" ng-src="{{document.logo}}&thumbnail=true" style="padding-bottom:10px">
                         </div>
                         <input type="file" class="form-control" id="logo" accept="image/*" placeholder="Logo" ng-model="logo" on-file="upload(files)">
                     </div>
