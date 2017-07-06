@@ -49,8 +49,8 @@
 		<div class="row">
 			<div class="col-xs-12 flag">
 				<h1 style="line-height:40px;"><i class="fa fa-edit"></i> Edit Profile for {{document.name}}
-					<img class="pull-right" ng-src="{{getCountryFlag(document.code)}}?v=<%=gitVersion%>" ng-attr-title="{{country.name}}" style="max-height:40px;display:inline;margin-left:5px;" ng-if="document.code && document.code!=='eu'">
-					<img class="pull-right" ng-src="{{getCountryFlag('eur')}}?v=<%=gitVersion%>" ng-attr-title="{{country.name}}" style="max-height:40px;display:inline;margin-left:5px;" ng-if="document.code && document.code==='eu'">
+					<img class="pull-right" ng-src="{{getCountryFlag(document.code)}}" ng-attr-title="{{country.name}}" style="max-height:40px;display:inline;margin-left:5px;" ng-if="document.code && document.code!=='eu'">
+					<img class="pull-right" ng-src="{{getCountryFlag('eur')}}" ng-attr-title="{{country.name}}" style="max-height:40px;display:inline;margin-left:5px;" ng-if="document.code && document.code==='eu'">
 				</h1>
 				<button type="button" class="btn btn-default  pull-right" ng-click="close();"><i class="fa fa-times"></i></button>
 			</div>

@@ -308,7 +308,7 @@
 					        <div class="form-group" ng-class="{ 'has-warning': !loading && form.logo.$invalid, 'has-error' : form.$submitted && form.logo.$invalid }">
 					          <label for="logo" class="control-label" style="line-height:20px;">Logo</label>
 					          <div ng-if="document.logo" class="img-container">
-					            <img ng-src="{{document.logo}}?v=<%=gitVersion%>&thumbnail=true" style="padding-bottom:10px">
+					            <img ng-src="{{document.logo}}&thumbnail=true" style="padding-bottom:10px">
 					          </div>
 					          <input type="file" class="form-control" name="logo" id="logo" accept="image/*" placeholder="Logo" ng-model="document.logo" on-file="upload(files)" ng-disabled="disabled()">
 					          <p class="help-block small">Please attach a logo or image of your Actor (max. 500KB). The image on the profile will be fitted into 200 x 200 px.</p>

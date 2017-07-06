@@ -2,8 +2,6 @@ define(['text!./ammap3.html',
     'app',
     'lodash',
     'moment-timezone',
-    'text!./pin-popup-bio-champs.html',
-    'text!./pin-popup-title-bio-champs.html',
     'text!./pin-popup-actions.html',
     'text!./pin-popup-title-actions.html',
     'text!./pin-popup-title-actors.html',
@@ -84,7 +82,6 @@ var images=[];
                 $scope.$watch('items', function(newV,old) {
                     if ($scope.map && (!_.isEmpty($scope.items) || (_.isEmpty(newV) && !_.isEmpty(old))) ) {
                         $scope.map.dataProvider.images = _.clone($scope.images);
-
                         ammap3.generateMap($scope.schema);
                     }
                 });
@@ -92,7 +89,7 @@ var images=[];
                 //=======================================================================
                 //
                 //=======================================================================
-                $http.get('https://api.cbd.int/api/v2015/countries', {
+                $http.get('/api/v2015/countries', {
                     cache: true,
                 }).then(function(res) {
                     res.data.forEach(function(c) {
@@ -109,7 +106,7 @@ var images=[];
                   if(ammap3.isPopoverOpen())
                       ammap3.closePopovers();
                   else{
-                    var info = event.chart.getDevInfo();
+                    info = event.chart.getDevInfo();
                     var zoomLevel;
                     if($scope.map.zoomLevel()<4097)
                       zoomLevel = $scope.map.zoomLevel()*8;
@@ -187,7 +184,7 @@ var images=[];
             controller: ["$scope", function($scope) {
 
                 //=======================================================================
-                // this function will take current images on the map and create HTML elements for them
+                //
                 //=======================================================================
                 function closePopovers(pin) {
                     // get map object
@@ -257,29 +254,20 @@ var images=[];
                 } //updateCustomMarkers
 
 
-
-                  function adjustmentZ(l){
-                      if($scope.map.zLevelTemp > 1)
-                      return 4/Number($scope.map.zLevelTemp);
-                      else if(l<0) return 6;
-                      else return 4;
-                  }
-
                 //=======================================================================
                 //
                 //=======================================================================
                 function generateMarker(imageIndex) {
 
                     if ($scope.schema === 'actions')
+                        if($scope.map.dataProvider.images[imageIndex].isCCC)
+                          return makeMarker(imageIndex, 'pin-ccc', 'pulse-', 'app/img/pointer-undb-orange.png');
+                        else
                         return makeMarker(imageIndex, 'pin-action', 'pulse-', 'app/img/pointer-undb-green.png');
-                    if ($scope.schema === 'actors')
+
+                    if ($scope.schema === 'undbActor')
                         return makeMarker(imageIndex, 'pin-actor', 'pulse-', 'app/img/pointer-undb-blue.png');
-                    if ($scope.schema === 'bioChamps')
-                        return makeMarker(imageIndex, 'pin-champ', 'pulse-', 'app/img/pointer-undb-orange.png');
-                    if ($scope.schema === 'caseStudies')
-                        return makeMarker(imageIndex, 'pin-actor', 'pulse-actor', 'app/img/ic_school_black_24px.svg');
-                    if ($scope.schema === 'projects')
-                        return makeMarker(imageIndex, 'pin-actor', 'pulse-actor', 'app/img/ic_art_track_black_24px.svg');
+
                 } //generateMarker
 
 
@@ -931,25 +919,6 @@ var images=[];
                 function getMapData() {
                     return $scope.mapData;
                 }
-
-                // =======================================================================
-                // changes color of all un colored areas
-                // =======================================================================
-                function hideAreas(color) {
-                    // Walkthrough areas
-                    if (!color) color = '#009B48';
-                    _.each($scope.map.dataProvider.areas, function(area) {
-                        if (area.id !== 'divider1' || area.id !== 'us' ) {
-                            area.colorReal = area.originalColor = color;
-                            area.mouseEnabled = true;
-                            area.balloonText = '[[title]]';
-                        }if(area.id === 'us' ){
-                          area.colorReal = area.originalColor = '#8cc65d';
-                          area.mouseEnabled = true;
-                          area.balloonText = '[[title]]';
-                        }
-                    });
-                } //hideAreas(color)
 
 
                 // //=======================================================================
